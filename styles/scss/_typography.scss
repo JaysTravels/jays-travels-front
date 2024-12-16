@@ -1,0 +1,262 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Nunito, sans-serif;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: calc(26px + (50 - 26) * ((100vw - 320px) / (1920 - 320)));
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: calc(22px + (36 - 22) * ((100vw - 320px) / (1920 - 320)));
+  font-weight: 700;
+  letter-spacing: 0.001em;
+  line-height: 32px;
+  text-transform: capitalize;
+  color: black;
+}
+
+h3 {
+  font-size: calc(20px + (24 - 20) * ((100vw - 320px) / (1920 - 320)));
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  color: black;
+}
+
+h4 {
+  font-size: calc(18px + (22 - 18) * ((100vw - 320px) / (1920 - 320)));
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  text-transform: capitalize;
+}
+
+h5 {
+  font-size: calc(16px + (20 - 16) * ((100vw - 320px) / (1920 - 320)));
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+}
+
+h6 {
+  font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+}
+
+.pb {
+  &l {
+    font-size: 24px;
+    line-height: 32px;
+
+    @media screen and (max-width: 991px) {
+      font-size: 18px;
+      line-height: 28px;
+    }
+  }
+  &b {
+    font-size: 18px;
+    line-height: 28px;
+
+    @media screen and (max-width: 991px) {
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+  &s {
+    font-size: 16px;
+    line-height: 24px;
+
+    @media screen and (max-width: 991px) {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+  &xs {
+    font-size: 14px;
+    line-height: 16px;
+
+    @media screen and (max-width: 991px) {
+      font-size: 12px;
+      line-height: 16px;
+    }
+  }
+}
+
+label {
+  font-size: 12px;
+  line-height: 20px;
+  // font-family: "AmbitBold", sans-serif;
+
+  @media screen and (max-width: 991px) {
+    font-size: 10px;
+    line-height: 20px;
+  }
+}
+
+/*=====================
+1.2. Title css start
+==========================*/
+.title-1 {
+  text-align: center;
+}
+.title-1 .title-label {
+  font-size: 14px;
+  color: $white;
+  background-color: $c3;
+  text-transform: uppercase;
+  padding: 4px 18px;
+  line-height: 1.7;
+  border-radius: 3px;
+  font-family: Work Sans;
+  font-weight: 600;
+}
+.title-1 .title-label.white-label {
+  background-color: $white;
+  color: $c3;
+}
+.title-1 h2 {
+  padding-top: 25px;
+  margin-bottom: 0;
+  padding-bottom: 50px;
+  font-weight: 800;
+}
+.title-1.title-5 .title-label {
+  border-radius: 50px;
+}
+.title-1.title-5 h2 {
+  padding-top: 22px;
+  padding-bottom: 15px;
+}
+.title-1.title-5 p {
+  font-size: calc(14px + (18 - 14) * ((100vw - 320px) / (1920 - 320)));
+  font-weight: 600;
+  margin-bottom: 50px;
+}
+.title-1.detail-title .title-label {
+  font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+}
+.title-1.detail-title h2 {
+  padding-bottom: calc(10px + (20 - 10) * ((100vw - 320px) / (1920 - 320)));
+}
+.title-1.detail-title p {
+  max-width: 60%;
+  margin: 0 auto;
+  color: rgba($black, 0.41);
+  text-transform: capitalize;
+  font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+  line-height: 1.7;
+}
+.title-1.rounded .title-label {
+  border-radius: 12px;
+}
+
+.title-2 {
+  text-align: center;
+}
+.title-2 h2 {
+  font-size: calc(22px + (36 - 22) * ((100vw - 320px) / (1920 - 320)));
+  color: #808080;
+  font-weight: 400;
+  margin-bottom: 22px;
+  line-height: 32px;
+  margin-top: -2px;
+}
+.title-2 h2 span {
+  color: $c1;
+  font-weight: 900;
+}
+.title-2 p {
+  margin-bottom: 70px;
+  color: #cacaca;
+  font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+  font-weight: 600;
+}
+.title-2.color-1 h2 span {
+  color: $c3;
+}
+
+.title-3 {
+  text-align: center;
+}
+.title-3 .title-label {
+  font-size: 14px;
+  color: $white;
+  background-color: $c3;
+  text-transform: capitalize;
+  padding: 4px 18px 6px;
+  line-height: 1;
+  font-family: Work Sans;
+  font-weight: 600;
+}
+.title-3 h2 {
+  font-size: calc(20px + (30 - 20) * ((100vw - 320px) / (1920 - 320)));
+  margin-top: 20px;
+  margin-bottom: 90px;
+  font-weight: 800;
+  position: relative;
+}
+.title-3 h2 span {
+  font-family: Vampiro One, cursive;
+  font-size: calc(35px + (85 - 35) * ((100vw - 320px) / (1920 - 320)));
+  position: absolute;
+  color: rgba($c3, 0.1);
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  top: 50%;
+  z-index: -1;
+  font-weight: 400;
+}
+.title-3.detail-title .title-label {
+  font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+}
+.title-3.detail-title h2 {
+  padding-bottom: calc(10px + (20 - 10) * ((100vw - 320px) / (1920 - 320)));
+  margin-bottom: 30px;
+}
+.title-3.detail-title p {
+  max-width: 60%;
+  margin: 0 auto;
+  color: rgba($black, 0.41);
+  text-transform: capitalize;
+  font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+.title-3.rounded .title-label {
+  border-radius: 50px;
+}
+.title-3.white-title .title-label {
+  background-color: $white;
+  color: $c3;
+}
+.title-3.white-title h2 {
+  color: $white;
+}
+.title-3.white-title h2 span {
+  z-index: unset;
+  color: rgba($white, 0.07);
+}
+
+.title-basic h2 {
+  font-size: calc(18px + (24 - 18) * ((100vw - 320px) / (1920 - 320)));
+  color: $black;
+  font-weight: 600;
+}
+
+.title-basic p {
+  margin-top: -4px;
+  color: rgba($black, 0.7);
+}

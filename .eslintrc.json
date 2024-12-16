@@ -1,0 +1,8 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "react/no-unescaped-entities": 0,
+    "react/display-name": "off",
+    "react/jsx-no-duplicate-props": [1, { "ignoreCase": false }]
+  }
+}

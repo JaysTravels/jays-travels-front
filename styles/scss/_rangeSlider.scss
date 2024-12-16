@@ -1,0 +1,42 @@
+.range-slider {
+  .horizontal-slider {
+    background-color: #f9f9f9;
+  }
+  p {
+    margin-top: 8px;
+  }
+  .example {
+    &-track {
+      height: 100%;
+      &-0 {
+        background-color: #f9f9f9;
+      }
+      &-1 {
+        background-color: $c3;
+      }
+      &-2 {
+        background-color: #f9f9f9;
+      }
+    }
+
+    &-thumb {
+      background-color: $c3;
+      border: 0;
+      width: 30px;
+      box-shadow: none;
+      border-radius: 3px;
+      color: $white;
+      text-align: center;
+
+      &.active,
+      &:active,
+      &:focus,
+      &:focus-within,
+      &:focus-visible {
+        box-shadow: none !important;
+        border: 0 !important;
+        outline: 0;
+      }
+    }
+  }
+}

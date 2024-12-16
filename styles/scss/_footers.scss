@@ -1,0 +1,297 @@
+/*=====================
+24. Footer css
+==========================*/
+footer .footer {
+  background-color: #1b1b1b;
+}
+footer .footer .footer-space {
+  padding-left: 50px;
+}
+footer .footer .footer-title.mobile-title {
+  display: none;
+}
+footer .footer .footer-title h5 {
+  color: $white;
+  text-transform: capitalize;
+  margin-bottom: 60px;
+  font-weight: 700;
+  position: relative;
+}
+footer .footer .footer-title .according-menu {
+  position: absolute;
+  right: 15px;
+  top: 2px;
+  display: none;
+}
+footer .footer .footer-content .contact-detail .footer-logo {
+  margin-bottom: 35px;
+}
+footer .footer .footer-content .contact-detail p {
+  font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+  color: #a1a1a1;
+  line-height: 1.4;
+  font-weight: 700;
+  display: block;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 40px;
+}
+footer .footer .footer-content .contact-detail .contact-list li {
+  color: #a1a1a1;
+  font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+  margin-bottom: 12px;
+  text-transform: capitalize;
+  display: block;
+}
+footer .footer .footer-content .contact-detail .contact-list li i {
+  margin-right: 5px;
+  font-size: 12px;
+}
+footer .footer .footer-content .contact-detail .contact-list li:last-child {
+  margin-bottom: -3px;
+}
+footer .footer .footer-content .footer-links ul li {
+  display: block;
+  margin-bottom: 7px;
+}
+footer .footer .footer-content .footer-links ul li a {
+  font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+  text-transform: capitalize;
+  color: #a1a1a1;
+  font-weight: 600;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+footer .footer .footer-content .footer-links ul li a:hover {
+  color: $white;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+footer .footer .footer-content .footer-links ul li:last-child {
+  margin-bottom: 0;
+}
+footer .footer .footer-content .footer-map iframe {
+  width: 330px;
+  height: 200px;
+}
+footer .footer .footer-content .footer-blog .media .img-part {
+  overflow: hidden;
+}
+footer .footer .footer-content .footer-blog .media .media-body {
+  margin-left: 25px;
+}
+footer .footer .footer-content .footer-blog .media .media-body h5 {
+  color: $white;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+footer .footer .footer-content .footer-blog .media .media-body p {
+  color: #a1a1a1;
+  font-weight: 600;
+  display: block;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0;
+}
+footer .footer .footer-content .footer-blog .media + .media {
+  margin-top: 18px;
+}
+footer .footer .footer-content .footer-place .row > div:nth-last-child(-n + 3) {
+  margin-top: 25px;
+}
+footer .footer .footer-content .footer-place .place {
+  overflow: hidden;
+  position: relative;
+}
+footer .footer .footer-content .footer-place .place .overlay {
+  opacity: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background: rgba($black, 0.4);
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+footer .footer .footer-content .footer-place .place .overlay h6 {
+  color: $white;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+footer .footer .footer-content .footer-place .place:hover .overlay {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+footer .sub-footer {
+  background-color: #1e1e1e;
+  padding: 22px 0;
+}
+footer .sub-footer .footer-social ul li {
+  margin-right: 35px;
+}
+footer .sub-footer .footer-social ul li a i {
+  color: #717171;
+  font-size: calc(16px + (20 - 16) * ((100vw - 320px) / (1920 - 320)));
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+footer .sub-footer .footer-social ul li a:hover i {
+  color: rgba(255, 255, 255, 0.5);
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+footer .sub-footer .footer-social ul li:last-child {
+  margin-right: 0;
+}
+footer .sub-footer .copy-right p {
+  font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+  text-align: right;
+  margin-bottom: 0;
+  margin-top: 3px;
+  color: #717171;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+footer .sub-footer .copy-right p i {
+  color: $c3;
+  font-size: 13px;
+}
+
+footer.footer-light .footer {
+  background-color: rgba(239, 63, 62, 0.15);
+}
+footer.footer-light .footer .footer-content .contact-detail p {
+  color: rgba($black, 0.6);
+}
+footer.footer-light .footer .footer-content .contact-detail .contact-list li {
+  color: $black;
+}
+footer.footer-light .footer .footer-content .contact-detail .footer-logo img {
+  -webkit-filter: invert(1);
+  filter: invert(1);
+}
+footer.footer-light .footer .footer-content .footer-links ul li a {
+  color: $black;
+}
+footer.footer-light .footer .footer-content .footer-blog .media .media-body h5 {
+  color: $black;
+}
+footer.footer-light .footer .footer-content .footer-blog .media .media-body p {
+  color: rgba($black, 0.6);
+}
+footer.footer-light .footer .footer-title h5 {
+  color: $black;
+}
+
+footer.footer-light .sub-footer {
+  background-color: rgba(239, 63, 62, 0.3);
+}
+
+footer.footer-bg {
+  position: relative;
+  background-blend-mode: overlay;
+  background-color: rgba(239, 63, 62, 0.5);
+}
+footer.footer-bg .footer {
+  background-color: rgba(27, 27, 27, 0.141176);
+}
+footer.footer-bg .footer .footer-content .contact-detail p {
+  color: $white;
+}
+footer.footer-bg .footer .footer-content .contact-detail .contact-list li {
+  color: $white;
+}
+footer.footer-bg .footer .footer-content .footer-links ul li a {
+  color: $white;
+}
+footer.footer-bg .footer .footer-content .footer-blog .media .media-body p {
+  color: $white;
+}
+
+/*=====================
+26.Tap to top CSS
+==========================*/
+.tap-top {
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  position: fixed;
+  bottom: 50px;
+  right: -60px;
+  z-index: 8;
+  color: $white;
+  text-align: center;
+  background: $c3;
+  border: none;
+  font-size: 22px;
+  padding: 6px 5px 5px 5px;
+  cursor: pointer;
+  -webkit-transform: rotate(-15deg);
+  transform: rotate(-15deg);
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+
+  svg {
+    font-weight: bold;
+    position: relative;
+    top: -3px;
+  }
+}
+.tap-top:after {
+  position: absolute;
+  content: "";
+  bottom: -12px;
+  background-color: $black;
+  width: 100%;
+  height: 11px;
+  left: 0;
+  -webkit-transform: rotate(13deg);
+  transform: rotate(13deg);
+  background: radial-gradient(
+    ellipse at center,
+    rgba($black, 0.15) 0%,
+    rgba($black, 0) 100%
+  );
+}
+.tap-top > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.tap-top.top {
+  display: block;
+  right: 30px;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}

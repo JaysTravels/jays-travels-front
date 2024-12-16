@@ -1,0 +1,107 @@
+/*=====================
+4. Slick slider css
+==========================*/
+.no-arrow .slick-next,
+.no-arrow .slick-prev {
+  display: none !important;
+}
+
+.slick-slider {
+  line-height: 1;
+}
+
+.arrow-classic .slick-next:before,
+.arrow-classic .slick-prev:before {
+  font-family: themify;
+  color: #dfdfdf;
+  background-color: white;
+  opacity: 1;
+  padding: 8px;
+  -webkit-box-shadow: 5px 8.66px 61px 0px rgba(0, 0, 0, 0.24);
+  box-shadow: 5px 8.66px 61px 0px rgba(0, 0, 0, 0.24);
+  border-radius: 12px;
+  font-size: 18px;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.arrow-classic .slick-next:hover:before,
+.arrow-classic .slick-prev:hover:before {
+  color: #ef3f3e;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.arrow-classic .slick-prev {
+  left: -100px;
+}
+.arrow-classic .slick-prev:before {
+  content: "\e64a";
+}
+
+.arrow-classic .slick-next {
+  right: -88px;
+}
+.arrow-classic .slick-next:before {
+  content: "\e649";
+}
+
+.arrow-dark .slick-prev {
+  left: 1px;
+  z-index: 1;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  background-color: transparent;
+  height: 36px;
+}
+.arrow-dark .slick-prev:before {
+  content: "\f053";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.arrow-dark .slick-next {
+  right: 0;
+  z-index: 1;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  background-color: transparent;
+  height: 36px;
+}
+.arrow-dark .slick-next:before {
+  content: "\f054";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.arrow-dark .slider-nav {
+  margin-top: 3px;
+}
+.arrow-dark .slider-nav .slick-slide {
+  margin: 0 3px;
+  cursor: pointer;
+}
+.arrow-dark .slider-nav .slick-list {
+  margin-left: -3px;
+  margin-right: -3px;
+}
+
+.arrow-dark:hover .special-img .bg-size {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.arrow-dark:hover .slick-next,
+.arrow-dark:hover .slick-prev {
+  background-color: #252525;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.variable-width-height .slick-slide img {
+  height: calc(280px + (400 - 280) * ((100vw - 320px) / (1920 - 320)));
+}
+
+.variable-width {
+  margin-bottom: -4px;
+}
