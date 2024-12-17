@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import React from 'react';
 import { useSelector } from 'react-redux';
 import axiosInstance from '@/utils/axiosInstance';
-//const API_ENDPOINT = 'https://localhost:44333/api/AirSellFRC'
-//const API_ENDPOINT = 'https://flightreservationjays.azurewebsites.net/api/AirSellFRC'
 
 export const submitairSellRequest = createAsyncThunk(
     'flights/submitairSellRequest',
