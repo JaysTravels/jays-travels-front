@@ -1,4 +1,6 @@
 import FrontNavOnly from "@/components/navbars/Front.NavOnly";
+import Image from "next/image";
+import topLogo from "@/public/images/top-logo.png";
 import {
   faCoffee,
   faUser,
@@ -24,9 +26,7 @@ const FrontNavbar = (props) => {
     <>
       <div className="frontNavbar">
         <Navbar expand="lg" container {...props}>
-          <NavbarBrand href="/">
-            Reservation<span className="opacity-50">System</span>
-          </NavbarBrand>
+        <Image src={topLogo} alt="" className="img-fluid" />
 
           <NavbarToggler onClick={toggle} />
 

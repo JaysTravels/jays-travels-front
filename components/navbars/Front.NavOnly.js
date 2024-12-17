@@ -68,7 +68,7 @@ const FrontNavOnly = (props) => {
           </DropdownMenu>
         </UncontrolledDropdown>
         <NavItem>
-          <NavLink href="#">FAQ</NavLink>
+          <NavLink href="#">Hotels</NavLink>
         </NavItem>
         <NavItem>
           <NavLink href="#">Visa</NavLink>
