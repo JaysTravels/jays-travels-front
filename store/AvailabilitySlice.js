@@ -243,8 +243,7 @@ setSelectedArrivalTime(state, action) {
               marketingCarrierName: segment.marketingCarrierName,
             });
           });
-        });
-      
+        });      
       });
 
       const uniqueCarriers = Array.from(
