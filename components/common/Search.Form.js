@@ -438,12 +438,12 @@ try {
               size="md"
               className="text-uppercase mtLg10 mt6"
               onClick={DispatchData}>
-              Search Now
+              Modify Search
             </Button>
-            <Label>
+          </Col>
+          <Label>
               <span className="ms6">{apiResponse}</span>                   
           </Label>
-          </Col>
         </Row>
         <div className="responsive-close">
           <Button color="transparent" className="p-0" onClick={props.closeBtn}>

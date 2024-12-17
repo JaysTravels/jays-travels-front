@@ -139,12 +139,12 @@ const LeftSidebarSr = () =>  {
   return (
     <div className="left-sidebar">
       <div className="back-btn">back</div>
-      <div className="search-bar">
+      {/* <div className="search-bar">
         <Input type="text" placeholder="Search here.." />
         <i>
           <FontAwesomeIcon icon={faSearch} />
         </i>
-      </div>
+      </div> */}
       <div
         className={`middle-part collection-collapse-block ${
           open ? "" : "open"
@@ -458,8 +458,8 @@ const LeftSidebarSr = () =>  {
         <h5>
           <span>i</span> need help
         </h5>
-        <h4>856 - 215 - 211</h4>
-        <h6>Monday to Friday 9.00am - 7.30pm</h6>
+        <h4>+44-8008101600</h4>
+        <h6>Mon - Sat (10am to 6pm)</h6>
       </div>
     </div>
   );

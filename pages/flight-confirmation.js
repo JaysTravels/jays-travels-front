@@ -822,7 +822,7 @@ debugger;
 
                  </div>
                </div>
-               <div className="review_box">
+               {/* <div className="review_box">
                  <div className="title-top">
                    <h5>Information</h5>
                  </div>
@@ -867,7 +867,7 @@ debugger;
                      </Col>
                    </Row>
                  </div>
-               </div>
+               </div> */}
                <div className="review_box">
                  <div className="title-top">
                    <h5>traveller details</h5>
@@ -881,7 +881,7 @@ debugger;
                        <form key={index}>
                  <h6>Adult {index + 1}</h6>
                  <Row>
-                   <Col md={2} className="form-group">
+                   <Col md={3} className="form-group">
                      <Label for={`title-${index}`}>Title</Label>
                      <Input type="select"
                      // className="form-control" 
@@ -903,7 +903,7 @@ debugger;
                        <div className="invalid-feedback">This field is required.</div>
                      )}
                    </Col>
-                   <Col md={5} className="form-group">
+                   <Col md={3} className="form-group">
                      <Label for={`first-name-${index}`}>First Name</Label>
                      <Input
                        type="text"                             
@@ -921,7 +921,7 @@ debugger;
                        <div className="invalid-feedback">This field is required.</div>
                      )}
                    </Col>
-                   <Col md={5} className="form-group">
+                   <Col md={3} className="form-group">
                      <Label for={`last-name-${index}`}>Last Name</Label>
                      <Input
                        type="text"
@@ -942,19 +942,19 @@ debugger;
                      )}
                    </Col>
                    <Col md={3} className="form-group">
-                   <div className="form-group">
                    <label htmlFor={`adults-dob-${index}`}>Date of Birth</label>
-                   <DatePicker
+                   
+                   <Input DatePicker
                      id={`adults-dob-${index}`}
                      selected={formData.adults[index]?.dob || null} 
                      onChange={(date) => handleChange("adults", index, "dob", date)} 
                      dateFormat="dd-MM-yyyy" 
                      className={
-                       errors.adults?.[index]?.dob ? "form-control is-invalid" : "form-control"
+                       errors.adults?.[index]?.dob ? "is-invalid" : "form-control"
                      }
                      maxDate={adultDateRange.maxDate}
                      minDate={adultDateRange.minDate} 
-                     placeholderText="Select Date of Birth"
+                     placeholderText="D.O.B"
                      showMonthDropdown // Enable month dropdown
                      showYearDropdown // Enable year dropdown
                      dropdownMode="select" // Use "select" dropdown for year/month
@@ -962,14 +962,13 @@ debugger;
                    {errors.adults?.[index]?.dob && (
                      <div className="invalid-feedback">This field is required.</div>
                    )}
-                 </div>                      
+                                      
                    </Col>
                  </Row>
-                 {/** Working For Email And Contaict */}
+                 {/** Working For Email And Contact */}
                  { 
                  index === 0 ? (
                    <form>
-                   <h6>contact details</h6>
                    <Row>
                      <Col md={6} className="form-group">
                        <Label for="inputEmail4">Email</Label>
@@ -1178,7 +1177,6 @@ debugger;
                      )}
            </Col>
            <Col md={3} className="form-group">
-                   <div className="form-group">
                    <label htmlFor={`infants-dob-${index}`}>Date of Birth</label>
                    <DatePicker
                      id={`infants-dob-${index}`}
@@ -1198,13 +1196,13 @@ debugger;
                    {errors.infants?.[index]?.dob && (
                      <div className="invalid-feedback">This field is required.</div>
                    )}
-                 </div>                      
+                                    
                    </Col>
          </Row>
                        </form>
-                     ))}                 
+                     ))}             
            <form hidden={true}>
-             <h6>contact details</h6>
+            
              <Row>
                <Col md={6} className="form-group">
                  <Label for="inputEmail4">Email</Label>
@@ -1230,7 +1228,7 @@ debugger;
                    </Row>
                  </div>
                </div>
-               <div className="review_box">
+               {/* <div className="review_box">
                  <div className="title-top">
                    <h5>Travel Insurance</h5>
                  </div>
@@ -1279,7 +1277,7 @@ debugger;
                      </Col>
                    </Row>
                  </div>
-               </div>
+               </div> */}
              </div>
            </Col>
            <Col lg={4} className="res-margin">
@@ -1322,13 +1320,13 @@ debugger;
                              }
                              </td>
                            </tr>
-                           <tr>
+                           {/* <tr>
                              <td>Insurance</td>
                              <td>{currSign}0</td>
-                           </tr>
+                           </tr> */}
                            <tr>
-                             <td>Convenience fee</td>
-                             <td>{currSign}0</td>
+                             {/* <td>Convenience fee</td>
+                             <td>{currSign}0</td> */}
                            </tr>
                          </tbody>
                        </table>
@@ -1340,7 +1338,7 @@ debugger;
                      </div>
                    </div>
                  </div>
-                 <div className="review_box">
+                 {/* <div className="review_box">
                    <div className="flight_detail">
                      <div className="promo-section">
                        <div className="form-group mb-0">
@@ -1435,7 +1433,7 @@ debugger;
                        </div>
                      </div>
                    </div>
-                 </div>
+                 </div> */}
                </div>
              </div>
            </Col>
