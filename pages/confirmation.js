@@ -56,8 +56,7 @@ const Confirmation = () => {
         SessionId: session.sessionId,
         PaymentStatus: "Success"
       }
-      const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();
-      debugger;  
+      const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();      
       if(result?.isSuccessful === true){
         setPaymentUpdate(true);
       }    
@@ -345,8 +344,7 @@ const Confirmation = () => {
                               <td>Tour Details:</td>
                               <td
                                 style={{ fontWeight: "600", color: "#3c3c3c" }}
-                              >
-                                {flightRequest?.origin}  To {flightRequest?.destination} 
+                              >                                
                                   {selectedFlight?.itineraries?.[0]?.airport_city && selectedFlight?.itineraries?.[1]?.airport_city ? (
                               <>
                                 {selectedFlight.itineraries[0].airport_city} To {selectedFlight.itineraries[1].airport_city}
@@ -453,99 +451,7 @@ const Confirmation = () => {
         <td colSpan="3"></td>
       </tr>
     )}
-            {
-             /*
-             PassengerDetails && Array.isArray(PassengerDetails) & PassengerDetails.forEach((passenger,index) => {
-                if (passenger.type === "ADT") {
-                  if(index == 0){
-                    (
-                     <tr style={{ color: "#616161" }}>
-                     <td style={{ padding: "0 24px 50px" }}>
-                       <h6
-                         style={{
-                           margin: "0",
-                           fontSize: "16px",
-                           fontWeight: "700",
-                           lineHeight: "28px",
-                           color: "#3c3c3c",
-                         }}
-                       >
-                         Name:
-                         <span style={{ fontWeight: "500" }}>{passenger.firstName} {passenger.lastName}</span>
-                       </h6>
-                       <h6
-                         style={{
-                           margin: "0",
-                           fontSize: "16px",
-                           fontWeight: "700",
-                           lineHeight: "28px",
-                           color: "#3c3c3c",
-                         }}
-                       >                                          
-                       </h6>
-                       <h6
-                         style={{
-                           margin: "0",
-                           fontSize: "16px",
-                           fontWeight: "700",
-                           lineHeight: "28px",
-                           color: "#3c3c3c",
-                         }}
-                       >
-                         Email:
-                         <Link href="#" style={{ fontWeight: "500" }}>
-                          {passenger.email}
-                         </Link>
-                       </h6>
-                       <h6
-                         style={{
-                           margin: "0",
-                           fontSize: "16px",
-                           fontWeight: "700",
-                           lineHeight: "28px",
-                           color: "#3c3c3c",
-                         }}
-                       >
-                         Phone No:{" "}
-                         <span style={{ fontWeight: "500" }}>{passenger.phone}</span>
-                       </h6>
-                     </td>
-                   </tr>
-                    )
-                   }
-                   else{
-                    <tr style={{ color: "#616161" }}>
-                    <td style={{ padding: "0 24px 50px" }}>
-                      <h6
-                        style={{
-                          margin: "0",
-                          fontSize: "16px",
-                          fontWeight: "700",
-                          lineHeight: "28px",
-                          color: "#3c3c3c",
-                        }}
-                      >
-                        Name:
-                        <span style={{ fontWeight: "500" }}>{passenger.firstName} {passenger.lastName}</span>
-                      </h6>
-                      <h6
-                        style={{
-                          margin: "0",
-                          fontSize: "16px",
-                          fontWeight: "700",
-                          lineHeight: "28px",
-                          color: "#3c3c3c",
-                        }}
-                      >                                          
-                      </h6>
-                     
-                      </td>
-                  </tr>
-                   }                 
-                }
-                     
-              })
-            */
+            {             
             }
            
           </tbody>
