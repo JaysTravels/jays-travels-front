@@ -25,7 +25,7 @@ const HeaderHome = () => {
           <div>
             <div
               className="slides"
-              style={{ backgroundImage: "url(/images/home-slides/slide1.png)" }}
+              style={{ backgroundImage: "url(/images/home-slides/slide1.jpg)" }}
             >
               <div className="cloud">
                 <Image
@@ -41,9 +41,6 @@ const HeaderHome = () => {
                 <Col lg={6}>
                   <div className="cab-content hContent">
                     <div className="w-100">
-                      <div className="top-cls d-none d-sm-inline-block">
-                        #rica
-                      </div>
                       <h2 className="text-uppercase fw400 mbLg10 wow fadeIn">
                         great journey begins
                       </h2>
@@ -77,9 +74,6 @@ const HeaderHome = () => {
                 <Col lg={6}>
                   <div className="cab-content hContent">
                     <div className="w-100">
-                      <div className="top-cls d-none d-sm-inline-block">
-                        #rica
-                      </div>
                       <h2 className="text-uppercase fw400 mbLg10 wow fadeIn">
                         great journey begins
                       </h2>
@@ -113,9 +107,6 @@ const HeaderHome = () => {
                 <Col lg={6}>
                   <div className="cab-content hContent">
                     <div className="w-100">
-                      <div className="top-cls d-none d-sm-inline-block">
-                        #rica
-                      </div>
                       <h2 className="text-uppercase fw400 mbLg10 wow fadeIn">
                         great journey begins
                       </h2>

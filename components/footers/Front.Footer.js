@@ -64,24 +64,17 @@ const FrontFooter = () => {
                     <div className="footer-logo">
                       <Image src={footerLogo} alt="" className="img-fluid" />
                     </div>
-                    <p>
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry's
-                      standard dummy text ever since the 1500s, when an unknown
-                      printer took a galley of type and scrambled it to make a
-                      type specimen book. It has survived not only five
-                      centuries
-                    </p>
                     <ul className="contact-list">
                       <li>
                         <FontAwesomeIcon icon={faMapMarkerAlt} />
-                        A-32, Albany, Newyork.
+                        349 High Street, Smethwick, West Midlands, B66 3PB, United Kingdom
                       </li>
                       <li>
-                        <FontAwesomeIcon icon={faPhone} /> 518 - 457 - 5181
+                        <FontAwesomeIcon icon={faPhone} /> +44-8008101600 <br></br>
+                        <span>Mon - Sat (10am to 6pm)</span>
                       </li>
                       <li>
-                        <FontAwesomeIcon icon={faEnvelope} /> contact@gmail.com
+                        <FontAwesomeIcon icon={faEnvelope} />info@jaystravels.co.uk
                       </li>
                     </ul>
                   </div>
@@ -307,8 +300,7 @@ const FrontFooter = () => {
               <div className="col-xl-6 col-md-6 col-sm-12">
                 <div className="copy-right">
                   <p>
-                    copyright 2019 rica by <i className="fas fa-heart"></i>{" "}
-                    pixelstrap
+                  Copyright © 2024 Jays Travels. All rights reserved. <i className="fas fa-heart"></i>{" "}
                   </p>
                 </div>
               </div>

@@ -10,11 +10,10 @@ const FlightRoutesHome = () => {
         <Container>
           <div className="title-2">
             <h2>
-              top flight routes... <span>within usa</span>
+              top flight routes... <span>Round the Globe</span>
             </h2>
             <p>
-              Lorem Ipsum is simply dummy text of the printing and Lorem Ipsum
-              has been standard.......
+            We are the top selling agents for India, Asia, Australia & Canada.
             </p>
           </div>
           <Row>
@@ -30,9 +29,9 @@ const FlightRoutesHome = () => {
                   <div className="price-round">
                     <div>
                       <h6>
-                        <del>$500</del>
+                        <del>£500</del>
                       </h6>
-                      <h3>$420</h3>
+                      <h3>£420</h3>
                     </div>
                   </div>
                   <div className="discount">
@@ -72,9 +71,9 @@ const FlightRoutesHome = () => {
                   <div className="price-round">
                     <div>
                       <h6>
-                        <del>$500</del>
+                        <del>£500</del>
                       </h6>
-                      <h3>$420</h3>
+                      <h3>£420</h3>
                     </div>
                   </div>
                   <div className="discount">
@@ -114,9 +113,9 @@ const FlightRoutesHome = () => {
                   <div className="price-round">
                     <div>
                       <h6>
-                        <del>$500</del>
+                        <del>£500</del>
                       </h6>
-                      <h3>$420</h3>
+                      <h3>£420</h3>
                     </div>
                   </div>
                   <div className="discount">
@@ -156,9 +155,9 @@ const FlightRoutesHome = () => {
                   <div className="price-round">
                     <div>
                       <h6>
-                        <del>$500</del>
+                        <del>£500</del>
                       </h6>
-                      <h3>$420</h3>
+                      <h3>£420</h3>
                     </div>
                   </div>
                   <div className="discount">

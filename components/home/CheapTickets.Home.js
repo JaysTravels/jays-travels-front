@@ -100,7 +100,7 @@ const CheapTicketsHome = () => {
                         <h6>paris</h6>
                       </a>
                       <h5>
-                        <span>from</span>$200
+                        <span>from</span>£200
                       </h5>
                     </div>
                     <div className="price">
@@ -108,7 +108,7 @@ const CheapTicketsHome = () => {
                         <h6>rome</h6>
                       </a>
                       <h5>
-                        <span>from</span>$453
+                        <span>from</span>£453
                       </h5>
                     </div>
                     <div className="price mb-0">
@@ -116,7 +116,7 @@ const CheapTicketsHome = () => {
                         <h6>berlin</h6>
                       </a>
                       <h5>
-                        <span>from</span>$342
+                        <span>from</span>£342
                       </h5>
                     </div>
                   </div>
@@ -164,7 +164,7 @@ const CheapTicketsHome = () => {
                         <h6>atlanta</h6>
                       </a>
                       <h5>
-                        <span>from</span>$200
+                        <span>from</span>£200
                       </h5>
                     </div>
                     <div className="price">
@@ -172,7 +172,7 @@ const CheapTicketsHome = () => {
                         <h6>miami</h6>
                       </a>
                       <h5>
-                        <span>from</span>$453
+                        <span>from</span>£453
                       </h5>
                     </div>
                     <div className="price mb-0">
@@ -180,7 +180,7 @@ const CheapTicketsHome = () => {
                         <h6>ottawa</h6>
                       </a>
                       <h5>
-                        <span>from</span>$342
+                        <span>from</span>£342
                       </h5>
                     </div>
                   </div>
@@ -228,7 +228,7 @@ const CheapTicketsHome = () => {
                         <h6>vienna</h6>
                       </a>
                       <h5>
-                        <span>from</span>$200
+                        <span>from</span>£200
                       </h5>
                     </div>
                     <div className="price">
@@ -236,7 +236,7 @@ const CheapTicketsHome = () => {
                         <h6>madrid</h6>
                       </a>
                       <h5>
-                        <span>from</span>$453
+                        <span>from</span>£453
                       </h5>
                     </div>
                     <div className="price mb-0">
@@ -244,7 +244,7 @@ const CheapTicketsHome = () => {
                         <h6>dallas</h6>
                       </a>
                       <h5>
-                        <span>from</span>$342
+                        <span>from</span>£342
                       </h5>
                     </div>
                   </div>

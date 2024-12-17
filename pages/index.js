@@ -15,13 +15,13 @@ export default function Home() {
     <>
       <Meta title="Home" />
       <HeaderHome />
-      <FeaturedDestinationHome />
-      <OffersHome />
+      {/* <FeaturedDestinationHome /> */}
+      {/* <OffersHome /> */}
       <FlightRoutesHome />
       <SpecialOfferHome />
       <CheapTicketsHome />
-      <FlightDetailHome />
-      <BlogSectionHome />
+      {/* <FlightDetailHome /> */}
+      {/* <BlogSectionHome /> */}
       <SubscribeFooterHome />
     </>
   );

@@ -27,7 +27,7 @@ const SubscribeFooterHome = () => {
                       <div className="detail">
                         <div>
                           <h5>call us</h5>
-                          <p>+91 123-456-7890</p>
+                          <p>+44-8008101600</p>
                         </div>
                       </div>
                     </div>

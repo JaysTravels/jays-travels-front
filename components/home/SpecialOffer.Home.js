@@ -59,22 +59,20 @@ const SpecialOfferHome = () => {
               <Col lg={5} className="offset-lg-1">
                 <div className="banner-content">
                   <div>
-                    <h5>special nature tour offer</h5>
+                    <h5>special flight offers</h5>
                     <h2>
                       discount <span>20-30%</span>
                     </h2>
                     <p>
-                      Lorem Ipsum is simply dummy text of the printing and type
-                      setti ng industry. Lorem Ipsum has been the of industry
-                      standard dum my text ever since the 1500s,
+                    Jays Travel is a young and dynamic independent travel agency based in West Midlands established in June 2008
                     </p>
-                    <h2 className="price">$420</h2>
+                    <h2 className="price">£420</h2>
                     <div className="bottom-section">
                       <Button color="c3" size="sm" className="text-uppercase">
                         buy now
                       </Button>
                       <div className="info-btn">
-                        <h6>7 days &nbsp; | &nbsp; 8 nights</h6>
+                        {/* <h6>7 days &nbsp; | &nbsp; 8 nights</h6> */}
                       </div>
                     </div>
                   </div>
