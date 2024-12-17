@@ -8,8 +8,7 @@ import axiosInstance from '@/utils/axiosInstance';
 export const submitFlightData = createAsyncThunk(
     'flights/submitFlightData',
     async (flightData, { rejectWithValue }) => {
-      try {
-  debugger;
+      try { 
         console.log(flightData)
         const response = await axiosInstance.post('availability', flightData);
         console.log(response.data)      
@@ -189,7 +188,7 @@ setSelectedArrivalTime(state, action) {
             state.loading = true;
           })
           .addCase(submitFlightData.fulfilled, (state, action) => {
-          debugger;
+         // debugger;
            if(action.payload.isSuccessful === false){
             state.status = 'failed';
             state.response = action.payload.data.error;
@@ -220,8 +219,7 @@ setSelectedArrivalTime(state, action) {
       evening: { start: "18:00", end: "23:59" }, // Evening until end of the day
     };
 
-    const isTimeInRange = (time, start, end) => {
-     // debugger;
+    const isTimeInRange = (time, start, end) => {     
       const parseTimeToMinutes = (t) => {
         const [hours, minutes] = t.split(":").map(Number);
         return hours * 60 + minutes;
@@ -245,8 +243,7 @@ setSelectedArrivalTime(state, action) {
               marketingCarrierName: segment.marketingCarrierName,
             });
           });
-        });
-      
+        });      
       });
 
       const uniqueCarriers = Array.from(

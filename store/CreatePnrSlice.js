@@ -21,11 +21,26 @@ export const PNR_Multi = createAsyncThunk(
     }
   );
 
+  export const UPDATE_PAYMENT_STATUS = createAsyncThunk(
+    'flights/UPDATE_PAYMENT_STATUS',
+    async (multirequest, { rejectWithValue }) => {
+      try {
+        const response = await axiosInstance.post('PNR/UpdatePaymentStatus', multirequest);
+        console.log("UpdatePaymentStatus " + response.data)      
+        return response.data; 
+      } catch (error) {
+        
+        console.log("Error while sending request to UpdatePaymentStatus request" +error);        
+        return rejectWithValue(error?.data || 'Server Error');
+      }
+    }
+  );
+
   export const Create_Fop = createAsyncThunk(
     'flights/Create_Fop',
     async (foprequest, { rejectWithValue }) => {
       try {
-     debugger;
+   
         console.log(foprequest)
         const response = await axiosInstance.post('FOP', foprequest);
         console.log("Fop Response " +response.data)      
@@ -41,7 +56,7 @@ export const PNR_Multi = createAsyncThunk(
     'flights/Fare_Price_Pnr',
     async (farepricerequest, { rejectWithValue }) => {
       try {
-     debugger;
+     
         console.log(farepricerequest)
         const response = await axiosInstance.post('FairPricePnr', farepricerequest);
         console.log("Fare Price Response " +response.data)      
@@ -57,7 +72,7 @@ export const PNR_Multi = createAsyncThunk(
     'flights/Create_Tst',
     async (createtstrequest, { rejectWithValue }) => {
       try {
-     debugger;
+    
         console.log(createtstrequest)
         const response = await axiosInstance.post('CreateTst', createtstrequest);
         console.log("Create TST Response " +response.data)      
@@ -73,7 +88,7 @@ export const PNR_Multi = createAsyncThunk(
     'flights/Commit_Pnr',
     async (commitpnrrequest, { rejectWithValue }) => {
       try {
-     debugger;
+    
         console.log(commitpnrrequest)
         const response = await axiosInstance.post('Pnr/CommitPnr', commitpnrrequest);
         console.log("Commit pnr Response " +response.data)    
@@ -106,7 +121,10 @@ const Slice = createSlice({
       CommitPnrError :  null ,
       Commit_Pnr_Error_Status : '' ,
       PNR_Number  : '',  
-      PassengerDetails : [],     
+      PassengerDetails : [],   
+      UpdatePaymentStatus : null,  
+      UpdatePaymentStatus_Loding : null,
+      UpdatePaymentStatus_Error : null
     },
     reducers : {
           setPnrMulti:(state,action)=> 
@@ -115,17 +133,17 @@ const Slice = createSlice({
            },
            setPassengerDetails:(state,action)=> 
             {       
-             // debugger;       
+            
               state.PassengerDetails = { ...state.PassengerDetails, ...action.payload };              
            },
            setPnr:(state,action)=> 
             {       
-              debugger;       
+            
               state.PNR_Number = { ...state.PNR_Number, ...action.payload };              
            },
            pnrResponse:(state,action)=> 
             {       
-              debugger;       
+            
               state.CommitPnrResponse = { ...state.CommitPnrResponse, ...action.payload };              
            }
 
@@ -136,7 +154,7 @@ const Slice = createSlice({
             state.PNR_Multi_Status = 'loading';
           })
           .addCase(PNR_Multi.fulfilled, (state, action) => {
-           debugger;
+          
            if(action.payload.isSuccessful === false){
             state.PNR_Multi_Status = 'failed';
             state.PNR_Multi_Error = action.payload.response;
@@ -155,7 +173,7 @@ const Slice = createSlice({
             state.Create_Fop_Status = 'loading';
           })
           .addCase(Create_Fop.fulfilled, (state, action) => {
-           debugger;
+          
            if(action.payload.isSuccessful === false){
             state.Create_Fop_Status = 'failed';
             state.Create_Fop_Error = action.payload.response;
@@ -174,7 +192,7 @@ const Slice = createSlice({
             state.Fare_Price_Pnr_Status = 'loading';
           })
           .addCase(Fare_Price_Pnr.fulfilled, (state, action) => {
-           debugger;
+         
            if(action.payload.isSuccessful === false){
             state.Fare_Price_Pnr_Status = 'failed';
             state.Fare_Price_Pnr_Error = action.payload.response;
@@ -193,7 +211,7 @@ const Slice = createSlice({
             state.Create_Tst_Status = 'loading';
           })
           .addCase(Create_Tst.fulfilled, (state, action) => {
-           debugger;
+        
            if(action.payload.isSuccessful === false){
             state.Create_Tst_Status = 'failed';
             state.Create_Tst_Error = action.payload.response;
@@ -212,7 +230,7 @@ const Slice = createSlice({
             state.Commit_Pnr_Error_Status = 'loading';
           })
           .addCase(Commit_Pnr.fulfilled, (state, action) => {
-           debugger;
+          
            if(action.payload.isSuccessful === false){
             state.Commit_Pnr_Error_Status = 'failed';
             state.CommitPnrError = action.payload?.data?.error;
@@ -227,8 +245,26 @@ const Slice = createSlice({
           }).addCase(Commit_Pnr.rejected, (state, action) => {
             state.CommitPnrError_Status = 'failed';
             state.CommitPnrError = action.payload?.data?.error;
-          })
-          ;
+          }).addCase(UPDATE_PAYMENT_STATUS.pending, (state) => {
+            state.UpdatePaymentStatus_Loding = 'loading';
+          }).addCase(UPDATE_PAYMENT_STATUS.fulfilled, (state, action) => {
+           
+            if(action.payload.isSuccessful === false){
+             state.UpdatePaymentStatus_Error = 'failed';
+             state.UpdatePaymentStatus = action.payload?.data;
+            }
+            else{
+             state.UpdatePaymentStatus_Loding = null;
+             state.UpdatePaymentStatus = action.payload;
+             state.UpdatePaymentStatus_Error = null;
+             
+            }
+             
+           }).addCase(UPDATE_PAYMENT_STATUS.rejected, (state, action) => {
+             state.UpdatePaymentStatus = false;
+             state.UpdatePaymentStatus_Error = action.payload?.data;
+           });
+           
       },
     });
 
