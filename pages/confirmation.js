@@ -6,21 +6,16 @@ import Meta from "@/components/common/Meta";
 import {useDispatch, useSelector} from 'react-redux';
 import { useRouter } from "next/router";
 import { useState,useEffect  } from "react";
-
+import { UPDATE_PAYMENT_STATUS } from "@/store/CreatePnrSlice";
 const Confirmation = () => {
   debugger;
   const currSign = '£';
   const router = useRouter();
   const dispatch = useDispatch();
-  const flightResults = useSelector((state) => state.flights.response);
-  //const flightRequest = useSelector((state) => state.flights.flights);
+  const flightResults = useSelector((state) => state.flights.response);  
   const airsellResults = useSelector((state) => state.airsell.response);
   const airsellRequest = useSelector((state) => state.airsell.airSellRequest);
-  const pnrResponse = useSelector((state) => state.generatePnr.CommitPnrResponse);
-  //const PNR_Number = useSelector((state) => state.generatePnr.PNR_Number);
-  //const BookingRefNo = useSelector((state) => state.payments?.payment_response?.BookingRefNo);
-  //const selectedFlight = useSelector((state)=> state.flights.selectedFlight);
-  //const PassengerDetails = useSelector((state)=> state.generatePnr.PassengerDetails);
+  const pnrResponse = useSelector((state) => state.generatePnr.CommitPnrResponse); 
   const Commit_Pnr_Error = useSelector((state)=> state.generatePnr.CommitPnrError); 
 ``
   const [BookingRefNo, setBookingRefNo] = useState("");
@@ -28,6 +23,7 @@ const Confirmation = () => {
   const [PassengerDetails , setPassengerDetails] = useState(null);
   const [PNR_Number, setPNR_Number] = useState(null);
   const [flightRequest, setflightRequest] = useState(null);
+  const [payment,setPaymentUpdate] = useState(false);
   useEffect(() => {
     debugger;
     const savedBookingRefNo = localStorage.getItem("BookingRefNo");
@@ -53,8 +49,36 @@ const Confirmation = () => {
       setflightRequest(jsonObjectFlightReq || null);
     }
 
+    let session = getSession();
+    if (session != null && payment === false)
+      {
+      const UpdatePaymentStatusRequest = {
+        SessionId: session.sessionId,
+        PaymentStatus: "Success"
+      }
+      const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();
+      debugger;  
+      if(result?.isSuccessful === true){
+        setPaymentUpdate(true);
+      }    
+    }  
+
   }, []);
  console.log("passengerDetails: " + PassengerDetails);
+
+ function getSession(){
+  const storedSession = localStorage.getItem("session");
+  if (storedSession) {
+    const jsonObject = JSON.parse(storedSession);
+    const session = {
+      transactionStatusCode: jsonObject.transactionStatusCode,
+      sessionId: jsonObject.sessionId,
+      sequenceNumber : jsonObject.sequenceNumber,
+      securityToken: jsonObject.securityToken
+    }
+    return session;         
+  }
+}
   const formatDate = (dateString) => {
     try{
       const date = new Date(dateString); 

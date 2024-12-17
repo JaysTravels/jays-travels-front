@@ -188,7 +188,7 @@ setSelectedArrivalTime(state, action) {
             state.loading = true;
           })
           .addCase(submitFlightData.fulfilled, (state, action) => {
-          debugger;
+         // debugger;
            if(action.payload.isSuccessful === false){
             state.status = 'failed';
             state.response = action.payload.data.error;
