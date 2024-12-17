@@ -6,21 +6,16 @@ import Meta from "@/components/common/Meta";
 import {useDispatch, useSelector} from 'react-redux';
 import { useRouter } from "next/router";
 import { useState,useEffect  } from "react";
-
+import { UPDATE_PAYMENT_STATUS } from "@/store/CreatePnrSlice";
 const Confirmation = () => {
   debugger;
   const currSign = '£';
   const router = useRouter();
   const dispatch = useDispatch();
-  const flightResults = useSelector((state) => state.flights.response);
-  //const flightRequest = useSelector((state) => state.flights.flights);
+  const flightResults = useSelector((state) => state.flights.response);  
   const airsellResults = useSelector((state) => state.airsell.response);
   const airsellRequest = useSelector((state) => state.airsell.airSellRequest);
-  const pnrResponse = useSelector((state) => state.generatePnr.CommitPnrResponse);
-  //const PNR_Number = useSelector((state) => state.generatePnr.PNR_Number);
-  //const BookingRefNo = useSelector((state) => state.payments?.payment_response?.BookingRefNo);
-  //const selectedFlight = useSelector((state)=> state.flights.selectedFlight);
-  //const PassengerDetails = useSelector((state)=> state.generatePnr.PassengerDetails);
+  const pnrResponse = useSelector((state) => state.generatePnr.CommitPnrResponse); 
   const Commit_Pnr_Error = useSelector((state)=> state.generatePnr.CommitPnrError); 
 ``
   const [BookingRefNo, setBookingRefNo] = useState("");
@@ -28,6 +23,7 @@ const Confirmation = () => {
   const [PassengerDetails , setPassengerDetails] = useState(null);
   const [PNR_Number, setPNR_Number] = useState(null);
   const [flightRequest, setflightRequest] = useState(null);
+  const [payment,setPaymentUpdate] = useState(false);
   useEffect(() => {
     debugger;
     const savedBookingRefNo = localStorage.getItem("BookingRefNo");
@@ -53,8 +49,35 @@ const Confirmation = () => {
       setflightRequest(jsonObjectFlightReq || null);
     }
 
+    let session = getSession();
+    if (session != null && payment === false)
+      {
+      const UpdatePaymentStatusRequest = {
+        SessionId: session.sessionId,
+        PaymentStatus: "Success"
+      }
+      const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();      
+      if(result?.isSuccessful === true){
+        setPaymentUpdate(true);
+      }    
+    }  
+
   }, []);
  console.log("passengerDetails: " + PassengerDetails);
+
+ function getSession(){
+  const storedSession = localStorage.getItem("session");
+  if (storedSession) {
+    const jsonObject = JSON.parse(storedSession);
+    const session = {
+      transactionStatusCode: jsonObject.transactionStatusCode,
+      sessionId: jsonObject.sessionId,
+      sequenceNumber : jsonObject.sequenceNumber,
+      securityToken: jsonObject.securityToken
+    }
+    return session;         
+  }
+}
   const formatDate = (dateString) => {
     try{
       const date = new Date(dateString); 
@@ -321,8 +344,7 @@ const Confirmation = () => {
                               <td>Tour Details:</td>
                               <td
                                 style={{ fontWeight: "600", color: "#3c3c3c" }}
-                              >
-                                {flightRequest?.origin}  To {flightRequest?.destination} 
+                              >                                
                                   {selectedFlight?.itineraries?.[0]?.airport_city && selectedFlight?.itineraries?.[1]?.airport_city ? (
                               <>
                                 {selectedFlight.itineraries[0].airport_city} To {selectedFlight.itineraries[1].airport_city}
@@ -429,99 +451,7 @@ const Confirmation = () => {
         <td colSpan="3"></td>
       </tr>
     )}
-            {
-             /*
-             PassengerDetails && Array.isArray(PassengerDetails) & PassengerDetails.forEach((passenger,index) => {
-                if (passenger.type === "ADT") {
-                  if(index == 0){
-                    (
-                     <tr style={{ color: "#616161" }}>
-                     <td style={{ padding: "0 24px 50px" }}>
-                       <h6
-                         style={{
-                           margin: "0",
-                           fontSize: "16px",
-                           fontWeight: "700",
-                           lineHeight: "28px",
-                           color: "#3c3c3c",
-                         }}
-                       >
-                         Name:
-                         <span style={{ fontWeight: "500" }}>{passenger.firstName} {passenger.lastName}</span>
-                       </h6>
-                       <h6
-                         style={{
-                           margin: "0",
-                           fontSize: "16px",
-                           fontWeight: "700",
-                           lineHeight: "28px",
-                           color: "#3c3c3c",
-                         }}
-                       >                                          
-                       </h6>
-                       <h6
-                         style={{
-                           margin: "0",
-                           fontSize: "16px",
-                           fontWeight: "700",
-                           lineHeight: "28px",
-                           color: "#3c3c3c",
-                         }}
-                       >
-                         Email:
-                         <Link href="#" style={{ fontWeight: "500" }}>
-                          {passenger.email}
-                         </Link>
-                       </h6>
-                       <h6
-                         style={{
-                           margin: "0",
-                           fontSize: "16px",
-                           fontWeight: "700",
-                           lineHeight: "28px",
-                           color: "#3c3c3c",
-                         }}
-                       >
-                         Phone No:{" "}
-                         <span style={{ fontWeight: "500" }}>{passenger.phone}</span>
-                       </h6>
-                     </td>
-                   </tr>
-                    )
-                   }
-                   else{
-                    <tr style={{ color: "#616161" }}>
-                    <td style={{ padding: "0 24px 50px" }}>
-                      <h6
-                        style={{
-                          margin: "0",
-                          fontSize: "16px",
-                          fontWeight: "700",
-                          lineHeight: "28px",
-                          color: "#3c3c3c",
-                        }}
-                      >
-                        Name:
-                        <span style={{ fontWeight: "500" }}>{passenger.firstName} {passenger.lastName}</span>
-                      </h6>
-                      <h6
-                        style={{
-                          margin: "0",
-                          fontSize: "16px",
-                          fontWeight: "700",
-                          lineHeight: "28px",
-                          color: "#3c3c3c",
-                        }}
-                      >                                          
-                      </h6>
-                     
-                      </td>
-                  </tr>
-                   }                 
-                }
-                     
-              })
-            */
+            {             
             }
            
           </tbody>

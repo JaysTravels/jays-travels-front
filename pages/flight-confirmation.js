@@ -207,7 +207,7 @@ const infantDateRange = getMinMaxDate(0, 2);
   };
 
 const checkValidation = () =>{   
-   debugger;
+  // debugger;
     let isValid = true;
     const updatedErrors = {
       adults: formData.adults.map((data,index) => {
