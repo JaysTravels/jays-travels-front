@@ -63,7 +63,7 @@ const Confirmation = () => {
     }  
 
   }, []);
- console.log("passengerDetails: " + PassengerDetails);
+ //console.log("passengerDetails: " + PassengerDetails);
 
  function getSession(){
   const storedSession = localStorage.getItem("session");

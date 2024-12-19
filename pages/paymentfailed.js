@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useState,useEffect  } from "react";
 
 const Confirmation = () => {
-  debugger;
+  //debugger;
   const currSign = '£';
   const router = useRouter();
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const Confirmation = () => {
       setflightRequest(jsonObjectFlightReq || null);
     }
     }, []);
- console.log("passengerDetails: " + PassengerDetails);
+ //console.log("passengerDetails: " + PassengerDetails);
   const formatDate = (dateString) => {
     try{
       const date = new Date(dateString); 

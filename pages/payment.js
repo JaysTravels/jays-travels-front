@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '@/utils/axiosInstance';
 export default function PaymentPage() {
-    debugger;
+   // debugger;
     const [isLoading, setIsLoading] = useState(false);
     const currSign = '£';
     const router = useRouter();
@@ -12,13 +12,13 @@ export default function PaymentPage() {
     const dispatch = useDispatch();
    
     const initiatePayment = async () => {
-        debugger;
+        //debugger;
         setIsLoading(true);       
 
         //const data = await response.json();
 
         if (data && data.url && data.parameters) {
-            debugger;
+           // debugger;
             // Dynamically create form and submit
             const form = document.createElement('form');
             form.action = data.url;

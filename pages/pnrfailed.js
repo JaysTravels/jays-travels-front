@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useState,useEffect  } from "react";
 
 const Confirmation = () => {
-  debugger;
+ // debugger;
   const currSign = '£';
   const router = useRouter();
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const Confirmation = () => {
   const [flightRequest, setflightRequest] = useState(null);
   useEffect(() => {
 
-   debugger;
+  // debugger;
     const savedBookingRefNo = localStorage.getItem("BookingRefNo");
     setBookingRefNo(savedBookingRefNo || null);
 
@@ -50,7 +50,7 @@ const Confirmation = () => {
       setflightRequest(jsonObjectFlightReq || null);
     }
     }, []);
- console.log("passengerDetails: " + PassengerDetails);
+// console.log("passengerDetails: " + PassengerDetails);
   const formatDate = (dateString) => {
     try{
       const date = new Date(dateString); 

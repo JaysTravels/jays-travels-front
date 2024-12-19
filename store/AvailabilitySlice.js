@@ -9,9 +9,10 @@ export const submitFlightData = createAsyncThunk(
     'flights/submitFlightData',
     async (flightData, { rejectWithValue }) => {
       try { 
-        console.log(flightData)
+        //debugger;
+       //// console.log(flightData)
         const response = await axiosInstance.post('availability', flightData);
-        console.log(response.data)      
+      //  console.log(response.data)      
         return response.data; 
       } catch (error) {
         console.log(error?.data)
@@ -24,9 +25,9 @@ export const submitFlightData = createAsyncThunk(
     'flights/SubmitSignout',
     async (singoutRequest, { rejectWithValue }) => {
       try {
-        console.log(singoutRequest)
+       // console.log(singoutRequest)
         const response = await axiosInstance.post('availability/signout', singoutRequest);
-        console.log(response.data)      
+       // console.log(response.data)      
         return response.data; 
       } catch (error) {        
         console.log(error);

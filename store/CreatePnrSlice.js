@@ -11,7 +11,7 @@ export const PNR_Multi = createAsyncThunk(
     async (multirequest, { rejectWithValue }) => {
       try {
         const response = await axiosInstance.post('PNR', multirequest);
-        console.log("Add Multi " + response.data)      
+       // console.log("Add Multi " + response.data)      
         return response.data; 
       } catch (error) {
         
@@ -26,7 +26,7 @@ export const PNR_Multi = createAsyncThunk(
     async (multirequest, { rejectWithValue }) => {
       try {
         const response = await axiosInstance.post('PNR/UpdatePaymentStatus', multirequest);
-        console.log("UpdatePaymentStatus " + response.data)      
+       // console.log("UpdatePaymentStatus " + response.data)      
         return response.data; 
       } catch (error) {
         
@@ -41,9 +41,9 @@ export const PNR_Multi = createAsyncThunk(
     async (foprequest, { rejectWithValue }) => {
       try {
    
-        console.log(foprequest)
+       // console.log(foprequest)
         const response = await axiosInstance.post('FOP', foprequest);
-        console.log("Fop Response " +response.data)      
+      //  console.log("Fop Response " +response.data)      
         return response.data; 
       } catch (error) {        
         console.log("Fop Error : " + error);
@@ -57,9 +57,9 @@ export const PNR_Multi = createAsyncThunk(
     async (farepricerequest, { rejectWithValue }) => {
       try {
      
-        console.log(farepricerequest)
+       // console.log(farepricerequest)
         const response = await axiosInstance.post('FairPricePnr', farepricerequest);
-        console.log("Fare Price Response " +response.data)      
+      //  console.log("Fare Price Response " +response.data)      
         return response.data; 
       } catch (error) {        
         console.log("Fare Price Error " + error);
@@ -73,9 +73,9 @@ export const PNR_Multi = createAsyncThunk(
     async (createtstrequest, { rejectWithValue }) => {
       try {
     
-        console.log(createtstrequest)
+       // console.log(createtstrequest)
         const response = await axiosInstance.post('CreateTst', createtstrequest);
-        console.log("Create TST Response " +response.data)      
+      //  console.log("Create TST Response " +response.data)      
         return response.data; 
       } catch (error) {        
         console.log("Create Tst Error " + error);
@@ -89,9 +89,9 @@ export const PNR_Multi = createAsyncThunk(
     async (commitpnrrequest, { rejectWithValue }) => {
       try {
     
-        console.log(commitpnrrequest)
+      //  console.log(commitpnrrequest)
         const response = await axiosInstance.post('Pnr/CommitPnr', commitpnrrequest);
-        console.log("Commit pnr Response " +response.data)    
+      //  console.log("Commit pnr Response " +response.data)    
         return response.data; 
       } catch (error) {        
         console.log("Commit Pnr Error " + error);
