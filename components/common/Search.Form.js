@@ -40,7 +40,7 @@ import { useRouter } from "next/router";
   const dispatch = useDispatch();
  const router = useRouter();
   const flights = useSelector((state) => state.flights.flights);
-  console.log(flights);
+  ///console.log(flights);
   
   const updateshowpassengerfromChild = (newValue) => {
    // debugger;
@@ -143,8 +143,8 @@ import { useRouter } from "next/router";
     setStartDate(newFromDate);
     setEndDate(addDays(newFromDate, 7));
     setApiResponse('') 
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
   };
  function verifydata(){  
    
@@ -247,7 +247,7 @@ try {
   
  } catch (error) {
    console.log('Error api call data:', error.message);
-   alert(error);
+   //alert(error);
    setApiResponse('Error while search ' + error)
  }
 }

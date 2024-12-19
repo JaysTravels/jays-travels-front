@@ -100,16 +100,19 @@ const FlightConfirmation = () => {
       lastName: false,
       email : false,
       phone : false,
+      dob : false,
     })),
     children: Array.from({ length: flightRequest.children }, () => ({
       title: false,
       firstName: false,
       lastName: false,
+      dob: false,
     })),
     infants: Array.from({ length: flightRequest.infants }, () => ({
       title: false,
       firstName: false,
       lastName: false,
+      dob: false
     })),
   });
   const [errorsChild, setErrorsChild] = useState({    
@@ -207,24 +210,22 @@ const infantDateRange = getMinMaxDate(0, 2);
   };
 
 const checkValidation = () =>{   
-  // debugger;
+   debugger;
     let isValid = true;
     const updatedErrors = {
       adults: formData.adults.map((data,index) => {
         const fieldErrors = {};
         Object.keys(data).forEach((key) => {
-          if (!data[key]) {
-            if (data[key] === "email" || data[key] === "phone") 
-              {
-                if(index == 0) {
-                  fieldErrors[key] = true;
-                  isValid = false;
-                }
-             
-            } else{
-                fieldErrors[key] = true;
-                isValid = false;
-              }           
+          if (!data[key]) {           
+            if ((key == "email" || key == "phone") && index != 0) 
+              {                
+                fieldErrors[key] = false; 
+              } 
+              else{
+                isValid = false;  
+                fieldErrors[key] = true; 
+              }                                    
+                     
           } else {
             fieldErrors[key] = false;
           }
@@ -344,7 +345,7 @@ const checkValidation = () =>{
     try {
       // Dispatch first API call
      const pnrMulti = await dispatch(PNR_Multi(addPnrMultiRequset));
-     debugger;
+     //debugger;
       console.log('PNR_Multi dispatched successfully.');
       if(pnrMulti?.payload?.isSuccessful === false){
         setApiResponse(pnrMulti?.data?.error); 
@@ -373,7 +374,7 @@ const checkValidation = () =>{
       }
       // Dispatch fifth API call
       const result2 = await dispatch(Commit_Pnr(pnrCommitRequest)).unwrap();
-      debugger;  
+      //debugger;  
       if(result2?.isSuccessful === false){
         setApiResponse(result2?.data?.error); alert("Error while generate pnr " + result2?.data?.error);
       router.push("/pnrfailed");
@@ -427,7 +428,7 @@ const checkValidation = () =>{
     try {
       
      await dispatch(getPaymentPage(paymentRequest)).unwrap().then(()=>{
-      debugger;
+      //debugger;
       console.log('Get payment successfully.');
       if(paymentPageError != null){
         setApiResponse(paymentPageError); return;
@@ -943,25 +944,23 @@ debugger;
                    </Col>
                    <Col md={3} className="form-group">
                    <label htmlFor={`adults-dob-${index}`}>Date of Birth</label>
-                   
-                   <Input DatePicker
+               
+                   <DatePicker
                      id={`adults-dob-${index}`}
                      selected={formData.adults[index]?.dob || null} 
                      onChange={(date) => handleChange("adults", index, "dob", date)} 
                      dateFormat="dd-MM-yyyy" 
-                     className={
-                       errors.adults?.[index]?.dob ? "is-invalid" : "form-control"
-                     }
+                     className={ "custom-input"}
                      maxDate={adultDateRange.maxDate}
                      minDate={adultDateRange.minDate} 
-                     placeholderText="D.O.B"
+                     placeholderText="Date of Birth"
                      showMonthDropdown // Enable month dropdown
                      showYearDropdown // Enable year dropdown
                      dropdownMode="select" // Use "select" dropdown for year/month
-                   />
-                   {errors.adults?.[index]?.dob && (
-                     <div className="invalid-feedback">This field is required.</div>
-                   )}
+                   />                 
+                   {errors.adults[index]?.dob && (
+                       <div className="error-input" style={{ color: 'red' }}>This field is required.</div>
+                         )}
                                       
                    </Col>
                  </Row>
@@ -986,7 +985,7 @@ debugger;
                        />
                         {errors.adults[index]?.email && (
                        <div className="invalid-feedback">This field is required.</div>
-                     )}
+                         )}
                      </Col>
                      <Col md={6} className="form-group col-md-6">
                        <Label for="inputnumber">Phone no:</Label>
@@ -1020,7 +1019,7 @@ debugger;
                        <form key={index}>
                  <h6>Child {index + 1}</h6>
          <Row>
-           <Col md={2} className="form-group">
+           <Col md={3} className="form-group">
              <Label for={`title-${index}`}>Title c</Label>
              <Input type="select" 
               //className="form-control" 
@@ -1041,7 +1040,7 @@ debugger;
                        <div className="invalid-feedback">This field is required.</div>
                      )}
            </Col>
-           <Col md={5} className="form-group">
+           <Col md={3} className="form-group">
              <Label for={`first-name-child-${index}`}>First Name</Label>
              <Input
                type="text"
@@ -1060,7 +1059,7 @@ debugger;
                        <div className="invalid-feedback">This field is required.</div>
                      )}
            </Col>
-           <Col md={5} className="form-group">
+           <Col md={3} className="form-group">
              <Label for={`last-name-child-${index}`}>Last Name</Label>
              <Input
                type="text"
@@ -1088,19 +1087,18 @@ debugger;
                      selected={formData.children[index]?.dob || null} // Initial value
                      onChange={(date) => handleChange("children", index, "dob", date)} // Update on date change
                      dateFormat="dd-MM-yyyy" // Display format
-                     className={
-                       errors.children?.[index]?.dob ? "form-control is-invalid" : "form-control"
-                     }
+                     className={"custom-input"}
                      minDate={childDateRange.minDate}
                      maxDate={childDateRange.maxDate}
-                     placeholderText="Select Date of Birth"
+                     placeholderText="Date of Birth"
                      showMonthDropdown 
                      showYearDropdown 
                      dropdownMode="select"
                    />
-                   {errors.children?.[index]?.dob && (
-                     <div className="invalid-feedback">This field is required.</div>
+                   {errors.children[index]?.dob && (
+                       <div className="error-input" style={{ color: 'red' }}>This field is required.</div>
                    )}
+                  
                  </div>                      
                    </Col>
          </Row>
@@ -1114,7 +1112,7 @@ debugger;
                        <form key={index}>
                  <h6>Infant {index + 1}</h6>
          <Row>
-           <Col md={2} className="form-group">
+           <Col md={3} className="form-group">
              <Label for={`title-${index}`}>Title</Label>
              <Input type="select" 
             // className="form-control" 
@@ -1136,7 +1134,7 @@ debugger;
                        <div className="invalid-feedback">This field is required.</div>
                      )}
            </Col>
-           <Col md={5} className="form-group">
+           <Col md={3} className="form-group">
              <Label for={`first-name-infant-${index}`}>First Name</Label>
              <Input
                type="text"
@@ -1156,7 +1154,7 @@ debugger;
                        <div className="invalid-feedback">This field is required.</div>
                      )}
            </Col>
-           <Col md={5} className="form-group">
+           <Col md={3} className="form-group">
              <Label for={`last-name-infant-${index}`}>Last Name</Label>
              <Input
                type="text"
@@ -1183,20 +1181,17 @@ debugger;
                      selected={formData.infants[index]?.dob || null} // Initial value
                      onChange={(date) => handleChange("infants", index, "dob", date)} // Update on date change
                      dateFormat="dd-MM-yyyy" // Display format
-                     className={
-                       errors.infants?.[index]?.dob ? "form-control is-invalid" : "form-control"
-                     }
+                     className={"custom-input"}
                      minDate={infantDateRange.minDate}
                      maxDate={infantDateRange.maxDate}
-                     placeholderText="Select Date of Birth"
+                     placeholderText="Date of Birth"
                      showMonthDropdown 
                      showYearDropdown 
                      dropdownMode="select" 
                    />
-                   {errors.infants?.[index]?.dob && (
-                     <div className="invalid-feedback">This field is required.</div>
-                   )}
-                                    
+                    {errors.infants[index]?.dob && (
+                       <div className="error-input" style={{ color: 'red' }}>This field is required.</div>
+                   )}               
                    </Col>
          </Row>
                        </form>

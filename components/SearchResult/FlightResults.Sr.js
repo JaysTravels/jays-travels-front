@@ -112,7 +112,7 @@ const FlightResultsSr = () => {
   try {
       
      dispatch(getPaymentPage(paymentRequest)).unwrap().then(()=>{
-     debugger;
+    // debugger;
      console.log('Get payment successfully.');
       })
    
@@ -123,7 +123,7 @@ const FlightResultsSr = () => {
 
     // console.log(flightData);
     const AirSellRequset = getAirSellRequest(flight);
-    console.log(AirSellRequset);
+    //console.log(AirSellRequset);
  
     try {
   
