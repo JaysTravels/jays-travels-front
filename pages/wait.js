@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import Image from "next/image";
 import footerLogo from "@/public/images/footer-logo.png";
-import waitpge from '../styles/scss/waitPage.module.css';
 
 const WaitPage = () => {
   const router = useRouter();
@@ -21,7 +20,8 @@ const WaitPage = () => {
   }, [loading, results, router]);
 
   return (
-<div className='waitpge.body'>
+    
+<div>
     
     <div style={{ textAlign: 'center', padding: '30px 50px' }}>
        <div className="footer-logo">
@@ -35,14 +35,13 @@ const WaitPage = () => {
     
 <br/>
 <br/>
-
-      <div className="waitpge.container">
-    <div className="waitpge.📦"></div>
-    <div className="waitpge.📦"></div>
-    <div className="waitpge.📦"></div>
-    <div className="waitpge.📦"></div>
-    <div className="waitpge.📦"></div>
-  </div>
+<div class="waitcontainer">
+		<div class="📦"></div>
+		<div class="📦"></div>
+		<div class="📦"></div>
+		<div class="📦"></div>
+		<div class="📦"></div>
+	</div>
     </div>
     </div>
   );
