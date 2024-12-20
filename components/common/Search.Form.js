@@ -20,14 +20,12 @@ import { useDispatch } from "react-redux";
 import { AirLineClass } from "../classes/airlineclass";
 import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/router";
-//import { newDate } from "react-datepicker/dist/date_utils";
-//import { getDate } from "react-datepicker/dist/date_utils";
   const SearchForm = (props) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [showPassengers, setShowPassengers] = useState(false);  
   const [destAirport, setDestAirport] = useState(null);
-  const [originAirport, setOriginAirport] = useState('London , [LON], UnitedKingdom');
+  const [originAirport, setOriginAirport] = useState('London , (LON), UnitedKingdom');
   const [fromDate , setFromDate] = useState(null);
   const [toDate , setToDate] = useState(null);
   const [adults , setAdults] = useState(1);
@@ -40,11 +38,9 @@ import { useRouter } from "next/router";
   const dispatch = useDispatch();
  const router = useRouter();
   const flights = useSelector((state) => state.flights.flights);
-  ///console.log(flights);
-  
+   
   const updateshowpassengerfromChild = (newValue) => {
-   // debugger;
-    setShowPassengers(newValue); 
+      setShowPassengers(newValue); 
   };
   
   const handlecabin = (value) =>{
@@ -107,7 +103,9 @@ import { useRouter } from "next/router";
  
  
   function extractAirportCode(destination) {
-    const match = destination.match(/\[([A-Z]{3})\]/); 
+   // const match = destination.match(/\[([A-Z]{3})\]/); 
+    const match = destination.match(/\(([^)]+)\)/);
+    
     return match ? match[1] : null; 
   }
   const getFormattedDate = (date) => {
@@ -142,9 +140,7 @@ import { useRouter } from "next/router";
     const newFromDate = event;
     setStartDate(newFromDate);
     setEndDate(addDays(newFromDate, 7));
-    setApiResponse('') 
-    //console.log(startDate);
-    //console.log(endDate);
+    setApiResponse('')   
   };
  function verifydata(){  
    
@@ -351,7 +347,7 @@ try {
               className="position-relative z-2"
               icon={faCrosshairs}     
               onAirportSelect={handleOriginAirportChange} 
-              defaultText={'London , [LON], UnitedKingdom'}      
+              defaultText={'London , (LON), UnitedKingdom'}      
             /> 
              </Col>
           <Col lg={props.col1 || "12"} md={props.col1 || "12"}>
