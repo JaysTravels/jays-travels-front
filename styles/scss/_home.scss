@@ -2304,3 +2304,11 @@ section .black-layer:before {
 .flight-detail .row > div .flight-box + .flight-box {
   margin-top: 60px;
 }
+
+.waitpge {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
