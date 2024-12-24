@@ -1970,6 +1970,10 @@ section .black-layer:before {
   .container-fluid {
     padding-left: 90px;
     padding-right: 90px;
+
+    @media (max-width: 991px) {
+      padding-inline: 30px;
+    }
   }
 
   .slick {
