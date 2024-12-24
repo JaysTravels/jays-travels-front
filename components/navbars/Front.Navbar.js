@@ -26,9 +26,7 @@ const FrontNavbar = (props) => {
     <>
       <div className="frontNavbar">
         <Navbar expand="lg" container {...props}>
-        <Image src={topLogo} alt="" className="img-fluid" />
-
-          <NavbarToggler onClick={toggle} />
+          <Image src={topLogo} alt="" className="img-fluid logo" />
 
           <Collapse isOpen={isOpen} navbar>
             <div className="d-flex justify-content-end p-3">
@@ -41,6 +39,7 @@ const FrontNavbar = (props) => {
           </Collapse>
 
           <div className="actions-nav">
+            <NavbarToggler onClick={toggle} />
             {/* <Button
               size="md"
               color="transparent d-lg-inline d-none"
@@ -49,13 +48,13 @@ const FrontNavbar = (props) => {
             >
               Contact
             </Button> */}
-            <Input type="select">
+            <Input type="select" className="msLg15 ms5">
               <option value="volvo">GBP</option>
               {/* <option value="saab">EUR</option>
               <option value="opel">INR</option>
               <option value="audi">AUD</option> */}
             </Input>
-            <Input type="select" className="ms15">
+            <Input type="select" className="msLg15 ms5">
               <option value="volvo">ENG</option>
               {/* <option value="saab">FRE</option>
               <option value="opel">SPA</option>
@@ -64,7 +63,7 @@ const FrontNavbar = (props) => {
             <Button
               size="md"
               color="transparent"
-              className="ms15"
+              className="msLg15 ms5"
               // onClick={() => router.push("/contact")}
             >
               <FontAwesomeIcon icon={faUser} />

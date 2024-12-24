@@ -1398,9 +1398,13 @@ section .black-layer:before {
     top: 0;
     height: 100vh;
   }
-  .container {
-    position: relative;
-    z-index: 3;
+  .hSearch {
+    position: absolute;
+    z-index: 1111;
+    top: 0;
+    margin-inline: auto;
+    left: 0;
+    right: 0;
   }
 
   .slick-dots {
