@@ -55,20 +55,22 @@ const Confirmation = () => {
     }
 
     let session = getSession();
-    if (session != null && payment === false) {
+    if (session != null && payment === false)
+      {
+        debugger;
       const UpdatePaymentStatusRequest = {
         SessionId: session.sessionId,
-        PaymentStatus: "Success",
-      };
-      const result = dispatch(
-        UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)
-      ).unwrap();
-      if (result?.isSuccessful === true) {
-        setPaymentUpdate(true);
+        PaymentStatus: "Success"
       }
-    }
-  }, []);
-  //console.log("passengerDetails: " + PassengerDetails);
+      setPaymentUpdate(true);
+      const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();      
+      if(result?.isSuccessful === true){
+      setPaymentUpdate(true);
+      }    
+    }  
+
+  }, [dispatch]);
+ //console.log("passengerDetails: " + PassengerDetails);
 
   function getSession() {
     const storedSession = localStorage.getItem("session");
