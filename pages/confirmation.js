@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useState,useEffect  } from "react";
 import { UPDATE_PAYMENT_STATUS } from "@/store/CreatePnrSlice";
 const Confirmation = () => {
-  debugger;
+  
   const currSign = '£';
   const router = useRouter();
   const dispatch = useDispatch();

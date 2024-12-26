@@ -285,7 +285,7 @@ const checkValidation = () =>{
    
     let session = getSession();
     session.sequenceNumber = session.sequenceNumber + 1;
-    const pnrMultirequest = CreatePnrMultiRequest(formData,session);  
+    const pnrMultirequest = CreatePnrMultiRequest(formData,session,flight);  
     
     try{
       dispatch(setPassengerDetails(pnrMultirequest.passengerDetails));
@@ -294,7 +294,8 @@ const checkValidation = () =>{
      }
     const addPnrMultiRequset = {
       sessionDetails : pnrMultirequest.sessionDetails,
-      passengerDetails : pnrMultirequest.passengerDetails
+      passengerDetails : pnrMultirequest.passengerDetails,
+      selectedFlightOffer : JSON.stringify(flight),
     }  
     localStorage.setItem("PassengerDetails", JSON.stringify(addPnrMultiRequset.passengerDetails));    
     localStorage.setItem("flightRequest", JSON.stringify(flightRequest));    
@@ -344,6 +345,7 @@ const checkValidation = () =>{
    }  
     try {
       // Dispatch first API call
+      debugger;
      const pnrMulti = await dispatch(PNR_Multi(addPnrMultiRequset));
      //debugger;
       console.log('PNR_Multi dispatched successfully.');
@@ -462,7 +464,7 @@ const checkValidation = () =>{
       return session;         
     }
   }
-  function CreatePnrMultiRequest(formData,session){
+  function CreatePnrMultiRequest(formData,session,flight){
 
       const passengers  =[];
       formData.adults.forEach((adult, index) => {
@@ -512,10 +514,10 @@ const checkValidation = () =>{
           email: "",
         });
       });
-debugger;
       const pnrmultirequest = {
         sessionDetails : session,
         passengerDetails: passengers,
+        selectedFlightOffer :  JSON.stringify(flight)
       };
       return pnrmultirequest;
       
