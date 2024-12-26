@@ -81,8 +81,8 @@ const FlightResultsSr = () => {
           },
       },
       inBound: {
-          origin: "DXB",
-          destination: "LHR",
+          origin: flightRequest.destination,
+          destination: flightRequest.origin,
           segmentInformation: {
               travelProductInformation: travelProductInformationInBound,
           },

@@ -9,8 +9,8 @@ import { useState, useEffect } from "react";
 import { UPDATE_PAYMENT_STATUS } from "@/store/CreatePnrSlice";
 import { Col, Row } from "reactstrap";
 const Confirmation = () => {
-  debugger;
-  const currSign = "£";
+  
+  const currSign = '£';
   const router = useRouter();
   const dispatch = useDispatch();
   const flightResults = useSelector((state) => state.flights.response);
