@@ -52,17 +52,19 @@ const Confirmation = () => {
     let session = getSession();
     if (session != null && payment === false)
       {
+        debugger;
       const UpdatePaymentStatusRequest = {
         SessionId: session.sessionId,
         PaymentStatus: "Success"
       }
+      setPaymentUpdate(true);
       const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();      
       if(result?.isSuccessful === true){
-        setPaymentUpdate(true);
+      setPaymentUpdate(true);
       }    
     }  
 
-  }, []);
+  }, [dispatch]);
  //console.log("passengerDetails: " + PassengerDetails);
 
  function getSession(){
