@@ -434,7 +434,7 @@ try {
               size="md"
               className="text-uppercase mtLg10 mt6"
               onClick={DispatchData}>
-              Modify Search
+             {props.searchButtonText != null ? props.searchButtonText : "Modify Searches"} 
             </Button>
           </Col>
           <Label>

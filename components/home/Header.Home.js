@@ -83,7 +83,7 @@ const HeaderHome = () => {
                     with a small step
                   </h3>
 
-                  <SearchForm />
+                  <SearchForm searchButtonText="Search"/>
                 </div>
               </div>
             </Col>
