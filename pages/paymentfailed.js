@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { Col, Row } from "reactstrap";
+import { UPDATE_PAYMENT_STATUS } from "@/store/CreatePnrSlice";
 
 const Confirmation = () => {
   //debugger;
@@ -225,8 +226,7 @@ const Confirmation = () => {
                           <td width="40%">Tour Details:</td>
                           <td>
                             <span>
-                              {flightRequest?.origin} To{" "}
-                              {flightRequest?.destination}
+                            
                               {selectedFlight?.itineraries?.[0]?.airport_city &&
                               selectedFlight?.itineraries?.[1]?.airport_city ? (
                                 <>
@@ -580,16 +580,21 @@ const Confirmation = () => {
                           <tbody
                             style={{ fontSize: "16px", lineHeight: "1.5" }}
                           >
-                            <tr>
+                           <tr>
                               <td>Tour Details:</td>
                               <td
                                 style={{ fontWeight: "600", color: "#3c3c3c" }}
-                              >    
-                              {selectedFlight?.itineraries?.[0]?.airport_city && selectedFlight?.itineraries?.[1]?.airport_city ? (
-                              <>
-                                {selectedFlight.itineraries[0].airport_city} To {selectedFlight.itineraries[1].airport_city}
-                              </>
-                            ) : null}
+                              >
+                                {selectedFlight?.itineraries?.[0]
+                                  ?.airport_city &&
+                                selectedFlight?.itineraries?.[1]
+                                  ?.airport_city ? (
+                                  <>
+                                    {selectedFlight.itineraries[0].airport_city}{" "}
+                                    To{" "}
+                                    {selectedFlight.itineraries[1].airport_city}
+                                  </>
+                                ) : null}
                               </td>
                             </tr>
                             <tr>
