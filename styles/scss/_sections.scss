@@ -28,3 +28,73 @@
     }
   }
 }
+
+.confirmationPage {
+  .box {
+    background-color: $white;
+    box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.2705882353);
+    padding: 20px;
+    max-width: 724px;
+    margin: auto;
+
+    .links {
+      a {
+        text-transform: capitalize;
+        color: #444;
+        font-size: 16px;
+        padding-left: 5px;
+        margin-left: 10px;
+      }
+    }
+
+    h2 {
+      font-size: calc(18px + (22 - 18) * ((100vw - 320px) / (1920 - 320)));
+    }
+    h3 {
+      color: #9a9a9a;
+      font-weight: 400;
+    }
+  }
+
+  table {
+    &.main-table {
+      color: #616161;
+      font-size: 16px;
+      width: 100%;
+
+      td {
+        border: 1px solid #dddddd;
+        white-space: nowrap;
+
+        h5 {
+          margin: 0;
+        }
+
+        span {
+          font-weight: 600;
+          color: #3c3c3c;
+        }
+      }
+    }
+
+    .mainTd {
+      @media (max-width: 991px) {
+        display: block;
+        width: 100%;
+      }
+    }
+
+    .booking-table {
+      margin: 0;
+
+      td {
+        border: 0px solid #dddddd;
+        padding: 5px;
+
+        &.bb {
+          border-bottom: 1px solid #dddddd;
+        }
+      }
+    }
+  }
+}

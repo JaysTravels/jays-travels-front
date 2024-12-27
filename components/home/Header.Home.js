@@ -36,23 +36,6 @@ const HeaderHome = () => {
                   className="bg-img d-none"
                 />
               </div>
-
-              <Container>
-                <Col lg={6}>
-                  <div className="cab-content hContent">
-                    <div className="w-100">
-                      <h2 className="text-uppercase fw400 mbLg10 wow fadeIn">
-                        great journey begins
-                      </h2>
-                      <h3 className="text-uppercase fw800 mbLg30 mb20">
-                        with a small step
-                      </h3>
-
-                      <SearchForm />
-                    </div>
-                  </div>
-                </Col>
-              </Container>
             </div>
           </div>
           <div>
@@ -69,23 +52,6 @@ const HeaderHome = () => {
                   className="bg-img d-none"
                 />
               </div>
-
-              <Container>
-                <Col lg={6}>
-                  <div className="cab-content hContent">
-                    <div className="w-100">
-                      <h2 className="text-uppercase fw400 mbLg10 wow fadeIn">
-                        great journey begins
-                      </h2>
-                      <h3 className="text-uppercase fw800 mbLg30 mb20">
-                        with a small step
-                      </h3>
-
-                      <SearchForm />
-                    </div>
-                  </div>
-                </Col>
-              </Container>
             </div>
           </div>
           <div>
@@ -102,26 +68,27 @@ const HeaderHome = () => {
                   className="bg-img d-none"
                 />
               </div>
-
-              <Container>
-                <Col lg={6}>
-                  <div className="cab-content hContent">
-                    <div className="w-100">
-                      <h2 className="text-uppercase fw400 mbLg10 wow fadeIn">
-                        great journey begins
-                      </h2>
-                      <h3 className="text-uppercase fw800 mbLg30 mb20">
-                        with a small step
-                      </h3>
-
-                      <SearchForm />
-                    </div>
-                  </div>
-                </Col>
-              </Container>
             </div>
           </div>
         </Slider>
+        <div className="hSearch">
+          <Container>
+            <Col lg={6}>
+              <div className="cab-content hContent">
+                <div className="w-100">
+                  <h2 className="text-uppercase fw400 mbLg10 wow fadeIn">
+                    great journey begins
+                  </h2>
+                  <h3 className="text-uppercase fw800 mbLg30 mb20">
+                    with a small step
+                  </h3>
+
+                  <SearchForm searchButtonText="Search"/>
+                </div>
+              </div>
+            </Col>
+          </Container>
+        </div>
       </div>
     </>
   );

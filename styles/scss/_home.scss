@@ -1398,9 +1398,13 @@ section .black-layer:before {
     top: 0;
     height: 100vh;
   }
-  .container {
-    position: relative;
-    z-index: 3;
+  .hSearch {
+    position: absolute;
+    z-index: 1111;
+    top: 0;
+    margin-inline: auto;
+    left: 0;
+    right: 0;
   }
 
   .slick-dots {
@@ -1966,6 +1970,10 @@ section .black-layer:before {
   .container-fluid {
     padding-left: 90px;
     padding-right: 90px;
+
+    @media (max-width: 991px) {
+      padding-inline: 30px;
+    }
   }
 
   .slick {
@@ -2295,4 +2303,12 @@ section .black-layer:before {
 }
 .flight-detail .row > div .flight-box + .flight-box {
   margin-top: 60px;
+}
+
+.waitpge {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }

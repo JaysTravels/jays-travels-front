@@ -29,15 +29,15 @@
 .react-datepicker-wrapper {
   width: 100%;
 
-  .form {
-    &-control {
-      height: 54px;
+  // .form {
+  //   &-control {
+  //     height: 54px;
 
-      @media (max-width: 576px) {
-        height: 36px;
-      }
-    }
-  }
+  //     @media (max-width: 576px) {
+  //       height: 36px;
+  //     }
+  //   }
+  // }
 }
 
 .showPassengers {
