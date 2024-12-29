@@ -17,7 +17,25 @@ function formatDateTime(dateString) {
     const formattedTime = time.slice(0, 5);   
     return `${formattedDate} ${formattedTime}`;
   }
-  
+}
+
+  function formatDate(dateString) {
+    if(dateString != null){
+      const [date, time] = dateString.split('T'); 
+      const [year, month, day] = date.split('-');
+      const formattedDate = `${day}-${month}-${year}`;
+      const formattedTime = time.slice(0, 5);   
+      return `${formattedDate}`;
+    }}
+
+    function formatTime(dateString) {
+      if(dateString != null){
+        const [date, time] = dateString.split('T'); 
+        const [year, month, day] = date.split('-');
+        const formattedDate = `${day}-${month}-${year}`;
+        const formattedTime = time.slice(0, 5);   
+        return `${formattedTime}`;
+      }
 }
 
 const FlightResultsSr = () => {
@@ -202,8 +220,9 @@ const FlightResultsSr = () => {
                           <Col md={8}>
                           <div className="airport-part">
                             <div className="airport-name">
-                              <h4>{formatDateTime(item?.itineraries[0]?.segments[0]?.departure?.at)}</h4>
-                              <h6>{item?.itineraries[0]?.segments[0]?.departure?.iataCode + " - " + item?.itineraries[0]?.segments[0]?.departure?.iataName }</h6>
+                              <h4>{formatDate(item?.itineraries[0]?.segments[0]?.departure?.at)}</h4>
+                              <h4>{formatTime(item?.itineraries[0]?.segments[0]?.departure?.at)}</h4>
+                              <h6>{item?.itineraries[0]?.segments[0]?.departure?.iataCode + " - " + item?.itineraries[0]?.segments[0]?.departure?.iataName.split(/\s*,\s*/)[0] }</h6>
                             </div>
                             <div className="airport-progress">
                               <i className="fas fa-plane-departure float-start"></i>
@@ -219,8 +238,9 @@ const FlightResultsSr = () => {
                               }</div>
                             </div>
                             <div className="airport-name arrival">
-                              <h4>{formatDateTime(item?.itineraries[0]?.segments[item?.itineraries[1]?.segments?.length -1]?.arrival?.at)}</h4>
-                              <h6>{item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length-1]?.arrival?.iataCode + " - " + item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length -1]?.arrival?.iataName}</h6>
+                              <h4>{formatDate(item?.itineraries[0]?.segments[item?.itineraries[1]?.segments?.length -1]?.arrival?.at)}</h4>
+                              <h4>{formatTime(item?.itineraries[0]?.segments[item?.itineraries[1]?.segments?.length -1]?.arrival?.at)}</h4>
+                              <h6>{item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length-1]?.arrival?.iataCode + " - " + item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length -1]?.arrival?.iataName.split(/\s*,\s*/)[0]}</h6>
                             </div>
                           </div>
                           </Col>
@@ -247,8 +267,9 @@ const FlightResultsSr = () => {
                           <Col md={8}>
                               <div className="airport-part">
                                 <div className="airport-name">
-                                <h4>{formatDateTime(item?.itineraries[1]?.segments[0].departure.at)}</h4>
-                                <h6>{item?.itineraries[1]?.segments[0]?.departure?.iataCode + " - " + item?.itineraries[1]?.segments[0]?.departure?.iataName}</h6>
+                                <h4>{formatDate(item?.itineraries[1]?.segments[0].departure.at)}</h4>
+                                <h4>{formatTime(item?.itineraries[1]?.segments[0].departure.at)}</h4>
+                                <h6>{item?.itineraries[1]?.segments[0]?.departure?.iataCode + " - " + item?.itineraries[1]?.segments[0]?.departure?.iataName.split(/\s*,\s*/)[0]}</h6>
                                 </div>
                                 <div className="airport-progress">
                                   <i className="fas fa-plane-departure float-start"></i>
@@ -265,8 +286,9 @@ const FlightResultsSr = () => {
                                     </div>
                                 </div>
                                 <div className="airport-name arrival">
-                                <h4>{formatDateTime(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h4>
-                                <h6>{item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.iataCode + " - " + item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length-1]?.arrival?.iataName}</h6>
+                                <h4>{formatDate(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h4>
+                                <h4>{formatTime(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h4>
+                                <h6>{item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.iataCode + " - " + item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length-1]?.arrival?.iataName.split(/\s*,\s*/)[0]}</h6>
                                 </div>
                               </div>
                             </Col>
@@ -274,73 +296,7 @@ const FlightResultsSr = () => {
                         </Row>
                         {
                         /**
-                         * 
-                          {
-                        
-                        item?.itineraries[1]?.segments?.length > 1 ? 
-                        (
-                         <Row>
-                         <Col md={4}>
-                           <div className="logo-sec">
-                             <Image src={img5} className="img-fluid" alt="" width={240} height={140} />
-                             <span className="title">{item.itineraries[1].segments[1].marketingCarrierName}</span>
-                           </div>
-                         </Col>
-                         <Col md={8}>
-                           <div className="airport-part">
-                             <div className="airport-name">
-                               <h4>{formatDateTime(item.itineraries[1].segments[1].departure.at)}</h4>
-                               <h6>{item.itineraries[1].segments[1].departure.iataCode + " - " + item.itineraries[1].segments[1].departure.iataName}</h6>
-                             </div>
-                             <div className="airport-progress">
-                               <i className="fas fa-plane-departure float-start"></i>
-                               <i className="fas fa-plane-arrival float-end"></i>
-                               <div className="stop">{item.itineraries[1].segments[1].numberOfStops}</div>
-                             </div>
-                             <div className="airport-name arrival">
-                               <h4>{formatDateTime(item.itineraries[1].segments[1].arrival.at)}</h4>
-                               <h6>{item.itineraries[1].segments[1].arrival.iataCode + " - " + item.itineraries[1].segments[1].arrival.iataName}</h6>
-                             </div>
-                           </div>
-                         </Col>
-                         <Col md={3}></Col>
-                         </Row>  
-                        ) : ""
-                       }  
-
-                          {
-                        
-                        item?.itineraries[1]?.segments?.length > 2 ? 
-                        (
-                         <Row>
-                         <Col md={4}>
-                           <div className="logo-sec">
-                             <Image src={img6} className="img-fluid" alt="" width={240} height={140}/>
-                             <span className="title">{item.itineraries[1].segments[2].marketingCarrierName}</span>
-                           </div>
-                         </Col>
-                         <Col md={8}>
-                           <div className="airport-part">
-                             <div className="airport-name">
-                               <h4>{formatDateTime(item.itineraries[1].segments[2].departure.at)}</h4>
-                               <h6>{item.itineraries[1].segments[2].departure.iataCode + " - " + item.itineraries[1].segments[2].departure.iataName}</h6>
-                             </div>
-                             <div className="airport-progress">
-                               <i className="fas fa-plane-departure float-start"></i>
-                               <i className="fas fa-plane-arrival float-end"></i>
-                               <div className="stop">{item.itineraries[1].segments[2].numberOfStops}</div>
-                             </div>
-                             <div className="airport-name arrival">
-                               <h4>{formatDateTime(item.itineraries[1].segments[2].arrival.at)}</h4>
-                               <h6>{item.itineraries[1].segments[2].arrival.iataCode + " - " + item.itineraries[1].segments[2].arrival.iataName}</h6>
-                             </div>
-                           </div>
-                         </Col>
-                         <Col md={3}></Col>
-                      </Row>  
-                        ) : ""
-                       } 
-                         */}
+                         * */}
                        
                       </div>
                     </div>
