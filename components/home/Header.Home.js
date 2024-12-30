@@ -34,6 +34,7 @@ const HeaderHome = () => {
                   height="50"
                   alt=""
                   className="bg-img d-none"
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -50,6 +51,7 @@ const HeaderHome = () => {
                   height="50"
                   alt=""
                   className="bg-img d-none"
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -66,6 +68,7 @@ const HeaderHome = () => {
                   height="50"
                   alt=""
                   className="bg-img d-none"
+                  loading="lazy"
                 />
               </div>
             </div>
