@@ -72,7 +72,7 @@ const FrontFooter = () => {
                         349 High Street, Smethwick, West Midlands, B66 3PB, United Kingdom
                       </li>
                       <li>
-                        <FontAwesomeIcon icon={faPhone} /> +44-8008101600 <br></br>
+                        <FontAwesomeIcon icon={faPhone} /> <a href="tel:+448008101600">+44-80081-01600</a> <br/>
                         <span>Mon - Sat (10am to 6pm)</span>
                       </li>
                       <li>
