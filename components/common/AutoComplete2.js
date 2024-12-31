@@ -3,6 +3,7 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import airportsData from "@/src/util/AirportNames.json";
+import { addSpacesToInitCap } from "../common/formatString";
 
 const AirportSearch = ({ placeholder, className, icon ,onAirportSelect,defaultText }) => {
  // debugger;
@@ -38,7 +39,7 @@ const AirportSearch = ({ placeholder, className, icon ,onAirportSelect,defaultTe
       const handleOnSelect = (item) => {
        
       // item.name = item.name.split(',')[0] + ' ,' + item.name.split(',')[3] + ' ['+ item.name.split(',')[1]+'], '+item.name.split(',')[2];
-      item.name = item.name.split(',')[0] + ' , ('+ item.name.split(',')[1]+'), '+item.name.split(',')[2];
+      item.name = item.name.split(',')[0] + ' , ('+ item.name.split(',')[1]+'), '+ addSpacesToInitCap(item.name.split(',')[2]);
         const formattedName = (
             <>
                 <span>
@@ -58,7 +59,7 @@ const AirportSearch = ({ placeholder, className, icon ,onAirportSelect,defaultTe
         const formattedName = `${city} (${code}), ${country}, ${airport}`
         return (
           <span> {/*  {`${city} , ${airport} [${code}], ${country}  `}*/}
-         {`${city} , (${code}), ${country}  `}
+         {`${city} , (${code}), ${addSpacesToInitCap(country)}  `}
             </span> 
         )
       }
