@@ -61,8 +61,10 @@ const FrontFooter = () => {
                 </div>
                 <div className="footer-content">
                   <div className="contact-detail">
-                    <div className="footer-logo">
-                      <Image src={footerLogo} alt="" className="img-fluid" />
+                    <div className="footer-logo" >
+                    
+                      < Image src={footerLogo} alt="" href="index" className="img-fluid"  />
+                    
                     </div>
                     <ul className="contact-list">
                       <li>
@@ -89,13 +91,13 @@ const FrontFooter = () => {
                     <div className="footer-links">
                       <ul>
                         <li>
-                          <a href="#">about us</a>
+                          <a href="about-us">about us</a>
                         </li>
                         <li>
-                          <a href="#">FAQ</a>
+                          <a href="contact-us">Contact</a>
                         </li>
                         <li>
-                          <a href="#">login</a>
+                          <a href="cookie-policy">Cookie policy</a>
                         </li>
                         <li>
                           <a href="#">register</a>
