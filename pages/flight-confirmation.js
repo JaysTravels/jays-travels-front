@@ -327,24 +327,23 @@ const FlightConfirmation = () => {
 
     let session = getSession();
     session.sequenceNumber = session.sequenceNumber + 1;
-    const pnrMultirequest = CreatePnrMultiRequest(formData, session);
-
-    try {
+    const pnrMultirequest = CreatePnrMultiRequest(formData,session,flight);  
+    
+    try{
       dispatch(setPassengerDetails(pnrMultirequest.passengerDetails));
     } catch (error) {
       console.error("Error calling setPassengerDetails:", error.message);
     }
     const addPnrMultiRequset = {
-      sessionDetails: pnrMultirequest.sessionDetails,
-      passengerDetails: pnrMultirequest.passengerDetails,
-    };
-    localStorage.setItem(
-      "PassengerDetails",
-      JSON.stringify(addPnrMultiRequset.passengerDetails)
-    );
-    localStorage.setItem("flightRequest", JSON.stringify(flightRequest));
-
-    //flightRequest
+      sessionDetails : pnrMultirequest.sessionDetails,
+      passengerDetails : pnrMultirequest.passengerDetails,
+      selectedFlightOffer : JSON.stringify(flight),
+    }  
+    localStorage.setItem("PassengerDetails", JSON.stringify(addPnrMultiRequset.passengerDetails));    
+    localStorage.setItem("flightRequest", JSON.stringify(flightRequest));    
+  
+    
+   //flightRequest
     let session2 = getSession();
     session2.sequenceNumber = session2.sequenceNumber + 2;
     const fopRequest = CreateFopRequest(session2);
@@ -392,15 +391,13 @@ const FlightConfirmation = () => {
     };
     try {
       // Dispatch first API call
-      const pnrMulti = await dispatch(PNR_Multi(addPnrMultiRequset));
-      //debugger;
-      console.log("PNR_Multi dispatched successfully.");
-      if (pnrMulti?.payload?.isSuccessful === false) {
-        setApiResponse(pnrMulti?.data?.error);
-        alert(
-          "No Fare Avaialble Please go back to flights results page and select another... " +
-            pnrMulti?.data?.error
-        );
+      debugger;
+     const pnrMulti = await dispatch(PNR_Multi(addPnrMultiRequset));
+     //debugger;
+      console.log('PNR_Multi dispatched successfully.');
+      if(pnrMulti?.payload?.isSuccessful === false){
+        setApiResponse(pnrMulti?.data?.error); 
+        alert("No Fare Avaialble Please go back to flights results page and select another... " + pnrMulti?.data?.error);
         router.push("/search-result");
         return;
       }
@@ -517,32 +514,34 @@ const FlightConfirmation = () => {
       return session;
     }
   }
-  function CreatePnrMultiRequest(formData, session) {
-    const passengers = [];
-    formData.adults.forEach((adult, index) => {
-      if (index == 0) {
-        passengers.push({
-          firstName: adult.firstName,
-          surName: adult.lastName,
-          type: "ADT", // Adult type
-          dob: formatDate(adult.dob), //adult.dob,
-          isLeadPassenger: true, // First adult as lead passenger
-          number: index + 1,
-          email: adult.email,
-          phone: adult.phone,
-        });
-      } else {
-        passengers.push({
-          firstName: adult.firstName,
-          surName: adult.lastName,
-          type: "ADT", // Adult type
-          dob: formatDate(adult.dob), //adult.dob,
-          isLeadPassenger: false, // First adult as lead passenger
-          number: index + 1,
-          email: "",
-        });
-      }
-    });
+  function CreatePnrMultiRequest(formData,session,flight){
+
+      const passengers  =[];
+      formData.adults.forEach((adult, index) => {
+        if(index == 0){
+          passengers.push({
+            firstName: adult.firstName,
+            surName: adult.lastName,
+            type: "ADT", // Adult type
+            dob: formatDate(adult.dob), //adult.dob,
+            isLeadPassenger: true, // First adult as lead passenger
+            number: index + 1,
+            email: adult.email,
+            phone: adult.phone,
+          });
+        }
+        else{
+          passengers.push({
+            firstName: adult.firstName,
+            surName: adult.lastName,
+            type: "ADT", // Adult type
+            dob: formatDate(adult.dob), //adult.dob,
+            isLeadPassenger: false, // First adult as lead passenger
+            number: index + 1,
+            email: '',          
+          });
+        }        
+      });
 
     formData.children.forEach((child, index) => {
       passengers.push({
@@ -555,22 +554,23 @@ const FlightConfirmation = () => {
       });
     });
 
-    formData.infants.forEach((infant, index) => {
-      passengers.push({
-        firstName: infant.firstName,
-        surName: infant.lastName,
-        type: "INF", // Infant type
-        dob: formatDate(infant.dob), //infant.dob,
-        number: formData.adults.length + formData.children.length + index + 1,
-        email: "",
+      formData.infants.forEach((infant, index) => {
+        passengers.push({
+          firstName: infant.firstName,
+          surName: infant.lastName,
+          type: "INF", // Infant type
+          dob: formatDate(infant.dob),//infant.dob,          
+          number: formData.adults.length + formData.children.length + index + 1,
+          email: "",
+        });
       });
-    });
-    debugger;
-    const pnrmultirequest = {
-      sessionDetails: session,
-      passengerDetails: passengers,
-    };
-    return pnrmultirequest;
+      const pnrmultirequest = {
+        sessionDetails : session,
+        passengerDetails: passengers,
+        selectedFlightOffer :  JSON.stringify(flight)
+      };
+      return pnrmultirequest;
+      
   }
 
   function CreateFopRequest(session) {

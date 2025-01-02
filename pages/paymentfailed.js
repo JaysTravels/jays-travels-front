@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { Col, Row } from "reactstrap";
+import { UPDATE_PAYMENT_STATUS } from "@/store/CreatePnrSlice";
 
 const Confirmation = () => {
   //debugger;
@@ -18,42 +19,70 @@ const Confirmation = () => {
   //const flightRequest = useSelector((state) => state.flights.flights);
   const airsellResults = useSelector((state) => state.airsell.response);
   const airsellRequest = useSelector((state) => state.airsell.airSellRequest);
-  const pnrResponse = useSelector(
-    (state) => state.generatePnr.CommitPnrResponse
-  );
-  const Commit_Pnr_Error = useSelector(
-    (state) => state.generatePnr.CommitPnrError
-  );
-  ``;
+  const pnrResponse = useSelector((state) => state.generatePnr.CommitPnrResponse); ``
+  const Commit_Pnr_Error = useSelector((state)=> state.generatePnr.CommitPnrError); 
+``
   const [BookingRefNo, setBookingRefNo] = useState("");
   const [selectedFlight, setselectedFlight] = useState(null);
   const [PassengerDetails, setPassengerDetails] = useState(null);
   const [PNR_Number, setPNR_Number] = useState(null);
   const [flightRequest, setflightRequest] = useState(null);
+  const [payment,setPaymentUpdate] = useState(false);
   useEffect(() => {
-    const savedBookingRefNo = localStorage.getItem("BookingRefNo");
-    setBookingRefNo(savedBookingRefNo || null);
-
-    const savedselectedFlight = localStorage.getItem("selectedFlight");
-    if (savedselectedFlight) {
-      const jsonObjectSelectedFlight = JSON.parse(savedselectedFlight);
-      setselectedFlight(jsonObjectSelectedFlight || null);
+     debugger;
+     const savedBookingRefNo = localStorage.getItem("BookingRefNo");
+     setBookingRefNo(savedBookingRefNo || null);
+ 
+     const savedselectedFlight = localStorage.getItem("selectedFlight");
+     if(savedselectedFlight != null){
+       const jsonObjectSelectedFlight = JSON.parse(savedselectedFlight);
+       setselectedFlight(jsonObjectSelectedFlight || null);
+     }
+   
+     const savedPassengerDetails = localStorage.getItem("PassengerDetails");
+     if(savedPassengerDetails != null){
+       const jsonObjectPassenger = JSON.parse(savedPassengerDetails);
+       setPassengerDetails(jsonObjectPassenger || null);
+     }   
+     const savedPNR_Number = localStorage.getItem("PNR_Number");
+     setPNR_Number(savedPNR_Number || null);
+ 
+     const savedFlightRequeest = localStorage.getItem("flightRequest");
+     if(savedFlightRequeest != null){
+       const jsonObjectFlightReq = JSON.parse(savedFlightRequeest);
+       setflightRequest(jsonObjectFlightReq || null);
+     }
+ 
+     let session = getSession();
+     if (payment === false)
+       {
+         debugger;
+       const UpdatePaymentStatusRequest = {
+         SessionId: session.sessionId,
+         PaymentStatus: "Success"
+       }
+       setPaymentUpdate(true);
+       const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();      
+       if(result?.isSuccessful === true){
+       setPaymentUpdate(true);
+       }    
+     }  
+ 
+   }, [dispatch]);
+ 
+   function getSession(){
+    const storedSession = localStorage.getItem("session");
+    if (storedSession) {
+      const jsonObject = JSON.parse(storedSession);
+      const session = {
+        transactionStatusCode: jsonObject.transactionStatusCode,
+        sessionId: jsonObject.sessionId,
+        sequenceNumber : jsonObject.sequenceNumber,
+        securityToken: jsonObject.securityToken
+      }
+      return session;         
     }
-    const savedPassengerDetails = localStorage.getItem("PassengerDetails");
-    if (savedPassengerDetails != null) {
-      const jsonObjectPassenger = JSON.parse(savedPassengerDetails);
-      setPassengerDetails(jsonObjectPassenger || null);
-    }
-    const savedPNR_Number = localStorage.getItem("PNR_Number");
-    setPNR_Number(savedPNR_Number || null);
-
-    const savedFlightRequeest = localStorage.getItem("flightRequest");
-    if (savedFlightRequeest != null) {
-      const jsonObjectFlightReq = JSON.parse(savedFlightRequeest);
-      setflightRequest(jsonObjectFlightReq || null);
-    }
-  }, []);
-  //console.log("passengerDetails: " + PassengerDetails);
+  }
   const formatDate = (dateString) => {
     try {
       const date = new Date(dateString);
@@ -197,8 +226,7 @@ const Confirmation = () => {
                           <td width="40%">Tour Details:</td>
                           <td>
                             <span>
-                              {flightRequest?.origin} To{" "}
-                              {flightRequest?.destination}
+                            
                               {selectedFlight?.itineraries?.[0]?.airport_city &&
                               selectedFlight?.itineraries?.[1]?.airport_city ? (
                                 <>
@@ -508,9 +536,9 @@ const Confirmation = () => {
                               <td
                                 style={{ fontWeight: "600", color: "#3c3c3c" }}
                               >
-                                {PNR_Number != null
-                                  ? "Booking Success Full , With Payment Failed "
-                                  : " Failed"}
+                            {/* {PNR_Number != null ? "Booking Success Full , With Payment Failed " : " Failed"} */}
+                            {Commit_Pnr_Error == null ? "Booking Success Full , With Payment Failed " : "Failed"}
+                             
                               </td>
                             </tr>
                             <tr>
@@ -552,13 +580,11 @@ const Confirmation = () => {
                           <tbody
                             style={{ fontSize: "16px", lineHeight: "1.5" }}
                           >
-                            <tr>
+                           <tr>
                               <td>Tour Details:</td>
                               <td
                                 style={{ fontWeight: "600", color: "#3c3c3c" }}
                               >
-                                {flightRequest?.origin} To{" "}
-                                {flightRequest?.destination}
                                 {selectedFlight?.itineraries?.[0]
                                   ?.airport_city &&
                                 selectedFlight?.itineraries?.[1]

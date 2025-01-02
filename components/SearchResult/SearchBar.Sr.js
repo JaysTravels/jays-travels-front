@@ -45,6 +45,7 @@ const SearchBarSr = () => {
                 flightConnectingHide
                 closeBtn={handle}
                 showLabel
+                searchButtonText="Modify Search"
               />
             </div>
           </div>

@@ -61,8 +61,10 @@ const FrontFooter = () => {
                 </div>
                 <div className="footer-content">
                   <div className="contact-detail">
-                    <div className="footer-logo">
-                      <Image src={footerLogo} alt="" className="img-fluid" />
+                    <div className="footer-logo" >
+                    
+                      < Image src={footerLogo} alt="" href="index" className="img-fluid"  />
+                    
                     </div>
                     <ul className="contact-list">
                       <li>
@@ -70,7 +72,7 @@ const FrontFooter = () => {
                         349 High Street, Smethwick, West Midlands, B66 3PB, United Kingdom
                       </li>
                       <li>
-                        <FontAwesomeIcon icon={faPhone} /> +44-8008101600 <br></br>
+                        <FontAwesomeIcon icon={faPhone} /> <a href="tel:+448008101600">+44-80081-01600</a> <br/>
                         <span>Mon - Sat (10am to 6pm)</span>
                       </li>
                       <li>
@@ -89,13 +91,13 @@ const FrontFooter = () => {
                     <div className="footer-links">
                       <ul>
                         <li>
-                          <a href="#">about us</a>
+                          <a href="about-us">about us</a>
                         </li>
                         <li>
-                          <a href="#">FAQ</a>
+                          <a href="contact-us">Contact</a>
                         </li>
                         <li>
-                          <a href="#">login</a>
+                          <a href="cookie-policy">Cookie policy</a>
                         </li>
                         <li>
                           <a href="#">register</a>

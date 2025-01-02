@@ -25,7 +25,7 @@ import { useRouter } from "next/router";
   const [endDate, setEndDate] = useState(new Date());
   const [showPassengers, setShowPassengers] = useState(false);  
   const [destAirport, setDestAirport] = useState(null);
-  const [originAirport, setOriginAirport] = useState('London , (LON), UnitedKingdom');
+  const [originAirport, setOriginAirport] = useState('London , (LON), United Kingdom');
   const [fromDate , setFromDate] = useState(null);
   const [toDate , setToDate] = useState(null);
   const [adults , setAdults] = useState(1);
@@ -347,7 +347,7 @@ try {
               className="position-relative z-2"
               icon={faCrosshairs}     
               onAirportSelect={handleOriginAirportChange} 
-              defaultText={'London , (LON), UnitedKingdom'}      
+              defaultText={'London , (LON), United Kingdom'}      
             /> 
              </Col>
           <Col lg={props.col1 || "12"} md={props.col1 || "12"}>
@@ -434,7 +434,7 @@ try {
               size="md"
               className="text-uppercase mtLg10 mt6"
               onClick={DispatchData}>
-              Modify Search
+             {props.searchButtonText != null ? props.searchButtonText : "Modify Searches"} 
             </Button>
           </Col>
           <Label>

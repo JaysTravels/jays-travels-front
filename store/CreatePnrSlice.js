@@ -9,7 +9,7 @@ import axiosInstance from '@/utils/axiosInstance';
 export const PNR_Multi = createAsyncThunk(
     'flights/PNR_Muliti',
     async (multirequest, { rejectWithValue }) => {
-      try {
+      try {        
         const response = await axiosInstance.post('PNR', multirequest);
        // console.log("Add Multi " + response.data)      
         return response.data; 

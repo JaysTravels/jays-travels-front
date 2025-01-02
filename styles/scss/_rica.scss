@@ -13294,6 +13294,7 @@ section,
 .contact_section .contact_wrap .title_bar i {
   color: $c3;
   font-size: calc(15px + (18 - 15) * ((100vw - 320px) / (1920 - 320)));
+  padding-left: 10px;
 }
 
 .contact_section .contact_wrap .contact_content ul {
