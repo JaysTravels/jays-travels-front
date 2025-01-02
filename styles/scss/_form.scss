@@ -68,6 +68,12 @@
       display: flex;
       align-items: center;
 
+      .form {
+        &-control {
+          padding-inline: 0 !important;
+        }
+      }
+
       .btn {
         color: $c5;
         font-size: 18px;
