@@ -335,9 +335,107 @@ const termsConditions = () => {
                 <div className="card-body">
                 <h6>If you wish to change or cancel your Flight + Hotel booking then please call the Jays Travel team. We will endeavour to amend or cancel your booking, however, many flights and hotels used in Flight + Hotel bookings are booked at discounted rates and are, therefore, non changeable and non refundable. Any change to a flight or hotel may require the purchase of a new flight or hotel booking. You will be liable for all associated costs of a new booking.</h6>
                 
-                       <h6>Jays Travel reserves the right to charge an administrative fee of £50 per person for all cancellations and changes in addition to any charges levied by the applicable airline or Travel Supplier.</h6>
+                 <h6>Jays Travel reserves the right to charge an administrative fee of £50 per person for all cancellations and changes in addition to any charges levied by the applicable airline or Travel Supplier.</h6>
 
-                         <h6> <b>IMPORTANT:   We strongly recommend that you take out appropriate insurance to cover you for situations which may require you to cancel or change your travel arrangements. </b></h6>
+                 <h6> <b>IMPORTANT:   We strongly recommend that you take out appropriate insurance to cover you for situations which may require you to cancel or change your travel arrangements. </b></h6>
+                </div>
+            
+              </div>
+              <div className="card">
+                <div className="card-header">
+                  <h5>
+                  4.2 : Changes to or Cancellation of your Flight + Hotel booking made by us or other Travel Suppliers
+                  </h5>
+                </div>
+                <div className="card-body">
+                <h6>Jays Travel reserves the right to make changes to your Flight + Hotel booking where such changes are occasioned by one of
+                     its Travel Suppliers, for instance an airline cancelling a flight or a hotel closing down. We will notify you as soon as
+                      we can and if there is sufficient time to do so before your departure. Any such changes will be communicated to you via 
+                      email and/or telephone.</h6>
+                
+                 <h6>If you are notified of any major changes to your Flight + Hotel booking after we have confirmed your booking but before you 
+                    travel, you can either accept these new arrangements (and cover any additional increase in price from your original booking), 
+                    buy another Flight + Hotel booking (and cover any additional increase in price from your original booking) or cancel your Flight
+                     + Hotel booking and receive a full refund from Jays Travel less a £50 administration fee per person on top of any charge made
+                      by an associated supplier such as the airline or a hotelier.</h6>
+
+                 <h6>Major changes shall include: a change in your departure or arrival flight by more than 12 hours; a change in the length
+                     of your holiday; or a change in the airport you depart or arrive from (except where the airports are in the same cities),
+                      a change of accommodation to a lower standard.</h6>
+                      <h6>Jays Travel will not be liable to you for any compensation if forced to cancel or make any changes to your Flight + Hotel 
+                        Package as a result of events outside of our control and which neither Jays Travel or its Travel Suppliers could have
+                         reasonably foreseen. Events outside of our control include: war; threats of war; government intervention, terrorism; 
+                         riots; civil unrest; natural and nuclear disasters; fire; actual or potential weather conditions; health risks;
+                          industrial disputes; technical problems with transport; closed or congested airports; and any force majeure events.</h6>
+                          <h6>Where as a result of such an event occurring after your departure a significant part of your Flight + Hotel Package
+                             cannot be provided, you will be offered a suitable alternative by the Travel Supplier, if available. If a suitable
+                              alternative is not available, or for good reasons, you do not accept the offered alternative, we will return you 
+                               your place of departure. Again we would strongly recommend that you take out comprehensive travel insurance to cover
+                                such circumstances.</h6>
+                </div>
+            
+              </div>
+              <div className="card">
+                <div className="card-header">
+                  <h5>
+                  5.0 : Visa, health and other travel documents
+                  </h5>
+                </div>
+                <div className="card-body">
+                <h6>By making a booking on this site you accept that we are unable to provide any information regarding visa 
+                    and travel documentation on line. You are responsible to ensure that you hold the correct travel documents
+                     and visas required for the route booked and for your final destination.</h6>
+                
+                 <h6>Our website offers scheduled flights from all the major airlines. Please note that in certain cases these
+                     flights may be indirect and fly via other airports. The connection airports will be clearly shown on the 
+                     results screen and if you click more flight detail. You are also responsible for ensuring that you have 
+                     the correct visa(s) for any en-route intermediate stops as well as for your final destination.</h6>
+
+                 <h6> If you have any concerns regarding visas please contact us before making an on-line booking. Jays Travel cannot
+                     be held responsible for an airline refusing to board you, for you being turned back to your origin point
+                      en-route or any additional costs incurred as a result of any failure by you to hold the correct visa or other required documentation.
+                      <b>Please note that we can not provide authoritative advice on visas as this is your responsibility. We may, however, be able to offer guidance
+                         on where to find the correct information that you require.</b></h6>
+                         <h6>Please note that it is your responsibility to ensure that all travellers booked (including children and infants) hold a 
+                            valid passport document. Jays Travel cannot be held responsible for any financial loss incurred due to passports 
+                            not being valid or not being processed in time by the relevant embassy, or for failure to comply with any other 
+                            immigration formalities.</h6>
+                            <h6>Jays Travel is not qualified to give any information regarding health requirements. We suggest that you contact your doctor for all
+                                 questions regarding health requirements for your final destination and any en-route intermediate points.</h6>
+                                 <h6>Up to date travel advice can also be obtained from the Foreign & Commonwealth Office on 0207 238 4503 or via their website at www.fco.gov.uk.</h6>
+
+                </div>
+            
+              </div>
+              <div className="card">
+                <div className="card-header">
+                  <h5>
+                  5.0 : Visa, health and other travel documents
+                  </h5>
+                </div>
+                <div className="card-body">
+                <h6>By making a booking on this site you accept that we are unable to provide any information regarding visa 
+                    and travel documentation on line. You are responsible to ensure that you hold the correct travel documents
+                     and visas required for the route booked and for your final destination.</h6>
+                
+                 <h6>Our website offers scheduled flights from all the major airlines. Please note that in certain cases these
+                     flights may be indirect and fly via other airports. The connection airports will be clearly shown on the 
+                     results screen and if you click more flight detail. You are also responsible for ensuring that you have 
+                     the correct visa(s) for any en-route intermediate stops as well as for your final destination.</h6>
+
+                 <h6> If you have any concerns regarding visas please contact us before making an on-line booking. Jays Travel cannot
+                     be held responsible for an airline refusing to board you, for you being turned back to your origin point
+                      en-route or any additional costs incurred as a result of any failure by you to hold the correct visa or other required documentation.
+                      <b>Please note that we can not provide authoritative advice on visas as this is your responsibility. We may, however, be able to offer guidance
+                         on where to find the correct information that you require.</b></h6>
+                         <h6>Please note that it is your responsibility to ensure that all travellers booked (including children and infants) hold a 
+                            valid passport document. Jays Travel cannot be held responsible for any financial loss incurred due to passports 
+                            not being valid or not being processed in time by the relevant embassy, or for failure to comply with any other 
+                            immigration formalities.</h6>
+                            <h6>Jays Travel is not qualified to give any information regarding health requirements. We suggest that you contact your doctor for all
+                                 questions regarding health requirements for your final destination and any en-route intermediate points.</h6>
+                                 <h6>Up to date travel advice can also be obtained from the Foreign & Commonwealth Office on 0207 238 4503 or via their website at www.fco.gov.uk.</h6>
+                                 
                 </div>
             
               </div>

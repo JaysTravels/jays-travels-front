@@ -1,84 +1,87 @@
-import  React, {useState } from "react";
+import React, { useState } from "react";
 import { Button, FormGroup, Input, Label } from "reactstrap";
 
-const PassengersQty = ({  adultsValue,childsValue,infantsValue, selectedClassValue ,onFocus ,onGuestsChange,updateshow , parentcabin  }) => {  
+const PassengersQty = ({
+  adultsValue,
+  childsValue,
+  infantsValue,
+  selectedClassValue,
+  onFocus,
+  onGuestsChange,
+  updateshow,
+  parentcabin,
+}) => {
   const [valueAdult, setValueAdult] = useState(adultsValue);
   const [valueChildren, setValueChildren] = useState(childsValue);
-  const [valueInfants , setValueInfants] = useState(infantsValue);
-  const [cabin , setCabin] = useState(selectedClassValue);   
+  const [valueInfants, setValueInfants] = useState(infantsValue);
+  const [cabin, setCabin] = useState(selectedClassValue);
   const updateParent = () => {
     onGuestsChange({ valueAdult, valueChildren, valueInfants });
   };
 
   const handleshowparent = () => {
-    if(updateshow){
+    if (updateshow) {
       updateshow(false);
     }
-    
   };
   const handleIncrementAdult = () => {
-     
-    setValueAdult( valueAdult + 1);
-   
+    setValueAdult(valueAdult + 1);
   };
-  const handleCabin = (value)=> {
-   
+  const handleCabin = (value) => {
     setCabin(value);
     parentcabin(value);
-  }
+  };
 
   const handleDecrementAdult = () => {
     setValueAdult((valueAdult) => (valueAdult > 1 ? valueAdult - 1 : 1));
-   
   };
 
   const handleChangeAdult = (e) => {
     const newValue = Number(e.target.value);
     if (!isNaN(newValue) && newValue > 0) {
-      setValueAdult(newValue);    
+      setValueAdult(newValue);
     }
   };
 
   const handleIncrementChildren = () => {
     setValueChildren((prevValue) => prevValue + 1);
-   
   };
 
   const handleDecrementChildren = () => {
     setValueChildren((prevValue) => (prevValue > 1 ? prevValue - 1 : 0));
-    
   };
 
   const handleChangeChildren = (e) => {
     const newValue = Number(e.target.value);
     if (!isNaN(newValue) && newValue > 0) {
-      setValueChildren(newValue);    
+      setValueChildren(newValue);
     }
   };
 
   const handleIncrementInfants = () => {
-    setValueInfants((prevValue) => prevValue + 1);   
+    setValueInfants((prevValue) => prevValue + 1);
   };
 
   const handleDecrementInfants = () => {
-    setValueInfants((prevValue) => (prevValue > 1 ? prevValue - 1 : 0));   
+    setValueInfants((prevValue) => (prevValue > 1 ? prevValue - 1 : 0));
   };
 
   const handleChangeInfants = (e) => {
     const newValue = Number(e.target.value);
     if (!isNaN(newValue) && newValue > 0) {
-      setValueInfants(newValue);   
+      setValueInfants(newValue);
     }
   };
- 
+
   React.useEffect(() => {
     updateParent();
-  }, [valueAdult, valueChildren, valueInfants ]);
-
+  }, [valueAdult, valueChildren, valueInfants]);
 
   return (
-    <>  
-        <div className="showPassengers" onFocus={onFocus}> {/*onBlur={() => handleshowparent()} */}
+    <>
+      <div className="showPassengers" onFocus={onFocus}>
+        {" "}
+        {/*onBlur={() => handleshowparent()} */}
         <div className="rowSt">
           <Label>adult</Label>
 
@@ -86,14 +89,15 @@ const PassengersQty = ({  adultsValue,childsValue,infantsValue, selectedClassVal
             <Button
               color="transparent"
               className="text-c5"
-              onClick={() => handleDecrementAdult()} 
-              >
+              onClick={() => handleDecrementAdult()}
+            >
               -
             </Button>
+
             <Input
               type="text"
               value={valueAdult}
-              onChange={() => handleChangeAdult()}             
+              onChange={() => handleChangeAdult()}
               min="1"
               className="w30px p-0 text-center border-0 rounded-0"
             />
@@ -117,6 +121,7 @@ const PassengersQty = ({  adultsValue,childsValue,infantsValue, selectedClassVal
             >
               -
             </Button>
+
             <Input
               type="text"
               value={valueChildren}
@@ -128,11 +133,11 @@ const PassengersQty = ({  adultsValue,childsValue,infantsValue, selectedClassVal
               color="transparent"
               className="text-c5"
               onClick={() => handleIncrementChildren()}
-            >+
+            >
+              +
             </Button>
           </div>
         </div>
-
         <div className="rowSt mt10">
           <Label>infants</Label>
 
@@ -155,35 +160,88 @@ const PassengersQty = ({  adultsValue,childsValue,infantsValue, selectedClassVal
               color="transparent"
               className="text-c5"
               onClick={() => handleIncrementInfants()}
-              >+
+            >
+              +
             </Button>
           </div>
         </div>
-       
-       <div className="flightClass">
-        <Label check className="mt7 mb4">
-            <Input name="flightClass" type="radio" className="me10"  onClick={() => { handleCabin('economy'); handleshowparent(); }}  checked={selectedClassValue === 'economy'} /> economy
-          </Label>  
+        <div className="flightClass">
           <Label check className="mt7 mb4">
-            <Input name="flightClass" type="radio" className="me10" onClick={() => {handleCabin('premiumeconomy'); handleshowparent();}}  checked={selectedClassValue === 'premiumeconomy'}/> premium economy
+            <Input
+              name="flightClass"
+              type="radio"
+              className="me10"
+              onClick={() => {
+                handleCabin("economy");
+                handleshowparent();
+              }}
+              checked={selectedClassValue === "economy"}
+            />{" "}
+            economy
+          </Label>
+          <Label check className="mt7 mb4">
+            <Input
+              name="flightClass"
+              type="radio"
+              className="me10"
+              onClick={() => {
+                handleCabin("premiumeconomy");
+                handleshowparent();
+              }}
+              checked={selectedClassValue === "premiumeconomy"}
+            />{" "}
+            premium economy
           </Label>
           <Label check className="mt7 mb4" hidden={true}>
-            <Input name="flightClass" type="radio" className="me10" onClick={() => {handleCabin('basiceconomy'); handleshowparent();}} checked={selectedClassValue === 'basiceconomy'}/> basic economy
-          </Label>                
+            <Input
+              name="flightClass"
+              type="radio"
+              className="me10"
+              onClick={() => {
+                handleCabin("basiceconomy");
+                handleshowparent();
+              }}
+              checked={selectedClassValue === "basiceconomy"}
+            />{" "}
+            basic economy
+          </Label>
           <Label check className="mt7 mb4">
-            <Input name="flightClass" type="radio" className="me10" onClick={() => {handleCabin('business'); handleshowparent();}} checked={selectedClassValue === 'business'}/> business
-          </Label>          
+            <Input
+              name="flightClass"
+              type="radio"
+              className="me10"
+              onClick={() => {
+                handleCabin("business");
+                handleshowparent();
+              }}
+              checked={selectedClassValue === "business"}
+            />{" "}
+            business
+          </Label>
           <Label check className="mt7 mb4">
-            <Input name="flightClass" type="radio" className="me10" onClick={() => {handleCabin('first'); handleshowparent();}} checked={selectedClassValue === 'first'}/> first
+            <Input
+              name="flightClass"
+              type="radio"
+              className="me10"
+              onClick={() => {
+                handleCabin("first");
+                handleshowparent();
+              }}
+              checked={selectedClassValue === "first"}
+            />{" "}
+            first
           </Label>
         </div>
-
         <div className="bottomPart" hidden={true}>
-          <Button onClick={() => handleshowparent()} color="transparent" className="btn">
+          <Button
+            onClick={() => handleshowparent()}
+            color="transparent"
+            className="btn"
+          >
             apply
           </Button>
         </div>
-      </div>       
+      </div>
     </>
   );
 };
