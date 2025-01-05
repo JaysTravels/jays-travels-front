@@ -230,7 +230,7 @@ const FrontFooter = () => {
                     <div className="media">
                       <div className="img-part rounded5">
                         <a href="#">
-                          <img src={bf1} className="img-fluid" alt="" />
+                          <Image src={bf1} className="img-fluid" alt="" />
                         </a>
                       </div>
                       <div className="media-body">
@@ -248,7 +248,7 @@ const FrontFooter = () => {
                     <div className="media">
                       <div className="img-part rounded5">
                         <a href="">
-                          <img src={bf2} className="img-fluid" alt="" />
+                          <Image src={bf2} className="img-fluid" alt="" />
                         </a>
                       </div>
                       <div className="media-body">
