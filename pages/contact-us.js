@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { Button } from "reactstrap";
 
-const ContactUs = () => {
+const contactUs = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const enquiryResults = useSelector((state) => state?.enquiry?.response);
@@ -136,8 +136,15 @@ const ContactUs = () => {
                  id="name" placeholder="first name" required value={firstname}
                   onChange={handleFNChange} />
                   {fnerror && <p style={{ color: 'red' }}>{fnerror}</p>} {/* Show error if exists */}
+                <input type="text" className="form-control"
+                 id="name" placeholder="first name" required value={firstname}
+                  onChange={handleFNChange} />
+                  {fnerror && <p style={{ color: 'red' }}>{fnerror}</p>} {/* Show error if exists */}
               </div>
               <div className="form-group col-md-6">
+                <input type="text" className="form-control" id="last-name" placeholder="last name" required value={lastname}
+                  onChange={handleLNChange} />
+                   {lnerror && <p style={{ color: 'red' }}>{lnerror}</p>} {/* Show error if exists */}
                 <input type="text" className="form-control" id="last-name" placeholder="last name" required value={lastname}
                   onChange={handleLNChange} />
                    {lnerror && <p style={{ color: 'red' }}>{lnerror}</p>} {/* Show error if exists */}
@@ -146,13 +153,18 @@ const ContactUs = () => {
                 <input type="text" className="form-control" id="review" placeholder="phone number" required  value={phone}
                   onChange={handlePhoneChange} />
                    {phoneerror && <p style={{ color: 'red' }}>{phoneerror}</p>} 
+                <input type="text" className="form-control" id="review" placeholder="phone number" required  value={phone}
+                  onChange={handlePhoneChange} />
+                   {phoneerror && <p style={{ color: 'red' }}>{phoneerror}</p>} 
               </div>
               <div className="form-group col-lg-6">
                 <input type="text" className="form-control" id="email" placeholder="email address" required  value={email}
                   onChange={handleEmailChange} />
                    {emailerror && <p style={{ color: 'red' }}>{emailerror}</p>} 
-                   </div>
               <div className="form-group col-md-12">
+                <textarea className="form-control" placeholder="Write Your Message" id="exampleFormControlTextarea1" rows={6} defaultValue={""}  required  value={message}
+                  onChange={handleMessageChange} />
+                   {messageerror && <p style={{ color: 'red' }}>{messageerror}</p>}
                 <textarea className="form-control" placeholder="Write Your Message" id="exampleFormControlTextarea1" rows={6} defaultValue={""}  required  value={message}
                   onChange={handleMessageChange} />
                    {messageerror && <p style={{ color: 'red' }}>{messageerror}</p>}
@@ -166,6 +178,7 @@ const ContactUs = () => {
                 </Button>
                 {success && <p style={{ color: 'green', marginTop: '10px' }}>{success}</p>} {/* Show success message */}
               </div>
+            </div>
             </div>
           </form>
         </div>
