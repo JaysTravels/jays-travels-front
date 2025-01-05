@@ -3,9 +3,114 @@ import Footer from "@/components/footers/Front.Footer"
 import FrontNavbar from "@/components/navbars/Front.Navbar"
 import Image from "next/image";
 import contactLogo from "@/public/images/top-logo.png";
-
+import { submitEnquiryRequest,enquirySlice } from "@/store/enquirySlice";
+import { useRouter } from "next/router";
+import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { Button } from "reactstrap";
 
 const contactUs = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const enquiryResults = useSelector((state) => state?.enquiry?.response);
+  const [firstname,setFirstname] = useState('');
+  const [lastname,setLastname] = useState('');
+  const [phone,setPhone] = useState('');
+  const [email,setEmail] = useState('');
+  const [message,setMessage] = useState('');
+  const [fnerror, setFnError] = useState(''); 
+  const [lnerror, setLnError] = useState(''); 
+  const [phoneerror, setphoneError] = useState(''); 
+  const [emailerror, setemailError] = useState(''); 
+  const [messageerror, setmessageError] = useState(''); 
+  const [success, setSuccess] = useState(''); 
+
+  const handleFNChange = (e) => {
+    setFirstname(e.target.value);
+    setFnError('');
+  };
+
+  const handleLNChange = (e) => {
+    setLastname(e.target.value);
+    setLnError('')
+  };
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
+    setphoneError('');
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setemailError('');
+  };
+
+  const handleMessageChange = (e) => {
+    setMessage(e.target.value);
+    setmessageError('');
+  };
+ 
+  const verifydata = () => {
+    if (!firstname.trim()) {
+      setFnError('First name is required'); 
+      return false;
+    }
+    else{
+      setFnError(''); 
+    }
+    if (!lastname.trim()) {
+      setLnError('Last name is required'); 
+      return false;
+    }else{
+      setLnError(''); 
+    }
+
+    if (!phone.trim()) {
+      setphoneError('Phone number is required'); 
+      return false;
+    }else{
+      setphoneError(''); 
+    }
+
+
+    if (!email.trim()) {
+      setemailError('Email is required'); 
+      return false;
+    }else{
+      setemailError(''); 
+    }
+
+
+    if (!message.trim()) {
+      setmessageError('Message is required'); 
+      return false;
+    }
+    else{
+      setmessageError(''); 
+    }
+    return true;
+  }
+  const DispatchData=()=>{
+
+    if(verifydata() === false){
+      return;
+    } 
+    let enquiryRequest = {
+      "FirstName": firstname,
+      "LastName" : lastname,
+      "PhoneNumber": phone,
+      "EmailAddress": email,
+      "Message": message,
+      "Source": "Contact-Us"
+     }
+		 try{
+			  dispatch(submitEnquiryRequest(enquiryRequest)).unwrap().then(()=>{
+          setFnError('');  // Clear error
+				setSuccess('Form submitted successfully! 🎉');   
+			  })
+		  } catch (error) {
+			console.error("Error calling setPassengerDetails:", error.message);
+		  }
+    }  
   return (
     <>
       <Meta title="Contact Us" />
@@ -27,23 +132,40 @@ const contactUs = () => {
           <form>
             <div className="row">
               <div className="form-group col-md-6">
-                <input type="text" className="form-control" id="name" placeholder="first name" required />
+                <input type="text" className="form-control"
+                 id="name" placeholder="first name" required value={firstname}
+                  onChange={handleFNChange} />
+                  {fnerror && <p style={{ color: 'red' }}>{fnerror}</p>} {/* Show error if exists */}
               </div>
               <div className="form-group col-md-6">
-                <input type="text" className="form-control" id="last-name" placeholder="last name" required />
+                <input type="text" className="form-control" id="last-name" placeholder="last name" required value={lastname}
+                  onChange={handleLNChange} />
+                   {lnerror && <p style={{ color: 'red' }}>{lnerror}</p>} {/* Show error if exists */}
               </div>
               <div className="form-group col-lg-6">
-                <input type="text" className="form-control" id="review" placeholder="phone number" required />
+                <input type="text" className="form-control" id="review" placeholder="phone number" required  value={phone}
+                  onChange={handlePhoneChange} />
+                   {phoneerror && <p style={{ color: 'red' }}>{phoneerror}</p>} 
               </div>
               <div className="form-group col-lg-6">
-                <input type="text" className="form-control" id="email" placeholder="email address" required />
-              </div>
+                <input type="text" className="form-control" id="email" placeholder="email address" required  value={email}
+                  onChange={handleEmailChange} />
+                   {emailerror && <p style={{ color: 'red' }}>{emailerror}</p>} 
               <div className="form-group col-md-12">
-                <textarea className="form-control" placeholder="Write Your Message" id="exampleFormControlTextarea1" rows={6} defaultValue={""} />
+                <textarea className="form-control" placeholder="Write Your Message" id="exampleFormControlTextarea1" rows={6} defaultValue={""}  required  value={message}
+                  onChange={handleMessageChange} />
+                   {messageerror && <p style={{ color: 'red' }}>{messageerror}</p>}
               </div>
               <div className="col-md-12 submit-btn">
-                <button className="btn btn-solid" type="submit">Send Your Message</button>
+                {/* <button className="btn btn-solid" type="button" onClick={DispatchData}>Send Your Message</button> */}
+                <Button                 
+                 className="btn btn-solid"
+                  onClick={DispatchData}>
+                 Send Your Message
+                </Button>
+                {success && <p style={{ color: 'green', marginTop: '10px' }}>{success}</p>} {/* Show success message */}
               </div>
+            </div>
             </div>
           </form>
         </div>
