@@ -4,12 +4,12 @@ import FrontNavbar from "@/components/navbars/Front.Navbar"
 import Image from "next/image";
 import contactLogo from "@/public/images/top-logo.png";
 import { submitEnquiryRequest,enquirySlice } from "@/store/enquirySlice";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 import {useDispatch, useSelector} from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { Button } from "reactstrap";
 
-const contactUs = () => {
+const ContactUs = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const enquiryResults = useSelector((state) => state?.enquiry?.response);
@@ -229,4 +229,4 @@ const contactUs = () => {
   );
 };
 
-export default contactUs;
+export default ContactUs;

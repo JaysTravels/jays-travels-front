@@ -20,8 +20,8 @@ export default function Home() {
       <FlightRoutesHome />
       <SpecialOfferHome />
       <CheapTicketsHome />
-      {/* <FlightDetailHome /> */}
-      {/* <BlogSectionHome /> */}
+      {/* <FlightDetailHome />
+     <BlogSectionHome />  */}
       <SubscribeFooterHome />
     </>
   );

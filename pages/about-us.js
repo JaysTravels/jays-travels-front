@@ -1,7 +1,6 @@
 import Meta from "@/components/common/Meta"
 import Footer from "@/components/footers/Front.Footer"
 import FrontNavbar from "@/components/navbars/Front.Navbar"
-import Image from "next/image";
 
 
 const aboutUs = () => {
@@ -36,21 +35,21 @@ const aboutUs = () => {
         <div className="col-xl-7  order-xl-1">
           <div className="image-section">
             <div className="img-box">
-              <Image src="/images/About/about-us-img1.jpg" data-tilt data-tilt-perspective={110} data-tilt-speed={400} data-tilt-max="1.2" className="img-fluid  lazyload radius-cls" alt="" height={200} width={200} />
+              <img src="../images/About/about-us-img1.jpg" data-tilt data-tilt-perspective={110} data-tilt-speed={400} data-tilt-max="1.2" className="img-fluid  lazyload radius-cls" alt />
               <div className="title-box radius-cls">
                 <h3>India</h3>
                 <h6>Taj Mahal</h6>
               </div>
             </div>
             <div className="img-box">
-              <Image src="/images/About/about-us-img2.jpg" data-tilt data-tilt-perspective={110} data-tilt-speed={400} data-tilt-max="1.2" className="img-fluid  lazyload radius-cls" alt="" height={200} width={200} />
+              <img src="../images/About/about-us-img2.jpg" data-tilt data-tilt-perspective={110} data-tilt-speed={400} data-tilt-max="1.2" className="img-fluid  lazyload radius-cls" alt />
               <div className="title-box radius-cls">
                 <h3>Dubai</h3>
                 <h6>Burj Khalifa</h6>
               </div>
             </div>
             <div className="img-box">
-              <Image src="/images/About/about-us-img3.jpg" data-tilt data-tilt-perspective={110} data-tilt-speed={400} data-tilt-max="1.2" className="img-fluid  lazyload radius-cls" alt="" height={200} width={200}  />
+              <img src="../images/About/about-us-img3.jpg" data-tilt data-tilt-perspective={110} data-tilt-speed={400} data-tilt-max="1.2" className="img-fluid  lazyload radius-cls" alt />
               <div className="title-box radius-cls">
                 <h3>Berlin</h3>
                 <h6>River Front</h6>
@@ -78,7 +77,7 @@ const aboutUs = () => {
   {/* about section end */}
   {/*  service section start */}
   <section className="section-b-space dark-cls">
-    <Image src="/images/cab/grey-bg.jpg" alt="" className="img-fluid blur-up lazyload bg-img" width={200} height={200} />
+    <img src="../assets/images/cab/grey-bg.jpg" alt className="img-fluid blur-up lazyload bg-img" />
     <div className="container">
       <div className="title-1">
         <span className="title-label">new</span>
