@@ -6,7 +6,8 @@ import flightsReducer  from '../store/AvailabilitySlice';
 import airSellReducer from '../store/AirSellSlice';
 import createPnrSliceReducer from '../store/CreatePnrSlice';
 import getPaymentPagReduer  from '../store/PaymentSlice';
-import securityToken from '../store/authentication'
+import securityToken from '../store/authentication';
+import enquiryReducer from '../store/enquirySlice';
 export const store = configureStore({
     reducer: {
         flights: flightsReducer,
@@ -14,6 +15,7 @@ export const store = configureStore({
         generatePnr : createPnrSliceReducer,
         payments : getPaymentPagReduer,
         token : securityToken,
+        enquiry : enquiryReducer
       },
 })
 export default store;
