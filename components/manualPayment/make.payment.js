@@ -57,7 +57,7 @@ const makePayment = () => {
                 <input type="text" className="form-control" id="email" placeholder="Country" required />
               </div>
               <div className="form-group col-lg-12" required>
-             <input type="checkbox" className="make-payment-checkbox" /><p>Check here to confirm that you have read and accept our <a href="/">Terms & Conditions</a></p>
+             <input type="checkbox" className="make-payment-checkbox" /><p>Check here to confirm that you have read and accept our Terms & Conditions</p>
               </div>
              
            
