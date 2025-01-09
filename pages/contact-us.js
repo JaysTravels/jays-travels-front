@@ -4,7 +4,7 @@ import FrontNavbar from "@/components/navbars/Front.Navbar"
 import Image from "next/image";
 import contactLogo from "@/public/images/top-logo.png";
 import { submitEnquiryRequest,enquirySlice } from "@/store/enquirySlice";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import {useDispatch, useSelector} from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { Button } from "reactstrap";
@@ -151,6 +151,7 @@ const ContactUs = () => {
                 <input type="text" className="form-control" id="email" placeholder="email address" required  value={email}
                   onChange={handleEmailChange} />
                    {emailerror && <p style={{ color: 'red' }}>{emailerror}</p>} 
+                   </div>
               <div className="form-group col-md-12">
                 <textarea className="form-control" placeholder="Write Your Message" id="exampleFormControlTextarea1" rows={6} defaultValue={""}  required  value={message}
                   onChange={handleMessageChange} />
@@ -165,7 +166,6 @@ const ContactUs = () => {
                 </Button>
                 {success && <p style={{ color: 'green', marginTop: '10px' }}>{success}</p>} {/* Show success message */}
               </div>
-            </div>
             </div>
           </form>
         </div>

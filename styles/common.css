@@ -14,3 +14,7 @@
   .invalid-feedback2{
     color:red;
   }
+  .make-payment-checkbox{
+    float: left;
+    margin-right: 5px;
+  }

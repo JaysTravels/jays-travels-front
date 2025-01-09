@@ -16,6 +16,7 @@ const HeaderHome = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     fade: true,
+    slidesToShow: true,
   };
 
   return (
@@ -23,10 +24,7 @@ const HeaderHome = () => {
       <div className="headerHome cab-section flight-section p-0">
         <Slider {...settings}>
           <div>
-            <div
-              className="slides"
-              style={{ backgroundImage: "url(/images/home-slides/slide1.jpg)" }}
-            >
+            <div className="slides" style={{ backgroundImage: "url(/images/home-slides/slide1.jpg)" }}>
               <div className="cloud">
                 <Image
                   src={cloud}
@@ -40,10 +38,8 @@ const HeaderHome = () => {
             </div>
           </div>
           <div>
-            <div
-              className="slides"
-              style={{ backgroundImage: "url(/images/home-slides/slide2.jpg)" }}
-            >
+            <div className="slides" style={{ backgroundImage: "url(/images/home-slides/slide2.jpg)" }}>
+           
               <div className="cloud">
                 <Image
                   src={cloud}
@@ -57,10 +53,7 @@ const HeaderHome = () => {
             </div>
           </div>
           <div>
-            <div
-              className="slides"
-              style={{ backgroundImage: "url(/images/home-slides/slide3.jpg)" }}
-            >
+            <div className="slides" style={{ backgroundImage: "url(/images/home-slides/slide3.jpg)" }}>
               <div className="cloud">
                 <Image
                   src={cloud}
@@ -73,6 +66,7 @@ const HeaderHome = () => {
               </div>
             </div>
           </div>
+          
         </Slider>
         <div className="hSearch">
           <Container>
