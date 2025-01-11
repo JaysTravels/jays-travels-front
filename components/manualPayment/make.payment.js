@@ -2,9 +2,169 @@ import Meta from "@/components/common/Meta"
 import Footer from "@/components/footers/Front.Footer"
 import FrontNavbar from "@/components/navbars/Front.Navbar"
 import Image from "next/image";
+import {getManualPaymentPage} from "@/store/ManualPayment";
 
+import { useRouter } from "next/router";
+import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect, useState } from 'react';
 
-const makePayment = () => {
+const MakePayment = () => {
+   const dispatch = useDispatch();
+   const paymentResponse = useSelector((state) => state.manualpayment.manual_payment_response);
+   const [buttonText, setBttonText] = useState('Continue'); 
+   const [confirmText, setconfirmText] = useState('Confirm');   
+   const [loading , setLoading] = useState(false);
+   const [showerror , setshowError] = useState(false);
+   const [showLabel,setshowLabel] = useState(false);
+   const [showcancel,setShowcancel] = useState(false);
+   const [showconfirm,setShowconfirm] = useState(false);
+   const [showsubmit,setShowsubmit] = useState(true);
+   const [isInputDisabled, setIsInputDisabled] = useState(false);
+   const [confirmDisabled , setconfirmDisabled] = useState(false);
+   const [isConfirmed, setIsConfirmed] = useState(true);
+   const [formData, setFormData] = useState({
+    amount: '',
+    firstname: '',
+    lastname: '',
+    phone: '',
+    email: '',
+    address: '',
+    city: '',
+    postal: '',
+    country: '',
+    bookingref: '',
+  });
+  const [errors, setErrors] = useState({
+    amount: '',
+    firstname: '',
+    lastname: '',
+    phone: '',
+    email: '',
+    address: '',
+    city: '',
+    postal: '',
+    country: '',
+    bookingref: '',
+    chkconfirm: '',
+  });
+
+  const handleCheckboxChange = (e) => {
+   
+    setIsConfirmed(e.target.checked);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      chkconfirm: '',
+    }));
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: '',
+    }));
+
+    setshowError(false);
+  };
+ 
+
+  const  handleConfirm = async(e)=>{
+    
+    e.preventDefault();
+    setconfirmText("Please wait...")
+    setconfirmDisabled(true);
+    setShowcancel(false);
+    setshowLabel(false);
+    setLoading(true)
+    let data ;
+    const paymentRequest = {
+      OrderId: formData.bookingref,
+      Amount: formData.amount, 
+      Currency: "GBP",
+      Language: 'en_US'
+      }    
+
+     try { 
+      const paymentPageData = await dispatch(getManualPaymentPage(paymentRequest)).unwrap();        
+      console.log('Get payment successfully:', paymentPageData);
+       debugger;
+       data = paymentPageData;
+       if(paymentPageData == undefined){
+        data = paymentResponse;
+       }
+       
+       
+       if (data && data.response == "Success" && data.data.url) {
+
+        if (formData) {
+          localStorage.setItem("ManualPaymentformData", JSON.stringify(formData));
+        }
+        data = data.data;
+        debugger;
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = data.url;
+
+        Object.keys(data.parameters)
+          .sort()
+          .forEach((key) => {          
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = key.toUpperCase();
+            input.value = data.parameters[key];
+            form.appendChild(input);
+          });
+        document.body.appendChild(form);
+        form.submit();
+       }   
+       else{
+        setconfirmText("Continue")
+        setconfirmDisabled(false);
+        setshowError(true);
+       }  
+    } catch (err) {
+      console.error('An error occurred:', err);     
+    } finally {    
+      setconfirmText("Continue")
+      setconfirmDisabled(false);
+    }
+  }
+    const handleSubmit = (e) => { 
+      e.preventDefault();
+      setshowError(false);
+      const newErrors = {};
+      for (const key in formData) {
+        if (!formData[key].trim()) {
+          newErrors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required`;
+        }
+      }
+        if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return;
+      }
+      
+      if(!isConfirmed) { return;}
+      setshowLabel(true);
+      setShowconfirm(true);
+      setShowcancel(true);
+      setShowsubmit(false);
+      setIsInputDisabled(true);
+      
+     }
+
+     const handleCancel = (e) => { 
+      e.preventDefault();
+      setshowLabel(false);
+      setShowconfirm(false);
+      setShowcancel(false);
+      setShowsubmit(true);
+      setIsInputDisabled(false);
+     }
+
   return (
     <>
       <div className="container">
@@ -27,42 +187,85 @@ const makePayment = () => {
           <form>
             <div className="row">
             <div className="form-group col-md-6">
-                <input type="text" className="form-control" id="name" placeholder="How much would you like to pay?" required />
+                <input type="text" className="form-control" id="amount"  disabled={isInputDisabled} 
+                  name="amount"
+                  value={formData.amount}
+                  onChange={handleChange}  placeholder="How much would you like to pay?" required />
+                   {errors.amount && <span style={{ color: 'red' }}>{errors.amount}</span>}
               </div>
               <div className="form-group col-md-6">
-                <input type="text" className="form-control" id="last-name" placeholder="Your Booking Reference" required />
+                <input type="text" className="form-control" id="bookingref"  disabled={isInputDisabled} 
+                  name="bookingref"
+                  value={formData.bookingref}
+                  onChange={handleChange}  placeholder="Your Booking Reference" required />
+                   {errors.bookingref && <span style={{ color: 'red' }}>{errors.bookingref}</span>}
               </div>
               <div className="form-group col-md-6">
-                <input type="text" className="form-control" id="name" placeholder="first name" required />
+                <input type="text" className="form-control"  disabled={isInputDisabled} 
+                  id="firsname"
+                  name="firstname"
+                  value={formData.firstname}
+                  onChange={handleChange} placeholder="first name" required />
+                   {errors.firstname && <span style={{ color: 'red' }}>{errors.firstname}</span>}
               </div>
               <div className="form-group col-md-6">
-                <input type="text" className="form-control" id="last-name" placeholder="last name" required />
+                <input type="text" className="form-control" id="lastname"  disabled={isInputDisabled} 
+                  name="lastname"
+                  value={formData.lastname}
+                  onChange={handleChange}  placeholder="last name" required />
+                   {errors.lastname && <span style={{ color: 'red' }}>{errors.lastname}</span>}
               </div>
               <div className="form-group col-lg-6">
-                <input type="text" className="form-control" id="review" placeholder="phone number" required />
+                <input type="text" className="form-control" id="phone" name="phone"  disabled={isInputDisabled} 
+                  value={formData.phone}
+                  onChange={handleChange}  placeholder="phone number" required />
+                   {errors.phone && <span style={{ color: 'red' }}>{errors.phone}</span>}
               </div>
               <div className="form-group col-lg-6">
-                <input type="text" className="form-control" id="email" placeholder="email address" required />
+                <input type="text" className="form-control" id="email" name="email"  disabled={isInputDisabled} 
+                  value={formData.email}
+                  onChange={handleChange}  placeholder="email address" required />
+                   {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
               </div>
               <div className="form-group col-lg-6">
-                <input type="text" className="form-control" id="review" placeholder="Billing Address Line 1" required />
+                <input type="text" className="form-control" id="address" name="address"  disabled={isInputDisabled} 
+                  value={formData.adress}
+                  onChange={handleChange}  placeholder="Billing Address Line 1" required />
+                   {errors.address && <span style={{ color: 'red' }}>{errors.address}</span>}
               </div>
               <div className="form-group col-lg-6">
-                <input type="text" className="form-control" id="review" placeholder="City" required />
+                <input type="text" className="form-control" id="city" name="city"  disabled={isInputDisabled} 
+                  value={formData.city}
+                  onChange={handleChange} placeholder="City" required />
+                   {errors.city && <span style={{ color: 'red' }}>{errors.city}</span>}
               </div>
               <div className="form-group col-lg-6">
-                <input type="text" className="form-control" id="email" placeholder="Post Code / Zip Code" required />
+                <input type="text" className="form-control" id="postal" name="postal"  disabled={isInputDisabled} 
+                  value={formData.postal}
+                  onChange={handleChange} placeholder="Post Code / Zip Code" required />
+                   {errors.postal && <span style={{ color: 'red' }}>{errors.postal}</span>}
               </div>
               <div className="form-group col-lg-6">
-                <input type="text" className="form-control" id="email" placeholder="Country" required />
+                <input type="text" className="form-control" id="country" name="country"  disabled={isInputDisabled} 
+                  value={formData.country}
+                  onChange={handleChange} placeholder="Country" required />
+                   {errors.country && <span style={{ color: 'red' }}>{errors.country}</span>}
               </div>
               <div className="form-group col-lg-12" required>
-             <input type="checkbox" className="make-payment-checkbox" /><p>Check here to confirm that you have read and accept our Terms & Conditions</p>
+             <input type="checkbox" id="chkconfirm"  checked={isConfirmed}
+              onChange={handleCheckboxChange} className="make-payment-checkbox" /><p>Check here to confirm that you have read and accept our Terms & Conditions</p>
+               {!isConfirmed && <span className="form-label" style={{ color: 'red' }}>  Check here to confirm </span>}
+               {errors.chkconfirm && <span style={{ color: 'red' }}>{errors.chkconfirm}</span>}
               </div>
+                      
+              
+              <div className="col-md-12 submit-btn">  
              
-           
-              <div className="col-md-12 submit-btn">
-                <button className="btn btn-solid" type="submit">Continue</button>
+                {showsubmit && (<button className="btn btn-solid" onClick={handleSubmit}>{buttonText}</button>)}                
+                {showconfirm && (<button className="btn btn-solid" disabled={confirmDisabled}  onClick={handleConfirm}>{confirmText}</button> )}
+                {showcancel && (<button className="btn btn-solid" onClick={handleCancel}>Cancel</button> )}
+                {showLabel && <span className="form-label">  Please verify all fields are ok</span>}  
+                {showerror && <span className="form-label" style={{ color: 'red' }}>  Could not submit please try again... some thing went wrong</span>}      
               </div>
             </div>
           </form>
@@ -120,6 +323,6 @@ const makePayment = () => {
       </div>
 </>
   );
-};
 
-export default makePayment;
+};
+export default MakePayment;

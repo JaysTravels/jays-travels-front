@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "animate.css/animate.min.css"; // Import animate.css
-import "@/styles/globals.scss";
-import "@/styles/common.css"
+import "../styles/globals.scss";
+import "../styles/common.css"
 import { Providers } from "../store/provider";
 import { store } from "../store/store";
 import { RouterProvider } from "react-router-dom";
