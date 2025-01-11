@@ -54,7 +54,7 @@ const FrontNavOnly = (props) => {
               </Col>
               <Col lg={6}>
                 <DropdownItem href="/types/missed-connection-compensation">
-                  Missed connection compensation
+                  Missed connection compensations
                 </DropdownItem>
                 <DropdownItem href="/types/diversion-compensation">
                   Diversion compensation
