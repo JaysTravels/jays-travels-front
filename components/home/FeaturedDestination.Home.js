@@ -4,7 +4,7 @@ import image2 from "@/public/images/destination/2.jpg";
 import image3 from "@/public/images/destination/3.jpg";
 import Slider from "react-slick";
 import { Button, Col, Container, Row } from "reactstrap";
-import "slick-carousel/slick/slick.css";
+
 
 const items = [
   {

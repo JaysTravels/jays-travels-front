@@ -5,6 +5,7 @@ import "../styles/common.css"
 import { Providers } from "../store/provider";
 import { store } from "../store/store";
 import { RouterProvider } from "react-router-dom";
+import "slick-carousel/slick/slick.css";
 
 export default function App({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page);

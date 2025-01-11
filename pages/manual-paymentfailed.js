@@ -121,9 +121,8 @@ const ManualPaymentFailed = () => {
 
             <div className="maxW500px mx-auto">
               <h2>
-                {Commit_Pnr_Error == null
-                  ? "Booking Successful ! Get Ready For Unforgettable Trip."
-                  : "Unable to create booking there is some thing went wrong please contact us at ....."}
+                {" Payment Failed ! Payment declined by Bank."
+                  }
               </h2>
 
               <h3 className="mt5 mb30">
@@ -177,45 +176,7 @@ const ManualPaymentFailed = () => {
                         </tr>
                       </tbody>
                     </table>
-                  </td>
-                  <td width="50%" className="mainTd">
-                    <table
-                      className="booking-table"
-                      border="0"
-                      cellPadding="0"
-                      cellSpacing="0"
-                    >
-                      <tbody>
-                        <tr>
-                          <td colSpan="2" className="bb">
-                            <h5>Contact Details</h5>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td width="40%">Phone Number:</td>
-                          <td>
-                          <span>{formData.phone}</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td width="40%">Email:</td>
-                          <td>
-                            <span>
-                            {formData.email}
-                            </span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td width="40%">Address</td>
-                          <td>
-                            <span>
-                            {formData.address}
-                            </span>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
+                  </td>                 
                 </tr>
               </tbody>
             </table>
@@ -260,7 +221,7 @@ const ManualPaymentFailed = () => {
                       >
                         Email:
                         <Link href="#" style={{ fontWeight: "500" }}>
-                          {formatDate.email}
+                          {formData.email}
                         </Link>
                       </h6>
                       <h6
@@ -274,7 +235,7 @@ const ManualPaymentFailed = () => {
                       >
                         Phone No:{" "}
                         <span style={{ fontWeight: "500" }}>
-                          {formatDate.phone}
+                          {formData.phone}
                         </span>
                       </h6>
                     </td>
@@ -316,7 +277,7 @@ const ManualPaymentFailed = () => {
                       >
                         City:
                         <Link href="#" style={{ fontWeight: "500" }}>
-                          {formatDate.city}
+                          {formData.city}
                         </Link>
                       </h6>
                       <h6
@@ -330,7 +291,7 @@ const ManualPaymentFailed = () => {
                       >
                         Postal Code:{" "}
                         <span style={{ fontWeight: "500" }}>
-                          {formatDate.postal}
+                          {formData.postal}
                         </span>
                       </h6>
                     </td>

@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import Slider from "react-slick";
 import { Button } from "reactstrap";
-import "slick-carousel/slick/slick.css";
 
 const items = [
   {
