@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+     "prod": "next start",
     "build": "next build",
-    "start": "/home/site/wwwroot/node_modules/next/dist/bin/next",
+    "start": "node .next/standalone/server.js",
     "startLocal": "next start",
     "lint": "next lint"
   },
