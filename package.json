@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-     "prod": "next start",
+    "dev": "next dev",     
     "build": "next build",
-    "start": "node .next/standalone/server.js",
+    "start": "next start",
     "startLocal": "next start",
     "lint": "next lint"
   },
