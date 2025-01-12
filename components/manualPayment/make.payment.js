@@ -263,7 +263,7 @@ const MakePayment = () => {
              
                 {showsubmit && (<button className="btn btn-solid" onClick={handleSubmit}>{buttonText}</button>)}                
                 {showconfirm && (<button className="btn btn-solid" disabled={confirmDisabled}  onClick={handleConfirm}>{confirmText}</button> )}
-                {showcancel && (<button className="btn btn-solid" onClick={handleCancel}>Cancel</button> )}
+                {showcancel && (<button className="btn btn-solid" onClick={handleCancel}>Edit</button> )}
                 {showLabel && <span className="form-label">  Please verify all fields are ok</span>}  
                 {showerror && <span className="form-label" style={{ color: 'red' }}>  Could not submit please try again... some thing went wrong</span>}      
               </div>
