@@ -6,8 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "startLocal": "next start",
-     "start:azure": "node server.js" ,
     "lint": "next lint"
   },
   "dependencies": {
