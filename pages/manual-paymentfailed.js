@@ -6,7 +6,7 @@ import Meta from "@/components/common/Meta";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { UPDATE_PAYMENT_STATUS } from "@/store/CreatePnrSlice";
+import { UPDATE_PAYMENT_STATUS_MANUAL } from "@/store/ManualPayment";
 import { Col, Row } from "reactstrap";
 const ManualPaymentFailed = () => {
   
@@ -22,76 +22,56 @@ const ManualPaymentFailed = () => {
   const Commit_Pnr_Error = useSelector(
     (state) => state.generatePnr.CommitPnrError
   );
-  ``;
-  const [BookingRefNo, setBookingRefNo] = useState("");
-  const [selectedFlight, setselectedFlight] = useState(null);
-  const [PassengerDetails, setPassengerDetails] = useState(null);
-  const [PNR_Number, setPNR_Number] = useState(null);
-  const [flightRequest, setflightRequest] = useState(null);
+  
   const [payment, setPaymentUpdate] = useState(false);
   const [formData, setformData] = useState(false);
   useEffect(() => {
-   
-    const formDataManual = localStorage.getItem("ManualPaymentformData");
+  
+    let formDataManual = localStorage.getItem("ManualPaymentformData");
+    let ManualPaymentCustomerDetails;
+    const updatePaymentStatus = async (ManualPaymentCustomerDetails) => {
+      try {
+     
+        const result = await dispatch(UPDATE_PAYMENT_STATUS_MANUAL(ManualPaymentCustomerDetails)).unwrap();
+
+        // Check the result
+        if (result?.isSuccessful === true) {
+          console.log("Payment status updated successfully:", result);
+          // Perform further actions if needed
+        } else {
+          console.error("Payment status update failed:", result);
+        }
+      } catch (error) {
+        console.error("An error occurred while updating payment status:", error);
+      }
+    };
     if(formDataManual != null){        
         setformData(JSON.parse(formDataManual) || null);
-    } 
-    // let session = getSession();
-    // if (session != null && payment == false)
-    //   {
-    //     debugger;
-    //   const UpdatePaymentStatusRequest = {
-    //     SessionId: session.sessionId,
-    //     PaymentStatus: "Success"
-    //   }
-    //   setPaymentUpdate(true);
-    //   const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();      
-    //   if(result?.isSuccessful === true){
-    //   setPaymentUpdate(true);
-    //   }    
-    // }  
+        formDataManual = JSON.parse(formDataManual);
+      
+       ManualPaymentCustomerDetails = {
+        BookingRef: formDataManual.bookingref,
+        Amount:formDataManual.amount,
+        FirstName: formDataManual.firstname,
+        LastName: formDataManual.lastname,
+        Email: formDataManual.email,
+        Phone: formDataManual.phone,
+        Address: formDataManual.address,
+        City: formDataManual.city,
+        Country: formDataManual.country,
+        Postal: formDataManual.postal,
+        PaymentStatus: false        
+       }
+       setPaymentUpdate(true);
+       updatePaymentStatus(ManualPaymentCustomerDetails);      
+       setPaymentUpdate(true);
+ //   } 
+  }
+   
 
   }, [dispatch]);
- //console.log("passengerDetails: " + PassengerDetails);
-
-  function getSession() {
-    const storedSession = localStorage.getItem("session");
-    if (storedSession) {
-      const jsonObject = JSON.parse(storedSession);
-      const session = {
-        transactionStatusCode: jsonObject.transactionStatusCode,
-        sessionId: jsonObject.sessionId,
-        sequenceNumber: jsonObject.sequenceNumber,
-        securityToken: jsonObject.securityToken,
-      };
-      return session;
-    }
-  }
-  const formatDate = (dateString) => {
-    try {
-      const date = new Date(dateString);
-      return new Intl.DateTimeFormat("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      }).format(date);
-    } catch (error) {
-      console.log("Error calling formatDate:", error.message);
-    }
-  };
-
-  function calculateDaysDifference(date1, date2) {
-    try {
-      const d1 = new Date(date1);
-      const d2 = new Date(date2);
-      const timeDifference = d2 - d1;
-      const dayDifference = timeDifference / (1000 * 60 * 60 * 24);
-      return dayDifference;
-    } catch (error) {
-      console.log("Error calling calculateDaysDifference:", error.message);
-    }
-  }
-
+  
+ 
   return (
     <>
       <Meta title="Confirmation" />
