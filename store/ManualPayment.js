@@ -18,7 +18,23 @@ export const getManualPaymentPage = createAsyncThunk(
         return rejectWithValue(error?.data || 'Server Error');
       }
     }
-  );   
+  );  
+  
+  export const UPDATE_PAYMENT_STATUS_MANUAL = createAsyncThunk(
+    'payments/UpdateManualPayment',
+    async (multirequest, { rejectWithValue }) => {
+      try {
+        debugger;
+        const response = await axiosInstance.post('payment/UpdateManualPayment', multirequest);
+        console.log("UpdateManualPayment " + response.data)      
+        return response.data; 
+      } catch (error) {
+        
+        console.log("Error while sending request to UpdateManualPayment request" +error);        
+        return rejectWithValue(error?.data || 'Server Error');
+      }
+    }
+  );
 
 const ManualPaymentSlice = createSlice({  
  
