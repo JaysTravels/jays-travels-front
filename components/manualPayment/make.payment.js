@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import React, { useEffect, useState } from 'react';
 
 const MakePayment = () => {
+  console.log("Environment:", process.env.NODE_ENV);
    const dispatch = useDispatch();
    const paymentResponse = useSelector((state) => state.manualpayment.manual_payment_response);
    const [buttonText, setBttonText] = useState('Continue'); 
