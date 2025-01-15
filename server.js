@@ -21,7 +21,7 @@ app.prepare().then(() => {
   });
 
   // Start the server
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 8080;
   server.listen(port, (err) => {
     if (err) throw err;
     console.log(`> Ready on http://localhost:${port}`);
