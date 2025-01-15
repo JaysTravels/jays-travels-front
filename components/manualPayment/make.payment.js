@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import React, { useEffect, useState } from 'react';
 
 const MakePayment = () => {
+  console.log("Environment:", process.env.NODE_ENV);
    const dispatch = useDispatch();
    const paymentResponse = useSelector((state) => state.manualpayment.manual_payment_response);
    const [buttonText, setBttonText] = useState('Continue'); 
@@ -21,7 +22,7 @@ const MakePayment = () => {
    const [showsubmit,setShowsubmit] = useState(true);
    const [isInputDisabled, setIsInputDisabled] = useState(false);
    const [confirmDisabled , setconfirmDisabled] = useState(false);
-   const [isConfirmed, setIsConfirmed] = useState(true);
+   const [isConfirmed, setIsConfirmed] = useState(false);
    const [formData, setFormData] = useState({
     amount: '',
     firstname: '',
@@ -49,13 +50,13 @@ const MakePayment = () => {
   });
 
   const handleCheckboxChange = (e) => {
-   if (process.env.NODE_ENV === 'development') {
-  console.log('Running in development mode');
-} else if (process.env.NODE_ENV === 'production') {
-  console.log('Running in production mode');
-} else {
-  console.log('Running in an unknown mode');
-}
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Running in development mode');
+    } else if (process.env.NODE_ENV === 'production') {
+      console.log('Running in production mode');
+    } else {
+      console.log('Running in an unknown mode');
+    }
     setIsConfirmed(e.target.checked);
     setErrors((prevErrors) => ({
       ...prevErrors,
