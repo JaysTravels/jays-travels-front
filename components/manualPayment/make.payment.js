@@ -13,7 +13,7 @@ const MakePayment = () => {
    const dispatch = useDispatch();
    const paymentResponse = useSelector((state) => state.manualpayment.manual_payment_response);
    const [buttonText, setBttonText] = useState('Continue'); 
-   const [confirmText, setconfirmText] = useState('Confirm');   
+   const [confirmText, setconfirmText] = useState('Confirm Details');   
    const [loading , setLoading] = useState(false);
    const [showerror , setshowError] = useState(false);
    const [showLabel,setshowLabel] = useState(false);
@@ -260,18 +260,17 @@ const MakePayment = () => {
               </div>
               <div className="form-group col-lg-12" required>
              <input type="checkbox" id="chkconfirm"  checked={isConfirmed}
-              onChange={handleCheckboxChange} className="make-payment-checkbox" /><p>Check here to confirm that you have read and accept our Terms & Conditions</p>
-               {!isConfirmed && <span className="form-label" style={{ color: 'red' }}>  Check here to confirm </span>}
+              onChange={handleCheckboxChange} className="make-payment-checkbox" /><p>Check here to confirm that you have read and accept our Terms & Conditions *   {!isConfirmed && <span className="form-label" style={{ color: 'red' }}>  Required</span>}</p>
+             
                {errors.chkconfirm && <span style={{ color: 'red' }}>{errors.chkconfirm}</span>}
               </div>
                       
               
               <div className="col-md-12 submit-btn">  
-             
+              {showcancel && (<button className="btn btn-solid" style={{marginRight: '15px'}} onClick={handleCancel}>Amend Details</button> )}
                 {showsubmit && (<button className="btn btn-solid" onClick={handleSubmit}>{buttonText}</button>)}                
                 {showconfirm && (<button className="btn btn-solid" disabled={confirmDisabled}  onClick={handleConfirm}>{confirmText}</button> )}
-                {showcancel && (<button className="btn btn-solid" onClick={handleCancel}>Edit</button> )}
-                {showLabel && <span className="form-label">  Please verify all fields are ok</span>}  
+                {/* {showLabel && <span className="form-label">  Please verify all fields are ok</span>}   */}
                 {showerror && <span className="form-label" style={{ color: 'red' }}>  Could not submit please try again... some thing went wrong</span>}      
               </div>
             </div>

@@ -91,7 +91,7 @@ const WhatWeDo = () => {
                         <h5>{item.subTitle}</h5>
                         <h2>{item.title}</h2>
                         <h6>{item.peragaph}</h6>
-                         <Button color="c1" size="sm">
+                         <Button color="c1" size="sm" >
                           Visit {item.title}
                         </Button> 
                       </div>
