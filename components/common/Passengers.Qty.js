@@ -79,7 +79,7 @@ const PassengersQty = ({
 
   return (
     <>
-      <div className="showPassengers" onFocus={onFocus}>
+      <div className="showPassengers" onFocus={onFocus} onClick={(event) => event.stopPropagation()}> 
         {" "}
         {/*onBlur={() => handleshowparent()} */}
         <div className="rowSt">
