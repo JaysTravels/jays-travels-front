@@ -13,7 +13,7 @@ import DatePicker from "react-datepicker";
 import { Button, Col, Input, Label, Row } from "reactstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import { useSelector } from 'react-redux';
-import { useState  } from "react";
+import { useState, useEffect, useRef  } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PassengersQty from "./Passengers.Qty";
 import { useDispatch } from "react-redux";
@@ -24,6 +24,7 @@ import { useRouter } from "next/router";
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [showPassengers, setShowPassengers] = useState(false);  
+  const [passengerPlaceholder,setPassengerPlaceholder] = useState("Passengers");
   const [destAirport, setDestAirport] = useState(null);
   const [originAirport, setOriginAirport] = useState('London , (LON), United Kingdom');
   const [fromDate , setFromDate] = useState(null);
@@ -35,10 +36,23 @@ import { useRouter } from "next/router";
   const [flightType , setFlightType] = useState('');
   const [selectedFlightClass, setSelectedFlightClass] = useState('economy');
   const [apiResponse,setApiResponse] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
  const router = useRouter();
   const flights = useSelector((state) => state.flights.flights);
-   
+  const passengerRef = useRef(null);
+  const handleTogglePassenger = () => {
+    
+    setShowPassengers(!isVisible); 
+    setIsVisible(!isVisible);
+  };
+
+  const handleOutsideClick = (event) => {
+    if (passengerRef.current && !passengerRef.current.contains(event.target)) {
+      setShowPassengers(false); // Hide the component if clicked outside
+    }
+  };
+ 
   const updateshowpassengerfromChild = (newValue) => {
       setShowPassengers(newValue); 
   };
@@ -79,9 +93,18 @@ import { useRouter } from "next/router";
     setInfants(infants);
   };
   const handlePassengerQtyChange = (qty) => {
+      var p = "";
     setAdults(qty.valueAdult);
     setChilds(qty.valueChildren);
     setInfants(qty.valueInfants);
+    { p = qty.valueAdult + " Adt "}
+    if(qty.valueChildren !=0){
+      { p = p + "," + qty.valueChildren + " Chd "}
+    }
+    if(qty.valueInfants !=0){
+      { p = p + "," + qty.valueInfants + " Inf"}
+    }
+    setPassengerPlaceholder(p);
   };
   const handleDestAirportChange = (airport) => {
     setApiResponse('')
@@ -393,12 +416,12 @@ try {
             </div>
           </Col>
           <Col lg={props.col2 || "4"} md={props.col2 || "4"}>
-            <div className="position-relative">
+            <div className="position-relative" >
               {props.showLabel && <Label>traveller & class</Label>}
               <div className="inputGroup">
                 <Input
                   type="text"
-                  placeholder="Passengers"
+                  placeholder= {passengerPlaceholder}
                   className="rounded-0 " 
                   onFocus={() => handleFocus()}     
                   onClick={() => handleClick()}                     
@@ -406,10 +429,9 @@ try {
                 <div className="icon" >
                   <FontAwesomeIcon icon={faUser} />
                 </div>
-              </div>              
-              {showPassengers && <PassengersQty adultsValue={adults} childsValue={childs} infantsValue={infants} selectedClassValue={selectedFlightClass} onGuestsChange={handlePassengerQtyChange}  updateshow={updateshowpassengerfromChild} parentcabin={handlecabin} />}           
-             
-            </div>
+              </div>
+              {showPassengers && <PassengersQty  adultsValue={adults} childsValue={childs} infantsValue={infants} selectedClassValue={selectedFlightClass} onGuestsChange={handlePassengerQtyChange}  updateshow={updateshowpassengerfromChild} parentcabin={handlecabin} />}           
+              </div>
           </Col>
           {props.flightConnectingHide || (
             <>
