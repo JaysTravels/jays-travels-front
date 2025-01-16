@@ -1,6 +1,7 @@
 import FrontNavOnly from "@/components/navbars/Front.NavOnly";
 import Image from "next/image";
 import topLogo from "@/public/images/top-logo.png";
+import Link from 'next/link';
 import {
   faCoffee,
   faUser,
@@ -26,7 +27,7 @@ const FrontNavbar = (props) => {
     <>
       <div className="frontNavbar">
         <Navbar expand="lg" container {...props}>
-          <Image src={topLogo} alt="" className="img-fluid logo" />
+        <Link href={"/index"}>  <Image src={topLogo} alt="" className="img-fluid logo" /> </Link>
 
           <Collapse isOpen={isOpen} navbar>
             <div className="d-flex justify-content-end p-3">

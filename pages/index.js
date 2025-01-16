@@ -8,6 +8,7 @@ import HeaderHome from "@/components/home/Header.Home";
 // import OffersHome from "@/components/home/Offers.Home";
 import SpecialOfferHome from "@/components/home/SpecialOffer.Home";
 import SubscribeFooterHome from "@/components/home/SubscribeFooter.Home";
+import WhatWeDo from "@/components/home/whatWeDo.Home";
 import FrontLayout from "@/components/layouts/Front.Layout";
 
 export default function Home() {
@@ -15,10 +16,11 @@ export default function Home() {
     <>
       <Meta title="Home" />
       <HeaderHome />
-      {/* <FeaturedDestinationHome /> */}
+     {/* <FeaturedDestinationHome /> */}
       {/* <OffersHome /> */}
+      <WhatWeDo />
       <FlightRoutesHome />
-      <SpecialOfferHome />
+      {/* <SpecialOfferHome /> */}
       <CheapTicketsHome />
       {/* <FlightDetailHome /> */}
       {/* <BlogSectionHome /> */}
