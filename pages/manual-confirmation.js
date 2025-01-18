@@ -30,22 +30,7 @@ const ManualConfirmation = () => {
   
     let formDataManual = localStorage.getItem("ManualPaymentformData");
     let ManualPaymentCustomerDetails;
-    const updatePaymentStatus = async (ManualPaymentCustomerDetails) => {
-      try {
-     
-        const result = await dispatch(UPDATE_PAYMENT_STATUS_MANUAL(ManualPaymentCustomerDetails)).unwrap();
-
-        // Check the result
-        if (result?.isSuccessful === true) {
-          console.log("Payment status updated successfully:", result);
-          // Perform further actions if needed
-        } else {
-          console.error("Payment status update failed:", result);
-        }
-      } catch (error) {
-        console.error("An error occurred while updating payment status:", error);
-      }
-    };
+   
     if(formDataManual != null){        
         setformData(JSON.parse(formDataManual) || null);
         formDataManual = JSON.parse(formDataManual);
@@ -72,6 +57,22 @@ const ManualConfirmation = () => {
 
   }, [dispatch]);
   
+  const updatePaymentStatus = async (ManualPaymentCustomerDetails) => {
+    try {
+   
+      const result = await dispatch(UPDATE_PAYMENT_STATUS_MANUAL(ManualPaymentCustomerDetails)).unwrap();
+
+      // Check the result
+      if (result?.isSuccessful === true) {
+        console.log("Payment status updated successfully:", result);
+        // Perform further actions if needed
+      } else {
+        console.error("Payment status update failed:", result);
+      }
+    } catch (error) {
+      console.error("An error occurred while updating payment status:", error);
+    }
+  };
   return (
     <>
       <Meta title="Confirmation" />
