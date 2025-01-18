@@ -48,8 +48,9 @@ const ManualPaymentFailed = () => {
         PaymentStatus: false        
        }
        setPaymentUpdate(true);
-       updatePaymentStatus(ManualPaymentCustomerDetails);      
-       setPaymentUpdate(true);
+       updatePaymentStatus(ManualPaymentCustomerDetails);  
+       localStorage.removeItem("ManualPaymentformData");
+
  //   } 
   }
   }, [dispatch]);

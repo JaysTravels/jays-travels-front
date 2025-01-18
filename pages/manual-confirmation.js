@@ -50,7 +50,7 @@ const ManualConfirmation = () => {
        }
        setPaymentUpdate(true);
        updatePaymentStatus(ManualPaymentCustomerDetails);      
-       setPaymentUpdate(true);
+       localStorage.removeItem("ManualPaymentformData");
  //   } 
   }
    
