@@ -1961,10 +1961,7 @@ const FlightConfirmation = () => {
                                 <td>total taxes</td>
                                 <td>
                                   {currSign}
-                                  {parseFloat(flight?.price?.adultTax) ||
-                                    0 + parseFloat(flight?.price?.childTax) ||
-                                    0 + parseFloat(flight?.price?.infantTax) ||
-                                    0}
+                                  {Math.floor(parseFloat(flight?.price?.adultTax * flightRequest?.adults) + parseFloat(flight?.price?.childTax * flightRequest?.children) + parseFloat(flight?.price?.infantTax * flightRequest?.infant),2)}
                                 </td>
                               </tr>
                               {/* <tr>
