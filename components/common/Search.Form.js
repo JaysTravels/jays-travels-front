@@ -116,7 +116,7 @@ import { useRouter } from "next/router";
   };  
   const handleFocus = () => {  
   
-     setShowPassengers(true);   
+    // setShowPassengers(true);   
   };
   const handleClick = () => {   
     setShowPassengers((prevState) => !prevState);
