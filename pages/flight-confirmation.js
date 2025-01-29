@@ -1957,7 +1957,7 @@ const FlightConfirmation = () => {
                               ) : (
                                 ""
                               )}
-                              <tr>
+                              <tr hidden={true}>
                                 <td>total taxes</td>
                                 <td>
                                   {currSign}
