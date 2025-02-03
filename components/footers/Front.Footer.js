@@ -6,6 +6,9 @@ import tour3 from "@/public/images/tour/footer/3.jpg";
 import tour4 from "@/public/images/tour/footer/4.jpg";
 import tour5 from "@/public/images/tour/footer/5.jpg";
 import tour6 from "@/public/images/tour/footer/6.jpg";
+import footeriata from "@/public/images/footer-iata.png";
+import trustPilot from "@/public/images/trust-pilot.png";
+import visaCards from "@/public/images/visa-cards.png";
 import bf1 from "@/public/images/cab/blog-footer/1.jpg";
 import bf2 from "@/public/images/cab/blog-footer/2.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -222,49 +225,18 @@ const FrontFooter = () => {
                 </div>
               </div>
               <div className="col-xl-3 col-md-6">
+                <div> <Image src={footeriata} style={{paddingBottom:'10px'}} className="img-fluid" alt="" /></div>
+                <div>
+                <a href="https://uk.trustpilot.com/review/jaystravels.co.uk?utm_medium=trustbox&utm_source=Mini">
+                <Image src={trustPilot} style={{padding:'10px 0'}} width={250} height={100} className="img-fluid" alt="" />
+                </a>
+                </div>
                 <div className="footer-title">
-                  <h5>new topics</h5>
+                <Image src={visaCards} style={{padding:'10px 0'}} width={250} height={100} className="img-fluid" alt="" />
                 </div>
-                <div className="footer-content">
-                  <div className="footer-blog">
-                    <div className="media">
-                      <div className="img-part rounded5">
-                        <a href="#">
-                          <Image src={bf1} className="img-fluid" alt="" />
-                        </a>
-                      </div>
-                      <div className="media-body">
-                        <h5>recent news</h5>
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                          when an unknown printer took a galley of type and
-                          scrambled it to make a type specimen book. It has
-                          survived not only five centuries
-                        </p>
-                      </div>
-                    </div>
-                    <div className="media">
-                      <div className="img-part rounded5">
-                        <a href="">
-                          <Image src={bf2} className="img-fluid" alt="" />
-                        </a>
-                      </div>
-                      <div className="media-body">
-                        <h5>recent news</h5>
-                        <p>
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                          when an unknown printer took a galley of type and
-                          scrambled it to make a type specimen book. It has
-                          survived not only five centuries
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+               
+               
+                
               </div>
             </Row>
           </Container>

@@ -197,6 +197,9 @@ const FlightResultsSr = () => {
                   {item?.itineraries[1]?.airport_city != null ? item?.itineraries[1]?.airport_city :flightRequest.destination}
                     </h5>
                   </Col>
+                  <Col md={3}>
+                  {/* <h5 className="mb-0">Return Flight</h5> */}
+                  </Col>
                 </Row>
               </div>
               <Row className="align-items-center">
@@ -221,8 +224,8 @@ const FlightResultsSr = () => {
                           <div className="airport-part">
                             <div className="airport-name">
                               <h4>{formatTime(item?.itineraries[0]?.segments[0]?.departure?.at)}</h4>
-                              {/* <h4>{formatDate(item?.itineraries[0]?.segments[0]?.departure?.at)}</h4> */}
-                              <h6>{item?.itineraries[0]?.segments[0]?.departure?.iataCode + " - " + item?.itineraries[0]?.segments[0]?.departure?.iataName.split(/\s*,\s*/)[0] }</h6>
+                             <h6 className="pb5">{formatDate(item?.itineraries[0]?.segments[0]?.departure?.at)}</h6>
+                              <h4 >{item?.itineraries[0]?.segments[0]?.departure?.iataCode  }</h4>
                             </div>
                             <div className="airport-progress">
                               <i className="fas fa-plane-departure float-start"></i>
@@ -239,8 +242,8 @@ const FlightResultsSr = () => {
                             </div>
                             <div className="airport-name arrival">
                               <h4>{formatTime(item?.itineraries[0]?.segments[item?.itineraries[1]?.segments?.length -1]?.arrival?.at)}</h4>
-                              {/* <h4>{formatDate(item?.itineraries[0]?.segments[item?.itineraries[1]?.segments?.length -1]?.arrival?.at)}</h4> */}
-                              <h6>{item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length-1]?.arrival?.iataCode + " - " + item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length -1]?.arrival?.iataName.split(/\s*,\s*/)[0]}</h6>
+                              <h6 className="pb5">{formatDate(item?.itineraries[0]?.segments[item?.itineraries[1]?.segments?.length -1]?.arrival?.at)}</h6>
+                              <h4>{item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length-1]?.arrival?.iataCode}</h4>
                             </div>
                           </div>
                           </Col>
@@ -268,8 +271,8 @@ const FlightResultsSr = () => {
                               <div className="airport-part">
                                 <div className="airport-name">
                                 <h4>{formatTime(item?.itineraries[1]?.segments[0].departure.at)}</h4>
-                                {/* <h4>{formatDate(item?.itineraries[1]?.segments[0].departure.at)}</h4> */}
-                                <h6>{item?.itineraries[1]?.segments[0]?.departure?.iataCode + " - " + item?.itineraries[1]?.segments[0]?.departure?.iataName.split(/\s*,\s*/)[0]}</h6>
+                               <h6 className="pb5">{formatDate(item?.itineraries[1]?.segments[0].departure.at)}</h6> 
+                                <h4>{item?.itineraries[1]?.segments[0]?.departure?.iataCode}</h4>
                                 </div>
                                 <div className="airport-progress">
                                   <i className="fas fa-plane-departure float-start"></i>
@@ -287,8 +290,8 @@ const FlightResultsSr = () => {
                                 </div>
                                 <div className="airport-name arrival">
                                 <h4>{formatTime(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h4>
-                                {/* <h4>{formatDate(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h4> */}
-                                <h6>{item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.iataCode + " - " + item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length-1]?.arrival?.iataName.split(/\s*,\s*/)[0]}</h6>
+                                <h6 className="pb5">{formatDate(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h6>
+                                <h4>{item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.iataCode}</h4>
                                 </div>
                               </div>
                             </Col>
@@ -305,6 +308,7 @@ const FlightResultsSr = () => {
                 <Col md={3}>
                     <div className="price mb10">
                       <div>
+                        <h6>Total Price</h6>
                         <h2>{item.price.currency === "GBP" ? "£" : "$"} {item.price.total}</h2>
                         {/* <span>{"non refundable"}</span> */}
                       </div>
