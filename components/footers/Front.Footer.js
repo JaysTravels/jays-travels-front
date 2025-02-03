@@ -55,7 +55,7 @@ const FrontFooter = () => {
   return (
     <>
       <footer>
-        <div className="footer section-b-space section-t-space">
+        <div className="footer section-t-space">
           <Container>
             <Row className="order-row">
               <div className="col-xl-2 col-md-6 order-cls">
