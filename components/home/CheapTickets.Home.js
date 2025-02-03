@@ -76,7 +76,7 @@ const CheapTicketsHome = () => {
                   </div>
                   <div className="price-content ">
                     <div className="price-title">
-                      <a href="cheap-flights-asia.js" tabindex="0">
+                      <a href="cheap-flights-asia" tabindex="0">
                         <h3>Asia</h3>
                       </a>
                       <div className="like-cls">
@@ -94,7 +94,7 @@ const CheapTicketsHome = () => {
                       <FontAwesomeIcon icon={faStarHalfStroke} size="xs" />
                     </div>
                     <div className="price">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-asia" tabindex="0">
                         <h6>Manila</h6>
                       </a>
                       <h5>
@@ -102,7 +102,7 @@ const CheapTicketsHome = () => {
                       </h5>
                     </div>
                     <div className="price">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-asia" tabindex="0">
                         <h6>Tokyo</h6>
                       </a>
                       <h5>
@@ -110,7 +110,7 @@ const CheapTicketsHome = () => {
                       </h5>
                     </div>
                     <div className="price mb-0">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-asia" tabindex="0">
                         <h6>Bangkok</h6>
                       </a>
                       <h5>
@@ -158,7 +158,7 @@ const CheapTicketsHome = () => {
                       <FontAwesomeIcon icon={faStarHalfStroke} size="xs" />
                     </div>
                     <div className="price">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-south-america" tabindex="0">
                         <h6>Lima</h6>
                       </a>
                       <h5>
@@ -166,7 +166,7 @@ const CheapTicketsHome = () => {
                       </h5>
                     </div>
                     <div className="price">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-south-america" tabindex="0">
                         <h6>Mexico City</h6>
                       </a>
                       <h5>
@@ -174,7 +174,7 @@ const CheapTicketsHome = () => {
                       </h5>
                     </div>
                     <div className="price mb-0">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-south-america" tabindex="0">
                         <h6>Bagota</h6>
                       </a>
                       <h5>
@@ -204,7 +204,7 @@ const CheapTicketsHome = () => {
                   </div>
                   <div className="price-content ">
                     <div className="price-title">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-america" tabindex="0">
                         <h3>America</h3>
                       </a>
                       <div className="like-cls">
@@ -222,7 +222,7 @@ const CheapTicketsHome = () => {
                       <FontAwesomeIcon icon={faStarHalfStroke} size="xs" />
                     </div>
                     <div className="price">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-america" tabindex="0">
                         <h6>New York City</h6>
                       </a>
                       <h5>
@@ -230,7 +230,7 @@ const CheapTicketsHome = () => {
                       </h5>
                     </div>
                     <div className="price">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-america" tabindex="0">
                         <h6>Boston</h6>
                       </a>
                       <h5>
@@ -238,7 +238,7 @@ const CheapTicketsHome = () => {
                       </h5>
                     </div>
                     <div className="price mb-0">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-america" tabindex="0">
                         <h6>Orlando</h6>
                       </a>
                       <h5>
@@ -268,7 +268,7 @@ const CheapTicketsHome = () => {
                   </div>
                   <div className="price-content ">
                     <div className="price-title">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-europe" tabindex="0">
                         <h3>Europe</h3>
                       </a>
                       <div className="like-cls">
@@ -286,7 +286,7 @@ const CheapTicketsHome = () => {
                       <FontAwesomeIcon icon={faStarHalfStroke} size="xs" />
                     </div>
                     <div className="price">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-europe" tabindex="0">
                         <h6>Sweden</h6>
                       </a>
                       <h5>
@@ -294,7 +294,7 @@ const CheapTicketsHome = () => {
                       </h5>
                     </div>
                     <div className="price">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-europe" tabindex="0">
                         <h6>Romania</h6>
                       </a>
                       <h5>
@@ -302,7 +302,7 @@ const CheapTicketsHome = () => {
                       </h5>
                     </div>
                     <div className="price mb-0">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-europe" tabindex="0">
                         <h6>France</h6>
                       </a>
                       <h5>
@@ -332,7 +332,7 @@ const CheapTicketsHome = () => {
                   </div>
                   <div className="price-content ">
                     <div className="price-title">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-south-asia" tabindex="0">
                         <h3>South Asia</h3>
                       </a>
                       <div className="like-cls">
@@ -350,7 +350,7 @@ const CheapTicketsHome = () => {
                       <FontAwesomeIcon icon={faStarHalfStroke} size="xs" />
                     </div>
                     <div className="price">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-south-asia" tabindex="0">
                         <h6>Bombay</h6>
                       </a>
                       <h5>
@@ -358,7 +358,7 @@ const CheapTicketsHome = () => {
                       </h5>
                     </div>
                     <div className="price">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-south-asia" tabindex="0">
                         <h6>Delhi</h6>
                       </a>
                       <h5>
@@ -366,7 +366,7 @@ const CheapTicketsHome = () => {
                       </h5>
                     </div>
                     <div className="price mb-0">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-south-asia" tabindex="0">
                         <h6>Islamabad</h6>
                       </a>
                       <h5>
@@ -396,7 +396,7 @@ const CheapTicketsHome = () => {
                   </div>
                   <div className="price-content ">
                     <div className="price-title">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-africa" tabindex="0">
                         <h3>Africa</h3>
                       </a>
                       <div className="like-cls">
@@ -414,7 +414,7 @@ const CheapTicketsHome = () => {
                       <FontAwesomeIcon icon={faStarHalfStroke} size="xs" />
                     </div>
                     <div className="price">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-africa" tabindex="0">
                         <h6>Lagos</h6>
                       </a>
                       <h5>
@@ -422,7 +422,7 @@ const CheapTicketsHome = () => {
                       </h5>
                     </div>
                     <div className="price">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-africa" tabindex="0">
                         <h6>Nairobi</h6>
                       </a>
                       <h5>
@@ -430,7 +430,7 @@ const CheapTicketsHome = () => {
                       </h5>
                     </div>
                     <div className="price mb-0">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-africa" tabindex="0">
                         <h6>Cape Town</h6>
                       </a>
                       <h5>

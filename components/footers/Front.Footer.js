@@ -103,16 +103,16 @@ const FrontFooter = () => {
                           <a href="cookie-policy">Cookie policy</a>
                         </li>
                         <li>
-                          <a href="#">register</a>
+                          <a href="privacy-policy">Privacy Policy</a>
                         </li>
                         <li>
-                          <a href="#">terms & co.</a>
+                          <a href="general-conditions">General Conditions</a>
                         </li>
                         <li>
-                          <a href="#">privacy</a>
+                          <a href="terms-conditions">Terms & co.</a>
                         </li>
                         <li>
-                          <a href="#">support</a>
+                          <a href="cookie-policy">Cookie Policy</a>
                         </li>
                       </ul>
                     </div>
@@ -202,22 +202,19 @@ const FrontFooter = () => {
                           <a href="#">home</a>
                         </li>
                         <li>
-                          <a href="#">our vehical</a>
+                          <a href="#">Flights</a>
                         </li>
                         <li>
-                          <a href="#">latest video</a>
+                          <a href="#">Hotels</a>
                         </li>
                         <li>
-                          <a href="#">services</a>
+                          <a href="#">Packages</a>
                         </li>
                         <li>
-                          <a href="#">booking deal</a>
+                          <a href="#">Tours</a>
                         </li>
                         <li>
                           <a href="#">emergency call</a>
-                        </li>
-                        <li>
-                          <a href="#">mobile app</a>
                         </li>
                       </ul>
                     </div>
