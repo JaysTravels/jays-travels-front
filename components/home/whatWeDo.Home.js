@@ -68,7 +68,7 @@ const WhatWeDo = () => {
         <Container>
           <div className="title-2">
             <h2>
-              WHAT WE..... <span>DO BEST !</span>
+              WHAT WE.... <span>DO BEST !</span>
             </h2>
             <p className="mbLg70">
              
