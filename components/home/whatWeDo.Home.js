@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import image1 from "@/public/images/destination/1.jpg";
 import image2 from "@/public/images/destination/2.jpg";
@@ -40,14 +39,14 @@ const WhatWeDo = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 0,
+    slidesToScroll: 1,
     arrows: false,
     autoplay: true,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 2,
           slidesToScroll: 1,
           infinite: true,
         },
@@ -69,7 +68,7 @@ const WhatWeDo = () => {
         <Container>
           <div className="title-2">
             <h2>
-              WHAT WE..... <span>DO BEST !</span>
+              WHAT WE... <span>DO BEST !</span>
             </h2>
             <p className="mbLg70">
              

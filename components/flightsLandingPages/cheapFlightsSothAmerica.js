@@ -1,6 +1,5 @@
 
 import Image from "next/image";
-import Poland from "@/public/images/FlightOffers/Europe/Poland.jpg"
 import SaoPaulo from "@/public/images/FlightOffers/south-america/Sao-Paulo.jpg"
 import MexicoCity from "@/public/images/FlightOffers/south-america/Mexico-City.jpg"
 import Lima from "@/public/images/FlightOffers/south-america/Lima.jpg"

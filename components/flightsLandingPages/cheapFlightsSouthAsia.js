@@ -1,6 +1,5 @@
 
 import Image from "next/image";
-import Poland from "@/public/images/FlightOffers/Europe/Poland.jpg"
 import Delhi from "@/public/images/FlightOffers/south-asia/Delhi.jpg"
 import Bombay from "@/public/images/FlightOffers/south-asia/Bombay.jpg"
 import Kathmandu from "@/public/images/FlightOffers/south-asia/Kathmandu.jpg"

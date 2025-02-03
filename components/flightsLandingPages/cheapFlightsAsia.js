@@ -1,6 +1,5 @@
 
 import Image from "next/image";
-import Poland from "@/public/images/FlightOffers/Europe/Poland.jpg"
 import Denpasar from "@/public/images/FlightOffers/asia/Manila.jpg"
 import Shanghai from "@/public/images/FlightOffers/asia/Shanghai.jpg"
 import Phuket from "@/public/images/FlightOffers/asia/Phuket.jpg"
