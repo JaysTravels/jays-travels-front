@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { UPDATE_PAYMENT_STATUS } from "@/store/CreatePnrSlice";
+import {PASSENGER_SELECTED_FLIGHT_EMAIL} from "@/store/CreatePnrSlice";
 import { Col, Row } from "reactstrap";
 const Confirmation = () => {
   

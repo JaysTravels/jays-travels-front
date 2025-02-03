@@ -191,10 +191,11 @@ const FlightResultsSr = () => {
                 <Row className="align-items-center">
                   <Col md={9}>
                     <h5 className="mb-0">
-                   {item?.itineraries[0]?.airport_city != null ? item?.itineraries[0]?.airport_city : flightRequest.origin }
+                   {item?.itineraries[0]?.airport_city != null ? item?.itineraries[0]?.airport_city: flightRequest.origin  }
                   <i className="fas fa-arrow-right fa-1x textC3" style={{padding:'0 5px'}}></i>
                   {" "}
                   {item?.itineraries[1]?.airport_city != null ? item?.itineraries[1]?.airport_city :flightRequest.destination}
+                 <span style={{ color: "transparent" }}> {item?.markupId != null ? "  markup applied with ID " + item?.markupId + " , Amount AdtMarkup" + item?.price?.adulMarkup : "  markup not applied"}</span> 
                     </h5>
                   </Col>
                 </Row>

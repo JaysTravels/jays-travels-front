@@ -21,6 +21,19 @@ export const PNR_Multi = createAsyncThunk(
     }
   );
 
+  export const PASSENGER_SELECTED_FLIGHT_EMAIL = createAsyncThunk(
+    'flights/PASSENGER_SELECTED_FLIGHT_EMAIL',
+    async (selectedFlightreqest, { rejectWithValue }) => {
+      try {
+        const response = await axiosInstance.post('PNR/SendSelectedFlightEmailToAdmin', selectedFlightreqest);
+        return response.data; 
+      } catch (error) {        
+        console.log("Error while sending request to SendSelectedFlightEmailToAdmin request" +error);        
+        return rejectWithValue(error?.data || 'Server Error');
+      }
+    }
+  );
+
   export const UPDATE_PAYMENT_STATUS = createAsyncThunk(
     'flights/UPDATE_PAYMENT_STATUS',
     async (multirequest, { rejectWithValue }) => {
@@ -124,7 +137,10 @@ const Slice = createSlice({
       PassengerDetails : [],   
       UpdatePaymentStatus : null,  
       UpdatePaymentStatus_Loding : null,
-      UpdatePaymentStatus_Error : null
+      UpdatePaymentStatus_Error : null,
+      UpdateSentEmailStatus : null,  
+      UpdateSentEmailStatus_Loding : null,
+      UpdateSentEmailStatus_Error : null
     },
     reducers : {
           setPnrMulti:(state,action)=> 
@@ -263,6 +279,22 @@ const Slice = createSlice({
            }).addCase(UPDATE_PAYMENT_STATUS.rejected, (state, action) => {
              state.UpdatePaymentStatus = false;
              state.UpdatePaymentStatus_Error = action.payload?.data;
+           }).addCase(PASSENGER_SELECTED_FLIGHT_EMAIL.pending, (state) => {
+            state.UpdateSentEmailStatus = 'loading';
+          }).addCase(PASSENGER_SELECTED_FLIGHT_EMAIL.fulfilled, (state, action) => {
+           
+            if(action.payload.isSuccessful === false){
+             state.UpdateSentEmailStatus_Error = 'failed';
+             state.UpdatePaymentStatus = action.payload?.data;
+            }
+            else{
+             state.UpdateSentEmailStatus_Loding = null;
+             state.UpdateSentEmailStatus = action.payload;
+             state.UpdateSentEmailStatus_Error = null;             
+            }             
+           }).addCase(PASSENGER_SELECTED_FLIGHT_EMAIL.rejected, (state, action) => {
+             state.UpdateSentEmailStatus = false;
+             state.UpdateSentEmailStatus_Error = action.payload?.data;
            });
            
       },

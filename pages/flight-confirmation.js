@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Input, Label, Row } from "reactstrap";
+import {PASSENGER_SELECTED_FLIGHT_EMAIL} from "@/store/CreatePnrSlice";
 import {
   setPassengerDetails,
   setPnrMulti,
@@ -389,6 +390,8 @@ const FlightConfirmation = () => {
       LastName: passenger.surName,
       BookingRef: BookingRefNo,
     };
+
+  
     try {
       // Dispatch first API call
       debugger;
@@ -423,6 +426,20 @@ const FlightConfirmation = () => {
         setApiResponse(Create_Tst_Error);
         return;
       }
+      // For sending email to admin relted to selected custoemr fare
+
+      let sessionemail = getSession();
+      if (sessionemail != null)
+        {            
+        const SelectedFlightEmailRequest = {
+          SessionId: session.sessionId,           
+        }
+        
+        const result = dispatch(PASSENGER_SELECTED_FLIGHT_EMAIL(SelectedFlightEmailRequest)).unwrap();      
+        if(result?.isSuccessful === true){
+        console.log("Passeger Selected Flight Email Sent success");
+        }    
+      } 
       // Dispatch fifth API call
       const result2 = await dispatch(Commit_Pnr(pnrCommitRequest)).unwrap();
       //debugger;
@@ -1918,12 +1935,12 @@ const FlightConfirmation = () => {
                               <tr>
                                 <td>
                                   adults ({flightRequest?.adults} X {currSign}
-                                  {flight?.price?.adultPP})
+                                  {parseFloat(flight?.price?.adultPP) + parseFloat(flight?.price?.adulMarkup)})
                                 </td>
                                 <td>
                                   {currSign}
                                   {flightRequest?.adults *
-                                    flight?.price?.adultPP}
+                                   ( (flight?.price?.adultPP) + parseFloat(flight?.price?.adulMarkup))}
                                 </td>
                               </tr>
                               {flightRequest?.children != 0 ? (
@@ -1931,12 +1948,12 @@ const FlightConfirmation = () => {
                                   <td>
                                     children ({flightRequest?.children} X{" "}
                                     {currSign}
-                                    {flight?.price?.childPp})
+                                    {parseFloat(flight?.price?.childPp) + parseFloat(flight?.price?.childMarkup)})
                                   </td>
                                   <td>
                                     {currSign}
                                     {flightRequest?.children *
-                                      flight?.price?.childPp}
+                                     ( parseFloat(flight?.price?.childPp) + parseFloat(flight?.price?.childMarkup))}
                                   </td>
                                 </tr>
                               ) : (
