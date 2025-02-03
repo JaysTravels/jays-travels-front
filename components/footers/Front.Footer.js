@@ -245,24 +245,19 @@ const FrontFooter = () => {
                 <div className="footer-social">
                   <ul>
                     <li>
-                      <Link href="#">
+                      <Link href="https://www.facebook.com/jaysonline349">
                         {/* <FontAwesomeIcon icon={} /> */}
                         <i className="fab fa-facebook-f"></i>
                       </Link>
                     </li>
                     <li>
-                      <Link href="#">
+                      <Link href="https://www.instagram.com/travelsjays/">
                         <i className="fab fa-instagram"></i>
                       </Link>
                     </li>
                     <li>
-                      <Link href="#">
+                      <Link href="https://twitter.com/TRAVEL_JAYS">
                         <i className="fab fa-twitter"></i>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="#">
-                        <i className="fab fa-google"></i>
                       </Link>
                     </li>
                   </ul>
