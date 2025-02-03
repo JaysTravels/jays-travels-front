@@ -27,7 +27,7 @@ const cheapFlightsAfrica = () => {
       <div className="popular grid-item wow fadeInUp col-lg-4 col-sm-6">
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
-            <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
+            <a href="cheap-flights-africa">
               <Image src={capeTown} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>

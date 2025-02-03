@@ -76,7 +76,7 @@ const CheapTicketsHome = () => {
                   </div>
                   <div className="price-content ">
                     <div className="price-title">
-                      <a href="#" tabindex="0">
+                      <a href="cheap-flights-asia.js" tabindex="0">
                         <h3>Asia</h3>
                       </a>
                       <div className="like-cls">
