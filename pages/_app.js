@@ -6,6 +6,13 @@ import { Providers } from "../store/provider";
 import { store } from "../store/store";
 import { RouterProvider } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
+import { Nunito } from 'next/font/google'
+ 
+export const inter = Nunito({
+  subsets: ['latin'],
+  display: 'swap',
+})
+
 
 export default function App({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page);

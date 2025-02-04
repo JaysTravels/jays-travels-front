@@ -63,7 +63,7 @@ const CheapTicketsHome = () => {
                       href="#"
                       className="img"
                       style={{
-                        backgroundImage: "url(/images/destination/8.jpg)",
+                        backgroundImage: "url(/images/destination/bangkok.jpg)",
                       }}
                     >
                       <Image
@@ -127,7 +127,7 @@ const CheapTicketsHome = () => {
                       href=""
                       className="img"
                       style={{
-                        backgroundImage: "url(/images/destination/8.jpg)",
+                        backgroundImage: "url(/images/destination/south-america.jpg)",
                       }}
                     >
                       <Image
@@ -191,7 +191,7 @@ const CheapTicketsHome = () => {
                       href="#"
                       className="img"
                       style={{
-                        backgroundImage: "url(/images/destination/8.jpg)",
+                        backgroundImage: "url(/images/destination/america.jpg)",
                       }}
                     >
                       <Image
@@ -255,7 +255,7 @@ const CheapTicketsHome = () => {
                       href="#"
                       className="img"
                       style={{
-                        backgroundImage: "url(/images/destination/8.jpg)",
+                        backgroundImage: "url(/images/destination/europe.jpg)",
                       }}
                     >
                       <Image
@@ -319,7 +319,7 @@ const CheapTicketsHome = () => {
                       href="#"
                       className="img"
                       style={{
-                        backgroundImage: "url(/images/destination/9.jpg)",
+                        backgroundImage: "url(/images/destination/south-asia.jpg)",
                       }}
                     >
                       <Image
@@ -383,7 +383,7 @@ const CheapTicketsHome = () => {
                       href="#"
                       className="img"
                       style={{
-                        backgroundImage: "url(/images/destination/10.jpg)",
+                        backgroundImage: "url(/images/destination/africa.jpg)",
                       }}
                     >
                       <Image
