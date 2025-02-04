@@ -27,7 +27,7 @@ const FrontNavbar = (props) => {
     <>
       <div className="frontNavbar">
         <Navbar expand="lg" container {...props}>
-        <Link href={"/index"}>  <Image src={topLogo} alt="" className="img-fluid logo" /> </Link>
+        <Link href={"#"}> <Image src={topLogo} alt="topLogo" className="img-fluid logo" /> </Link>
 
           <Collapse isOpen={isOpen} navbar>
             <div className="d-flex justify-content-end p-3">

@@ -37,7 +37,7 @@ const FrontNavOnly = (props) => {
            Packages
           </DropdownToggle>
           <DropdownMenu left={true}>
-            <Row>
+            {/* <Row>
               <Col lg={6}>
                 <DropdownItem href="/types/delay-compensation">
                   Delay compensation
@@ -64,17 +64,17 @@ const FrontNavOnly = (props) => {
                   EU Reg 261 compensation
                 </DropdownItem>
               </Col>
-            </Row>
+            </Row> */}
           </DropdownMenu>
         </UncontrolledDropdown>
         <NavItem>
-          <NavLink href="#">Hotels</NavLink>
+          <NavLink href="hotels">Hotels</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="#">Visa</NavLink>
+          <NavLink href="visa">Visa</NavLink>
           </NavItem>
         <NavItem>
-          <NavLink href="#">Insurance</NavLink>
+          <NavLink href="insurance">Insurance</NavLink>
         </NavItem>
         <NavItem>
           <NavLink href="make-payment">
