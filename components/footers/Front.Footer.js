@@ -7,7 +7,7 @@ import tour4 from "@/public/images/tour/footer/4.jpg";
 import tour5 from "@/public/images/tour/footer/5.jpg";
 import tour6 from "@/public/images/tour/footer/6.jpg";
 import footeriata from "@/public/images/footer-iata.png";
-import trustPilot from "@/public/images/trust-pilot.png";
+import trustPilot from "@/public/images/trust-pilot-4.5.png";
 import visaCards from "@/public/images/visa-cards.png";
 import bf1 from "@/public/images/cab/blog-footer/1.jpg";
 import bf2 from "@/public/images/cab/blog-footer/2.jpg";
@@ -205,14 +205,14 @@ const FrontFooter = () => {
                           <a href="#">Flights</a>
                         </li>
                         <li>
-                          <a href="#">Hotels</a>
+                          <a href="hotels">Hotels</a>
                         </li>
                         <li>
-                          <a href="#">Packages</a>
+                          <a href="holidays">Holidays</a>
                         </li>
-                        <li>
+                        {/* <li>
                           <a href="#">Tours</a>
-                        </li>
+                        </li> */}
                         <li>
                           <a href="#">emergency call</a>
                         </li>

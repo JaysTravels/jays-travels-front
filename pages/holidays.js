@@ -1,19 +1,20 @@
 import Meta from "@/components/common/Meta"
 import Footer from "@/components/footers/Front.Footer"
 import FrontNavbar from "@/components/navbars/Front.Navbar"
+import HolidayMain from "@/components/holidaysLandingPages/holidaysMainPage"
 
 
-
-const hotels = () => {
+const holidays = () => {
   return (
     <>
-      <Meta title="hotels" />
+      <Meta title="Holidays" />
       <FrontNavbar/>
- 
+      <HolidayMain/>
+
       <Footer/>
 
 </>
 );
 };
 
-export default hotels;
+export default holidays;
