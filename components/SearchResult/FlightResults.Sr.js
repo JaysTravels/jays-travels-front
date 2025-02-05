@@ -185,7 +185,8 @@ const FlightResultsSr = () => {
                   <i className="fas fa-arrow-right fa-1x textC3" style={{padding:'0 5px'}}></i>
                   {" "}
                   {item?.itineraries[1]?.airport_city != null ? item?.itineraries[1]?.airport_city :flightRequest.destination}
-                    </h5>
+<span style={{ color: "transparent" }}> {item?.markupId != null ? "  markup applied with ID " + item?.markupId + " , Amount AdtMarkup" + item?.price?.adulMarkup : "  markup not applied"}</span> 
+    </h5>
                   </Col>
                   <Col md={3}>
                   {/* <h5 className="mb-0">Return Flight</h5> */}
