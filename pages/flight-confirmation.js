@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Input, Label, Row } from "reactstrap";
+import {PASSENGER_SELECTED_FLIGHT_EMAIL} from "@/store/CreatePnrSlice";
 import {
   setPassengerDetails,
   setPnrMulti,
@@ -423,6 +424,20 @@ const FlightConfirmation = () => {
         setApiResponse(Create_Tst_Error);
         return;
       }
+      // For sending email to admin relted to selected custoemr fare
+
+      let sessionemail = getSession();
+      if (sessionemail != null)
+        {            
+        const SelectedFlightEmailRequest = {
+          SessionId: session.sessionId,           
+        }
+        
+        const result = dispatch(PASSENGER_SELECTED_FLIGHT_EMAIL(SelectedFlightEmailRequest)).unwrap();      
+        if(result?.isSuccessful === true){
+        console.log("Passeger Selected Flight Email Sent success");
+        }    
+      } 
       // Dispatch fifth API call
       const result2 = await dispatch(Commit_Pnr(pnrCommitRequest)).unwrap();
       //debugger;
