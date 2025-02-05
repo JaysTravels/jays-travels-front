@@ -20,7 +20,18 @@ export const PNR_Multi = createAsyncThunk(
       }
     }
   );
-
+  export const PASSENGER_SELECTED_FLIGHT_EMAIL = createAsyncThunk(
+    'flights/PASSENGER_SELECTED_FLIGHT_EMAIL',
+    async (selectedFlightreqest, { rejectWithValue }) => {
+      try {
+        const response = await axiosInstance.post('PNR/SendSelectedFlightEmailToAdmin', selectedFlightreqest);
+        return response.data; 
+      } catch (error) {        
+        console.log("Error while sending request to SendSelectedFlightEmailToAdmin request" +error);        
+        return rejectWithValue(error?.data || 'Server Error');
+      }
+    }
+  );
   export const UPDATE_PAYMENT_STATUS = createAsyncThunk(
     'flights/UPDATE_PAYMENT_STATUS',
     async (multirequest, { rejectWithValue }) => {
