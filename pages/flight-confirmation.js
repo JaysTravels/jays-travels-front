@@ -624,19 +624,16 @@ const FlightConfirmation = () => {
         <div className="small-section">
           <Container>
             <Row>
-              <Col lg={8}>
+              <Col lg={9}>
                 <div className="review-section">
-                  <div className="review_box">
-                    <div className="title-top">
-                      <h5>flight details</h5>
-                    </div>
-                    <div class="title-top">
-                      <h6>Out Bound</h6>
+                  <div className="review_box flight_confirmation_box">
+                    <div class="title-top flight_confirmation_box_heading">
+                      <h6>Out Bound Flight</h6>
                     </div>
                     <div className="flight_detail">
                       <Row>
                         <Col md={3}>
-                          <div className="logo-sec">
+                          <div className="logo-sec flight_Confirmation_box_image">
                             {/* <Image src={img1} className="img-fluid" alt="" /> */}
                             <Image
                               src={`/images/airline-logo/${airsellResults?.data?.airSellResponse[0]?.flightDetails[0]?.marketingCompany}.png`}
@@ -648,13 +645,16 @@ const FlightConfirmation = () => {
                               height={240}
                               className="img-fluid"
                             />
-                            <span className="title">
+                          </div>
+                          <div className="flight_confirmation_box_image_name">
+                              <span>
                               {
                                 airsellResults?.data?.airSellResponse[0]
                                   ?.flightDetails[0]?.marketingCompanyName
                               }
-                            </span>
-                          </div>
+                              </span>
+                            </div>
+                         
                         </Col>
                         <Col md={6}>
                           <div className="airport-part">
@@ -664,14 +664,14 @@ const FlightConfirmation = () => {
                                   airsellResults?.data?.airSellResponse[0]
                                     ?.flightDetails[0]?.fromAirport
                                 }{" "}
-                                <span>
+                              </h6>
+                              <span>
                                   {" "}
                                   {
                                     airsellResults?.data?.airSellResponse[0]
                                       ?.flightDetails[0]?.departureTime
                                   }
-                                </span>
-                              </h6>
+                                </span>  
                               <p>
                                 {formatDateToCustomFormat(
                                   airsellResults?.data?.airSellResponse[0]
@@ -689,14 +689,15 @@ const FlightConfirmation = () => {
                                   airsellResults?.data?.airSellResponse[0]
                                     ?.flightDetails[0]?.toAirport
                                 }
-                                <span>
+                               
+                              </h6>
+                              <span>
                                   {" "}
                                   {
                                     airsellResults?.data?.airSellResponse[0]
                                       ?.flightDetails[0]?.arrivalTime
                                   }{" "}
                                 </span>
-                              </h6>
                               <p>
                                 {formatDateToCustomFormat(
                                   airsellResults?.data?.airSellResponse[0]
@@ -724,11 +725,13 @@ const FlightConfirmation = () => {
                           </div>
                         </Col>
                       </Row>
+                      </div>
+                      <div className="flight_detail">
                       {airsellResults?.data?.airSellResponse[0]?.flightDetails
                         ?.length > 1 ? (
                         <Row>
                           <Col md={3}>
-                            <div className="logo-sec">
+                            <div className="logo-sec flight_Confirmation_box_image">
                               {/* <Image src={img1} className="img-fluid" alt="" /> */}
                               <Image
                                 src={`/images/airline-logo/${airsellResults?.data?.airSellResponse[0]?.flightDetails[1]?.marketingCompany}.png`}
@@ -740,13 +743,16 @@ const FlightConfirmation = () => {
                                 height={240}
                                 className="img-fluid"
                               />
-                              <span className="title">
+                             
+                            </div>
+                            <div className="flight_confirmation_box_image_name">
+                                <span>
                                 {
                                   airsellResults?.data?.airSellResponse[0]
                                     ?.flightDetails[1]?.marketingCompanyName
                                 }
-                              </span>
-                            </div>
+                                </span>
+                              </div>
                           </Col>
                           <Col md={6}>
                             <div className="airport-part">
@@ -756,14 +762,15 @@ const FlightConfirmation = () => {
                                     airsellResults?.data?.airSellResponse[0]
                                       ?.flightDetails[1]?.fromAirport
                                   }{" "}
-                                  <span>
+                                
+                                </h6>
+                                <span>
                                     {" "}
                                     {
                                       airsellResults?.data?.airSellResponse[0]
                                         ?.flightDetails[1]?.departureTime
                                     }
                                   </span>
-                                </h6>
                                 <p>
                                   {formatDateToCustomFormat(
                                     airsellResults?.data?.airSellResponse[0]
@@ -781,14 +788,15 @@ const FlightConfirmation = () => {
                                     airsellResults?.data?.airSellResponse[0]
                                       ?.flightDetails[1]?.toAirport
                                   }
-                                  <span>
+                                 
+                                </h6>
+                                <span>
                                     {" "}
                                     {
                                       airsellResults?.data?.airSellResponse[0]
                                         ?.flightDetails[1]?.arrivalTime
                                     }{" "}
                                   </span>
-                                </h6>
                                 <p>
                                   {formatDateToCustomFormat(
                                     airsellResults?.data?.airSellResponse[0]
@@ -824,7 +832,7 @@ const FlightConfirmation = () => {
                         ?.length > 2 ? (
                         <Row>
                           <Col md={3}>
-                            <div className="logo-sec">
+                            <div className="logo-sec flight_Confirmation_box_image">
                               {/* <Image src={img1} className="img-fluid" alt="" /> */}
                               <Image
                                 src={`/images/airline-logo/${airsellResults?.data?.airSellResponse[0]?.flightDetails[2]?.marketingCompany}.png`}
@@ -836,13 +844,16 @@ const FlightConfirmation = () => {
                                 height={240}
                                 className="img-fluid"
                               />
-                              <span className="title">
+                              
+                            </div>
+                            <div className="flight_confirmation_box_image_name">
+                                <span>
                                 {
                                   airsellResults?.data?.airSellResponse[0]
                                     ?.flightDetails[2]?.marketingCompanyName
                                 }
-                              </span>
-                            </div>
+                                </span>
+                              </div>
                           </Col>
                           <Col md={6}>
                             <div className="airport-part">
@@ -852,14 +863,15 @@ const FlightConfirmation = () => {
                                     airsellResults?.data?.airSellResponse[0]
                                       ?.flightDetails[2]?.fromAirport
                                   }{" "}
-                                  <span>
+                                 
+                                </h6>
+                                <span>
                                     {" "}
                                     {
                                       airsellResults?.data?.airSellResponse[0]
                                         ?.flightDetails[2]?.departureTime
                                     }
                                   </span>
-                                </h6>
                                 <p>
                                   {formatDateToCustomFormat(
                                     airsellResults?.data?.airSellResponse[0]
@@ -877,14 +889,15 @@ const FlightConfirmation = () => {
                                     airsellResults?.data?.airSellResponse[0]
                                       ?.flightDetails[2]?.toAirport
                                   }
-                                  <span>
+                                 
+                                </h6>
+                                <span>
                                     {" "}
                                     {
                                       airsellResults?.data?.airSellResponse[0]
                                         ?.flightDetails[2]?.arrivalTime
                                     }{" "}
                                   </span>
-                                </h6>
                                 <p>
                                   {formatDateToCustomFormat(
                                     airsellResults?.data?.airSellResponse[0]
@@ -916,13 +929,20 @@ const FlightConfirmation = () => {
                         ""
                       )}
                     </div>
-                    <div class="title-top">
-                      <h6>Return</h6>
+                    {/* <div className="flight_confirmation_layover_box">
+                      <div className="flight_confirmation_layover">
+                        <span>Layover time</span>
+                      </div>
+                    </div> */}
+                    </div>
+                    <div className="review_box flight_confirmation_box">
+                    <div class="title-top flight_confirmation_box_heading">
+                      <h6>Inbound Flight</h6>
                     </div>
                     <div className="flight_detail">
                       <Row>
                         <Col md={3}>
-                          <div className="logo-sec">
+                          <div className="logo-sec flight_Confirmation_box_image">
                             {/* <Image src={img1} className="img-fluid" alt="" /> */}
                             <Image
                               src={`/images/airline-logo/${airsellResults?.data?.airSellResponse[1]?.flightDetails[0]?.marketingCompany}.png`}
@@ -934,13 +954,16 @@ const FlightConfirmation = () => {
                               height={240}
                               className="img-fluid"
                             />
-                            <span className="title">
+                           
+                          </div>
+                          <div className="flight_confirmation_box_image_name">
+                             <span>
                               {
                                 airsellResults?.data?.airSellResponse[1]
                                   ?.flightDetails[0]?.marketingCompanyName
                               }
-                            </span>
-                          </div>
+                              </span>
+                            </div>
                         </Col>
                         <Col md={6}>
                           <div className="airport-part">
@@ -950,14 +973,15 @@ const FlightConfirmation = () => {
                                   airsellResults?.data?.airSellResponse[1]
                                     ?.flightDetails[0]?.fromAirport
                                 }{" "}
-                                <span>
+                               
+                              </h6>
+                              <span>
                                   {" "}
                                   {
                                     airsellResults?.data?.airSellResponse[1]
                                       ?.flightDetails[0]?.departureTime
                                   }
                                 </span>
-                              </h6>
                               <p>
                                 {formatDateToCustomFormat(
                                   airsellResults?.data?.airSellResponse[1]
@@ -975,14 +999,15 @@ const FlightConfirmation = () => {
                                   airsellResults?.data?.airSellResponse[1]
                                     ?.flightDetails[0]?.toAirport
                                 }
-                                <span>
+                               
+                              </h6>
+                              <span>
                                   {" "}
                                   {
                                     airsellResults?.data?.airSellResponse[1]
                                       ?.flightDetails[0]?.arrivalTime
                                   }{" "}
                                 </span>
-                              </h6>
                               <p>
                                 {formatDateToCustomFormat(
                                   airsellResults?.data?.airSellResponse[1]
@@ -1010,11 +1035,14 @@ const FlightConfirmation = () => {
                           </div>
                         </Col>
                       </Row>
+</div>
+<div className="flight_detail">
+
                       {airsellResults?.data?.airSellResponse[1]?.flightDetails
                         ?.length > 1 ? (
                         <Row>
                           <Col md={3}>
-                            <div className="logo-sec">
+                            <div className="logo-sec flight_Confirmation_box_image">
                               <Image
                                 src={`/images/airline-logo/${airsellResults?.data?.airSellResponse[1]?.flightDetails[1]?.marketingCompany}.png`}
                                 alt={
@@ -1025,13 +1053,16 @@ const FlightConfirmation = () => {
                                 height={240}
                                 className="img-fluid"
                               />
-                              <span className="title">
+                             
+                            </div>
+                            <div className="flight_confirmation_box_image_name">
+                               <span>
                                 {
                                   airsellResults?.data?.airSellResponse[1]
                                     ?.flightDetails[1]?.marketingCompanyName
                                 }
-                              </span>
-                            </div>
+                                </span>
+                              </div>
                           </Col>
                           <Col md={6}>
                             <div className="airport-part">
@@ -1041,14 +1072,15 @@ const FlightConfirmation = () => {
                                     airsellResults?.data?.airSellResponse[1]
                                       ?.flightDetails[1]?.fromAirport
                                   }{" "}
-                                  <span>
+                                 
+                                </h6>
+                                <span>
                                     {" "}
                                     {
                                       airsellResults?.data?.airSellResponse[1]
                                         ?.flightDetails[1]?.departureTime
                                     }
                                   </span>
-                                </h6>
                                 <p>
                                   {formatDateToCustomFormat(
                                     airsellResults?.data?.airSellResponse[1]
@@ -1066,14 +1098,15 @@ const FlightConfirmation = () => {
                                     airsellResults?.data?.airSellResponse[1]
                                       ?.flightDetails[1]?.toAirport
                                   }
-                                  <span>
+                                 
+                                </h6>
+                                <span>
                                     {" "}
                                     {
                                       airsellResults?.data?.airSellResponse[1]
                                         ?.flightDetails[1]?.arrivalTime
                                     }{" "}
                                   </span>
-                                </h6>
                                 <p>
                                   {formatDateToCustomFormat(
                                     airsellResults?.data?.airSellResponse[1]
@@ -1104,12 +1137,13 @@ const FlightConfirmation = () => {
                       ) : (
                         ""
                       )}
-
+</div>
+<div className="flight_detail">
                       {airsellResults?.data?.airSellResponse[1]?.flightDetails
                         ?.length > 2 ? (
-                        <Row>
+                        <Row >
                           <Col md={3}>
-                            <div className="logo-sec">
+                            <div className="logo-sec flight_Confirmation_box_image">
                               {/* <Image src={img1} className="img-fluid" alt="" /> */}
                               <Image
                                 src={`/images/airline-logo/${airsellResults?.data?.airSellResponse[1]?.flightDetails[2]?.marketingCompany}.png`}
@@ -1121,13 +1155,16 @@ const FlightConfirmation = () => {
                                 height={240}
                                 className="img-fluid"
                               />
-                              <span className="title">
+                             
+                            </div>
+                            <div className="flight_confirmation_box_image_name">
+                               <span>
                                 {
                                   airsellResults?.data?.airSellResponse[1]
                                     ?.flightDetails[2]?.marketingCompanyName
                                 }
-                              </span>
-                            </div>
+                                </span>
+                              </div>
                           </Col>
                           <Col md={6}>
                             <div className="airport-part">
@@ -1137,14 +1174,15 @@ const FlightConfirmation = () => {
                                     airsellResults?.data?.airSellResponse[1]
                                       ?.flightDetails[2]?.fromAirport
                                   }{" "}
-                                  <span>
+                                 
+                                </h6>
+                                <span>
                                     {" "}
                                     {
                                       airsellResults?.data?.airSellResponse[1]
                                         ?.flightDetails[2]?.departureTime
                                     }
                                   </span>
-                                </h6>
                                 <p>
                                   {formatDateToCustomFormat(
                                     airsellResults?.data?.airSellResponse[1]
@@ -1162,14 +1200,15 @@ const FlightConfirmation = () => {
                                     airsellResults?.data?.airSellResponse[1]
                                       ?.flightDetails[2]?.toAirport
                                   }
-                                  <span>
+                                 
+                                </h6>
+                                <span>
                                     {" "}
                                     {
                                       airsellResults?.data?.airSellResponse[1]
                                         ?.flightDetails[2]?.arrivalTime
                                     }{" "}
                                   </span>
-                                </h6>
                                 <p>
                                   {formatDateToCustomFormat(
                                     airsellResults?.data?.airSellResponse[1]
@@ -1202,52 +1241,7 @@ const FlightConfirmation = () => {
                       )}
                     </div>
                   </div>
-                  {/* <div className="review_box">
-                 <div className="title-top">
-                   <h5>Information</h5>
-                 </div>
-                 <div className="flight_detail">
-                   <Row>
-                     <Col md={12}>
-                       <div className="boxes">
-                         <h6>Cancellation Charges</h6>
-                         <ul>
-                           <li>
-                             airline fee : <span>{currSign}0</span>
-                           </li>
-                           <li>
-                             This airline allows cancellation only before 2 hrs
-                             from departure time.
-                           </li>
-                         </ul>
-                       </div>
-                       <div className="boxes">
-                         <h6>Reschedule Charges</h6>
-                         <ul>
-                           <li>
-                             airline fee : <span>{currSign}0</span>
-                           </li>
-                           <li>
-                             This airline allows reschedule only before 2 hrs
-                             from departure time.
-                           </li>
-                         </ul>
-                       </div>
-                       <div className="boxes">
-                         <h6>baggage policy</h6>
-                         <ul>
-                           <li>
-                             Check-in Baggage : <span>10 kg</span>
-                           </li>
-                           <li>
-                             Cabin Baggage: <span>7 kg</span>
-                           </li>
-                         </ul>
-                       </div>
-                     </Col>
-                   </Row>
-                 </div>
-               </div> */}
+                 
                   <div className="review_box">
                     <div className="title-top">
                       <h5>traveller details</h5>
@@ -1416,7 +1410,7 @@ const FlightConfirmation = () => {
 
                                 {/** Working For Email And Contact */}
                                 {index === 0 ? (
-                                  <form>
+                                  <form style={{margin:'20px 0 0 0'}}>
                                     <Row>
                                       <Col md={6} className="form-group">
                                         <Label for="inputEmail4">Email</Label>
@@ -1506,7 +1500,7 @@ const FlightConfirmation = () => {
                             (_, index) => (
                               <form key={index}>
                                 <h6>Child {index + 1}</h6>
-                                <Row>
+                                <Row style={{margin:'5px 0'}}>
                                   <Col md={3} className="form-group">
                                     <Label for={`title-${index}`}>
                                       Title c
@@ -1671,7 +1665,7 @@ const FlightConfirmation = () => {
                             (_, index) => (
                               <form key={index}>
                                 <h6>Infant {index + 1}</h6>
-                                <Row>
+                                <Row style={{margin:'5px 0'}}>
                                   <Col md={3} className="form-group">
                                     <Label for={`title-${index}`}>Title</Label>
                                     <Input
@@ -1904,7 +1898,7 @@ const FlightConfirmation = () => {
                </div> */}
                 </div>
               </Col>
-              <Col lg={4} className="res-margin">
+              <Col lg={3} className="res-margin">
                 <div className="sticky-cls-top">
                   <div className="review-section">
                     <div className="review_box">
@@ -1915,49 +1909,49 @@ const FlightConfirmation = () => {
                         <div className="summery_box">
                           <table className="table table-borderless">
                             <tbody>
-                              <tr>
+                              {/* <tr>
                                 <td>
                                   adults ({flightRequest?.adults} X {currSign}
                                   {flight?.price?.adultPP})
-                                </td>
+                                </td> 
                                 <td>
                                   {currSign}
                                   {flightRequest?.adults *
                                     flight?.price?.adultPP}
                                 </td>
-                              </tr>
+                              </tr>*/}
                               {flightRequest?.children != 0 ? (
-                                <tr>
-                                  <td>
+                               {/* <tr>
+                                   <td>
                                     children ({flightRequest?.children} X{" "}
                                     {currSign}
                                     {flight?.price?.childPp})
-                                  </td>
+                                  </td> 
                                   <td>
                                     {currSign}
                                     {flightRequest?.children *
                                       flight?.price?.childPp}
                                   </td>
-                                </tr>
+                                </tr>*/}
                               ) : (
                                 ""
                               )}
                               {flightRequest?.infant != 0 ? (
-                                <tr>
-                                  <td>
+                                 {/* <tr>
+                                 <td>
                                     infants({flightRequest?.infant} X {currSign}
                                     {flight?.price?.infantPp})
-                                  </td>
+                                  </td> 
                                   <td>
                                     {currSign}
                                     {flightRequest?.infant *
                                       flight?.price?.infantPp}
                                   </td>
-                                </tr>
+                                </tr>*/}
                               ) : (
                                 ""
                               )}
-                              <tr>
+                              {/* <tr>
                                 <td>total taxes</td>
                                 <td>
                                   {currSign}
@@ -1966,7 +1960,7 @@ const FlightConfirmation = () => {
                                     0 + parseFloat(flight?.price?.infantTax) ||
                                     0}
                                 </td>
-                              </tr>
+                              </tr> */}
                               {/* <tr>
                              <td>Insurance</td>
                              <td>{currSign}0</td>
@@ -1979,13 +1973,35 @@ const FlightConfirmation = () => {
                           </table>
                           <div className="grand_total">
                             <h5>
-                              grand total:{" "}
+                              Total Price:{" "}
                               <span>
                                 {currSign}
                                 {flight?.price?.total}
                               </span>
                             </h5>
                           </div>
+                          <div className="continue-btn">
+              <button
+                onClick={handleApiCalls}
+                disabled={loading}
+                className="btn btn-solid"
+                type="submit"
+              >
+                continue booking
+              </button>
+
+              <button
+                hidden={true}
+                onClick={initiatePayment}
+                disabled={loading}
+                className="btn btn-solid"
+                type="submit"
+              >
+                continue Payment
+              </button>
+              <span>{ApiResponse}</span>
+            </div>
+
                         </div>
                       </div>
                     </div>
@@ -2089,27 +2105,7 @@ const FlightConfirmation = () => {
                 </div>
               </Col>
             </Row>
-            <div className="continue-btn">
-              <button
-                onClick={handleApiCalls}
-                disabled={loading}
-                className="btn btn-solid"
-                type="submit"
-              >
-                continue booking
-              </button>
-
-              <button
-                hidden={true}
-                onClick={initiatePayment}
-                disabled={loading}
-                className="btn btn-solid"
-                type="submit"
-              >
-                continue Payment
-              </button>
-              <span>{ApiResponse}</span>
-            </div>
+           
           </Container>
         </div>
       ) : (

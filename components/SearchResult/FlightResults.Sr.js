@@ -168,17 +168,7 @@ const FlightResultsSr = () => {
     return (
       <div className="flight-detail-sec">
       <div className="title-bar">
-        {/* <Row>
-          <Col xs={3}>
-            <p>Airline</p>
-          </Col>
-          <Col xs={6}>
-            <p>departure & arrival</p>
-          </Col>
-          <Col xs={3}>
-            <p>price</p>
-          </Col>
-        </Row> */}
+       
       </div>
       <div className="detail-bar">
         {

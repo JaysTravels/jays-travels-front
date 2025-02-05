@@ -12378,7 +12378,7 @@ section,
   padding: 20px 30px;
 }
 .review-section .review_box .flight_detail .logo-sec img {
-  width: 120px;
+  width: 100px;
   margin-right: 10px;
 }
 .review-section .review_box .flight_detail .logo-sec .title {
@@ -25001,6 +25001,11 @@ body.dark {
   .review-section .review_box .flight_detail .logo-sec img {
     display: block;
     margin: 0 auto;
+  }
+  .flight_confirmation_box_image_name span{
+    margin: 0 auto;
+    display: block;
+    padding: 0;
   }
   .review-section .review_box .flight_detail .airport-part .airport-progress {
     display: none;

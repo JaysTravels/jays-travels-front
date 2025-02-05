@@ -534,3 +534,44 @@ a {
   border: 1px solid #dddddd;
   margin-top: 40px;
 }
+.flight_confirmation_box{
+  border: 0.5px solid #c5d3e3;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.flight_confirmation_box_heading{
+  border-bottom: 0.5px solid #c5d3e3;
+  padding: 13px 20px 10px 20px;
+}
+.flight_Confirmation_box_image{
+        gap: 10px;
+        flex: 0 0 23%;
+      
+        padding: 15px 15px 15px 20px;
+        border-right: 0.5px solid #c5d3e3;
+}
+.flight_confirmation_layover_box{
+  justify-content: center;
+        max-width: 100%;
+        border-top: 0.5px solid #C5D3E3;
+        margin-left: unset;
+        height: 0;
+        padding-top: 0;
+}
+.flight_confirmation_layover{
+  background: #FFF;
+        border: 1px solid #fdb715;
+        color: #fdb715;
+        margin-bottom: 0;
+        border-radius: 8px;
+        font-size: 14px;
+        letter-spacing: 1.2px;
+        position: absolute;
+        left: 0px;
+        min-height: 31px;
+        width: 225px;
+}
+.flight_confirmation_box_image_name span{
+  padding: 20px;
+  text-align: center;
+}
