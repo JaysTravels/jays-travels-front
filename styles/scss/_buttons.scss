@@ -36,7 +36,7 @@
   }
 
   &-c1 {
-    background-color: #0068bf;
+    background-color: $c1;
     color: $white;
     border-color: rgba($c1, 0.12) !important;
     box-shadow: 2.5px 4.33px 25px 0px rgba($c1, 0.3);
@@ -45,14 +45,13 @@
     &:hover,
     &:focus {
       background-color: $white;
-      color: #0068bf !important;
+      color: $c1 !important;
       border-color: rgba($c1, 1) !important;
     }
     &:active {
       background-color: $white;
       color: $c1;
-      // border-color: rgba($c1, 1) !important;
-      border-color:#0068bf !important;
+      border-color: rgba($c1, 1) !important;
     }
 
     &:disabled {
@@ -63,7 +62,7 @@
     }
   }
   &-c2 {
-    background-color: #0068bf;
+    background-color: $c2;
     color: $c1;
 
     &:hover {
@@ -76,23 +75,20 @@
     }
   }
   &-c3 {
-    // background-color: $c3;
-    background-color: #0068bf;
+    background-color: $c3;
     color: $white;
     border-color: rgba($c3, 0.12);
 
     &:hover,
     &:focus {
-      // background-color: $white;
-      background-color:$white ;
-      // color: $c3;
-      color:  #0068bf;
-      border-color: #ff8103;
+      background-color: $white;
+      color: $c3;
+      border-color: rgba($c3, 1);
     }
     &:active {
       background-color: $white !important;
-      color:$white !important;
-      border-color: #ff8103 !important;
+      color: $c3 !important;
+      border-color: rgba($c3, 1) !important;
     }
 
     &:disabled {

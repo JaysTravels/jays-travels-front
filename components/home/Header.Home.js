@@ -86,6 +86,9 @@ const HeaderHome = () => {
             </Col>
           </Container>
         </div>
+        {/* <div className="some_effect_container">
+        <div className="smoke_effect"></div>
+        </div> */}
       </div>
     </>
   );

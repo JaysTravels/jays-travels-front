@@ -575,3 +575,16 @@ a {
   padding: 20px;
   text-align: center;
 }
+.smoke_effect{
+  bottom: -2px;
+        z-index: -1;
+        height: 137px;
+        width: 100%;
+        background: transparent linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 25%, #fff 94%, #fff 100%) 0% 0% no-repeat padding-box;
+}
+.some_effect_container{
+  display: flex;
+  z-index: 1 !important;
+;
+}
+input, textarea, select { font-family:nunito !important; }

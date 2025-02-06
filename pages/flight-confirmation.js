@@ -1918,7 +1918,7 @@ const FlightConfirmation = () => {
                   <div className="review-section">
                     <div className="review_box">
                       <div className="title-top">
-                        <h5>booking summery</h5>
+                        <h5>booking summary</h5>
                       </div>
                       <div className="flight_detail">
                         <div className="summery_box">

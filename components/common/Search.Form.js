@@ -170,11 +170,11 @@ import { useRouter } from "next/router";
    setShowPassengers(false);
     const isValid = (isToday(startDate) || isToday(endDate));
     if(isValid) {
-    setApiResponse('Please provide valid from date and to date');
+    setApiResponse('Please provide valid date');
     return false;}
 
     if(destAirport === null || originAirport === null) {
-      setApiResponse('Origin and Destination both are required');
+      setApiResponse('Origin/Destination required');
       return false;}
 
       if (isStartDateGreater(startDate, endDate)) {
@@ -200,7 +200,7 @@ import { useRouter } from "next/router";
   }
  
 let cabinclass 
-setApiResponse('Search is in progress please wait...')
+setApiResponse('Please wait...')
 if (cabin.toLowerCase() === "premiumeconomy") {
   cabinclass = AirLineClass.PremiumEconomy;
 }
@@ -365,16 +365,18 @@ try {
           <Col lg={props.col1 || "12"} md={props.col1 || "12"}>
             {props.showLabel && <Label>from</Label>}          
             <AutoComplete2
+              font-family={'nunito'}
               items={fromItems}
               placeholder="Form"              
               className="position-relative z-2"
               icon={faCrosshairs}     
               onAirportSelect={handleOriginAirportChange} 
-              defaultText={'London , (LON), United Kingdom'}      
+              defaultText={'London (LON) United Kingdom'}
+                 
             /> 
              </Col>
           <Col lg={props.col1 || "12"} md={props.col1 || "12"}>
-            {props.showLabel && <Label>to</Label>}
+            {props.showLabel && <Label>Airport code or City name</Label>}
             <AutoComplete2
               items={toItems}
               placeholder="To"
@@ -443,7 +445,7 @@ try {
                   </Label>
                   <Label check >
                     <Input onChange={handleFlightType} name="radio1" type="checkbox" checked={flightType === 'N'}/>{" "}
-                    <span className="ms6">non stop flights</span>
+                    <span className="ms6">Direct Flights</span>
                   </Label>
                 </div>
               </Col>

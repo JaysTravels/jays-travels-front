@@ -117,7 +117,7 @@ const Confirmation = () => {
         <div className="box">
           <Row className="align-items-center">
             <Col lg={6} className="text-lg-start text-center">
-              <Link href="/">
+              <Link href="https://jaystravels.co.uk/">
                 <Image
                   src={topLogo}
                   alt="..."
@@ -127,10 +127,10 @@ const Confirmation = () => {
             </Col>
             <Col lg={6}>
               <div className="d-flex justify-content-lg-end justify-content-center links mt-lg-0 mt16">
-                <Link href="/">Home</Link>
+                <Link href="https://jaystravels.co.uk/">Home</Link>
                 <Link href="/">Tours</Link>
-                <Link href="/">Hotels</Link>
-                <Link href="/">Contact</Link>
+                <Link href="hotels">Hotels</Link>
+                <Link href="contact">Contact</Link>
               </div>
             </Col>
           </Row>
@@ -145,12 +145,11 @@ const Confirmation = () => {
               </h2>
 
               <h3 className="mt5 mb30">
-                Head to your Itinerary to check into your flight, make updates,
-                and share your plans with friends &amp; family.
+                
               </h3>
-              <Link href="#" className="btn">
+              {/* <Link href="#" className="btn">
                 view itinerary
-              </Link>
+              </Link> */}
             </div>
           </div>
 
