@@ -37,23 +37,6 @@ const visa = () => {
       </div>
       <div className="col-md-6">
         <div className="get-in-touch">
-       {/* Set configuration variables */}
-       <Script
-        dangerouslySetInnerHTML={{
-          __html: `
-            visahq_html5widget_color = "454445";
-            visahq_html5widget_language = "us";
-            visahq_widget_residency_country = "GB";
-            visahq_widget_residency_domain = "visahq.co.uk";
-          `,
-        }}
-      />
-
-      {/* Load the external script */}
-      <Script
-        src="//www.visahq.co.uk/scripts/new/flash_200x240.js"
-        strategy="afterInteractive"
-      />
 </div>
 
       </div>
