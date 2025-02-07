@@ -156,7 +156,7 @@ const LeftSidebarSr = () =>  {
           onClick={toggleCollapse}
           className="section-title collapse-block-title d-flex justify-content-between shadow-none p-0 border-0 rounded-0"
         >
-          <h5>latest filter</h5>         
+          <h5>Filters</h5>         
           <FontAwesomeIcon icon={faAlignCenter} />
         </Button>
         <div
@@ -196,7 +196,7 @@ const LeftSidebarSr = () =>  {
                       checked={selectedStops?.includes(1)}
                     />
                     <Label className="form-check-label" for="free-d">
-                      non stop
+                      Direct
                     </Label>
                   </div>
                   <div className="form-check collection-filter-checkbox">
@@ -456,10 +456,13 @@ const LeftSidebarSr = () =>  {
       </div>
       <div className="bottom-info">
         <h5>
-          <span>i</span> need help
+          <span>i</span> Need help ? Call Us
         </h5>
-        <h4>+44-8008101600</h4>
-        <h6>Mon - Sat (10am to 6pm)</h6>
+        <br/>
+        <br/>
+        <h4>0800-8101600</h4>
+        {/* <h6>Mon - Fri 10am-6pm</h6>
+        <h6>Sat - Sun 10am-3pm</h6> */}
       </div>
     </div>
   );

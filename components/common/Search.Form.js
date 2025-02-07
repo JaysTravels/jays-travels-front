@@ -367,7 +367,7 @@ try {
             <AutoComplete2
               font-family={'nunito'}
               items={fromItems}
-              placeholder="Form"              
+              placeholder="From"              
               className="position-relative z-2"
               icon={faCrosshairs}     
               onAirportSelect={handleOriginAirportChange} 

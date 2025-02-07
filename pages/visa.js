@@ -1,9 +1,11 @@
 import Meta from "@/components/common/Meta"
 import Footer from "@/components/footers/Front.Footer"
 import FrontNavbar from "@/components/navbars/Front.Navbar"
-
+import Script from 'next/script'
+import { useEffect } from 'react';
 
 const visa = () => {
+  
   return (
     <>
       <Meta title="visa" />
@@ -18,7 +20,7 @@ const visa = () => {
       <div className="col-md-6">
         <div className="contact-map">
         <div class="card">
- <div class="card-header">
+ <div className="card-header">
                                             <h5>
                                             Visa Applications
                                             </h5>
@@ -35,27 +37,25 @@ const visa = () => {
       </div>
       <div className="col-md-6">
         <div className="get-in-touch">
-          <h3>Apply for a visa</h3>
-          <form>
-            <div className="row">
-              <div className="form-group col-md-6">
-                <input type="text" className="form-control" id="name" placeholder="I am a citizen of" required />
-              </div>
-              <div className="form-group col-md-6">
-                <input type="text" className="form-control" id="last-name" placeholder="Living in" required />
-              </div>
-              <div className="form-group col-lg-6">
-                <input type="text" className="form-control" id="review" placeholder="Traveling to" required />
-              </div>
-              <div className="form-group col-lg-6">
-                <input type="text" className="form-control" id="email" placeholder="email address" required />
-              </div>
-              <div className="col-md-12 submit-btn">
-                <button className="btn btn-solid" type="submit">Apply for visa</button>
-              </div>
-            </div>
-          </form>
-        </div>
+       {/* Set configuration variables */}
+       <Script
+        dangerouslySetInnerHTML={{
+          __html: `
+            visahq_html5widget_color = "454445";
+            visahq_html5widget_language = "us";
+            visahq_widget_residency_country = "GB";
+            visahq_widget_residency_domain = "visahq.co.uk";
+          `,
+        }}
+      />
+
+      {/* Load the external script */}
+      <Script
+        src="//www.visahq.co.uk/scripts/new/flash_200x240.js"
+        strategy="afterInteractive"
+      />
+</div>
+
       </div>
     </div>
   </div>

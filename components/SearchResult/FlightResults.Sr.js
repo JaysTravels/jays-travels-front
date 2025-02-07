@@ -179,7 +179,7 @@ const FlightResultsSr = () => {
             <div className="detail-wrap border rounded-3 wow fadeInUp" key={item.id}>
               <div className="border-bottom  p-3">
                 <Row className="align-items-center">
-                  <Col md={9}>
+                  <Col md={9} sm={6}>
                     <h5 className="mb-0">
                    {item?.itineraries[0]?.airport_city != null ? item?.itineraries[0]?.airport_city : flightRequest.origin }
                   <i className="fas fa-arrow-right fa-1x textC3" style={{padding:'0 5px'}}></i>
@@ -188,7 +188,7 @@ const FlightResultsSr = () => {
 <span style={{ color: "transparent" }}> {item?.markupId != null ? "  markup applied with ID " + item?.markupId + " , Amount AdtMarkup" + item?.price?.adulMarkup : "  markup not applied"}</span> 
     </h5>
                   </Col>
-                  <Col md={3}>
+                  <Col md={3} sm={6}>
                    <h5 className="mb-0 title-3">Return Flight</h5> 
                   </Col>
                 </Row>

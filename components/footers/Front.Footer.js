@@ -75,8 +75,10 @@ const FrontFooter = () => {
                         349 High Street, Smethwick, West Midlands, B66 3PB, United Kingdom
                       </li>
                       <li>
-                        <FontAwesomeIcon icon={faPhone} /> <a href="tel:+448008101600">+44-80081-01600</a> <br/>
-                        <span>Mon - Sat (10am to 6pm)</span>
+                        <FontAwesomeIcon icon={faPhone} /> <a href="tel:+448008101600">0800-8101600</a> <br/>
+                        <span>Mon - Sat 10am-6pm</span>
+                        <br/>
+                        <span>Sat - Sun 10am-6pm</span>
                       </li>
                       <li>
                         <FontAwesomeIcon icon={faEnvelope} />info@jaystravels.co.uk
@@ -213,9 +215,9 @@ const FrontFooter = () => {
                         {/* <li>
                           <a href="#">Tours</a>
                         </li> */}
-                        <li>
+                        {/* <li>
                           <a href="#">emergency call</a>
-                        </li>
+                        </li> */}
                       </ul>
                     </div>
                   </div>

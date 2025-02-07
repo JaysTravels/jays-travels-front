@@ -347,7 +347,7 @@ const holidaysMainPage = () => {
                 <div className="label-offer">certified</div>
               </div>
             </div> */}
-            <div className="col-xl-4 col-sm-6 popular grid-item wow fadeInUp" data-class="popular">
+            {/* <div className="col-xl-4 col-sm-6 popular grid-item wow fadeInUp" data-class="popular">
               <div className="special-box">
                 <div className="special-img">
                   <a href="hotel-single-7.html">
@@ -389,7 +389,7 @@ const holidaysMainPage = () => {
                 </div>
                 <div className="label-offer">Recommended</div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
