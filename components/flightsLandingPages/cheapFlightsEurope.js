@@ -20,7 +20,7 @@ const cheapFlightsEurope = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={Zurich} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={Zurich} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">
@@ -33,7 +33,7 @@ const cheapFlightsEurope = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={Lanzarote} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={Lanzarote} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">
@@ -46,7 +46,7 @@ const cheapFlightsEurope = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={Brussels} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={Brussels} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">
@@ -59,7 +59,7 @@ const cheapFlightsEurope = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={Munich} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={Munich} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">

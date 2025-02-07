@@ -28,7 +28,7 @@ const cheapFlightsAsia = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={Denpasar} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={Denpasar} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">
@@ -41,7 +41,7 @@ const cheapFlightsAsia = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={Shanghai} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={Shanghai} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">
@@ -54,7 +54,7 @@ const cheapFlightsAsia = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={Phuket} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={Phuket} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">
@@ -67,7 +67,7 @@ const cheapFlightsAsia = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={Yangon} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={Yangon} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">
@@ -80,7 +80,7 @@ const cheapFlightsAsia = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={Bangkok} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={Bangkok} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">
@@ -93,7 +93,7 @@ const cheapFlightsAsia = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={KualaLumpur} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={KualaLumpur} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">
@@ -106,7 +106,7 @@ const cheapFlightsAsia = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={Seoul} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={Seoul} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">
@@ -119,7 +119,7 @@ const cheapFlightsAsia = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={Tokyo} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={Tokyo} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">
@@ -132,7 +132,7 @@ const cheapFlightsAsia = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={Manila} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={Manila} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">
@@ -145,7 +145,7 @@ const cheapFlightsAsia = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={Taipei} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={Taipei} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">
@@ -158,7 +158,7 @@ const cheapFlightsAsia = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={Singapore} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={Singapore} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">
@@ -171,7 +171,7 @@ const cheapFlightsAsia = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={HoChiMinhCity} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={HoChiMinhCity} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">
@@ -184,7 +184,7 @@ const cheapFlightsAsia = () => {
         <div className="overlay cheapflightoffers">
           <div className="portfolio-image">
             <a href="../assets/images/FlightOffers/Europe/Poland.jpg">
-              <Image src={HongKong} alt className="img-fluid lazyload bg-img" width={1280} height={720} />
+              <Image src={HongKong} alt="" className="img-fluid lazyload bg-img" width={1280} height={720} />
             </a>
           </div>
           <div className="portfolio-text">

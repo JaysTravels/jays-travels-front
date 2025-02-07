@@ -13,7 +13,7 @@ const holidaysMainPage = () => {
               <div className="special-box">
                 <div className="special-img">
                   <a href="../images/holidaysPdfs/arabian-court-at-oneonly-royal-mirage.PDF">
-                    <img src="../images/packages/Arabian-Court.jpg" className="img-fluid lazyload bg-img" alt />
+                    <img src="../images/packages/Arabian-Court.jpg" className="img-fluid lazyload bg-img" alt=""/>
                   </a>
                   <div className="top-icon">
                     <a href="#" className data-bs-toggle="tooltip" data-placement="top" title data-original-title="Add to Wishlist">
@@ -351,7 +351,7 @@ const holidaysMainPage = () => {
               <div className="special-box">
                 <div className="special-img">
                   <a href="hotel-single-7.html">
-                    <img src="../assets/images/hotel/gallery/2.jpg" className="img-fluid blur-up lazyload bg-img" alt />
+                    <img src="../assets/images/hotel/gallery/2.jpg" className="img-fluid blur-up lazyload bg-img" alt="" />
                   </a>
                   <div className="top-icon">
                     <a href="#" className data-bs-toggle="tooltip" data-placement="top" title data-original-title="Add to Wishlist">
@@ -361,7 +361,7 @@ const holidaysMainPage = () => {
                 </div>
                 <div className="special-content">
                   <a href="hotel-single-7.html">
-                    <h5>the venetian <span><i className="fas fa-map-marker-alt" /> Newyork</span>
+                    <h5>the venetian <span><i className="fas fa-map-marker-alt=""" /> Newyork</span>
                     </h5>
                   </a>
                   <p>
