@@ -16,7 +16,7 @@ const SearchBarSr = () => {
         <div className="container">
           <div className="flight-search">
             <div className="responsive-detail">
-              <div className="destination">
+              {/* <div className="destination">
                 <span>dubai</span>
                 <span>
                   <i className="fas fa-long-arrow-alt-right"></i>
@@ -27,7 +27,7 @@ const SearchBarSr = () => {
                 <span>tue, 19-Aug-2019</span>
                 <span className="divider">|</span>
                 <span>2 Adults</span>
-              </div>
+              </div> */}
               <div className="modify-search">
                 <Button
                   color="c3"

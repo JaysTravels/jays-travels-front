@@ -21,9 +21,9 @@ const Meta = (props) => {
 
 Meta.defaultProps = {
   siteTitle: "Jays Travels",
-  title: "Home",
-  keywords: "Flights",
-  description: "Reservation system",
+  title: "Jays Travels",
+  keywords: "Flights | Hotel | Packages",
+  description: "World wide flights & Hotels",
 };
 
 export default Meta;

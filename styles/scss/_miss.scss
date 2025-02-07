@@ -6,7 +6,7 @@ body {
 
 body {
   font-feature-settings: "clig" off, "liga" off;
-  font-family: "Nunito", sans-serif;
+  font-family: "Nunito", sans-serif !important;
   overflow-x: hidden;
   background: $white;
   color: $black;
@@ -534,3 +534,57 @@ a {
   border: 1px solid #dddddd;
   margin-top: 40px;
 }
+.flight_confirmation_box{
+  border: 0.5px solid #c5d3e3;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.flight_confirmation_box_heading{
+  border-bottom: 0.5px solid #c5d3e3;
+  padding: 13px 20px 10px 20px;
+}
+.flight_Confirmation_box_image{
+        gap: 10px;
+        flex: 0 0 23%;
+      
+        padding: 15px 15px 15px 20px;
+        border-right: 0.5px solid #c5d3e3;
+}
+.flight_confirmation_layover_box{
+  justify-content: center;
+        max-width: 100%;
+        border-top: 0.5px solid #C5D3E3;
+        margin-left: unset;
+        height: 0;
+        padding-top: 0;
+}
+.flight_confirmation_layover{
+  background: #FFF;
+        border: 1px solid #fdb715;
+        color: #fdb715;
+        margin-bottom: 0;
+        border-radius: 8px;
+        font-size: 14px;
+        letter-spacing: 1.2px;
+        position: absolute;
+        left: 0px;
+        min-height: 31px;
+        width: 225px;
+}
+.flight_confirmation_box_image_name span{
+  padding: 20px;
+  text-align: center;
+}
+.smoke_effect{
+  bottom: -2px;
+        z-index: -1;
+        height: 137px;
+        width: 100%;
+        background: transparent linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 25%, #fff 94%, #fff 100%) 0% 0% no-repeat padding-box;
+}
+.some_effect_container{
+  display: flex;
+  z-index: 1 !important;
+;
+}
+input, textarea, select { font-family:nunito !important; }

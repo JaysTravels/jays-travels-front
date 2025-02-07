@@ -11988,7 +11988,7 @@ section,
   text-align: center;
 }
 .flight-detail-sec .detail-bar .detail-wrap .logo-sec img {
-  width: 120px;
+  width: 100px;
   height: auto;
   margin-bottom: 5px;
 }
@@ -12019,15 +12019,15 @@ section,
   color: #909090;
   font-size: 12px;
 }
-.flight-detail-sec
-  .detail-bar
-  .detail-wrap
-  .airport-part
-  .airport-name.arrival {
-  margin-left: auto;
-}
+// .flight-detail-sec
+//   .detail-bar
+//   .detail-wrap
+//   .airport-part
+//   .airport-name.arrival {
+//   margin-left: auto;
+// }
 .flight-detail-sec .detail-bar .detail-wrap .airport-part .airport-progress {
-  width: 100%;
+  width: 60%;
   padding: 0 25px;
   position: relative;
 }
@@ -12378,7 +12378,7 @@ section,
   padding: 20px 30px;
 }
 .review-section .review_box .flight_detail .logo-sec img {
-  width: 120px;
+  width: 100px;
   margin-right: 10px;
 }
 .review-section .review_box .flight_detail .logo-sec .title {
@@ -15045,6 +15045,12 @@ section,
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
+.portfolio-section .grid .grid-item .cheapflightoffers {
+  border-radius: 10px;
+    border: 1px solid #ff8103;
+    position: relative;
+    min-height: 200px;
+}
 .portfolio-section .grid .grid-item .overlay .portfolio-image {
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
@@ -15052,6 +15058,7 @@ section,
 }
 .portfolio-section .grid .grid-item .overlay .portfolio-text {
   margin-top: 10px;
+  padding: 5px 10px;
 }
 .portfolio-section .grid .grid-item .overlay .portfolio-text h3 {
   font-weight: 600;
@@ -24994,6 +25001,11 @@ body.dark {
   .review-section .review_box .flight_detail .logo-sec img {
     display: block;
     margin: 0 auto;
+  }
+  .flight_confirmation_box_image_name span{
+    margin: 0 auto;
+    display: block;
+    padding: 0;
   }
   .review-section .review_box .flight_detail .airport-part .airport-progress {
     display: none;

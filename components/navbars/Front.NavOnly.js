@@ -25,56 +25,17 @@ const FrontNavOnly = (props) => {
   return (
     <>
       <Nav className="mx-auto" navbar>
-        <UncontrolledDropdown
-          nav
-          inNavbar
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-          isOpen={dropdownOpen}
-          toggle={toggle}
-        >
-          <DropdownToggle nav caret>
-           Packages
-          </DropdownToggle>
-          <DropdownMenu left={true}>
-            <Row>
-              <Col lg={6}>
-                <DropdownItem href="/types/delay-compensation">
-                  Delay compensation
-                </DropdownItem>
-                <DropdownItem href="/types/cancellation-compensation">
-                  Cancellation compensation
-                </DropdownItem>
-                <DropdownItem href="/types/denied-boarding-compensation">
-                  Denied boarding compensation
-                </DropdownItem>
-                <DropdownItem href="/types/overbooked-compensation">
-                  Overbooked compensation
-                </DropdownItem>
-              </Col>
-              <Col lg={6}>
-                <DropdownItem href="/types/missed-connection-compensation">
-                  Missed connection compensations
-                </DropdownItem>
-                <DropdownItem href="/types/diversion-compensation">
-                  Diversion compensation
-                </DropdownItem>
-                <DropdownItem href="/types/refunds">Refunds</DropdownItem>
-                <DropdownItem href="/types/eu-reg-261-compensation">
-                  EU Reg 261 compensation
-                </DropdownItem>
-              </Col>
-            </Row>
-          </DropdownMenu>
-        </UncontrolledDropdown>
-        <NavItem>
-          <NavLink href="#">Hotels</NavLink>
+      <NavItem>
+          <NavLink href="holidays">Holidays</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="#">Visa</NavLink>
+          <NavLink href="hotels">Hotels</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="visa">Visa</NavLink>
           </NavItem>
         <NavItem>
-          <NavLink href="#">Insurance</NavLink>
+          <NavLink href="insurance">Insurance</NavLink>
         </NavItem>
         <NavItem>
           <NavLink href="make-payment">

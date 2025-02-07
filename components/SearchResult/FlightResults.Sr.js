@@ -168,17 +168,7 @@ const FlightResultsSr = () => {
     return (
       <div className="flight-detail-sec">
       <div className="title-bar">
-        {/* <Row>
-          <Col xs={3}>
-            <p>Airline</p>
-          </Col>
-          <Col xs={6}>
-            <p>departure & arrival</p>
-          </Col>
-          <Col xs={3}>
-            <p>price</p>
-          </Col>
-        </Row> */}
+       
       </div>
       <div className="detail-bar">
         {
@@ -189,13 +179,17 @@ const FlightResultsSr = () => {
             <div className="detail-wrap border rounded-3 wow fadeInUp" key={item.id}>
               <div className="border-bottom  p-3">
                 <Row className="align-items-center">
-                  <Col md={9}>
+                  <Col md={9} sm={6}>
                     <h5 className="mb-0">
                    {item?.itineraries[0]?.airport_city != null ? item?.itineraries[0]?.airport_city : flightRequest.origin }
                   <i className="fas fa-arrow-right fa-1x textC3" style={{padding:'0 5px'}}></i>
                   {" "}
                   {item?.itineraries[1]?.airport_city != null ? item?.itineraries[1]?.airport_city :flightRequest.destination}
-                    </h5>
+<span style={{ color: "transparent" }}> {item?.markupId != null ? "  markup applied with ID " + item?.markupId + " , Amount AdtMarkup" + item?.price?.adulMarkup : "  markup not applied"}</span> 
+    </h5>
+                  </Col>
+                  <Col md={3} sm={6}>
+                   <h5 className="mb-0 title-3">Return Flight</h5> 
                   </Col>
                 </Row>
               </div>
@@ -205,7 +199,7 @@ const FlightResultsSr = () => {
                     <div className="outbound border-bottom pb15">
                       <div className="title-3">
                         <h5>
-                          <i className="fas fa-plane-departure fs16"></i>{" "}
+                          <i className="fas fa-plane-departure fs12"></i>{" "}
                           Outbound
                         </h5>
                       </div>
@@ -221,8 +215,8 @@ const FlightResultsSr = () => {
                           <div className="airport-part">
                             <div className="airport-name">
                               <h4>{formatTime(item?.itineraries[0]?.segments[0]?.departure?.at)}</h4>
-                              {/* <h4>{formatDate(item?.itineraries[0]?.segments[0]?.departure?.at)}</h4> */}
-                              <h6>{item?.itineraries[0]?.segments[0]?.departure?.iataCode + " - " + item?.itineraries[0]?.segments[0]?.departure?.iataName.split(/\s*,\s*/)[0] }</h6>
+                             <h6 className="pb10">{formatDate(item?.itineraries[0]?.segments[0]?.departure?.at)}</h6>
+                              <h4 >{item?.itineraries[0]?.segments[0]?.departure?.iataCode  }</h4>
                             </div>
                             <div className="airport-progress">
                               <i className="fas fa-plane-departure float-start"></i>
@@ -239,8 +233,8 @@ const FlightResultsSr = () => {
                             </div>
                             <div className="airport-name arrival">
                               <h4>{formatTime(item?.itineraries[0]?.segments[item?.itineraries[1]?.segments?.length -1]?.arrival?.at)}</h4>
-                              {/* <h4>{formatDate(item?.itineraries[0]?.segments[item?.itineraries[1]?.segments?.length -1]?.arrival?.at)}</h4> */}
-                              <h6>{item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length-1]?.arrival?.iataCode + " - " + item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length -1]?.arrival?.iataName.split(/\s*,\s*/)[0]}</h6>
+                              <h6 className="pb5">{formatDate(item?.itineraries[0]?.segments[item?.itineraries[1]?.segments?.length -1]?.arrival?.at)}</h6>
+                              <h4>{item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length-1]?.arrival?.iataCode}</h4>
                             </div>
                           </div>
                           </Col>
@@ -252,7 +246,7 @@ const FlightResultsSr = () => {
                     <div className="inbound">
                       <div className="title-3">
                         <h5>
-                          Inbound <i className="fas fa-plane-arrival fs16"></i>
+                        <i className="fas fa-plane-arrival fs12"></i> Inbound
                         </h5>
                       </div>
                       <div className="peLg30">
@@ -268,8 +262,8 @@ const FlightResultsSr = () => {
                               <div className="airport-part">
                                 <div className="airport-name">
                                 <h4>{formatTime(item?.itineraries[1]?.segments[0].departure.at)}</h4>
-                                {/* <h4>{formatDate(item?.itineraries[1]?.segments[0].departure.at)}</h4> */}
-                                <h6>{item?.itineraries[1]?.segments[0]?.departure?.iataCode + " - " + item?.itineraries[1]?.segments[0]?.departure?.iataName.split(/\s*,\s*/)[0]}</h6>
+                               <h6 className="pb10">{formatDate(item?.itineraries[1]?.segments[0].departure.at)}</h6> 
+                                <h4>{item?.itineraries[1]?.segments[0]?.departure?.iataCode}</h4>
                                 </div>
                                 <div className="airport-progress">
                                   <i className="fas fa-plane-departure float-start"></i>
@@ -287,8 +281,8 @@ const FlightResultsSr = () => {
                                 </div>
                                 <div className="airport-name arrival">
                                 <h4>{formatTime(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h4>
-                                {/* <h4>{formatDate(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h4> */}
-                                <h6>{item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.iataCode + " - " + item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length-1]?.arrival?.iataName.split(/\s*,\s*/)[0]}</h6>
+                                <h6 className="pb5">{formatDate(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h6>
+                                <h4>{item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.iataCode}</h4>
                                 </div>
                               </div>
                             </Col>
@@ -305,13 +299,14 @@ const FlightResultsSr = () => {
                 <Col md={3}>
                     <div className="price mb10">
                       <div>
+                        <h6>Total Price</h6>
                         <h2>{item.price.currency === "GBP" ? "£" : "$"} {item.price.total}</h2>
                         {/* <span>{"non refundable"}</span> */}
                       </div>
                     </div>
                     <div className="book-flight">
-                      <Button onClick={() => handleClick(item.id)} color="c3"  disabled={loadingId === item.id}>
-                        {loadingId === item.id ? "Please wait" : "Book Now"}
+                      <Button onClick={() => handleClick(item.id)} className="btn btn-curve btn-primary" color="c3"  disabled={loadingId === item.id}>
+                        {loadingId === item.id ? "Please wait" : "Select Now"}
                       </Button>
                       
                     </div>

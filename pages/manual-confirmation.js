@@ -108,9 +108,10 @@ const ManualConfirmation = () => {
                 Head to your Itinerary to check into your flight, make updates,
                 and share your plans with friends &amp; family.
               </h3>
-              <Link href="#" className="btn">
+              {/* <Link href="#" className="btn">
                 view itinerary
-              </Link>
+              </Link> */}
+              
             </div>
           </div>
 

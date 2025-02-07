@@ -1,7 +1,7 @@
 import Image from "next/image";
-import image1 from "@/public/images/destination/1.jpg";
-import image2 from "@/public/images/destination/2.jpg";
-import image3 from "@/public/images/destination/3.jpg";
+import image4 from "@/public/images/destination/1.jpg";
+import image2 from "@/public/images/destination/3.jpg";
+import image3 from "@/public/images/destination/2.jpg";
 import Slider from "react-slick";
 import { Button, Col, Container, Row } from "reactstrap";
 
@@ -9,7 +9,7 @@ import { Button, Col, Container, Row } from "reactstrap";
 const items = [
   {
     id: 1,
-    src: image1,
+    src: image4,
     // subTitle: "france country",
     title: "Flights",
     // peragaph:
@@ -39,7 +39,7 @@ const WhatWeDo = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 1,
+    slidesToScroll: 0,
     arrows: false,
     autoplay: true,
     responsive: [
@@ -47,7 +47,7 @@ const WhatWeDo = () => {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 1,
+          slidesToScroll: 0,
           infinite: true,
         },
       },
@@ -55,7 +55,7 @@ const WhatWeDo = () => {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1,
+          slidesToScroll: 0,
           initialSlide: 1,
         },
       },
@@ -68,7 +68,7 @@ const WhatWeDo = () => {
         <Container>
           <div className="title-2">
             <h2>
-              WHAT WE..... <span>DO BEST !</span>
+              WHAT WE... <span>DO BEST !</span>
             </h2>
             <p className="mbLg70">
              
