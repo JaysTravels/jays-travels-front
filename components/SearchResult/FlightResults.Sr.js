@@ -18,7 +18,21 @@ function formatDateTime(dateString) {
     return `${formattedDate} ${formattedTime}`;
   }
 }
-
+const formatDateToCustomFormat = (dateString) => {
+  if (dateString != null) {
+    const date = new Date(dateString);
+    const options = {
+      weekday: "short",
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    };
+    return new Intl.DateTimeFormat("en-US", options)
+      .format(date)
+      .toUpperCase()
+      .replace(",", "");
+  }
+};
   function formatDate(dateString) {
     if(dateString != null){
       const [date, time] = dateString.split('T'); 
@@ -215,7 +229,7 @@ const FlightResultsSr = () => {
                           <div className="airport-part">
                             <div className="airport-name">
                               <h4>{formatTime(item?.itineraries[0]?.segments[0]?.departure?.at)}</h4>
-                             <h6 className="pb10">{formatDate(item?.itineraries[0]?.segments[0]?.departure?.at)}</h6>
+                             <h6 className="pb10">{formatDateToCustomFormat(item?.itineraries[0]?.segments[0]?.departure?.at)}</h6>
                               <h4 >{item?.itineraries[0]?.segments[0]?.departure?.iataCode  }</h4>
                             </div>
                             <div className="airport-progress">
@@ -233,7 +247,7 @@ const FlightResultsSr = () => {
                             </div>
                             <div className="airport-name arrival">
                               <h4>{formatTime(item?.itineraries[0]?.segments[item?.itineraries[1]?.segments?.length -1]?.arrival?.at)}</h4>
-                              <h6 className="pb5">{formatDate(item?.itineraries[0]?.segments[item?.itineraries[1]?.segments?.length -1]?.arrival?.at)}</h6>
+                              <h6 className="pb5">{formatDateToCustomFormat(item?.itineraries[0]?.segments[item?.itineraries[1]?.segments?.length -1]?.arrival?.at)}</h6>
                               <h4>{item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length-1]?.arrival?.iataCode}</h4>
                             </div>
                           </div>
@@ -262,7 +276,7 @@ const FlightResultsSr = () => {
                               <div className="airport-part">
                                 <div className="airport-name">
                                 <h4>{formatTime(item?.itineraries[1]?.segments[0].departure.at)}</h4>
-                               <h6 className="pb10">{formatDate(item?.itineraries[1]?.segments[0].departure.at)}</h6> 
+                               <h6 className="pb10">{formatDateToCustomFormat(item?.itineraries[1]?.segments[0].departure.at)}</h6> 
                                 <h4>{item?.itineraries[1]?.segments[0]?.departure?.iataCode}</h4>
                                 </div>
                                 <div className="airport-progress">
@@ -281,7 +295,7 @@ const FlightResultsSr = () => {
                                 </div>
                                 <div className="airport-name arrival">
                                 <h4>{formatTime(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h4>
-                                <h6 className="pb5">{formatDate(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h6>
+                                <h6 className="pb5">{formatDateToCustomFormat(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h6>
                                 <h4>{item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.iataCode}</h4>
                                 </div>
                               </div>
