@@ -38,7 +38,7 @@ const formatDateToCustomFormat = (dateString) => {
       month: "short",
       year: "numeric",
     };
-    return new Intl.DateTimeFormat("en-US", options)
+    return new Intl.DateTimeFormat("en-GB", options)
       .format(date)
       .toUpperCase()
       .replace(",", "");
