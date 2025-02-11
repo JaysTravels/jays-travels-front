@@ -177,7 +177,7 @@ const MakePayment = () => {
       <div className="container">
        <section className="small-section">
        <div className="title-1">
-        <h2>Welcome to the Jays Travel Payment Facility</h2>
+        <h2>Welcome to Jays Travel Payment Facility</h2>
       </div>
       <div className="row">
       <div className="col-md-8">
@@ -188,8 +188,9 @@ const MakePayment = () => {
          </div>
     <div className="row">
     <h3><b>Make a Secure Payment (£)</b></h3>
+   
       <div className="col-md-8">
-     
+      <br/>
         <div className="get-in-touch">
           <form>
             <div className="row">
@@ -260,7 +261,7 @@ const MakePayment = () => {
               </div>
               <div className="form-group col-lg-12" required>
              <input type="checkbox" id="chkconfirm"  checked={isConfirmed}
-              onChange={handleCheckboxChange} className="make-payment-checkbox" /><p>Check here to confirm that you have read and accept our Terms & Conditions *   {!isConfirmed && <span className="form-label" style={{ color: 'red' }}>  Required</span>}</p>
+              onChange={handleCheckboxChange} className="make-payment-checkbox" /><p>Check here to confirm that you have read and accept our <a href="terms-conditions" style={{color:'#bcbcbc'}}>Terms & Conditions</a> *   {!isConfirmed && <span className="form-label" style={{ color: 'red' }}>  Required</span>}</p>
              
                {errors.chkconfirm && <span style={{ color: 'red' }}>{errors.chkconfirm}</span>}
               </div>
@@ -317,7 +318,7 @@ const MakePayment = () => {
               </div>
               <div className="contact_content">
                 <ul>
-                  <li> +44-80081-01600</li>
+                  <li> 0800-8101600</li>
                 </ul>
               </div>
             </div>
