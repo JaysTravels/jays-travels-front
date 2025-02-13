@@ -18,7 +18,7 @@ function formatDateTime(dateString) {
     return `${formattedDate} ${formattedTime}`;
   }
 }
-const formatDateToCustomFormat = (dateString) => {
+const formatDateToCustomFormat = (dateString) => {  
   if (dateString != null) {
     const date = new Date(dateString);
     const options = {
@@ -42,7 +42,7 @@ const formatDateToCustomFormat = (dateString) => {
       return `${formattedDate}`;
     }}
 
-    function formatTime(dateString) {
+    function formatTime(dateString) {      
       if(dateString != null){
         const [date, time] = dateString.split('T'); 
         const [year, month, day] = date.split('-');
@@ -73,7 +73,7 @@ const FlightResultsSr = () => {
     
   }
   function getAirSellRequest(flight){
-    
+   
     let totPassenger = flightRequest.adults + flightRequest.children;
     const travelProductInformationOutBound = flight.itineraries[0].segments.map((segment, index) => ({
       departureDate: convertToDateFormat(segment.departure.at),
@@ -236,7 +236,7 @@ const FlightResultsSr = () => {
                               <i className="fas fa-plane-departure float-start"></i>
                               <i className="fas fa-plane-arrival float-end"></i>
                               <div className="stop">
-                             
+                             {<span style={{ color: "transparent" }}> {item?.id + "item id" }</span>  }
                                 {                            
                              (item?.itineraries[0]?.segments[0]?.numberOfStops === 0
                              ? "Direct"
@@ -246,8 +246,8 @@ const FlightResultsSr = () => {
                               }</div>
                             </div>
                             <div className="airport-name arrival">
-                              <h4>{formatTime(item?.itineraries[0]?.segments[item?.itineraries[1]?.segments?.length -1]?.arrival?.at)}</h4>
-                              <h6 className="pb5">{formatDateToCustomFormat(item?.itineraries[0]?.segments[item?.itineraries[1]?.segments?.length -1]?.arrival?.at)}</h6>
+                              <h4>{formatTime(item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length -1]?.arrival?.at)}</h4>
+                              <h6 className="pb5">{formatDateToCustomFormat(item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length -1]?.arrival?.at)}</h6>
                               <h4>{item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length-1]?.arrival?.iataCode}</h4>
                             </div>
                           </div>
