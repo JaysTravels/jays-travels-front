@@ -10,7 +10,7 @@ export const submitairSellRequest = createAsyncThunk(
     'flights/submitairSellRequest',
     async (flightData, { rejectWithValue }) => {
       try {
-     // debugger;
+    
         console.log(flightData)
         const response = await axiosInstance.post('AirSellFRC', flightData);
         console.log(response.data)      

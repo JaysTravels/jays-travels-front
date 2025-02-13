@@ -57,12 +57,13 @@ const formatDate = (date) => {
 let flight;
 
 function convertTimeFormat(timeString) {
+  debugger;
   if (!timeString || !timeString.includes(":")) {
-    return "Invalid Time";
+    return "";
   }
   const [hours, minutes] = timeString.split(":");
   if (isNaN(hours) || isNaN(minutes)) {
-    return "Invalid Time";
+    return "";
   }
 
   return `${hours}h:${minutes}m`;
@@ -640,624 +641,66 @@ const FlightConfirmation = () => {
           <Container>
             <Row>
               <Col lg={9}>
+
                 <div className="review-section">
-                  <div className="review_box flight_confirmation_box">
-                    <div class="title-top flight_confirmation_box_heading">
-                      <h6>Out Bound Flight</h6>
-                    </div>
-                    <div className="flight_detail">
-                      <Row>
-                        <Col md={3}>
-                          <div className="logo-sec flight_Confirmation_box_image">
-                            {/* <Image src={img1} className="img-fluid" alt="" /> */}
-                            <Image
-                              src={`/images/airline-logo/${airsellResults?.data?.airSellResponse[0]?.flightDetails[0]?.marketingCompany}.png`}
-                              alt={
-                                airsellResults?.data?.airSellResponse[0]
-                                  ?.flightDetails[0]?.marketingCompany
-                              }
-                              width={340}
-                              height={240}
-                              className="img-fluid"
-                            />
+                {airsellResults.data.airSellResponse.map((response, index) => (
+              <div key={index} className="review_box flight_confirmation_box">
+                <div className="title-top flight_confirmation_box_heading">
+                  <h6>{index === 0 ? "Out Bound Flight" : "Inbound Flight"}</h6>
+                </div>
+                {response.flightDetails?.map((flight, flightIndex) => (
+                  <div key={flightIndex} className="flight_detail">
+                    <Row>
+                      <Col md={3}>
+                        <div className="logo-sec flight_Confirmation_box_image">
+                          <Image
+                            src={`/images/airline-logo/${flight.marketingCompany}.png`}
+                            alt={flight.marketingCompany}
+                            width={340}
+                            height={240}
+                            className="img-fluid"
+                          />
+                        </div>
+                        <div className="flight_confirmation_box_image_name">
+                          <span>{flight.marketingCompanyName}</span>
+                        </div>
+                      </Col>
+                      <Col md={6}>
+                        <div className="airport-part">
+                          <div className="airport-name">
+                            <h6>{flight.fromAirport}</h6>
+                            <span>{flight.departureTime}</span>
+                            <p>{formatDateToCustomFormat(flight.departureDate)}</p>
                           </div>
-                          <div className="flight_confirmation_box_image_name">
-                              <span>
-                              {
-                                airsellResults?.data?.airSellResponse[0]
-                                  ?.flightDetails[0]?.marketingCompanyName
-                              }
-                              </span>
-                            </div>
-                         
-                        </Col>
-                        <Col md={6}>
-                          <div className="airport-part">
-                            <div className="airport-name">
-                              <h6>
-                                {
-                                  airsellResults?.data?.airSellResponse[0]
-                                    ?.flightDetails[0]?.fromAirport
-                                }{" "}
-                              </h6>
-                              <span>
-                                  {" "}
-                                  {
-                                    airsellResults?.data?.airSellResponse[0]
-                                      ?.flightDetails[0]?.departureTime
-                                  }
-                                </span>  
-                              <p>
-                                {formatDateToCustomFormat(
-                                  airsellResults?.data?.airSellResponse[0]
-                                    ?.flightDetails[0]?.departureDate
-                                )}{" "}
-                              </p>
-                            </div>
-                            <div className="airport-progress">
-                              <i className="fas fa-plane-departure float-start"></i>
-                              <i className="fas fa-plane-arrival float-end"></i>
-                            </div>
-                            <div className="airport-name arrival">
-                              <h6>
-                                {
-                                  airsellResults?.data?.airSellResponse[0]
-                                    ?.flightDetails[0]?.toAirport
-                                }
-                               
-                              </h6>
-                              <span>
-                                  {" "}
-                                  {
-                                    airsellResults?.data?.airSellResponse[0]
-                                      ?.flightDetails[0]?.arrivalTime
-                                  }{" "}
-                                </span>
-                              <p>
-                                {formatDateToCustomFormat(
-                                  airsellResults?.data?.airSellResponse[0]
-                                    ?.flightDetails[0]?.arrivalDate
-                                )}
-                              </p>
-                            </div>
+                          <div className="airport-progress">
+                            <i className="fas fa-plane-departure float-start"></i>
+                            <i className="fas fa-plane-arrival float-end"></i>
                           </div>
-                        </Col>
-                        <Col md={3}>
-                          <div className="duration">
-                            <div>
-                              <h6>
-                                {" "}
-                                {convertTimeFormat(
-                                  flight?.itineraries[0]?.duration
-                                )}
-                              </h6>
-                              <p>
-                                {flight?.itineraries?.[0]?.segments?.length -
-                                  1 || 0}{" "}
-                                stop
-                              </p>
-                            </div>
+                          <div className="airport-name arrival">
+                            <h6>{flight.toAirport}</h6>
+                            <span>{flight.arrivalTime}</span>
+                            <p>{formatDateToCustomFormat(flight.arrivalDate)}</p>
                           </div>
-                        </Col>
-                      </Row>
-                      </div>
-                      <div className="flight_detail">
-                      {airsellResults?.data?.airSellResponse[0]?.flightDetails
-                        ?.length > 1 ? (
-                        <Row>
-                          <Col md={3}>
-                            <div className="logo-sec flight_Confirmation_box_image">
-                              {/* <Image src={img1} className="img-fluid" alt="" /> */}
-                              <Image
-                                src={`/images/airline-logo/${airsellResults?.data?.airSellResponse[0]?.flightDetails[1]?.marketingCompany}.png`}
-                                alt={
-                                  airsellResults?.data?.airSellResponse[0]
-                                    ?.flightDetails[1]?.marketingCompany
-                                }
-                                width={340}
-                                height={240}
-                                className="img-fluid"
-                              />
-                             
-                            </div>
-                            <div className="flight_confirmation_box_image_name">
-                                <span>
-                                {
-                                  airsellResults?.data?.airSellResponse[0]
-                                    ?.flightDetails[1]?.marketingCompanyName
-                                }
-                                </span>
-                              </div>
-                          </Col>
-                          <Col md={6}>
-                            <div className="airport-part">
-                              <div className="airport-name">
-                                <h6>
-                                  {
-                                    airsellResults?.data?.airSellResponse[0]
-                                      ?.flightDetails[1]?.fromAirport
-                                  }{" "}
-                                
-                                </h6>
-                                <span>
-                                    {" "}
-                                    {
-                                      airsellResults?.data?.airSellResponse[0]
-                                        ?.flightDetails[1]?.departureTime
-                                    }
-                                  </span>
-                                <p>
-                                  {formatDateToCustomFormat(
-                                    airsellResults?.data?.airSellResponse[0]
-                                      ?.flightDetails[1]?.departureDate
-                                  )}{" "}
-                                </p>
-                              </div>
-                              <div className="airport-progress">
-                                <i className="fas fa-plane-departure float-start"></i>
-                                <i className="fas fa-plane-arrival float-end"></i>
-                              </div>
-                              <div className="airport-name arrival">
-                                <h6>
-                                  {
-                                    airsellResults?.data?.airSellResponse[0]
-                                      ?.flightDetails[1]?.toAirport
-                                  }
-                                 
-                                </h6>
-                                <span>
-                                    {" "}
-                                    {
-                                      airsellResults?.data?.airSellResponse[0]
-                                        ?.flightDetails[1]?.arrivalTime
-                                    }{" "}
-                                  </span>
-                                <p>
-                                  {formatDateToCustomFormat(
-                                    airsellResults?.data?.airSellResponse[0]
-                                      ?.flightDetails[1]?.arrivalDate
-                                  )}
-                                </p>
-                              </div>
-                            </div>
-                          </Col>
-                          <Col md={3}>
-                            <div className="duration">
-                              <div hidden={true}>
-                                <h6>
-                                  {" "}
-                                  {convertTimeFormat(
-                                    flight.itineraries[0].duration
-                                  )}
-                                </h6>
-                                <p>
-                                  {flight?.itineraries?.[0]?.segments?.length ||
-                                    0}{" "}
-                                  stop
-                                </p>
-                              </div>
-                            </div>
-                          </Col>
-                        </Row>
-                      ) : (
-                        ""
-                      )}
-
-                      {airsellResults?.data?.airSellResponse[0]?.flightDetails
-                        ?.length > 2 ? (
-                        <Row>
-                          <Col md={3}>
-                            <div className="logo-sec flight_Confirmation_box_image">
-                              {/* <Image src={img1} className="img-fluid" alt="" /> */}
-                              <Image
-                                src={`/images/airline-logo/${airsellResults?.data?.airSellResponse[0]?.flightDetails[2]?.marketingCompany}.png`}
-                                alt={
-                                  airsellResults?.data?.airSellResponse[0]
-                                    ?.flightDetails[2]?.marketingCompany
-                                }
-                                width={340}
-                                height={240}
-                                className="img-fluid"
-                              />
-                              
-                            </div>
-                            <div className="flight_confirmation_box_image_name">
-                                <span>
-                                {
-                                  airsellResults?.data?.airSellResponse[0]
-                                    ?.flightDetails[2]?.marketingCompanyName
-                                }
-                                </span>
-                              </div>
-                          </Col>
-                          <Col md={6}>
-                            <div className="airport-part">
-                              <div className="airport-name">
-                                <h6>
-                                  {
-                                    airsellResults?.data?.airSellResponse[0]
-                                      ?.flightDetails[2]?.fromAirport
-                                  }{" "}
-                                 
-                                </h6>
-                                <span>
-                                    {" "}
-                                    {
-                                      airsellResults?.data?.airSellResponse[0]
-                                        ?.flightDetails[2]?.departureTime
-                                    }
-                                  </span>
-                                <p>
-                                  {formatDateToCustomFormat(
-                                    airsellResults?.data?.airSellResponse[0]
-                                      ?.flightDetails[2]?.departureDate
-                                  )}{" "}
-                                </p>
-                              </div>
-                              <div className="airport-progress">
-                                <i className="fas fa-plane-departure float-start"></i>
-                                <i className="fas fa-plane-arrival float-end"></i>
-                              </div>
-                              <div className="airport-name arrival">
-                                <h6>
-                                  {
-                                    airsellResults?.data?.airSellResponse[0]
-                                      ?.flightDetails[2]?.toAirport
-                                  }
-                                 
-                                </h6>
-                                <span>
-                                    {" "}
-                                    {
-                                      airsellResults?.data?.airSellResponse[0]
-                                        ?.flightDetails[2]?.arrivalTime
-                                    }{" "}
-                                  </span>
-                                <p>
-                                  {formatDateToCustomFormat(
-                                    airsellResults?.data?.airSellResponse[0]
-                                      ?.flightDetails[2]?.arrivalDate
-                                  )}
-                                </p>
-                              </div>
-                            </div>
-                          </Col>
-                          <Col md={3}>
-                            <div className="duration">
-                              <div hidden={true}>
-                                <h6>
-                                  {" "}
-                                  {convertTimeFormat(
-                                    flight.itineraries[0].duration
-                                  )}
-                                </h6>
-                                <p>
-                                  {flight?.itineraries?.[0]?.segments?.length ||
-                                    0}{" "}
-                                  stop
-                                </p>
-                              </div>
-                            </div>
-                          </Col>
-                        </Row>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    {/* <div className="flight_confirmation_layover_box">
-                      <div className="flight_confirmation_layover">
-                        <span>Layover time</span>
-                      </div>
-                    </div> */}
-                    </div>
-                    <div className="review_box flight_confirmation_box">
-                    <div class="title-top flight_confirmation_box_heading">
-                      <h6>Inbound Flight</h6>
-                    </div>
-                    <div className="flight_detail">
-                      <Row>
-                        <Col md={3}>
-                          <div className="logo-sec flight_Confirmation_box_image">
-                            {/* <Image src={img1} className="img-fluid" alt="" /> */}
-                            <Image
-                              src={`/images/airline-logo/${airsellResults?.data?.airSellResponse[1]?.flightDetails[0]?.marketingCompany}.png`}
-                              alt={
-                                airsellResults?.data?.airSellResponse[1]
-                                  ?.flightDetails[0]?.marketingCompany
-                              }
-                              width={340}
-                              height={240}
-                              className="img-fluid"
-                            />
-                           
-                          </div>
-                          <div className="flight_confirmation_box_image_name">
-                             <span>
-                              {
-                                airsellResults?.data?.airSellResponse[1]
-                                  ?.flightDetails[0]?.marketingCompanyName
-                              }
-                              </span>
-                            </div>
-                        </Col>
-                        <Col md={6}>
-                          <div className="airport-part">
-                            <div className="airport-name">
-                              <h6>
-                                {
-                                  airsellResults?.data?.airSellResponse[1]
-                                    ?.flightDetails[0]?.fromAirport
-                                }{" "}
-                               
-                              </h6>
-                              <span>
-                                  {" "}
-                                  {
-                                    airsellResults?.data?.airSellResponse[1]
-                                      ?.flightDetails[0]?.departureTime
-                                  }
-                                </span>
-                              <p>
-                                {formatDateToCustomFormat(
-                                  airsellResults?.data?.airSellResponse[1]
-                                    ?.flightDetails[0]?.departureDate
-                                )}{" "}
-                              </p>
-                            </div>
-                            <div className="airport-progress">
-                              <i className="fas fa-plane-departure float-start"></i>
-                              <i className="fas fa-plane-arrival float-end"></i>
-                            </div>
-                            <div className="airport-name arrival">
-                              <h6>
-                                {
-                                  airsellResults?.data?.airSellResponse[1]
-                                    ?.flightDetails[0]?.toAirport
-                                }
-                               
-                              </h6>
-                              <span>
-                                  {" "}
-                                  {
-                                    airsellResults?.data?.airSellResponse[1]
-                                      ?.flightDetails[0]?.arrivalTime
-                                  }{" "}
-                                </span>
-                              <p>
-                                {formatDateToCustomFormat(
-                                  airsellResults?.data?.airSellResponse[1]
-                                    ?.flightDetails[0]?.arrivalDate
-                                )}
-                              </p>
-                            </div>
-                          </div>
-                        </Col>
-                        <Col md={3}>
-                          <div className="duration">
-                            <div>
-                              <h6>
-                                {" "}
-                                {convertTimeFormat(
-                                  flight?.itineraries[1]?.duration
-                                )}
-                              </h6>
-                              <p>
-                                {flight?.itineraries?.[1]?.segments?.length -
-                                  1 || 0}{" "}
-                                stop
-                              </p>
-                            </div>
-                          </div>
-                        </Col>
-                      </Row>
-</div>
-<div className="flight_detail">
-
-                      {airsellResults?.data?.airSellResponse[1]?.flightDetails
-                        ?.length > 1 ? (
-                        <Row>
-                          <Col md={3}>
-                            <div className="logo-sec flight_Confirmation_box_image">
-                              <Image
-                                src={`/images/airline-logo/${airsellResults?.data?.airSellResponse[1]?.flightDetails[1]?.marketingCompany}.png`}
-                                alt={
-                                  airsellResults?.data?.airSellResponse[1]
-                                    ?.flightDetails[1]?.marketingCompany
-                                }
-                                width={340}
-                                height={240}
-                                className="img-fluid"
-                              />
-                             
-                            </div>
-                            <div className="flight_confirmation_box_image_name">
-                               <span>
-                                {
-                                  airsellResults?.data?.airSellResponse[1]
-                                    ?.flightDetails[1]?.marketingCompanyName
-                                }
-                                </span>
-                              </div>
-                          </Col>
-                          <Col md={6}>
-                            <div className="airport-part">
-                              <div className="airport-name">
-                                <h6>
-                                  {
-                                    airsellResults?.data?.airSellResponse[1]
-                                      ?.flightDetails[1]?.fromAirport
-                                  }{" "}
-                                 
-                                </h6>
-                                <span>
-                                    {" "}
-                                    {
-                                      airsellResults?.data?.airSellResponse[1]
-                                        ?.flightDetails[1]?.departureTime
-                                    }
-                                  </span>
-                                <p>
-                                  {formatDateToCustomFormat(
-                                    airsellResults?.data?.airSellResponse[1]
-                                      ?.flightDetails[1]?.departureDate
-                                  )}{" "}
-                                </p>
-                              </div>
-                              <div className="airport-progress">
-                                <i className="fas fa-plane-departure float-start"></i>
-                                <i className="fas fa-plane-arrival float-end"></i>
-                              </div>
-                              <div className="airport-name arrival">
-                                <h6>
-                                  {
-                                    airsellResults?.data?.airSellResponse[1]
-                                      ?.flightDetails[1]?.toAirport
-                                  }
-                                 
-                                </h6>
-                                <span>
-                                    {" "}
-                                    {
-                                      airsellResults?.data?.airSellResponse[1]
-                                        ?.flightDetails[1]?.arrivalTime
-                                    }{" "}
-                                  </span>
-                                <p>
-                                  {formatDateToCustomFormat(
-                                    airsellResults?.data?.airSellResponse[1]
-                                      ?.flightDetails[1]?.arrivalDate
-                                  )}
-                                </p>
-                              </div>
-                            </div>
-                          </Col>
-                          <Col md={3}>
-                            <div className="duration">
-                              <div hidden={true}>
-                                <h6>
-                                  {" "}
-                                  {convertTimeFormat(
-                                    flight.itineraries[1].duration
-                                  )}
-                                </h6>
-                                <p>
-                                  {flight?.itineraries?.[1]?.segments?.length ||
-                                    0}{" "}
-                                  stop
-                                </p>
-                              </div>
-                            </div>
-                          </Col>
-                        </Row>
-                      ) : (
-                        ""
-                      )}
-</div>
-<div className="flight_detail">
-                      {airsellResults?.data?.airSellResponse[1]?.flightDetails
-                        ?.length > 2 ? (
-                        <Row >
-                          <Col md={3}>
-                            <div className="logo-sec flight_Confirmation_box_image">
-                              {/* <Image src={img1} className="img-fluid" alt="" /> */}
-                              <Image
-                                src={`/images/airline-logo/${airsellResults?.data?.airSellResponse[1]?.flightDetails[2]?.marketingCompany}.png`}
-                                alt={
-                                  airsellResults?.data?.airSellResponse[1]
-                                    ?.flightDetails[0]?.marketingCompany
-                                }
-                                width={340}
-                                height={240}
-                                className="img-fluid"
-                              />
-                             
-                            </div>
-                            <div className="flight_confirmation_box_image_name">
-                               <span>
-                                {
-                                  airsellResults?.data?.airSellResponse[1]
-                                    ?.flightDetails[2]?.marketingCompanyName
-                                }
-                                </span>
-                              </div>
-                          </Col>
-                          <Col md={6}>
-                            <div className="airport-part">
-                              <div className="airport-name">
-                                <h6>
-                                  {
-                                    airsellResults?.data?.airSellResponse[1]
-                                      ?.flightDetails[2]?.fromAirport
-                                  }{" "}
-                                 
-                                </h6>
-                                <span>
-                                    {" "}
-                                    {
-                                      airsellResults?.data?.airSellResponse[1]
-                                        ?.flightDetails[2]?.departureTime
-                                    }
-                                  </span>
-                                <p>
-                                  {formatDateToCustomFormat(
-                                    airsellResults?.data?.airSellResponse[1]
-                                      ?.flightDetails[2]?.departureDate
-                                  )}{" "}
-                                </p>
-                              </div>
-                              <div className="airport-progress">
-                                <i className="fas fa-plane-departure float-start"></i>
-                                <i className="fas fa-plane-arrival float-end"></i>
-                              </div>
-                              <div className="airport-name arrival">
-                                <h6>
-                                  {
-                                    airsellResults?.data?.airSellResponse[1]
-                                      ?.flightDetails[2]?.toAirport
-                                  }
-                                 
-                                </h6>
-                                <span>
-                                    {" "}
-                                    {
-                                      airsellResults?.data?.airSellResponse[1]
-                                        ?.flightDetails[2]?.arrivalTime
-                                    }{" "}
-                                  </span>
-                                <p>
-                                  {formatDateToCustomFormat(
-                                    airsellResults?.data?.airSellResponse[1]
-                                      ?.flightDetails[2]?.arrivalDate
-                                  )}
-                                </p>
-                              </div>
-                            </div>
-                          </Col>
-                          <Col md={3}>
-                            <div className="duration">
-                              <div hidden={true}>
-                                <h6>
-                                  {" "}
-                                  {convertTimeFormat(
-                                    flight.itineraries[0].duration
-                                  )}
-                                </h6>
-                                <p>
-                                  {flight?.itineraries?.[0]?.segments?.length ||
-                                    0}{" "}
-                                  stop
-                                </p>
-                              </div>
-                            </div>
-                          </Col>
-                        </Row>
-                      ) : (
-                        ""
-                      )}
-                    </div>
+                        </div>
+                      </Col>
+                      <Col md={3}>
+                            
+                        <div className="duration">
+                          <div>
+                          <h6>{
+                         convertTimeFormat( selectedFlight?.itineraries?.[flightIndex]?.duration)                         
+                         }</h6>
+                            {" "}
+                            <h6>{response.flightDetails?.length - 1 || 0} stop</h6>
+                          </div>                                              
+                        </div>                       
+                      </Col>
+                    </Row>
                   </div>
-                 
-                  <div className="review_box">
+                ))}
+              </div>
+            ))}
+                   <div className="review_box">
                     <div className="title-top">
                       <h5>traveller details</h5>
                     </div>
@@ -1511,7 +954,7 @@ const FlightConfirmation = () => {
 
                           {/* For Childern */}
                           {Array.from(
-                            { length: flightRequest.children },
+                            { length: flightRequest?.children },
                             (_, index) => (
                               <form key={index}>
                                 <h6>Child {index + 1}</h6>
@@ -1582,12 +1025,12 @@ const FlightConfirmation = () => {
                                         )
                                       }
                                       className={
-                                        errors.children[index]?.firstName
+                                        errors?.children[index]?.firstName
                                           ? "form-control is-invalid"
                                           : "form-control"
                                       }
                                     />
-                                    {errors.children[index]?.firstName && (
+                                    {errors?.children[index]?.firstName && (
                                       <div className="invalid-feedback">
                                         This field is required.
                                       </div>
@@ -1620,12 +1063,12 @@ const FlightConfirmation = () => {
                                         )
                                       }
                                       className={
-                                        errors.children[index]?.lastName
+                                        errors?.children[index]?.lastName
                                           ? "form-control is-invalid"
                                           : "form-control"
                                       }
                                     />
-                                    {errors.children[index]?.lastName && (
+                                    {errors?.children[index]?.lastName && (
                                       <div className="invalid-feedback">
                                         This field is required.
                                       </div>
@@ -1639,7 +1082,7 @@ const FlightConfirmation = () => {
                                       <DatePicker
                                         id={`children-dob-${index}`}
                                         selected={
-                                          formData.children[index]?.dob || null
+                                          formData?.children[index]?.dob || null
                                         } // Initial value
                                         onChange={(date) =>
                                           handleChange(
@@ -1676,7 +1119,7 @@ const FlightConfirmation = () => {
                           {/* For Infant */}
 
                           {Array.from(
-                            { length: flightRequest.infant },
+                            { length: flightRequest?.infant },
                             (_, index) => (
                               <form key={index}>
                                 <h6>Infant {index + 1}</h6>
@@ -1704,7 +1147,7 @@ const FlightConfirmation = () => {
                                         )
                                       }
                                       className={
-                                        errors.infants[index]?.title
+                                        errors?.infants[index]?.title
                                           ? "form-control is-invalid"
                                           : "form-control"
                                       }
@@ -1714,7 +1157,7 @@ const FlightConfirmation = () => {
                                       <option value="Master.">Master.</option>
                                       <option value="Miss.">Miss.</option>
                                     </Input>
-                                    {errors.infants[index]?.title && (
+                                    {errors?.infants[index]?.title && (
                                       <div className="invalid-feedback">
                                         This field is required.
                                       </div>
@@ -1747,12 +1190,12 @@ const FlightConfirmation = () => {
                                         )
                                       }
                                       className={
-                                        errors.infants[index]?.firstName
+                                        errors?.infants[index]?.firstName
                                           ? "form-control is-invalid"
                                           : "form-control"
                                       }
                                     />
-                                    {errors.infants[index]?.firstName && (
+                                    {errors?.infants[index]?.firstName && (
                                       <div className="invalid-feedback">
                                         This field is required.
                                       </div>
@@ -1785,12 +1228,12 @@ const FlightConfirmation = () => {
                                         )
                                       }
                                       className={
-                                        errors.infants[index]?.lastName
+                                        errors?.infants[index]?.lastName
                                           ? "form-control is-invalid"
                                           : "form-control"
                                       }
                                     />
-                                    {errors.infants[index]?.lastName && (
+                                    {errors?.infants[index]?.lastName && (
                                       <div className="invalid-feedback">
                                         This field is required.
                                       </div>
@@ -1803,7 +1246,7 @@ const FlightConfirmation = () => {
                                     <DatePicker
                                       id={`infants-dob-${index}`}
                                       selected={
-                                        formData.infants[index]?.dob || null
+                                        formData?.infants[index]?.dob || null
                                       } // Initial value
                                       onChange={(date) =>
                                         handleChange(
@@ -1860,57 +1303,7 @@ const FlightConfirmation = () => {
                         </Col>
                       </Row>
                     </div>
-                  </div>
-                  {/* <div className="review_box">
-                 <div className="title-top">
-                   <h5>Travel Insurance</h5>
-                 </div>
-                 <div className="flight_detail">
-                   <Row>
-                     <Col md={12}>
-                       <div className="boxes">
-                         <h6>
-                           secure your travel with travel insurance for
-                           {currSign}25/person
-                         </h6>
-                         <div className="form-check">
-                           <Input
-                             className="form-check-input radio_animated"
-                             type="radio"
-                             name="exampleRadios1"
-                             id="exampleRadios1"
-                             value="option1"
-                             
-                           />
-                           <Label
-                             className="form-check-label"
-                             for="exampleRadios1"
-                           >
-                             yes, i want to secure my travel with insurance
-                           </Label>
-                         </div>
-                         <div className="form-check">
-                           <Input
-                             className="form-check-input radio_animated"
-                             type="radio"
-                             name="exampleRadios1"
-                             id="exampleRadios2"
-                             value="option2"
-                             checked
-                           />
-                           <Label
-                             className="form-check-label"
-                             for="exampleRadios2"
-                           >
-                             no, i do not want to secure my travel with
-                             insurance
-                           </Label>
-                         </div>
-                       </div>
-                     </Col>
-                   </Row>
-                 </div>
-               </div> */}
+           </div>                  
                 </div>
               </Col>
               <Col lg={3} className="res-margin">
@@ -1924,62 +1317,9 @@ const FlightConfirmation = () => {
                         <div className="summery_box">
                           <table className="table table-borderless">
                             <tbody>
-                              {/* <tr>
-                                <td>
-                                  adults ({flightRequest?.adults} X {currSign}
-                                  {flight?.price?.adultPP})
-                                </td> 
-                                <td>
-                                  {currSign}
-                                  {flightRequest?.adults *
-                                    flight?.price?.adultPP}
-                                </td>
-                              </tr>*/}
-                              {flightRequest?.children != 0 ? (
-                               {/* <tr>
-                                   <td>
-                                    children ({flightRequest?.children} X{" "}
-                                    {currSign}
-                                    {flight?.price?.childPp})
-                                  </td> 
-                                  <td>
-                                    {currSign}
-                                    {flightRequest?.children *
-                                      flight?.price?.childPp}
-                                  </td>
-                                </tr>*/}
-                              ) : (
-                                ""
-                              )}
-                              {flightRequest?.infant != 0 ? (
-                                 {/* <tr>
-                                 <td>
-                                    infants({flightRequest?.infant} X {currSign}
-                                    {flight?.price?.infantPp})
-                                  </td> 
-                                  <td>
-                                    {currSign}
-                                    {flightRequest?.infant *
-                                      flight?.price?.infantPp}
-                                  </td>
-                                </tr>*/}
-                              ) : (
-                                ""
-                              )}
-                              {/* <tr>
-                                <td>total taxes</td>
-                                <td>
-                                  {currSign}
-                                  {Math.floor(parseFloat(flight?.price?.adultTax * flightRequest?.adults) + parseFloat(flight?.price?.childTax * flightRequest?.children) + parseFloat(flight?.price?.infantTax * flightRequest?.infant),2)}
-                                </td>
-                              </tr> */}
-                              {/* <tr>
-                             <td>Insurance</td>
-                             <td>{currSign}0</td>
-                           </tr> */}
+                             
                               <tr>
-                                {/* <td>Convenience fee</td>
-                             <td>{currSign}0</td> */}
+                               
                               </tr>
                             </tbody>
                           </table>
@@ -2017,105 +1357,10 @@ const FlightConfirmation = () => {
                         </div>
                       </div>
                     </div>
-                    {/* <div className="review_box">
-                   <div className="flight_detail">
-                     <div className="promo-section">
-                       <div className="form-group mb-0">
-                         <Label>have a coupon code?</Label>
-                         <div className="input-group">
-                           <Input
-                             type="text"
-                             className="form-control"
-                             placeholder="Promo Code"
-                           />
-                           <div className="input-group-prepend">
-                             <span className="input-group-text">apply</span>
-                           </div>
-                         </div>
-                       </div>
-                       <div className="promos">
-                         <form>
-                           <div className="form-check">
-                             <Input
-                               className="form-check-input radio_animated"
-                               type="radio"
-                               name="exampleRadios2"
-                               id="exampleRadios3"
-                               value="option1"
-                               checked
-                             />
-                             <div>
-                               <Label
-                                 className="form-check-label title"
-                                 for="exampleRadios3"
-                               >
-                                 RICA500
-                               </Label>
-                               <Label
-                                 className="form-check-label"
-                                 for="exampleRadios3"
-                               >
-                                 Use RICA50, and get $50 off on first booking
-                               </Label>
-                             </div>
-                           </div>
-                           <div className="form-check">
-                             <Input
-                               className="form-check-input radio_animated"
-                               type="radio"
-                               name="exampleRadios2"
-                               id="exampleRadios4"
-                               value="option2"
-                             />
-                             <div>
-                               <Label
-                                 className="form-check-label title"
-                                 for="exampleRadios4"
-                               >
-                                 FLY10
-                               </Label>
-                               <Label
-                                 className="form-check-label"
-                                 for="exampleRadios4"
-                               >
-                                 Use FLY10, and get 10% off upto $50 on flight
-                                 ticket bookings.
-                               </Label>
-                             </div>
-                           </div>
-                           <div className="form-check">
-                             <Input
-                               className="form-check-input radio_animated"
-                               type="radio"
-                               name="exampleRadios2"
-                               id="exampleRadios5"
-                               value="option2"
-                             />
-                             <div>
-                               <Label
-                                 className="form-check-label title"
-                                 for="exampleRadios5"
-                               >
-                                 FLIGHT80
-                               </Label>
-                               <Label
-                                 className="form-check-label"
-                                 for="exampleRadios5"
-                               >
-                                 Upto 80% Off + Upto 40% Cashback on Flight
-                                 booking & more + Extra 10% off via ICICI Cards
-                                 (10th-13th Oct)
-                               </Label>
-                             </div>
-                           </div>
-                         </form>
-                       </div>
-                     </div>
-                   </div>
-                 </div> */}
+                   
                   </div>
                 </div>
-              </Col>
+         </Col>
             </Row>
            
           </Container>

@@ -21,7 +21,7 @@ const WaitPage = () => {
     "Please wait while we find the best options for you."
   );
   useEffect(() => {
-    debugger;
+    
     if (!loading && results?.data != null) {
       router.push("/search-result");
     } else if (!loading && flightError) {
