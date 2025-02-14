@@ -57,7 +57,7 @@ const insurance = () => {
                 <input type="text" className="form-control" id="email" placeholder="Contact Number" required />
               </div>
               <div className="col-md-12 submit-btn">
-                <button className="btn btn-solid" type="submit">Apply for visa</button>
+                <button className="btn btn-solid" type="submit">Enquire now</button>
               </div>
             </div>
           </form>

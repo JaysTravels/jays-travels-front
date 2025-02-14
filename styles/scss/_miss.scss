@@ -543,12 +543,21 @@ a {
   border-bottom: 0.5px solid #c5d3e3;
   padding: 13px 20px 10px 20px;
 }
+.flight_Confirmation_box_inner {
+  
+  padding: 0 !important;
+  border-bottom: .5px solid #c5d3e3;
+}
+
 .flight_Confirmation_box_image{
         gap: 10px;
         flex: 0 0 23%;
       
         padding: 15px 15px 15px 20px;
         border-right: 0.5px solid #c5d3e3;
+}
+.logo-sec:hover + .flight_confirmation_box_image_name {
+display: block;
 }
 .flight_confirmation_layover_box{
   justify-content: center;
@@ -571,10 +580,34 @@ a {
         min-height: 31px;
         width: 225px;
 }
-.flight_confirmation_box_image_name span{
-  padding: 20px;
-  text-align: center;
+.flight_confirmation_box_image_name{
+
+  display: none;
+    position: absolute;
+    bottom: 90%;
+    left: 40%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    color: #333;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    width: 120px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
 }
+
+.flight_confirmation_box_image_name ::after{
+  content: '';
+  position: absolute;
+  top: 100%; /* Position below the hover div */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px; /* Arrow size */
+  border-style: solid;
+  border-color: #fff transparent transparent transparent; /* Arrow color */
+}
+
 .smoke_effect{
   bottom: -2px;
         z-index: -1;

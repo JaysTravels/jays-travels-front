@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Input, Label, Row } from "reactstrap";
-import {PASSENGER_SELECTED_FLIGHT_EMAIL} from "@/store/CreatePnrSlice";
+import { PASSENGER_SELECTED_FLIGHT_EMAIL } from "@/store/CreatePnrSlice";
 import {
   setPassengerDetails,
   setPnrMulti,
@@ -329,23 +329,23 @@ const FlightConfirmation = () => {
 
     let session = getSession();
     session.sequenceNumber = session.sequenceNumber + 1;
-    const pnrMultirequest = CreatePnrMultiRequest(formData,session,flight);  
-    
-    try{
+    const pnrMultirequest = CreatePnrMultiRequest(formData, session, flight);
+
+    try {
       dispatch(setPassengerDetails(pnrMultirequest.passengerDetails));
     } catch (error) {
       console.error("Error calling setPassengerDetails:", error.message);
     }
     const addPnrMultiRequset = {
-      sessionDetails : pnrMultirequest.sessionDetails,
-      passengerDetails : pnrMultirequest.passengerDetails,
-      selectedFlightOffer : JSON.stringify(flight),
-    }  
-    localStorage.setItem("PassengerDetails", JSON.stringify(addPnrMultiRequset.passengerDetails));    
-    localStorage.setItem("flightRequest", JSON.stringify(flightRequest));    
-  
-    
-   //flightRequest
+      sessionDetails: pnrMultirequest.sessionDetails,
+      passengerDetails: pnrMultirequest.passengerDetails,
+      selectedFlightOffer: JSON.stringify(flight),
+    }
+    localStorage.setItem("PassengerDetails", JSON.stringify(addPnrMultiRequset.passengerDetails));
+    localStorage.setItem("flightRequest", JSON.stringify(flightRequest));
+
+
+    //flightRequest
     let session2 = getSession();
     session2.sequenceNumber = session2.sequenceNumber + 2;
     const fopRequest = CreateFopRequest(session2);
@@ -394,11 +394,11 @@ const FlightConfirmation = () => {
     try {
       // Dispatch first API call
       debugger;
-     const pnrMulti = await dispatch(PNR_Multi(addPnrMultiRequset));
-     //debugger;
+      const pnrMulti = await dispatch(PNR_Multi(addPnrMultiRequset));
+      //debugger;
       console.log('PNR_Multi dispatched successfully.');
-      if(pnrMulti?.payload?.isSuccessful === false){
-        setApiResponse(pnrMulti?.data?.error); 
+      if (pnrMulti?.payload?.isSuccessful === false) {
+        setApiResponse(pnrMulti?.data?.error);
         alert("No Fare Avaialble Please go back to flights results page and select another... " + pnrMulti?.data?.error);
         router.push("/search-result");
         return;
@@ -428,17 +428,16 @@ const FlightConfirmation = () => {
       // For sending email to admin relted to selected custoemr fare
 
       let sessionemail = getSession();
-      if (sessionemail != null)
-        {            
+      if (sessionemail != null) {
         const SelectedFlightEmailRequest = {
-          SessionId: session.sessionId,           
+          SessionId: session.sessionId,
         }
-        
-        const result = dispatch(PASSENGER_SELECTED_FLIGHT_EMAIL(SelectedFlightEmailRequest)).unwrap();      
-        if(result?.isSuccessful === true){
-        console.log("Passeger Selected Flight Email Sent success");
-        }    
-      } 
+
+        const result = dispatch(PASSENGER_SELECTED_FLIGHT_EMAIL(SelectedFlightEmailRequest)).unwrap();
+        if (result?.isSuccessful === true) {
+          console.log("Passeger Selected Flight Email Sent success");
+        }
+      }
       // Dispatch fifth API call
       const result2 = await dispatch(Commit_Pnr(pnrCommitRequest)).unwrap();
       //debugger;
@@ -530,34 +529,34 @@ const FlightConfirmation = () => {
       return session;
     }
   }
-  function CreatePnrMultiRequest(formData,session,flight){
+  function CreatePnrMultiRequest(formData, session, flight) {
 
-      const passengers  =[];
-      formData.adults.forEach((adult, index) => {
-        if(index == 0){
-          passengers.push({
-            firstName: adult.firstName,
-            surName: adult.lastName,
-            type: "ADT", // Adult type
-            dob: formatDate(adult.dob), //adult.dob,
-            isLeadPassenger: true, // First adult as lead passenger
-            number: index + 1,
-            email: adult.email,
-            phone: adult.phone,
-          });
-        }
-        else{
-          passengers.push({
-            firstName: adult.firstName,
-            surName: adult.lastName,
-            type: "ADT", // Adult type
-            dob: formatDate(adult.dob), //adult.dob,
-            isLeadPassenger: false, // First adult as lead passenger
-            number: index + 1,
-            email: '',          
-          });
-        }        
-      });
+    const passengers = [];
+    formData.adults.forEach((adult, index) => {
+      if (index == 0) {
+        passengers.push({
+          firstName: adult.firstName,
+          surName: adult.lastName,
+          type: "ADT", // Adult type
+          dob: formatDate(adult.dob), //adult.dob,
+          isLeadPassenger: true, // First adult as lead passenger
+          number: index + 1,
+          email: adult.email,
+          phone: adult.phone,
+        });
+      }
+      else {
+        passengers.push({
+          firstName: adult.firstName,
+          surName: adult.lastName,
+          type: "ADT", // Adult type
+          dob: formatDate(adult.dob), //adult.dob,
+          isLeadPassenger: false, // First adult as lead passenger
+          number: index + 1,
+          email: '',
+        });
+      }
+    });
 
     formData.children.forEach((child, index) => {
       passengers.push({
@@ -570,23 +569,23 @@ const FlightConfirmation = () => {
       });
     });
 
-      formData.infants.forEach((infant, index) => {
-        passengers.push({
-          firstName: infant.firstName,
-          surName: infant.lastName,
-          type: "INF", // Infant type
-          dob: formatDate(infant.dob),//infant.dob,          
-          number: formData.adults.length + formData.children.length + index + 1,
-          email: "",
-        });
+    formData.infants.forEach((infant, index) => {
+      passengers.push({
+        firstName: infant.firstName,
+        surName: infant.lastName,
+        type: "INF", // Infant type
+        dob: formatDate(infant.dob),//infant.dob,          
+        number: formData.adults.length + formData.children.length + index + 1,
+        email: "",
       });
-      const pnrmultirequest = {
-        sessionDetails : session,
-        passengerDetails: passengers,
-        selectedFlightOffer :  JSON.stringify(flight)
-      };
-      return pnrmultirequest;
-      
+    });
+    const pnrmultirequest = {
+      sessionDetails: session,
+      passengerDetails: passengers,
+      selectedFlightOffer: JSON.stringify(flight)
+    };
+    return pnrmultirequest;
+
   }
 
   function CreateFopRequest(session) {
@@ -643,64 +642,64 @@ const FlightConfirmation = () => {
               <Col lg={9}>
 
                 <div className="review-section">
-                {airsellResults.data.airSellResponse.map((response, index) => (
-              <div key={index} className="review_box flight_confirmation_box">
-                <div className="title-top flight_confirmation_box_heading">
-                  <h6>{index === 0 ? "Out Bound Flight" : "Inbound Flight"}</h6>
-                </div>
-                {response.flightDetails?.map((flight, flightIndex) => (
-                  <div key={flightIndex} className="flight_detail">
-                    <Row>
-                      <Col md={3}>
-                        <div className="logo-sec flight_Confirmation_box_image">
-                          <Image
-                            src={`/images/airline-logo/${flight.marketingCompany}.png`}
-                            alt={flight.marketingCompany}
-                            width={340}
-                            height={240}
-                            className="img-fluid"
-                          />
+                  {airsellResults.data.airSellResponse.map((response, index) => (
+                    <div key={index} className="review_box flight_confirmation_box">
+                      <div className="title-top flight_confirmation_box_heading">
+                        <h6>{index === 0 ? "Out Bound Flight" : "Inbound Flight"}</h6>
+                      </div>
+                      {response.flightDetails?.map((flight, flightIndex) => (
+                        <div key={flightIndex} className="flight_detail flight_Confirmation_box_inner">
+                          <Row>
+                            <Col md={3}>
+                              <div className="logo-sec flight_Confirmation_box_image">
+                                <Image
+                                  src={`/images/airline-logo/${flight.marketingCompany}.png`}
+                                  alt={flight.marketingCompany}
+                                  width={340}
+                                  height={240}
+                                  className="img-fluid"
+                                />
+                              </div>
+                              <div className="flight_confirmation_box_image_name">
+                                <span>{flight.marketingCompanyName}</span>
+                              </div>
+                            </Col>
+                            <Col md={6}>
+                              <div className="airport-part">
+                                <div className="airport-name">
+                                  <h6>{flight.fromAirport}</h6>
+                                  <span>{flight.departureTime}</span>
+                                  <p>{formatDateToCustomFormat(flight.departureDate)}</p>
+                                </div>
+                                <div className="airport-progress">
+                                  <i className="fas fa-plane-departure float-start"></i>
+                                  <i className="fas fa-plane-arrival float-end"></i>
+                                </div>
+                                <div className="airport-name arrival">
+                                  <h6>{flight.toAirport}</h6>
+                                  <span>{flight.arrivalTime}</span>
+                                  <p>{formatDateToCustomFormat(flight.arrivalDate)}</p>
+                                </div>
+                              </div>
+                            </Col>
+                            <Col md={3}>
+
+                              <div className="duration">
+                                <div>
+                                  <h6>{
+                                    convertTimeFormat(selectedFlight?.itineraries?.[flightIndex]?.duration)
+                                  }</h6>
+                                  {" "}
+                                  <h6>{response.flightDetails?.length - 1 || 0} stop</h6>
+                                </div>
+                              </div>
+                            </Col>
+                          </Row>
                         </div>
-                        <div className="flight_confirmation_box_image_name">
-                          <span>{flight.marketingCompanyName}</span>
-                        </div>
-                      </Col>
-                      <Col md={6}>
-                        <div className="airport-part">
-                          <div className="airport-name">
-                            <h6>{flight.fromAirport}</h6>
-                            <span>{flight.departureTime}</span>
-                            <p>{formatDateToCustomFormat(flight.departureDate)}</p>
-                          </div>
-                          <div className="airport-progress">
-                            <i className="fas fa-plane-departure float-start"></i>
-                            <i className="fas fa-plane-arrival float-end"></i>
-                          </div>
-                          <div className="airport-name arrival">
-                            <h6>{flight.toAirport}</h6>
-                            <span>{flight.arrivalTime}</span>
-                            <p>{formatDateToCustomFormat(flight.arrivalDate)}</p>
-                          </div>
-                        </div>
-                      </Col>
-                      <Col md={3}>
-                            
-                        <div className="duration">
-                          <div>
-                          <h6>{
-                         convertTimeFormat( selectedFlight?.itineraries?.[flightIndex]?.duration)                         
-                         }</h6>
-                            {" "}
-                            <h6>{response.flightDetails?.length - 1 || 0} stop</h6>
-                          </div>                                              
-                        </div>                       
-                      </Col>
-                    </Row>
-                  </div>
-                ))}
-              </div>
-            ))}
-                   <div className="review_box">
+                      ))}
+                    </div>
+                  ))}
+                  <div className="review_box">
                     <div className="title-top">
                       <h5>traveller details</h5>
                     </div>
@@ -868,7 +867,7 @@ const FlightConfirmation = () => {
 
                                 {/** Working For Email And Contact */}
                                 {index === 0 ? (
-                                  <form style={{margin:'20px 0 0 0'}}>
+                                  <form style={{ margin: '20px 0 0 0' }}>
                                     <Row>
                                       <Col md={6} className="form-group">
                                         <Label for="inputEmail4">Email</Label>
@@ -958,7 +957,7 @@ const FlightConfirmation = () => {
                             (_, index) => (
                               <form key={index}>
                                 <h6>Child {index + 1}</h6>
-                                <Row style={{margin:'5px 0'}}>
+                                <Row style={{ margin: '5px 0' }}>
                                   <Col md={3} className="form-group">
                                     <Label for={`title-${index}`}>
                                       Title c
@@ -1123,7 +1122,7 @@ const FlightConfirmation = () => {
                             (_, index) => (
                               <form key={index}>
                                 <h6>Infant {index + 1}</h6>
-                                <Row style={{margin:'5px 0'}}>
+                                <Row style={{ margin: '5px 0' }}>
                                   <Col md={3} className="form-group">
                                     <Label for={`title-${index}`}>Title</Label>
                                     <Input
@@ -1303,7 +1302,7 @@ const FlightConfirmation = () => {
                         </Col>
                       </Row>
                     </div>
-           </div>                  
+                  </div>
                 </div>
               </Col>
               <Col lg={3} className="res-margin">
@@ -1317,9 +1316,9 @@ const FlightConfirmation = () => {
                         <div className="summery_box">
                           <table className="table table-borderless">
                             <tbody>
-                             
+
                               <tr>
-                               
+
                               </tr>
                             </tbody>
                           </table>
@@ -1333,36 +1332,36 @@ const FlightConfirmation = () => {
                             </h5>
                           </div>
                           <div className="continue-btn">
-              <button
-                onClick={handleApiCalls}
-                disabled={loading}
-                className="btn btn-solid"
-                type="submit"
-              >
-                continue booking
-              </button>
+                            <button
+                              onClick={handleApiCalls}
+                              disabled={loading}
+                              className="btn btn-solid"
+                              type="submit"
+                            >
+                              continue booking
+                            </button>
 
-              <button
-                hidden={true}
-                onClick={initiatePayment}
-                disabled={loading}
-                className="btn btn-solid"
-                type="submit"
-              >
-                continue Payment
-              </button>
-              <span>{ApiResponse}</span>
-            </div>
+                            <button
+                              hidden={true}
+                              onClick={initiatePayment}
+                              disabled={loading}
+                              className="btn btn-solid"
+                              type="submit"
+                            >
+                              continue Payment
+                            </button>
+                            <span>{ApiResponse}</span>
+                          </div>
 
                         </div>
                       </div>
                     </div>
-                   
+
                   </div>
                 </div>
-         </Col>
+              </Col>
             </Row>
-           
+
           </Container>
         </div>
       ) : (
