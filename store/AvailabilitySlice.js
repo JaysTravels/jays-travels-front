@@ -9,7 +9,7 @@ export const submitFlightData = createAsyncThunk(
     'flights/submitFlightData',
     async (flightData, { rejectWithValue }) => {
       try { 
-        //debugger;
+        debugger;
        //// console.log(flightData)
         const response = await axiosInstance.post('availability', flightData);
         console.log(response.data)      
@@ -60,7 +60,10 @@ export const submitFlightData = createAsyncThunk(
       selectedCarriers: null, 
       selectedSegments: null,
       selectedTime : null,
-      selectedTimeArrival : null
+      selectedTimeArrival : null,
+      selectedPriceRange: [0, 100],
+      minPrice : 0,
+      maxPrice : 100,
     },
     reducers : {
         setFlights:(state,action)=> 
@@ -141,6 +144,21 @@ setSelectedDepartureTime(state, action) {
     state.filteredFlights = state.response.data;
   }           
 },
+setSelectedPriceRange(state, action) {
+  debugger;
+  try{
+    state.selectedPriceRange = action.payload;
+    const [minPrice, maxPrice] = action.payload;
+  
+    state.filteredFlights = state.response.data.filter((flight) => {
+      const price = parseFloat(flight?.price?.grandTotal);
+      return price >= minPrice && price <= maxPrice;
+    });
+  }catch{
+          state.filteredFlights = state.response.data;  
+  }
+},
+
 setSelectedArrivalTime(state, action) {   
   state.selectedTimeArrival = action.payload;  
   if(action.payload != null && action.payload.length > 0){   
@@ -197,12 +215,21 @@ setSelectedArrivalTime(state, action) {
             state.loading = false;
            }
            else{
+            debugger;
             state.status = 'succeeded';
             state.response = action.payload;
             state.error = null;
             state.loading = false;
             state.marketingCarriers = getMarketingCarrierInfo(action.payload.data);
             state.filteredFlights = action.payload.data;
+            const prices = action.payload.data
+              .map(flight => parseFloat(flight?.price?.grandTotal))
+              .filter(price => !isNaN(price));
+            if (prices.length > 0) {
+             state.minPrice = Math.min(...prices);
+             state.maxPrice = Math.max(...prices);
+            }
+            
            }
             
           })
@@ -261,5 +288,5 @@ setSelectedArrivalTime(state, action) {
     }
     return marketingCarriers;
     }
- export const {setFlights,setSelectedFlights,setSelectedCarriers,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime} = Slice.actions;
+ export const {setFlights,setSelectedFlights,setSelectedCarriers,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime,setSelectedPriceRange} = Slice.actions;
  export default Slice.reducer;

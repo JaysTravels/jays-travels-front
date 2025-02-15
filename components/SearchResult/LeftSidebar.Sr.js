@@ -8,16 +8,19 @@ import React, { useEffect, useState } from 'react';
 import ReactSlider from "react-slider";
 import { Button, Input, Label } from "reactstrap";
 import {useDispatch, useSelector} from 'react-redux';
-import { setSelectedCarriers , setSelectedFlights,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime } from "@/store/AvailabilitySlice";
+import { setSelectedCarriers,setSelectedPriceRange , setSelectedFlights,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime } from "@/store/AvailabilitySlice";
 
 
 const LeftSidebarSr = () =>  {
- // debugger;
+ 
   const dispatch = useDispatch();
-  const [range, setRange] = useState([0, 100]);
+  //const [range, setRange] = useState([0, 100]);
   const flightResults = useSelector((state) => state?.flights?.response?.data);
   const flightRequest = useSelector((state) => state?.flights?.flights);
   const marketingCarriers = useSelector((state) => state?.flights?.marketingCarriers);
+  const selectedPriceRange = useSelector((state) => state.flights?.selectedPriceRange);
+  const flightMinprice = useSelector((state) => state.flights?.minPrice);
+  const flightMaxprice = useSelector((state) => state.flights?.maxPrice);
   const [open, setOpen] = useState(false);
   const [openStops, setOpenStops] = useState(false);
   const [openPrice, setOpenPrice] = useState(false);
@@ -29,8 +32,12 @@ const LeftSidebarSr = () =>  {
   const [selectedStops, setSelectedStops] = useState([]);
   const [selectedTimeRanges, setSelectedTimeRanges] = useState([]);
   const [selectedTimeRangesArrival, setSelectedTimeRangesArrival] = useState([]);
+  const flightResultsFull = flightResults;
+ 
+ 
+  const [range, setRange] = useState([flightMinprice, flightMaxprice]);
   useEffect(() => {
-   // debugger;
+    
     if(selectedAirlines != null){
       const filtered = flightResults?.filter((flight) =>
         flight.itineraries.some((itinerary) =>
@@ -43,6 +50,26 @@ const LeftSidebarSr = () =>  {
     }  
   }, [selectedAirlines, flightResults]);
 
+  debugger;
+  useEffect(() => {
+    dispatch(setSelectedPriceRange([flightMinprice, flightMaxprice]));
+  }, [flightResults, dispatch])
+
+try {
+  let minPrice;
+  let maxPrice;
+  const prices = flightResults
+    .map(flight => parseFloat(flight?.price?.grandTotal))
+    .filter(price => !isNaN(price)); // Remove invalid values
+
+  if (prices.length > 0) {
+    minPrice = Math.min(...prices);
+    maxPrice = Math.max(...prices);
+  }
+} catch (error) {
+  console.error("Error calculating min/max price:", error);
+}
+
   const isTimeInRange = (time, start, end) => {
     const timeObj = new Date(`1970-01-01T${time}:00Z`);
     const startObj = new Date(`1970-01-01T${start}:00Z`);
@@ -50,6 +77,23 @@ const LeftSidebarSr = () =>  {
     return timeObj >= startObj && timeObj < endObj;
   };
 
+  const handlePriceChange = (value) => {
+    debugger;
+    dispatch(setSelectedPriceRange(value));
+  };
+
+  const handleSliderChange = (value) => {
+    debugger;
+    setRange(value); 
+
+    // Filter flights based on selected price range
+    const newFilteredFlights = flightResultsFull.filter(flight => {
+      const price = parseFloat(flight?.data?.price?.grandTotal);
+      return price >= value[0] && price <= value[1]; // Check if price is within range
+    });
+  setFlightPrice(flightResultsFull); // Update filtered flights
+  //dispatch(setSelectedPriceRange(flightResultsFull));
+};
   const handleTimeRangeChange = (range,isChecked) => {   
    // debugger; 
   
@@ -68,7 +112,7 @@ const LeftSidebarSr = () =>  {
   };
 
   const handleTimeRangeChangeArrival = (range,isChecked) => {   
-    debugger; 
+   // debugger; 
   
     if (isChecked) {
        const updatedSelectedRangesArrival = selectedTimeRangesArrival.includes(range)
@@ -86,7 +130,17 @@ const LeftSidebarSr = () =>  {
 
 //setSelectedArrivalTime
   const handleCheckboxChange = (carrierCode) => {
-    debugger;  
+  //  debugger;  
+     const updatedSelectedAirlines = selectedAirlines?.includes(carrierCode)
+     ? selectedAirlines.filter((code) => code !== carrierCode)
+     : [...selectedAirlines, carrierCode];
+     setSelectedAirlines(updatedSelectedAirlines);    
+     dispatch(setSelectedCarriers(updatedSelectedAirlines)); 
+
+  };
+
+  const handleCheckboxChangeSameCarrier = (carrierCode) => {
+    //debugger;  
      const updatedSelectedAirlines = selectedAirlines?.includes(carrierCode)
      ? selectedAirlines.filter((code) => code !== carrierCode)
      : [...selectedAirlines, carrierCode];
@@ -255,11 +309,12 @@ const LeftSidebarSr = () =>  {
                       thumbClassName="example-thumb"
                       trackClassName="example-track"
                       defaultValue={range}
-                      min={0}
-                      max={100}
+                      value={selectedPriceRange} 
+                      min={flightMinprice}
+                      max={flightMaxprice}
                       pearling
                       minDistance={0}
-                      onChange={(value) => setRange(value)}
+                      onChange={handlePriceChange}  // Dispatch on change onChange={handleSliderChange}
                       renderThumb={(props, state) => (
                         <div {...props}>{state.valueNow}</div>
                       )}
@@ -317,6 +372,36 @@ const LeftSidebarSr = () =>  {
                   ) : (
                     <div></div>
                   )}
+                </div>
+              </div>
+
+              {/* for bunch airline code */}
+              <div
+                className="collection-collapse-block-content"
+                style={{
+                  maxHeight: openAirlines ? "0" : "330px",
+                  overflow: "hidden",
+                  transition: "max-height 0.3s ease",
+                  paddingBottom: "0",
+                }}
+              >
+                <div className="collection-brand-filter">
+                <div className="form-check collection-filter-checkbox">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id={`carrier-AllAirline`}
+                    onChange={() => {
+                      handleCheckboxChangeSameCarrier('same-airline');                     
+                    }}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor={`carrier-allairlines`}
+                  >
+                    {'Same Carrier'}
+                  </label>
+                </div>
                 </div>
               </div>
             </div>

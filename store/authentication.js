@@ -7,7 +7,7 @@ import axiosInstance from '@/utils/axiosInstance';
 
 export async function getAuthToken() {
   try {
-    debugger;
+    //debugger;
     const tokenRequest = {
         UserName: process.env.NEXT_PUBLIC_API_USER_NAME,
         Password: process.env.NEXT_PUBLIC_API_USER_PASSWORD
@@ -30,7 +30,7 @@ export const getToken = createAsyncThunk(
   'flights/getToken',
   async (tokenRequest, { rejectWithValue }) => {
     try { 
-      debugger;
+     // debugger;
       const response = await axiosInstance.post('/security/createToken', tokenRequest);
       if (response?.data) {
         const token = response.data;
