@@ -98,7 +98,7 @@ const MakePayment = () => {
      try { 
       const paymentPageData = await dispatch(getManualPaymentPage(paymentRequest)).unwrap();        
       console.log('Get payment successfully:', paymentPageData);
-       debugger;
+       //debugger;
        data = paymentPageData;
        if(paymentPageData == undefined){
         data = paymentResponse;

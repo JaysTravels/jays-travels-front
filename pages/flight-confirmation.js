@@ -57,7 +57,7 @@ const formatDate = (date) => {
 let flight;
 
 function convertTimeFormat(timeString) {
-  debugger;
+  //debugger;
   if (!timeString || !timeString.includes(":")) {
     return "";
   }
@@ -216,11 +216,11 @@ const FlightConfirmation = () => {
   };
 
   const initiatePayment = async () => {
-    debugger;
+   // debugger;
     //setIsLoading(true);
     const data = paymentPageData;
     if (data && data.url && data.parameters) {
-      debugger;
+    //  debugger;
       const form = document.createElement("form");
       form.method = "POST";
       form.action = data.url;
@@ -257,7 +257,7 @@ const FlightConfirmation = () => {
   };
 
   const checkValidation = () => {
-    debugger;
+    //debugger;
     let isValid = true;
     const updatedErrors = {
       adults: formData.adults.map((data, index) => {
@@ -378,7 +378,7 @@ const FlightConfirmation = () => {
     let session5 = getSession();
     session5.sequenceNumber = session5.sequenceNumber + 5;
     const commitPnrRequest = CreateCommitPnrRequest(session5);
-    debugger;
+   // debugger;
     let passenger = addPnrMultiRequset.passengerDetails?.find(
       (p) => p.isLeadPassenger === true
     );
@@ -393,7 +393,7 @@ const FlightConfirmation = () => {
     };
     try {
       // Dispatch first API call
-      debugger;
+      //debugger;
       const pnrMulti = await dispatch(PNR_Multi(addPnrMultiRequset));
       //debugger;
       console.log('PNR_Multi dispatched successfully.');
@@ -455,7 +455,7 @@ const FlightConfirmation = () => {
         }
         const data = paymentPageData;
         if (data && data.url && data.parameters) {
-          debugger;
+         // debugger;
           const form = document.createElement("form");
           form.method = "POST";
           form.action = data.url;
@@ -486,7 +486,7 @@ const FlightConfirmation = () => {
   const handleApiCallsPayment = async () => {
     setLoading(true);
     setError(null);
-    debugger;
+   // debugger;
 
     const paymentRequest = {
       OrderId: "Order123",
