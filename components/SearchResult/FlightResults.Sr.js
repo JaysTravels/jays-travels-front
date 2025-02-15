@@ -228,9 +228,10 @@ const FlightResultsSr = () => {
                           <Col md={9}>
                           <div className="airport-part">
                             <div className="airport-name">
-                              <h4>{formatTime(item?.itineraries[0]?.segments[0]?.departure?.at)}</h4>
-                             <h6 className="pb10">{formatDateToCustomFormat(item?.itineraries[0]?.segments[0]?.departure?.at)}</h6>
-                              <h4 >{item?.itineraries[0]?.segments[0]?.departure?.iataCode  }</h4>
+                            <h4 className="origion-h4" >{item?.itineraries[0]?.segments[0]?.departure?.iataCode  }</h4>
+                              
+                             <h6 className="pb10 origion-date">{formatDateToCustomFormat(item?.itineraries[0]?.segments[0]?.departure?.at)}</h6>
+                             <h4 className="origion-date">{formatTime(item?.itineraries[0]?.segments[0]?.departure?.at)}</h4>
                             </div>
                             <div className="airport-progress">
                               <i className="fas fa-plane-departure float-start"></i>
@@ -246,9 +247,10 @@ const FlightResultsSr = () => {
                               }</div>
                             </div>
                             <div className="airport-name arrival">
-                              <h4>{formatTime(item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length -1]?.arrival?.at)}</h4>
-                              <h6 className="pb5">{formatDateToCustomFormat(item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length -1]?.arrival?.at)}</h6>
-                              <h4>{item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length-1]?.arrival?.iataCode}</h4>
+                            <h4 className="destination-h4">{item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length-1]?.arrival?.iataCode}</h4>
+                           
+                              <h6 className="pb5 destination-date">{formatDateToCustomFormat(item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length -1]?.arrival?.at)}</h6>
+                              <h4 className="destination-date">{formatTime(item?.itineraries[0]?.segments[item?.itineraries[0]?.segments?.length -1]?.arrival?.at)}</h4>
                             </div>
                           </div>
                           </Col>
@@ -263,7 +265,7 @@ const FlightResultsSr = () => {
                         <i className="fas fa-plane-arrival fs12"></i> Inbound
                         </h5>
                       </div>
-                      <div className="peLg30">
+                      <div className="peLg30 mb-lg-0 mb15">
                         <Row>
                           <Col md={3}>
                           <div className="logo-sec">
@@ -275,9 +277,10 @@ const FlightResultsSr = () => {
                           <Col md={9}>
                               <div className="airport-part">
                                 <div className="airport-name">
-                                <h4>{formatTime(item?.itineraries[1]?.segments[0].departure.at)}</h4>
-                               <h6 className="pb10">{formatDateToCustomFormat(item?.itineraries[1]?.segments[0].departure.at)}</h6> 
-                                <h4>{item?.itineraries[1]?.segments[0]?.departure?.iataCode}</h4>
+                                <h4 className="origion-h4">{item?.itineraries[1]?.segments[0]?.departure?.iataCode}</h4>
+                              
+                               <h6 className="pb10 origion-date">{formatDateToCustomFormat(item?.itineraries[1]?.segments[0].departure.at)}</h6> 
+                               <h4 className=" origion-date">{formatTime(item?.itineraries[1]?.segments[0].departure.at)}</h4>
                                 </div>
                                 <div className="airport-progress">
                                   <i className="fas fa-plane-departure float-start"></i>
@@ -294,9 +297,10 @@ const FlightResultsSr = () => {
                                     </div>
                                 </div>
                                 <div className="airport-name arrival">
-                                <h4>{formatTime(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h4>
-                                <h6 className="pb5">{formatDateToCustomFormat(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h6>
-                                <h4>{item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.iataCode}</h4>
+                                <h4 className="destination-h4">{item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.iataCode}</h4>
+                               
+                                <h6 className="pb5 destination-date">{formatDateToCustomFormat(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h6>
+                                <h4 className="destination-date">{formatTime(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length -1]?.arrival?.at)}</h4>
                                 </div>
                               </div>
                             </Col>

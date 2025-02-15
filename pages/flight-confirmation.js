@@ -667,18 +667,18 @@ const FlightConfirmation = () => {
                             <Col md={6}>
                               <div className="airport-part">
                                 <div className="airport-name">
-                                  <h6>{flight.fromAirport}</h6>
-                                  <span>{flight.departureTime}</span>
-                                  <p>{formatDateToCustomFormat(flight.departureDate)}</p>
+                                  <h6 className="origion-h4">{flight.fromAirport}</h6>
+                                  <span className="origion-date">{flight.departureTime}</span>
+                                  <p className="origion-date">{formatDateToCustomFormat(flight.departureDate)}</p>
                                 </div>
                                 <div className="airport-progress">
                                   <i className="fas fa-plane-departure float-start"></i>
                                   <i className="fas fa-plane-arrival float-end"></i>
                                 </div>
                                 <div className="airport-name arrival">
-                                  <h6>{flight.toAirport}</h6>
-                                  <span>{flight.arrivalTime}</span>
-                                  <p>{formatDateToCustomFormat(flight.arrivalDate)}</p>
+                                  <h6 className="destination-h4">{flight.toAirport}</h6>
+                                  <span className="destination-date">{flight.arrivalTime}</span>
+                                  <p className="destination-date">{formatDateToCustomFormat(flight.arrivalDate)}</p>
                                 </div>
                               </div>
                             </Col>

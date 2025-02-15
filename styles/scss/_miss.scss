@@ -621,3 +621,35 @@ display: block;
 ;
 }
 input, textarea, select { font-family:nunito !important; }
+.origion-h4{
+  font-weight: 900 !important;
+    text-align: right;
+    // color: #0464b5 !important;
+    letter-spacing: 0.64px;
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+.destination-h4{
+  font-weight: 900 !important;
+    text-align: left;
+    // color: #0464b5 !important;
+    letter-spacing: 0.64px;
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+.origion-date{
+  font-weight: normal;
+    line-height: 1.5em;
+    position: relative;
+    display: block;
+    // color: #0464b5 !important;
+    text-align: right;
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+.destination-date{
+  font-weight: normal;
+    line-height: 1.5em;
+    position: relative;
+    display: block;
+    // color: #0464b5 !important;
+    color: rgba(0, 0, 0, 0.7) !important;
+    text-align: left;
+}
