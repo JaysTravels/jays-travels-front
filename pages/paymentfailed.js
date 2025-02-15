@@ -29,7 +29,7 @@ const Confirmation = () => {
   const [flightRequest, setflightRequest] = useState(null);
   const [payment,setPaymentUpdate] = useState(false);
   useEffect(() => {
-     debugger;
+    // debugger;
      const savedBookingRefNo = localStorage.getItem("BookingRefNo");
      setBookingRefNo(savedBookingRefNo || null);
  
@@ -56,7 +56,7 @@ const Confirmation = () => {
      let session = getSession();
      if (payment === false)
        {
-         debugger;
+      //   debugger;
        const UpdatePaymentStatusRequest = {
          SessionId: session.sessionId,
          PaymentStatus: "Success"
