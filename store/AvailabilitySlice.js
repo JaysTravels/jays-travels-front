@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useEffect, useState } from "react";
 import React from 'react';
 import axiosInstance from '@/utils/axiosInstance';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 export const submitFlightData = createAsyncThunk(
     'flights/submitFlightData',
@@ -58,12 +59,14 @@ export const submitFlightData = createAsyncThunk(
       marketingCarriers : null,
       filteredFlights: null, 
       selectedCarriers: null, 
+      selectedCarriersAll : null,
       selectedSegments: null,
       selectedTime : null,
       selectedTimeArrival : null,
       selectedPriceRange: [0, 100],
       minPrice : 0,
       maxPrice : 100,
+      samecarrier : false
     },
     reducers : {
         setFlights:(state,action)=> 
@@ -73,9 +76,49 @@ export const submitFlightData = createAsyncThunk(
         setSelectedFlights:(state,action)=> 
             {              
               state.selectedFlight = { ...state.selectedFlight, ...action.payload };              
-           },
-        setSelectedCarriers(state, action) {
+           },setSelectedCarriers_same(state, action) {
+            debugger;
+            state.selectedCarriers = action.payload;
           
+            if (action.payload != null && action.payload.length > 0) {
+              state.filteredFlights = state.response.data.filter((flight) => {
+                const itineraries = flight.itineraries;
+          
+                // Assume the first itinerary is outbound and the second is inbound
+                const outboundItinerary = itineraries[0];
+                const inboundItinerary = itineraries[1];
+          
+                if (!outboundItinerary || !inboundItinerary) {
+                  // If either outbound or inbound itinerary is missing, exclude the flight
+                  return false;
+                }
+          
+                // Get all marketingCarrierCodes for outbound and inbound segments
+                const outboundCarriers = outboundItinerary.segments.map(
+                  (segment) => segment.marketingCarrierCode
+                );
+                const inboundCarriers = inboundItinerary.segments.map(
+                  (segment) => segment.marketingCarrierCode
+                );
+          
+                // Check if ALL selected carriers are present in both outbound and inbound
+                const allSelectedInOutbound = state.selectedCarriers.every((carrier) =>
+                  outboundCarriers.includes(carrier)
+                );
+                const allSelectedInInbound = state.selectedCarriers.every((carrier) =>
+                  inboundCarriers.includes(carrier)
+                );
+          
+                // Return true only if ALL selected carriers are in both outbound and inbound
+                return allSelectedInOutbound && allSelectedInInbound;
+              });
+            } else {
+              // If no carriers are selected, show all flights
+              state.filteredFlights = state.response.data;
+            }
+          },
+        setSelectedCarriers(state, action) {
+          debugger;
             state.selectedCarriers = action.payload;  
             if(action.payload != null && action.payload.length > 0){
               state.filteredFlights = state.response.data.filter((flight) =>
@@ -88,9 +131,44 @@ export const submitFlightData = createAsyncThunk(
             }else{
               state.filteredFlights = state.response.data;
             }           
+    },setFlightsWithSameCarrier(state, action) {
+      debugger;
+      const isSameCarrier = action.payload;
+      if(isSameCarrier == false){
+        state.filteredFlights = state.response.data;
+        return;
+      }
+      state.filteredFlights = state.response.data.filter((flight) => {
+        const itineraries = flight.itineraries;
+    
+        // Assume the first itinerary is outbound and the second is inbound
+        const outboundItinerary = itineraries[0];
+        const inboundItinerary = itineraries[1];
+    
+        if (!outboundItinerary || !inboundItinerary) {
+          // If either outbound or inbound itinerary is missing, exclude the flight
+          return false;
+        }
+    
+        // Get all marketingCarrierCodes for outbound and inbound segments
+        const outboundCarriers = outboundItinerary.segments.map(
+          (segment) => segment.marketingCarrierCode
+        );
+        const inboundCarriers = inboundItinerary.segments.map(
+          (segment) => segment.marketingCarrierCode
+        );
+    
+        // Check if there is any common marketingCarrierCode between outbound and inbound
+        const hasCommonCarrier = outboundCarriers.some((carrier) =>
+          inboundCarriers.includes(carrier)
+        );
+    
+        // Return true if there is at least one common carrier
+        return hasCommonCarrier;
+      });
     },
-    setSelectedSegments(state, action) {
-      
+    setSelectedSegments_v1(state, action) {
+      debugger;
         state.selectedSegments = action.payload;  
         if(action.payload != null && action.payload.length > 0){       
           state.filteredFlights = state.response.data.filter((flight) =>
@@ -103,6 +181,72 @@ export const submitFlightData = createAsyncThunk(
         }else{
           state.filteredFlights = state.response.data;
         }           
+},setSelectedSegments_v2(state, action) {
+  debugger;
+  state.selectedSegments = action.payload; // Update selectedSegments with the payload
+
+  if (action.payload != null && action.payload.length > 0) {
+    // Filter flights based on selectedSegments
+    state.filteredFlights = state.response.data.filter((flight) => {
+      const itineraries = flight.itineraries;
+
+      // Assume the first itinerary is outbound and the second is inbound
+      const outboundItinerary = itineraries[0];
+      const inboundItinerary = itineraries[1];
+
+      // Check if both outbound and inbound itineraries exist
+      if (!outboundItinerary || !inboundItinerary) {
+        return false; // Exclude flights with missing itineraries
+      }
+
+      // Get segment counts for outbound and inbound
+      const outboundSegmentCount = outboundItinerary.segments.length;
+      const inboundSegmentCount = inboundItinerary.segments.length;
+
+      // Check if both outbound and inbound segment counts match the selectedSegments
+      const outboundMatches = state.selectedSegments.includes(outboundSegmentCount);
+      const inboundMatches = state.selectedSegments.includes(inboundSegmentCount);
+
+      // Return true only if both outbound and inbound match the selectedSegments
+      return outboundMatches && inboundMatches;
+    });
+  } else {
+    // If no segment filter is selected, show all flights
+    state.filteredFlights = state.response.data;
+  }
+},setSelectedSegments(state, action) {
+  debugger;
+  state.selectedSegments = action.payload; // Update selectedSegments with the payload
+
+  if (action.payload != null && action.payload.length > 0) {
+    // Filter flights based on selectedSegments
+    state.filteredFlights = state.response.data.filter((flight) => {
+      const itineraries = flight.itineraries;
+
+      // Assume the first itinerary is outbound and the second is inbound
+      const outboundItinerary = itineraries[0];
+      const inboundItinerary = itineraries[1];
+
+      // Check if both outbound and inbound itineraries exist
+      if (!outboundItinerary || !inboundItinerary) {
+        return false; // Exclude flights with missing itineraries
+      }
+
+      // Get segment counts for outbound and inbound
+      const outboundSegmentCount = outboundItinerary.segments.length;
+      const inboundSegmentCount = inboundItinerary.segments.length;
+
+      // Check if both outbound and inbound segment counts are in selectedSegments
+      const outboundMatches = state.selectedSegments.includes(outboundSegmentCount);
+      const inboundMatches = state.selectedSegments.includes(inboundSegmentCount);
+
+      // Return true only if both outbound and inbound match the selectedSegments
+      return outboundMatches && inboundMatches;
+    });
+  } else {
+    // If no segment filter is selected, show all flights
+    state.filteredFlights = state.response.data;
+  }
 },
 setSelectedDepartureTime(state, action) {   
   state.selectedTime = action.payload;  
@@ -145,7 +289,7 @@ setSelectedDepartureTime(state, action) {
   }           
 },
 setSelectedPriceRange(state, action) {
-  debugger;
+  //debugger;
   try{
     state.selectedPriceRange = action.payload;
     const [minPrice, maxPrice] = action.payload;
@@ -155,7 +299,7 @@ setSelectedPriceRange(state, action) {
       return price >= minPrice && price <= maxPrice;
     });
   }catch{
-          state.filteredFlights = state.response.data;  
+          state.filteredFlights = state?.response?.data;  
   }
 },
 
@@ -226,8 +370,8 @@ setSelectedArrivalTime(state, action) {
               .map(flight => parseFloat(flight?.price?.grandTotal))
               .filter(price => !isNaN(price));
             if (prices.length > 0) {
-             state.minPrice = Math.min(...prices);
-             state.maxPrice = Math.max(...prices);
+             state.minPrice =Math.round(Math.min(...prices));
+             state.maxPrice = Math.round(Math.max(...prices));
             }
             
            }
@@ -288,5 +432,5 @@ setSelectedArrivalTime(state, action) {
     }
     return marketingCarriers;
     }
- export const {setFlights,setSelectedFlights,setSelectedCarriers,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime,setSelectedPriceRange} = Slice.actions;
+ export const {setFlights,setSelectedFlights ,setFlightsWithSameCarrier,setSelectedCarriers,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime,setSelectedPriceRange} = Slice.actions;
  export default Slice.reducer;

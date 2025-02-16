@@ -106,7 +106,7 @@
   margin-top: 10px;
 }
 
-.example-thumb {
+.example-thumb_old {
   height: 20px;
   width: 20px;
   background-color: #007bff;
@@ -114,7 +114,24 @@
   cursor: pointer;
   top: -8px;
 }
-
+.example-thumb {
+  display: flex;
+  initial-value: none;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background-color: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+  color: transparent; /* Hide text inside thumbs */
+  font-size: 0px;
+  text-indent: -9999px;
+}
 .example-track {
   background: #007bff;
+}
+.example-track::before,
+.example-track::after {
+  display: none !important;
 }
