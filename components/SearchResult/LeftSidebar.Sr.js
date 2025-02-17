@@ -415,7 +415,7 @@ try {
                     className="form-check-label"
                     htmlFor={`carrier-allairlines`}
                   >
-                    {'Airline Combinations'}
+                    {'Airlines Combinations'}
                   </label>
                 </div>
                 </div>
