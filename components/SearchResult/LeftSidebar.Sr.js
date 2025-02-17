@@ -4,7 +4,7 @@ import Image from "next/image";
 import sunrise from "@/public/images/icon/time/sunrise.png";
 import sun from "@/public/images/icon/time/sun.png";
 import night from "@/public/images/icon/time/night.png";
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import ReactSlider from "react-slider";
 import { Button, Input, Label } from "reactstrap";
 import {useDispatch, useSelector} from 'react-redux';
@@ -34,6 +34,8 @@ const LeftSidebarSr = () =>  {
   const [selectedTimeRangesArrival, setSelectedTimeRangesArrival] = useState([]);
   const flightResultsFull = flightResults;
   const [isSameCarrier, setIsSameCarrier] = useState(false);
+  const [SelectedMinprice,setSelectedMinprice] = useState(flightMinprice);
+  const [SelectedMaxprice,setSelectedMaxprice] = useState(flightMaxprice);  
  
   const [range, setRange] = useState([flightMinprice, flightMaxprice]);
   useEffect(() => {
@@ -79,6 +81,10 @@ try {
 
   const handlePriceChange = (value) => {
     debugger;
+    const [_minPrice, _maxPrice] = value;  
+    setSelectedMinprice(_minPrice);
+    setSelectedMaxprice(_maxPrice); 
+    
     dispatch(setSelectedPriceRange(value));
   };
 
@@ -336,9 +342,15 @@ try {
                         <div {...props}>{state.valueNow}</div>
                       )}
                     />
-                    <p>
-                      Selected range: {range[0]} - {range[1]}
-                    </p>
+                     <p style={{ 
+                      display: "flex", 
+                      justifyContent: "space-between", 
+                      padding: "5px 10px" // Adds padding inside the p
+                    }}></p>
+                    <p style={{ display: "flex", justifyContent: "space-between" }}>
+                    <span>{SelectedMinprice}</span>
+                    <span>{SelectedMaxprice}</span>
+                  </p>
                   </div>
                 </div>
               </div>
