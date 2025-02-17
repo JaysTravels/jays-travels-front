@@ -1,4 +1,4 @@
-import { faAlignCenter, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faAlignCenter, faL, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import sunrise from "@/public/images/icon/time/sunrise.png";
@@ -8,7 +8,7 @@ import React, { use, useEffect, useState } from 'react';
 import ReactSlider from "react-slider";
 import { Button, Input, Label } from "reactstrap";
 import {useDispatch, useSelector} from 'react-redux';
-import { setSelectedCarriers,setSelectedPriceRange,setFlightsWithSameCarrier , setSelectedFlights,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime } from "@/store/AvailabilitySlice";
+import { setSelectedCarriers,setSelectedCarriersExclude,setSelectedPriceRange,setFlightsWithSameCarrier , setSelectedFlights,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime } from "@/store/AvailabilitySlice";
 
 
 const LeftSidebarSr = () =>  {
@@ -36,7 +36,8 @@ const LeftSidebarSr = () =>  {
   const [isSameCarrier, setIsSameCarrier] = useState(false);
   const [SelectedMinprice,setSelectedMinprice] = useState(flightMinprice);
   const [SelectedMaxprice,setSelectedMaxprice] = useState(flightMaxprice);  
- 
+  const [checkedCarriers, setCheckedCarriers] = useState({});
+
   const [range, setRange] = useState([flightMinprice, flightMaxprice]);
   useEffect(() => {
     
@@ -57,20 +58,15 @@ const LeftSidebarSr = () =>  {
     dispatch(setSelectedPriceRange([flightMinprice, flightMaxprice]));
   }, [flightResults, dispatch])
 
-try {
-  // let minPrice;
-  // let maxPrice;
-  // const prices = flightResults
-  //   .map(flight => parseFloat(flight?.price?.grandTotal))
-  //   .filter(price => !isNaN(price)); // Remove invalid values
-
-  // if (prices.length > 0) {
-  //   minPrice = Math.min(...prices);
-  //   maxPrice = Math.max(...prices);
-  // }
-} catch (error) {
-  console.error("Error calculating min/max price:", error);
-}
+  useEffect(() => {
+    if (marketingCarriers && marketingCarriers.length > 0) {
+      const initialCheckedState = {};
+      marketingCarriers.forEach((carrier) => {
+        initialCheckedState[carrier.marketingCarrierCode] = true;
+      });
+      setCheckedCarriers(initialCheckedState);
+    }
+  }, [marketingCarriers]);
 
   const isTimeInRange = (time, start, end) => {
     const timeObj = new Date(`1970-01-01T${time}:00Z`);
@@ -134,15 +130,38 @@ try {
     
   };
 
-//setSelectedArrivalTime
-  const handleCheckboxChange = (carrierCode) => {
-  //  debugger;  
-     const updatedSelectedAirlines = selectedAirlines?.includes(carrierCode)
-     ? selectedAirlines.filter((code) => code !== carrierCode)
-     : [...selectedAirlines, carrierCode];
-     setSelectedAirlines(updatedSelectedAirlines);    
-     dispatch(setSelectedCarriers(updatedSelectedAirlines)); 
-
+  const handleCheckboxChange = (carrierCode, isChecked) => {
+    debugger;  
+   
+   if(isChecked){
+    const updatedSelectedAirlines = selectedAirlines?.includes(carrierCode)
+    ? selectedAirlines.filter((code) => code !== carrierCode)
+    : [...selectedAirlines, carrierCode];
+    setSelectedAirlines(updatedSelectedAirlines,isChecked); 
+    const filterType = updatedSelectedAirlines.length > 0 ? "exclude" : "include";   
+    dispatch(setSelectedCarriers({ filter: filterType, payload: updatedSelectedAirlines }));
+    // dispatch(setSelectedCarriers(updatedSelectedAirlines)); 
+    // if(updatedSelectedAirlines.length > 1){
+    //   dispatch(setSelectedCarriersExclude(updatedSelectedAirlines)); 
+    // }
+    setCheckedCarriers((prevState) => ({
+     ...prevState,
+     [carrierCode]: !prevState[carrierCode],
+   }));
+   }
+   else{
+    const updatedSelectedAirlines = selectedAirlines?.includes(!carrierCode)
+    ? selectedAirlines.filter((code) => code !== carrierCode)
+    : [...selectedAirlines, carrierCode];
+    setSelectedAirlines(updatedSelectedAirlines,isChecked);
+    const filterType = updatedSelectedAirlines.length > 1 ? "exclude" : "include";       
+    dispatch(setSelectedCarriersExclude(updatedSelectedAirlines)); 
+    setCheckedCarriers((prevState) => ({
+     ...prevState,
+     [carrierCode]: !prevState[carrierCode],
+   }));
+   }
+     
   };
 
   const handleCheckboxChangeSameCarrier = (value) => {
@@ -152,16 +171,16 @@ try {
     dispatch(setFlightsWithSameCarrier(value));
   };
 
-  const handleCheckboxChangeSameCarrierold = (carrierCode) => {
-    alert(carrierCode)
-    debugger;  
-     const updatedSelectedAirlines = selectedAirlines?.includes(carrierCode)
-     ? selectedAirlines.filter((code) => code !== carrierCode)
-     : [...selectedAirlines, carrierCode];
-     setSelectedAirlines(updatedSelectedAirlines);    
-     dispatch(setSelectedCarriers(updatedSelectedAirlines)); 
+  // const handleCheckboxChangeSameCarrierold = (carrierCode) => {
+  //   alert(carrierCode)
+  //   debugger;  
+  //    const updatedSelectedAirlines = selectedAirlines?.includes(carrierCode)
+  //    ? selectedAirlines.filter((code) => code !== carrierCode)
+  //    : [...selectedAirlines, carrierCode];
+  //    setSelectedAirlines(updatedSelectedAirlines);    
+  //    dispatch(setSelectedCarriers(updatedSelectedAirlines)); 
 
-  };
+  // };
 
   const handleStopFilterChange = (stopCount,isChecked) => {
     debugger;
@@ -385,10 +404,9 @@ try {
                     type="checkbox"
                     className="form-check-input"
                     id={`carrier-${carrier.marketingCarrierCode}`}
-                  //  onChange={() => handleCheckboxChange(carrier.marketingCarrierCode)}
-                    onChange={() => {
-                      handleCheckboxChange(carrier.marketingCarrierCode);                     
-                    }}
+                    checked={checkedCarriers[carrier.marketingCarrierCode] || false}
+                  //  onChange={() => {handleCheckboxChange(carrier.marketingCarrierCode);}}
+                    onChange={(e) => handleCheckboxChange(carrier.marketingCarrierCode, e.target.checked)}
                   />
                   <label
                     className="form-check-label"
