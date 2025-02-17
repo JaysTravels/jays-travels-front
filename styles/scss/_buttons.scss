@@ -75,15 +75,17 @@
     }
   }
   &-c3 {
-    background-color: $c3;
+    // background-color: $c3;
+    background-color:#fb8303;
     color: $white;
     border-color: rgba($c3, 0.12);
 
     &:hover,
     &:focus {
       background-color: $white;
-      color: $c3;
-      border-color: rgba($c3, 1);
+      // color: $c3;
+      color: #fb8303;
+      border-color: rgba(#fb8303, 1);
     }
     &:active {
       background-color: $white !important;

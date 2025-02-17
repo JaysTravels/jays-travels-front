@@ -385,7 +385,7 @@ const holidaysMainPage = () => {
                           </h5>
                         </a>
                         <p>
-                        Includes 35% hotel discount, complimentary room upgrade
+                          Includes 35% hotel discount, complimentary room upgrade
                         </p>
                         <div className="bottom-section">
                           <div className="rating">
@@ -426,8 +426,8 @@ const holidaysMainPage = () => {
                         </h5>
 
                         <p>
-                        Includes 33% hotel discount, complimentary
-                        return domestic flight
+                          Includes 33% hotel discount, complimentary
+                          return domestic flight
 
 
                         </p>
@@ -471,8 +471,8 @@ const holidaysMainPage = () => {
                           </h5>
                         </a>
                         <p>
-                        Includes 30% hotel discount, complimentary
-                        upgrade
+                          Includes 30% hotel discount, complimentary
+                          upgrade
                         </p>
                         <div className="bottom-section">
                           <div className="rating">
@@ -558,7 +558,7 @@ const holidaysMainPage = () => {
                           </h5>
                         </a>
                         <p>
-                        Includes 35% hotel discount,complimentary room upgrade
+                          Includes 35% hotel discount,complimentary room upgrade
                         </p>
                         <div className="bottom-section">
                           <div className="rating">
@@ -599,8 +599,8 @@ const holidaysMainPage = () => {
                         </h5>
 
                         <p>
-                        Includes 20% hotel discount and one time
-complimentary for two
+                          Includes 20% hotel discount and one time
+                          complimentary for two
 
                         </p>
                         <div className="bottom-section">
@@ -643,8 +643,8 @@ complimentary for two
                           </h5>
                         </a>
                         <p>
-                        Includes 35% hotel discount
-                        and complimentary room upgrade
+                          Includes 35% hotel discount
+                          and complimentary room upgrade
                         </p>
                         <div className="bottom-section">
                           <div className="rating">
@@ -682,8 +682,8 @@ complimentary for two
                           </h5>
                         </a>
                         <p>
-                        Includes 20% early booking discount
-and complimentary room upgrade
+                          Includes 20% early booking discount
+                          and complimentary room upgrade
 
                         </p>
                         <div className="bottom-section">

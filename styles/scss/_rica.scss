@@ -335,7 +335,8 @@ section,
   -webkit-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
   background-color: white;
-  color: $c3;
+  // color: $c3;
+  color: #fb8303;
   border: 1px solid $c3;
   -webkit-box-shadow: 1px 11px 20px 0px rgba(239, 63, 62, 0.22);
   box-shadow: 1px 11px 20px 0px rgba(239, 63, 62, 0.22);
@@ -365,7 +366,7 @@ section,
 }
 .btn.btn-curve {
   border-radius: 5px;
-  background-color: $c3;
+  background-color:#fb8303;
   color: white;
   padding: 9px 20px;
   -webkit-box-shadow: 1px 11px 20px 0px rgba(239, 63, 62, 0.12);
@@ -7965,7 +7966,8 @@ section,
   background-position: center center;
 }
 .left-sidebar .middle-part .filter-block .collection-collapse-block {
-  border-bottom: 1px solid #f9f9f9;
+  // border-bottom: 1px solid #f9f9f9;
+  border-bottom: 1px solid #fb8303;
 }
 .left-sidebar
   .middle-part
@@ -11933,7 +11935,7 @@ section,
 }
 
 .flight-detail-sec {
-  margin: 20px 0;
+  margin: 10px 0;
 }
 .flight-detail-sec .title-bar {
   text-align: center;
@@ -12027,7 +12029,7 @@ section,
 //   margin-left: auto;
 // }
 .flight-detail-sec .detail-bar .detail-wrap .airport-part .airport-progress {
-  width: 60%;
+  width: 50%;
   padding: 0 25px;
   position: relative;
 }
@@ -12047,7 +12049,8 @@ section,
   color: gray;
 }
 .flight-detail-sec .detail-bar .detail-wrap .airport-part .airport-progress i {
-  color: $c3;
+  // color: $c3;
+  color: #bcbcbc;
 }
 .flight-detail-sec
   .detail-bar
@@ -12102,7 +12105,7 @@ section,
 }
 .flight-detail-sec .detail-bar .detail-wrap .book-flight .btn {
   padding: 5px 16px;
-  text-transform: capitalize;
+  text-transform: capitalize !important;
 }
 .flight-detail-sec .detail-bar .detail-wrap + .detail-wrap {
   margin-top: 20px;

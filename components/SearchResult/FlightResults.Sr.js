@@ -194,16 +194,16 @@ const FlightResultsSr = () => {
               <div className="border-bottom  p-3">
                 <Row className="align-items-center">
                   <Col md={9} sm={6}>
-                    <h5 className="mb-0">
+                    <p className="mb-0 origion-destination-heading">
                    {item?.itineraries[0]?.airport_city != null ? item?.itineraries[0]?.airport_city : flightRequest.origin }
                   <i className="fas fa-arrow-right fa-1x textC3" style={{padding:'0 5px'}}></i>
                   {" "}
                   {item?.itineraries[1]?.airport_city != null ? item?.itineraries[1]?.airport_city :flightRequest.destination}
 <span style={{ color: "transparent" }}> {item?.markupId != null ? "  markup applied with ID " + item?.markupId + " , Amount AdtMarkup" + item?.price?.adulMarkup : "  markup not applied"}</span> 
-    </h5>
+    </p>
                   </Col>
                   <Col md={3} sm={6}>
-                   <h5 className="mb-0 title-3">Return Flight</h5> 
+                   <p className="mb-0 title-3 origion-destination-heading">Return Flight</p> 
                   </Col>
                 </Row>
               </div>
@@ -212,10 +212,10 @@ const FlightResultsSr = () => {
                   <div className="results border-end">
                     <div className="outbound border-bottom pb15">
                       <div className="title-3">
-                        <h5>
+                        <p className="outbound-indound-heading">
                           <i className="fas fa-plane-departure fs12"></i>{" "}
-                          Outbound
-                        </h5>
+                          Outbound Flight
+                        </p>
                       </div>
                       <div className="peLg30 mb-lg-0 mb15">
                         <Row>
@@ -261,9 +261,9 @@ const FlightResultsSr = () => {
                     </div>
                     <div className="inbound">
                       <div className="title-3">
-                        <h5>
-                        <i className="fas fa-plane-arrival fs12"></i> Inbound
-                        </h5>
+                      <p className="outbound-indound-heading">
+                        <i className="fas fa-plane-arrival fs12"></i> Inbound Flight
+                        </p>
                       </div>
                       <div className="peLg30 mb-lg-0 mb15">
                         <Row>
@@ -315,7 +315,7 @@ const FlightResultsSr = () => {
                   </div>
                 </Col>
                 <Col md={3}>
-                    <div className="price mb10">
+                    <div className="price mb10" style={{marginTop: '80px'}}>
                       <div>
                         <h6>Total Price</h6>
                         <h2>{item.price.currency === "GBP" ? "£" : "$"} {item.price.total}</h2>
@@ -323,7 +323,7 @@ const FlightResultsSr = () => {
                       </div>
                     </div>
                     <div className="book-flight">
-                      <Button onClick={() => handleClick(item.id)} className="btn btn-curve btn-primary" color="c3"  disabled={loadingId === item.id}>
+                      <Button onClick={() => handleClick(item.id)} style={{marginRight: '15px'}} className="btn btn-curve btn-primary flight-select-now-btn" color="c3"  disabled={loadingId === item.id}>
                         {loadingId === item.id ? "Please wait" : "Select Now"}
                       </Button>
                       

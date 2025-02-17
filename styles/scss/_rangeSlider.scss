@@ -12,7 +12,8 @@
         background-color: #f9f9f9;
       }
       &-1 {
-        background-color: $c3;
+        // background-color: $c3;
+         background-color: #fb8303;
       }
       &-2 {
         background-color: #f9f9f9;
@@ -20,13 +21,15 @@
     }
 
     &-thumb {
-      background-color: $c3;
+      // background-color: $c3;
+      background-color: #fb8303;
       border: 0;
-      width: 30px;
+      width: 12px;
       box-shadow: none;
       border-radius: 3px;
       color: $white;
       text-align: center;
+      top: -7px;
 
       &.active,
       &:active,

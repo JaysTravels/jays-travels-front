@@ -214,7 +214,7 @@ try {
   };
 
   return (
-    <div className="left-sidebar">
+    <div className="left-sidebar border rounded-3">
       <div className="back-btn">back</div>
       {/* <div className="search-bar">
         <Input type="text" placeholder="Search here.." />
@@ -239,7 +239,7 @@ try {
         <div
           className="collection-collapse-block-content"
           style={{
-            maxHeight: open ? "0" : "1000px",
+            maxHeight: open ? "0" : "",
             overflow: "hidden",
             transition: "max-height 0.3s ease",
           }}
@@ -342,14 +342,14 @@ try {
                         <div {...props}>{state.valueNow}</div>
                       )}
                     />
-                     <p style={{ 
+                     <p className="price-filter" style={{ 
                       display: "flex", 
                       justifyContent: "space-between", 
                       padding: "5px 10px" // Adds padding inside the p
                     }}></p>
-                    <p style={{ display: "flex", justifyContent: "space-between" }}>
-                    <span>{SelectedMinprice}</span>
-                    <span>{SelectedMaxprice}</span>
+                    <p className="price-filter" style={{ display: "flex", justifyContent: "space-between" }}>
+                    <span>£{SelectedMinprice}</span>
+                    <span>£{SelectedMaxprice}</span>
                   </p>
                   </div>
                 </div>
@@ -371,7 +371,7 @@ try {
               <div
                 className="collection-collapse-block-content"
                 style={{
-                  maxHeight: openAirlines ? "0" : "330px",
+                  maxHeight: openAirlines ? "0" : "",
                   overflow: "hidden",
                   transition: "max-height 0.3s ease",
                   paddingBottom: "0",
@@ -402,13 +402,10 @@ try {
                     <div></div>
                   )}
                 </div>
-              </div>
-
-              {/* for bunch airline code */}
-              <div
+                <div
                 className="collection-collapse-block-content"
                 style={{
-                  maxHeight: openAirlines ? "0" : "330px",
+                  maxHeight: openAirlines ? "0" : "",
                   overflow: "hidden",
                   transition: "max-height 0.3s ease",
                   paddingBottom: "0",
@@ -432,6 +429,10 @@ try {
                 </div>
                 </div>
               </div>
+              </div>
+
+              {/* for bunch airline code */}
+             
             </div>
           </div>
           <div className="filter-block">
