@@ -252,6 +252,15 @@ export const submitFlightData = createAsyncThunk(
         return hasCommonCarrier;
       });
     },
+    setCheckAll(state, action) {
+      state.filteredFlights = state.response.data;
+                  
+},
+setUnCheckAll(state, action) {
+  debugger;
+   state.filteredFlights = [];
+             
+},
     setSelectedSegments_v1(state, action) {
       debugger;
         state.selectedSegments = action.payload;  
@@ -517,5 +526,5 @@ setSelectedArrivalTime(state, action) {
     }
     return marketingCarriers;
     }
- export const {setFlights,setSelectedFlights ,setFlightsWithSameCarrier,setSelectedCarriers,setSelectedCarriersExclude,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime,setSelectedPriceRange} = Slice.actions;
+ export const {setFlights,setSelectedFlights,setCheckAll,setUnCheckAll ,setFlightsWithSameCarrier,setSelectedCarriers,setSelectedCarriersExclude,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime,setSelectedPriceRange} = Slice.actions;
  export default Slice.reducer;
