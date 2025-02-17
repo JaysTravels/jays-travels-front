@@ -39,8 +39,19 @@ import { useRouter } from "next/router";
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
  const router = useRouter();
+ const passengerQtyRef = useRef(null);
   const flights = useSelector((state) => state.flights.flights);
   const passengerRef = useRef(null);
+  const formRef = useRef(null);
+  useEffect(() => {
+    // Add event listener when the component mounts
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Remove event listener when the component unmounts
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   const handleTogglePassenger = () => {
     
     setShowPassengers(!isVisible); 
@@ -122,6 +133,13 @@ import { useRouter } from "next/router";
     setShowPassengers((prevState) => !prevState);
    // setShowPassengers(true); 
       
+  };
+  const handleClickOutside = (event) => {
+    if (formRef.current && !formRef.current.contains(event.target)) {
+      setShowPassengers(false);
+    }else if (passengerQtyRef.current && !passengerQtyRef.current.contains(event.target)) {
+      setShowPassengers(false);
+    }
   };
  
  
@@ -360,7 +378,7 @@ try {
   ];
   return (
     <>
-      <form className="searchForm">
+      <form className="searchForm" ref={formRef}>
         <Row className="g-lg-3 g-0 m-0 align-items-end">
           <Col lg={props.col1 || "12"} md={props.col1 || "12"}>
             {props.showLabel && <Label>from</Label>}          

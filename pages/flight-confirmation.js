@@ -29,7 +29,33 @@ import {
   faTimesCircle,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+const formatDateToCustomFormat_old = (dateString) => {
+  if (dateString != null) {
+    const date = new Date(dateString);
+
+    // Format date
+    const options = {
+      weekday: "short",
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    };
+    const formattedDate = new Intl.DateTimeFormat("en-GB", options)
+      .format(date)
+      .toUpperCase()
+      .replace(",", "");
+
+    // Format time
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const formattedTime = `${hours}:${minutes}`;
+
+    return { date: formattedDate, time: formattedTime }; // Return both date and time
+  }
+  return null; // Return null if dateString is null
+};
 const formatDateToCustomFormat = (dateString) => {
+  
   if (dateString != null) {
     const date = new Date(dateString);
     const options = {
@@ -43,6 +69,17 @@ const formatDateToCustomFormat = (dateString) => {
       .toUpperCase()
       .replace(",", "");
   }
+};
+
+const removeSeconds = (timeString) => {
+  if (timeString != null) {
+    const parts = timeString.split(':');
+    if (parts.length >= 2) {
+      return `${parts[0]}:${parts[1]}`; // Return only hours and minutes
+    }
+    return timeString; // Return the original string if it doesn't contain seconds
+  }
+  return null; // Return null if timeString is null
 };
 
 const formatDate = (date) => {
@@ -668,7 +705,7 @@ const FlightConfirmation = () => {
                               <div className="airport-part">
                                 <div className="airport-name">
                                   <h6 className="origion-h4">{flight.fromAirport}</h6>
-                                  <span className="origion-date">{flight.departureTime}</span>
+                                  <span className="origion-date">{removeSeconds(flight.departureTime)}</span>
                                   <p className="origion-date">{formatDateToCustomFormat(flight.departureDate)}</p>
                                 </div>
                                 <div className="airport-progress">
@@ -677,7 +714,7 @@ const FlightConfirmation = () => {
                                 </div>
                                 <div className="airport-name arrival">
                                   <h6 className="destination-h4">{flight.toAirport}</h6>
-                                  <span className="destination-date">{flight.arrivalTime}</span>
+                                  <span className="destination-date">{removeSeconds(flight.arrivalTime)}</span>
                                   <p className="destination-date">{formatDateToCustomFormat(flight.arrivalDate)}</p>
                                 </div>
                               </div>
