@@ -392,6 +392,7 @@ try {
               <DatePicker
                 className=" px12 form-control rounded-0"
                 selected={startDate}
+                dateFormat="dd/MM/yyyy"
                 //onChange={(date) => { setStartDate(date); setApiResponse('');}}
                 onChange={ handleStartDateChange}
                 minDate={new Date()}
@@ -411,6 +412,7 @@ try {
                 selected={endDate}
                 onChange={(date) => { setEndDate(date); setApiResponse('');}}
                 minDate={startDate} 
+                 dateFormat="dd/MM/yyyy"
               />
               <div className="icon">
                 <FontAwesomeIcon icon={faCalendar} />
