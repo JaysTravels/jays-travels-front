@@ -4,11 +4,11 @@ import Image from "next/image";
 import sunrise from "@/public/images/icon/time/sunrise.png";
 import sun from "@/public/images/icon/time/sun.png";
 import night from "@/public/images/icon/time/night.png";
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import ReactSlider from "react-slider";
 import { Button, Input, Label } from "reactstrap";
 import {useDispatch, useSelector} from 'react-redux';
-import { setSelectedCarriers,setSelectedPriceRange , setSelectedFlights,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime } from "@/store/AvailabilitySlice";
+import { setSelectedCarriers,setSelectedPriceRange,setFlightsWithSameCarrier , setSelectedFlights,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime } from "@/store/AvailabilitySlice";
 
 
 const LeftSidebarSr = () =>  {
@@ -20,7 +20,7 @@ const LeftSidebarSr = () =>  {
   const marketingCarriers = useSelector((state) => state?.flights?.marketingCarriers);
   const selectedPriceRange = useSelector((state) => state.flights?.selectedPriceRange);
   const flightMinprice = useSelector((state) => state.flights?.minPrice);
-  const flightMaxprice = useSelector((state) => state.flights?.maxPrice);
+  const flightMaxprice = useSelector((state) => state.flights?.maxPrice);  
   const [open, setOpen] = useState(false);
   const [openStops, setOpenStops] = useState(false);
   const [openPrice, setOpenPrice] = useState(false);
@@ -33,7 +33,9 @@ const LeftSidebarSr = () =>  {
   const [selectedTimeRanges, setSelectedTimeRanges] = useState([]);
   const [selectedTimeRangesArrival, setSelectedTimeRangesArrival] = useState([]);
   const flightResultsFull = flightResults;
- 
+  const [isSameCarrier, setIsSameCarrier] = useState(false);
+  const [SelectedMinprice,setSelectedMinprice] = useState(flightMinprice);
+  const [SelectedMaxprice,setSelectedMaxprice] = useState(flightMaxprice);  
  
   const [range, setRange] = useState([flightMinprice, flightMaxprice]);
   useEffect(() => {
@@ -50,22 +52,22 @@ const LeftSidebarSr = () =>  {
     }  
   }, [selectedAirlines, flightResults]);
 
-  debugger;
+  //debugger;
   useEffect(() => {
     dispatch(setSelectedPriceRange([flightMinprice, flightMaxprice]));
   }, [flightResults, dispatch])
 
 try {
-  let minPrice;
-  let maxPrice;
-  const prices = flightResults
-    .map(flight => parseFloat(flight?.price?.grandTotal))
-    .filter(price => !isNaN(price)); // Remove invalid values
+  // let minPrice;
+  // let maxPrice;
+  // const prices = flightResults
+  //   .map(flight => parseFloat(flight?.price?.grandTotal))
+  //   .filter(price => !isNaN(price)); // Remove invalid values
 
-  if (prices.length > 0) {
-    minPrice = Math.min(...prices);
-    maxPrice = Math.max(...prices);
-  }
+  // if (prices.length > 0) {
+  //   minPrice = Math.min(...prices);
+  //   maxPrice = Math.max(...prices);
+  // }
 } catch (error) {
   console.error("Error calculating min/max price:", error);
 }
@@ -79,6 +81,10 @@ try {
 
   const handlePriceChange = (value) => {
     debugger;
+    const [_minPrice, _maxPrice] = value;  
+    setSelectedMinprice(_minPrice);
+    setSelectedMaxprice(_maxPrice); 
+    
     dispatch(setSelectedPriceRange(value));
   };
 
@@ -139,8 +145,16 @@ try {
 
   };
 
-  const handleCheckboxChangeSameCarrier = (carrierCode) => {
-    //debugger;  
+  const handleCheckboxChangeSameCarrier = (value) => {
+    debugger;
+    console.log('Checkbox changed:', value);
+    setIsSameCarrier(!isSameCarrier); // Toggle the state
+    dispatch(setFlightsWithSameCarrier(value));
+  };
+
+  const handleCheckboxChangeSameCarrierold = (carrierCode) => {
+    alert(carrierCode)
+    debugger;  
      const updatedSelectedAirlines = selectedAirlines?.includes(carrierCode)
      ? selectedAirlines.filter((code) => code !== carrierCode)
      : [...selectedAirlines, carrierCode];
@@ -149,13 +163,22 @@ try {
 
   };
 
-  const handleStopFilterChange = (stopCount) => {
+  const handleStopFilterChange = (stopCount,isChecked) => {
     debugger;
+    let updatedStops;
+
+    if (isChecked) {
+      // If the checkbox is checked, add the stop type to the selectedStops array
+      updatedStops = [...selectedStops, stopCount];
+    } else {
+      // If the checkbox is unchecked, remove the stop type from the selectedStops array
+      updatedStops = selectedStops.filter((stop) => stop !== stopCount);
+    }
     const updatedSelectedStops = selectedStops?.includes(stopCount)
     ? selectedStops.filter((stop) => stop !== stopCount)
     : [...selectedStops, stopCount];
 
-  setSelectedStops(updatedSelectedStops);
+  setSelectedStops(updatedSelectedStops,isChecked);
     dispatch(setSelectedSegments(updatedSelectedStops));
   };
 
@@ -246,7 +269,7 @@ try {
                       type="checkbox"
                       className="form-check-input"
                       id="free-d"
-                      onChange={() => handleStopFilterChange(1)}
+                      onChange={(e) => handleStopFilterChange(1, e.target.checked)}
                       checked={selectedStops?.includes(1)}
                     />
                     <Label className="form-check-label" for="free-d">
@@ -258,7 +281,7 @@ try {
                       type="checkbox"
                       className="form-check-input"
                       id="time"
-                      onChange={() => handleStopFilterChange(2)}
+                      onChange={(e) => handleStopFilterChange(2, e.target.checked)}
                       checked={selectedStops?.includes(2)}
                     />
                     <Label className="form-check-label" for="time">
@@ -270,7 +293,7 @@ try {
                       type="checkbox"
                       className="form-check-input"
                       id="zara"
-                      onChange={() => handleStopFilterChange(3)}
+                      onChange={(e) => handleStopFilterChange(3, e.target.checked)}
                       checked={selectedStops?.includes(3)}
                     />
                     <Label className="form-check-label" for="zara">
@@ -319,9 +342,15 @@ try {
                         <div {...props}>{state.valueNow}</div>
                       )}
                     />
-                    <p>
-                      Selected range: {range[0]} - {range[1]}
-                    </p>
+                     <p style={{ 
+                      display: "flex", 
+                      justifyContent: "space-between", 
+                      padding: "5px 10px" // Adds padding inside the p
+                    }}></p>
+                    <p style={{ display: "flex", justifyContent: "space-between" }}>
+                    <span>{SelectedMinprice}</span>
+                    <span>{SelectedMaxprice}</span>
+                  </p>
                   </div>
                 </div>
               </div>
@@ -390,16 +419,15 @@ try {
                   <input
                     type="checkbox"
                     className="form-check-input"
-                    id={`carrier-AllAirline`}
-                    onChange={() => {
-                      handleCheckboxChangeSameCarrier('same-airline');                     
-                    }}
+                    id={`carrier-allairlines`}
+                    checked={isSameCarrier}
+                    onChange={(e) => handleCheckboxChangeSameCarrier(e.target.checked)}
                   />
                   <label
                     className="form-check-label"
                     htmlFor={`carrier-allairlines`}
                   >
-                    {'Same Carrier'}
+                    {'Airlines Combinations'}
                   </label>
                 </div>
                 </div>
