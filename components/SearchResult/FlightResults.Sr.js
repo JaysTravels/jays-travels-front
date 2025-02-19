@@ -318,7 +318,7 @@ const FlightResultsSr = () => {
                     <div className="price mb10" style={{marginTop: '80px'}}>
                       <div>
                         <h6>Total Price</h6>
-                        <span style={{ color: "transparent" }}>{item?.fareTypeCode != null ? " Fare " + item?.fareTypeCode:""}</span>                      
+                        <span style={{ color: "transparent" }}>{item?.fareTypeCode != null ? "  " + item?.fareTypeCode:""}</span>                      
                         <h2>{item.price.currency === "GBP" ? "£" : "$"} {item.price.total}</h2>
                         {/* <span>{"non refundable"}</span> */}
                       </div>
