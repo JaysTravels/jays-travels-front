@@ -8,6 +8,7 @@ import createPnrSliceReducer from '../store/CreatePnrSlice';
 import getPaymentPagReduer  from '../store/PaymentSlice';
 import securityToken from '../store/authentication';
 import enquiryReducer from '../store/enquirySlice';
+import insuranceReducer from '../store/InsuranceSlice';
 import getManualPaymentPageReducer from '../store/ManualPayment'
 export const store = configureStore({
     reducer: {
@@ -17,7 +18,8 @@ export const store = configureStore({
         payments : getPaymentPagReduer,
         token : securityToken,
         enquiry : enquiryReducer,
-        manualpayment : getManualPaymentPageReducer
+        manualpayment : getManualPaymentPageReducer,
+        insurance : insuranceReducer
       },
 })
 export default store;
