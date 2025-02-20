@@ -220,10 +220,16 @@ const FlightResultsSr = () => {
                       <div className="peLg30 mb-lg-0 mb15">
                         <Row>
                           <Col md={3}>
-                          <div className="logo-sec">   
-                          <Image src={`/images/airline-logo/${item?.itineraries[0]?.segments[0]?.marketingCarrierCode}.png`} alt={item?.itineraries[0]?.segments[0]?.marketingCarrierName} width={340} height={240} className="img-fluid"/>  
-                          <span hidden={true} className="title">{item?.itineraries[0]?.segments[0]?.marketingCarrierName}</span>
-                        </div>
+                          <div className="logo-sec"> 
+                          <span style={{ color: "transparent" }}> airline name {item?.itineraries[0]?.segments[0]?.marketingCarrierName}</span>
+                          <Image src={`/images/airline-logo/${item?.itineraries[0]?.segments[0]?.marketingCarrierCode}.png`} alt={item?.itineraries[0]?.segments[0]?.marketingCarrierName} width={340} height={240}
+                           className="img-fluid"  title={item?.itineraries[0]?.segments[0]?.marketingCarrierName} />                          
+                          
+                          <span style={{ color: "transparent" }}>{item?.avlStatus != null ? " Seats available " + item?.avlStatus:""}</span> 
+                         </div>
+                         <div className="flight_confirmation_box_image_name">
+                                <span>{item?.itineraries[0]?.segments[0]?.marketingCarrierName}</span>
+                         </div>
                           </Col>
                           <Col md={9}>
                           <div className="airport-part">
@@ -237,7 +243,7 @@ const FlightResultsSr = () => {
                               <i className="fas fa-plane-departure float-start"></i>
                               <i className="fas fa-plane-arrival float-end"></i>
                               <div className="stop">
-                             {<span style={{ color: "transparent" }}> {item?.id + "item id" }</span>  }
+                            
                                 {                            
                              (item?.itineraries[0]?.segments[0]?.numberOfStops === 0
                              ? "Direct"
@@ -269,9 +275,13 @@ const FlightResultsSr = () => {
                         <Row>
                           <Col md={3}>
                           <div className="logo-sec">
-                                {/* <Image src={img4} className="img-fluid" alt="" /> */}
-                                <Image src={`/images/airline-logo/${item?.itineraries[1]?.segments[0]?.marketingCarrierCode}.png`} alt={item?.itineraries[1]?.segments[0]?.marketingCarrierName} width={340} height={240} className="img-fluid" />  
-                                <span hidden={true} className="title">{item?.itineraries[1]?.segments[0]?.marketingCarrierName}</span>
+                          <span style={{ color: "transparent" }}> airline name {item?.itineraries[1]?.segments[0]?.marketingCarrierName}</span>
+                                <Image src={`/images/airline-logo/${item?.itineraries[1]?.segments[0]?.marketingCarrierCode}.png`} alt={item?.itineraries[1]?.segments[0]?.marketingCarrierName} 
+                                width={340} height={240} className="img-fluid" title={item?.itineraries[1]?.segments[0]?.marketingCarrierName}/>  
+                                <span style={{ color: "transparent" }}>{item?.avlStatus != null ? " Seats available " + item?.avlStatus:""}</span> 
+                          </div>
+                          <div className="flight_confirmation_box_image_name">
+                                <span>{item?.itineraries[1]?.segments[0]?.marketingCarrierName}</span>
                           </div>
                           </Col>
                           <Col md={9}>
@@ -281,12 +291,15 @@ const FlightResultsSr = () => {
                               
                                <h6 className="pb10 origion-date">{formatDateToCustomFormat(item?.itineraries[1]?.segments[0].departure.at)}</h6> 
                                <h4 className=" origion-date">{formatTime(item?.itineraries[1]?.segments[0].departure.at)}</h4>
+                               <span style={{ color: "transparent" }}> 
+                                    baggage Free Allownce {item?.baggageDetails?.freeAllowance} {"  "}
+                                       quantity code {item?.baggageDetails?.quantityCode}
+                                  </span>
                                 </div>
                                 <div className="airport-progress">
                                   <i className="fas fa-plane-departure float-start"></i>
                                   <i className="fas fa-plane-arrival float-end"></i>
-                                  <div className="stop">
-                                    {/*item?.itineraries[1]?.segments[0]?.numberOfStops*/}
+                                  <div className="stop">                                  
                                    { (item?.itineraries[1]?.segments[0]?.numberOfStops === 0
                              ? "Direct"
                              : item?.itineraries[1]?.segments[0]?.numberOfStops === 1
