@@ -221,7 +221,7 @@ const FlightResultsSr = () => {
                         <Row>
                           <Col md={3}>
                           <div className="logo-sec"> 
-                          <span style={{ color: "transparent" }}> airline name {item?.itineraries[0]?.segments[0]?.marketingCarrierName}</span>
+                        <span className="flight_confirmation_box_image_name"> airline name {item?.itineraries[0]?.segments[0]?.marketingCarrierName}</span>
                           <Image src={`/images/airline-logo/${item?.itineraries[0]?.segments[0]?.marketingCarrierCode}.png`} alt={item?.itineraries[0]?.segments[0]?.marketingCarrierName} width={340} height={240}
                            className="img-fluid"  title={item?.itineraries[0]?.segments[0]?.marketingCarrierName} />                          
                           
@@ -275,10 +275,14 @@ const FlightResultsSr = () => {
                         <Row>
                           <Col md={3}>
                           <div className="logo-sec">
-                          <span style={{ color: "transparent" }}> airline name {item?.itineraries[1]?.segments[0]?.marketingCarrierName}</span>
+                          <span className="flight_confirmation_box_image_name"> airline name {item?.itineraries[1]?.segments[0]?.marketingCarrierName}</span>
                                 <Image src={`/images/airline-logo/${item?.itineraries[1]?.segments[0]?.marketingCarrierCode}.png`} alt={item?.itineraries[1]?.segments[0]?.marketingCarrierName} 
                                 width={340} height={240} className="img-fluid" title={item?.itineraries[1]?.segments[0]?.marketingCarrierName}/>  
-                                <span style={{ color: "transparent" }}>{item?.avlStatus != null ? " Seats available " + item?.avlStatus:""}</span> 
+                                <span className="avl-seats">{item?.avlStatus != null ? " Seats available " + item?.avlStatus:""}</span> 
+                                <span className="baggage" > 
+                                    baggage Free Allownce {item?.baggageDetails?.freeAllowance} {"  "}
+                                       quantity code {item?.baggageDetails?.quantityCode}
+                                  </span>
                           </div>
                           <div className="flight_confirmation_box_image_name">
                                 <span>{item?.itineraries[1]?.segments[0]?.marketingCarrierName}</span>
@@ -291,10 +295,11 @@ const FlightResultsSr = () => {
                               
                                <h6 className="pb10 origion-date">{formatDateToCustomFormat(item?.itineraries[1]?.segments[0].departure.at)}</h6> 
                                <h4 className=" origion-date">{formatTime(item?.itineraries[1]?.segments[0].departure.at)}</h4>
-                               <span style={{ color: "transparent" }}> 
+                               <span className="baggage" > 
                                     baggage Free Allownce {item?.baggageDetails?.freeAllowance} {"  "}
                                        quantity code {item?.baggageDetails?.quantityCode}
                                   </span>
+                                  <span className="avl-seats" >{item?.avlStatus != null ? " Seats available " + item?.avlStatus:""}</span> 
                                 </div>
                                 <div className="airport-progress">
                                   <i className="fas fa-plane-departure float-start"></i>
