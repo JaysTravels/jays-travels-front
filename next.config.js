@@ -7,7 +7,7 @@ module.exports = {
             {
               type: 'host',
               value: 'www.jaystravels.co.uk',
-            },
+            }, 
           ],
           destination: 'https://jaystravels.co.uk/:path*',
           permanent: true,
