@@ -29,22 +29,26 @@ export default function WaitPageLanding() {
     const fetchFlights = () => {
       try {
 debugger;
+       
         let cabinclass 
         setApiResponse('Please wait...')
-        if (cabin.toLowerCase() === "premiumeconomy") {
+        if (cabin?.toLowerCase() === "premiumeconomy") {
           cabinclass = AirLineClass.PremiumEconomy;
         }
-        else if (cabin.toLowerCase() === "basiceconomy") {
+        else if (cabin?.toLowerCase() === "basiceconomy") {
           cabinclass = AirLineClass.BasicEconomy;
         }
-        else if (cabin.toLowerCase() === "economy") {
+        else if (cabin?.toLowerCase() === "economy") {
           cabinclass = AirLineClass.Economy;
         }
-        else if (cabin.toLowerCase() === "business") {
+        else if (cabin?.toLowerCase() === "business") {
           cabinclass = AirLineClass.Business;
         }
-        else if (cabin.toLowerCase() === "first") {
+        else if (cabin?.toLowerCase() === "first") {
           cabinclass = AirLineClass.First;
+        }
+        else {
+          cabinclass = AirLineClass.Economy;
         }
 
         var flightData = { 
@@ -53,10 +57,10 @@ debugger;
             departureDate : datefrom , 
             returnDate : dateTo , 
             adults : adults , 
-            children : children , 
-            infant : infant , 
-            cabinClass : cabinclass , 
-            flightType : flightType
+            children : children ?? 0, 
+            infant : infant ?? 0, 
+            cabinClass : cabinclass?? 0 , 
+            flightType : flightType ?? ""
          }  
      
        dispatch(submitFlightData(flightData));
@@ -64,7 +68,7 @@ debugger;
 
       } catch (error) {
         console.error("Error fetching flights:", error);
-        router.push('/wait');
+        router.push('https://jaystravels.co.uk');
         setApiResponse(error);  
       } finally {
        
