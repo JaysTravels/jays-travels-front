@@ -2,7 +2,7 @@ import { thunk } from 'redux-thunk';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axiosInstance from '../utils/axiosInstance';
-import { submitFlightData,setFlights,SubmitSignout } from "@/store/AvailabilitySlice";
+import { submitFlightData,setFlights,setAirline,SubmitSignout } from "@/store/AvailabilitySlice";
 import { useNavigate } from "react-router-dom";
 import { AirLineClass } from "../components/classes/airlineclass";
 import { useDispatch } from "react-redux";
@@ -13,12 +13,12 @@ import { Container } from "reactstrap";
 
 export default function WaitPageLanding() {
   const router = useRouter();
-  const { deptAirport, arrivalAirport, datefrom, dateTo, adults, children, infant, cabin, flightType } = router.query;
+  const { deptAirport, arrivalAirport, datefrom, dateTo, adults, children, infant, cabin, flightType,airline } = router.query;
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [msg , setMsg] = useState("loading flights please wait...")
-  const [msg2 , setMsg2] = useState("you will be shortly redirect...")
+  const [msg2 , setMsg2] = useState("Please wait while we find the best options for you.")
   const [apiResponse,setApiResponse] = useState('');
   const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ export default function WaitPageLanding() {
 
     const fetchFlights = () => {
       try {
-debugger;
+
        
         let cabinclass 
         setApiResponse('Please wait...')
@@ -62,7 +62,11 @@ debugger;
             cabinClass : cabinclass?? 0 , 
             flightType : flightType ?? ""
          }  
-     
+       
+       if(airline != undefined){       
+        dispatch(setAirline(airline));
+       }
+          
        dispatch(submitFlightData(flightData));
        router.push('/wait');
 
