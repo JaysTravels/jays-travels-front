@@ -8,7 +8,7 @@ import React, { use, useEffect, useState } from 'react';
 import ReactSlider from "react-slider";
 import { Button, Input, Label } from "reactstrap";
 import {useDispatch, useSelector} from 'react-redux';
-import { setSelectedCarriers,setCheckAll,setUnCheckAll,setSelectedCarriersExclude,setSelectedPriceRange,setFlightsWithSameCarrier , setSelectedFlights,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime } from "@/store/AvailabilitySlice";
+import { setSelectedCarriers,setCheckAll,setUnCheckAll,setSelectedCarriersExclude,setSelectedPriceRange,setFlightsWithCombination , setSelectedFlights,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime } from "@/store/AvailabilitySlice";
 
 
 const LeftSidebarSr = () =>  {
@@ -33,7 +33,7 @@ const LeftSidebarSr = () =>  {
   const [selectedTimeRanges, setSelectedTimeRanges] = useState([]);
   const [selectedTimeRangesArrival, setSelectedTimeRangesArrival] = useState([]);
   const flightResultsFull = flightResults;
-  const [isSameCarrier, setIsSameCarrier] = useState(false);
+  const [isCombination, setIsCombination] = useState(true);
   const [SelectedMinprice,setSelectedMinprice] = useState(flightMinprice);
   const [SelectedMaxprice,setSelectedMaxprice] = useState(flightMaxprice);  
   const [checkedCarriers, setCheckedCarriers] = useState({});
@@ -78,7 +78,7 @@ const [isUncheckAll, setIsUncheckAll] = useState(false);
   };
 
   const handlePriceChange = (value) => {
-    debugger;
+    //debugger;
     const [_minPrice, _maxPrice] = value;  
     setSelectedMinprice(_minPrice);
     setSelectedMaxprice(_maxPrice); 
@@ -87,7 +87,7 @@ const [isUncheckAll, setIsUncheckAll] = useState(false);
   };
 
   const handleSliderChange = (value) => {
-    debugger;
+    //debugger;
     setRange(value); 
 
     // Filter flights based on selected price range
@@ -131,10 +131,46 @@ const [isUncheckAll, setIsUncheckAll] = useState(false);
     }
     
   };
+  
+  const checkedAirlines = Object.keys(checkedCarriers).filter(
+    (carrierCode) => checkedCarriers[carrierCode] // Only keep those with `true`
+  );
 
   const handleCheckboxChange = (carrierCode, isChecked) => {
-    debugger;  
+    debugger;
+    setCheckedCarriers((prevState) => ({
+      ...prevState,
+      [carrierCode]: isChecked, // Update checked state
+    }));
+  
+    const checkedAirlines = Object.keys(checkedCarriers).filter(
+      (carrierCode) => checkedCarriers[carrierCode] // Only keep those with `true`
+    );
+    const newCheckedCarriers = {};
+  marketingCarriers.forEach((carrier) => {
+    newCheckedCarriers[carrier.marketingCarrierCode] = isChecked;
+  });
+    // Update selected airlines list
+    const updatedSelectedAirlines = isChecked
+      ? [...selectedAirlines, carrierCode]
+      : selectedAirlines.filter((code) => code !== carrierCode);
+ 
+    setSelectedAirlines(updatedSelectedAirlines);  
+    dispatch(setSelectedCarriers({ selectedCarriers: updatedSelectedAirlines, isCombination :isCombination,isChecked :isChecked }));
+ 
+ 
+  
+  
+  
+   // dispatch(setSelectedCarriers(updatedSelectedAirlines));
    
+    //dispatch(setSelectedCarriers({ filter: filterType, payload: updatedSelectedAirlines }));
+  };
+
+  const handleCheckboxChangeold = (carrierCode, isChecked) => {
+   debugger;  
+   
+ 
    if(isChecked){
     const updatedSelectedAirlines = selectedAirlines?.includes(carrierCode)
     ? selectedAirlines.filter((code) => code !== carrierCode)
@@ -162,16 +198,30 @@ const [isUncheckAll, setIsUncheckAll] = useState(false);
  
   };
 
-  const handleCheckboxChangeSameCarrier = (value) => {
-    debugger;
-    console.log('Checkbox changed:', value);
-    setIsSameCarrier(!isSameCarrier); // Toggle the state
-    dispatch(setFlightsWithSameCarrier(value));
+  const handleCheckboxChangeSameCarrier = (isChecked) => {
+       
+    //setIsCombination(!isCombination); // Toggle the state
+    setIsCombination(isChecked); // Update state when checkbox is clicked
+    const selectedCarriers = Object.keys(checkedCarriers).filter(
+      (carrier) => checkedCarriers[carrier] // Get only checked airlines
+    );
+    dispatch(setSelectedCarriers({ selectedCarriers, isCombination: isChecked }));
+
+    dispatch(setFlightsWithCombination(isChecked));
   };
 
-  
   const handleStopFilterChange = (stopCount,isChecked) => {
-    debugger;
+    
+    let updatedStops = isChecked
+    ? [...selectedStops, stopCount]
+    : selectedStops.filter((stop) => stop !== stopCount)
+
+    setSelectedStops(updatedStops);
+    dispatch(setSelectedSegments({ selectedStops: updatedStops, selectedCarriers }));    
+  };
+
+  const handleStopFilterChange_old = (stopCount,isChecked) => {
+    
     let updatedStops;
 
     if (isChecked) {
@@ -222,17 +272,19 @@ const [isUncheckAll, setIsUncheckAll] = useState(false);
 
   // Function to handle 'Check All'
 const handleCheckAllChange = (isChecked) => {
-  
+  debugger;
   setIsCheckAll(isChecked);
   const newCheckedCarriers = {};
   marketingCarriers.forEach((carrier) => {
     newCheckedCarriers[carrier.marketingCarrierCode] = isChecked;
   });
   setCheckedCarriers(newCheckedCarriers);
+  setCheckAll(isChecked);
+  dispatch(setCheckAll(isChecked));
   if(isChecked){
-    setIsUncheckAll(false); 
-    dispatch(setCheckAll());
+    setIsUncheckAll(false);    
   }
+
  
 };
 
@@ -245,6 +297,7 @@ const handleUncheckAllChange = (isChecked) => {
   setCheckedCarriers(newCheckedCarriers);
   if(isChecked){
       setIsCheckAll(false);
+      setIsCombination(false); 
       dispatch(setUnCheckAll());
     
   }
@@ -415,31 +468,38 @@ const handleUncheckAllChange = (isChecked) => {
               >
                 <div className="collection-brand-filter">
                  {/* Check All and Uncheck All checkboxes */}
-            <div className="form-check collection-filter-checkbox">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="check-all"
-                checked={Object.values(checkedCarriers).every(Boolean)} // Check if all carriers are checked
-                onChange={(e) => handleCheckAllChange(e.target.checked)}
-              />
-              <label className="form-check-label" htmlFor="check-all">
-                Check All
-              </label>
-            </div>
-  
-          <div className="form-check collection-filter-checkbox">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="uncheck-all"
-              checked={Object.values(checkedCarriers).every((checked) => !checked)} // Check if all carriers are unchecked
-              onChange={(e) => handleUncheckAllChange(e.target.checked)}
-            />
-            <label className="form-check-label" htmlFor="uncheck-all">
-              Uncheck All
-            </label>
-          </div>
+                 {marketingCarriers && marketingCarriers?.length > 1 && (
+                  <div className="form-check collection-filter-checkbox">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="check-all"
+                    checked={Object.values(checkedCarriers).every(Boolean)} // Check if all carriers are checked
+                    onChange={(e) => handleCheckAllChange(e.target.checked)}
+                  />
+                  <label className="form-check-label" htmlFor="check-all">
+                    Check All
+                  </label>
+                </div>
+
+                 )}
+            
+            {marketingCarriers && marketingCarriers?.length > 1 && ( 
+                    <div className="form-check collection-filter-checkbox">
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      id="uncheck-all"
+                      checked={Object.values(checkedCarriers).every((checked) => !checked)} // Check if all carriers are unchecked
+                      onChange={(e) => handleUncheckAllChange(e.target.checked)}
+                    />
+                    <label className="form-check-label" htmlFor="uncheck-all">
+                      Uncheck All
+                    </label>
+                  </div>
+
+            )}
+    
                 {marketingCarriers && marketingCarriers.length > 0 ? (
                     marketingCarriers.map((carrier, index) => (
                 <div className="form-check collection-filter-checkbox" key={index}>
@@ -447,8 +507,7 @@ const handleUncheckAllChange = (isChecked) => {
                     type="checkbox"
                     className="form-check-input"
                     id={`carrier-${carrier.marketingCarrierCode}`}
-                    checked={checkedCarriers[carrier.marketingCarrierCode] || false}
-                  //  onChange={() => {handleCheckboxChange(carrier.marketingCarrierCode);}}
+                    checked={checkedCarriers[carrier.marketingCarrierCode] || false}                  
                     onChange={(e) => handleCheckboxChange(carrier.marketingCarrierCode, e.target.checked)}
                   />
                   <label
@@ -473,21 +532,25 @@ const handleUncheckAllChange = (isChecked) => {
                 }}
               >
                 <div className="collection-brand-filter">
-                <div className="form-check collection-filter-checkbox">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id={`carrier-allairlines`}
-                    checked={isSameCarrier}
-                    onChange={(e) => handleCheckboxChangeSameCarrier(e.target.checked)}
-                  />
-                  <label
-                    className="form-check-label"
-                    htmlFor={`carrier-allairlines`}
-                  >
-                    {'Airlines Combinations'}
-                  </label>
-                </div>
+                {marketingCarriers && marketingCarriers.length > 1 && (
+                    <div className="form-check collection-filter-checkbox">
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      id={`carrier-allairlines`}
+                      checked={isCombination}
+                      onChange={(e) => handleCheckboxChangeSameCarrier(e.target.checked)}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor={`carrier-allairlines`}
+                    >
+                      {'Airlines Combinations'}
+                    </label>
+                    </div>
+
+                )}
+               
                 </div>
               </div>
               </div>
