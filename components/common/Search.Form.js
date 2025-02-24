@@ -263,7 +263,7 @@ try {
    console.error('Error calling setFlights:', error.message);
    
  }
-
+//debugger;
 var flightData = { origin: deptAirport ,destination: arrivalAirport,  departureDate : datefrom , returnDate : dateTo , adults : adults , children : childs , infant : infants , cabinClass : cabinclass , flightType : flightType }
 try {
   
