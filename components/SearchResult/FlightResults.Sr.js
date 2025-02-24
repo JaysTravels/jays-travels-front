@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { submitairSellRequest, setAirSell } from "@/store/AirSellSlice";
 import { setSelectedFlights } from "@/store/AvailabilitySlice";
-import { getPaymentPage } from "@/store/PaymentSlice";
+import {getPaymentPage} from "@/store/PaymentSlice";
+import { useResolvedPath } from "react-router-dom";
 //const ImgUrl = "https://mainimageservice.azureedge.net/00-tup-web/images/airline/bigimages/";
 
 
@@ -60,8 +61,9 @@ const FlightResultsSr = () => {
   const flightResults = useSelector((state) => state?.flights?.response);
   const flightRequest = useSelector((state) => state?.flights?.flights);
   const flightError = useSelector((state) => state?.flights?.error);
-  const filteredFlights = useSelector((state) => state?.flights?.filteredFlights);
-  const [loadingId, setLoadingId] = useState(null);
+  const filteredFlights  = useSelector((state) => state?.flights?.filteredFlights);
+  const marketingCarriers = useSelector((state) => state?.flights?.marketingCarriers);
+  const [loadingId, setLoadingId] = useState(null); 
 
   function convertToDateFormat(dateString) {
     if (dateString != null) {
@@ -73,8 +75,8 @@ const FlightResultsSr = () => {
     }
 
   }
-  function getAirSellRequest(flight) {
-
+  function getAirSellRequest(flight){
+   //debugger;
     let totPassenger = flightRequest.adults + flightRequest.children;
     const travelProductInformationOutBound = flight.itineraries[0].segments.map((segment, index) => ({
       departureDate: convertToDateFormat(segment.departure.at),
@@ -178,7 +180,7 @@ const FlightResultsSr = () => {
       alert(error);
     }
   }
-  if (flightResults != null) {
+  if(flightResults != null){ 
     //const logoPath = "@/public/images//airline-logo/";
     return (
       <div className="flight-detail-sec">
