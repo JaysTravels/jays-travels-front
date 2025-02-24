@@ -140,7 +140,7 @@ export const submitFlightData = createAsyncThunk(
                
               }           
       },setSelectedCarriers(state, action) {
-        debugger;
+        //debugger;
         //const selectedCarriers = action.payload; // The selected airline codes
         const { selectedCarriers, isCombination,isChecked } = action.payload;
         // Store selected carriers
@@ -330,7 +330,7 @@ setUnCheckAll(state, action) {
              
 },
 setSelectedSegments(state, action) {
-  debugger;
+  //debugger;
   state.selectedSegments = action.payload; // Update selectedSegments with the payload
 
   if (action.payload != null && action.payload.length > 0) {
@@ -364,7 +364,7 @@ setSelectedSegments(state, action) {
   }
 },
   setSelectedSegments_old(state, action) {
-  debugger;
+  //debugger;
   state.selectedSegments = action.payload; // Update selectedSegments with the payload
 
   if (action.payload != null && action.payload.length > 0) {
