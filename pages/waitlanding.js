@@ -13,8 +13,8 @@ import { Container } from "reactstrap";
 
 export default function WaitPageLanding() {
   const router = useRouter();
-  const { deptAirport, arrivalAirport, datefrom, dateTo, adults, children, infant, cabin, flightType,airline } = router.query;
-  const [flights, setFlights] = useState([]);
+  const { origin, destination, datefrom, dateTo, adults, children, infant, cabin, flightType,airline } = router.query;
+  const [flights2, setFlights2] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [msg , setMsg] = useState("loading flights please wait...")
@@ -24,11 +24,11 @@ export default function WaitPageLanding() {
 
   useEffect(() => {
     
-    if (!deptAirport || !arrivalAirport) return;
+    if (!origin || !destination) return;
 
     const fetchFlights = () => {
       try {
-
+debugger;
        
         let cabinclass 
         setApiResponse('Please wait...')
@@ -50,10 +50,13 @@ export default function WaitPageLanding() {
         else {
           cabinclass = AirLineClass.Economy;
         }
-
+       let children1 ; let infant1; let flighttype1;
+        if(children == undefined) {children1 = 0;} else {children1 = children}
+        if(infant == undefined) {infant1 = 0;}else {infant = infant1}
+       if(flightType == undefined) {flighttype1 = ''}else {flighttype1 = flightType}
         var flightData = { 
-            origin: deptAirport ,
-            destination: arrivalAirport,  
+            origin : origin,
+            destination: destination,  
             departureDate : datefrom , 
             returnDate : dateTo , 
             adults : adults , 
@@ -67,6 +70,29 @@ export default function WaitPageLanding() {
         dispatch(setAirline(airline));
        }
           
+     // var flightData = { origin: origin ,destination: destination,  departureDate : datefrom , returnDate : dateTo , adults : adults , children : childs , infant : infant , cabinClass : cabinclass , flightType : flightType }
+      const flightData2 = { 
+        origin: origin, 
+        destination: destination, 
+        departureDate: datefrom, 
+        returnDate: dateTo, 
+        adults: adults, 
+        children: children1, 
+        infant: infant1, 
+        cabinClass: cabinclass, 
+        flightType: flighttype1
+      };
+
+      try {
+  
+  dispatch(setFlights(flightData2));
+  
+ } catch (error) {
+  setApiResponse(error);
+   console.error('Error calling setFlights:', error.message);
+   
+ }
+
        dispatch(submitFlightData(flightData));
        router.push('/wait');
 
@@ -80,7 +106,7 @@ export default function WaitPageLanding() {
     };
 
     fetchFlights();
-  }, [deptAirport, arrivalAirport, datefrom, dateTo, adults, children, infant, cabin, flightType]);
+  }, [origin, destination, datefrom, dateTo, adults, children, infant, cabin, flightType]);
 
   // return (
   //   <div>

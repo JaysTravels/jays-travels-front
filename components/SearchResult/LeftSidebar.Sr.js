@@ -137,7 +137,7 @@ const [isUncheckAll, setIsUncheckAll] = useState(false);
   );
 
   const handleCheckboxChange = (carrierCode, isChecked) => {
-    debugger;
+   // debugger;
     setCheckedCarriers((prevState) => ({
       ...prevState,
       [carrierCode]: isChecked, // Update checked state
@@ -168,7 +168,7 @@ const [isUncheckAll, setIsUncheckAll] = useState(false);
   };
 
   const handleCheckboxChangeold = (carrierCode, isChecked) => {
-   debugger;  
+   //debugger;  
    
  
    if(isChecked){
@@ -272,7 +272,7 @@ const [isUncheckAll, setIsUncheckAll] = useState(false);
 
   // Function to handle 'Check All'
 const handleCheckAllChange = (isChecked) => {
-  debugger;
+  //debugger;
   setIsCheckAll(isChecked);
   const newCheckedCarriers = {};
   marketingCarriers.forEach((carrier) => {
