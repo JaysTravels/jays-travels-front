@@ -621,14 +621,28 @@ display: block;
 ;
 }
 input, textarea, select { font-family:nunito !important; }
-.origion-h4{
+.outbound-origion-h4{
   font-weight: 900 !important;
     text-align: right;
     // color: #0464b5 !important;
     letter-spacing: 0.64px;
     color: rgba(0, 0, 0, 0.7) !important;
 }
-.destination-h4{
+.inbound-origion-h4{
+  font-weight: 900 !important;
+    text-align: right;
+    // color: #0464b5 !important;
+    letter-spacing: 0.64px;
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+.outbound-destination-h4{
+  font-weight: 900 !important;
+    text-align: left;
+    // color: #0464b5 !important;
+    letter-spacing: 0.64px;
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+.inbound-destination-h4{
   font-weight: 900 !important;
     text-align: left;
     // color: #0464b5 !important;
@@ -682,8 +696,148 @@ input, textarea, select { font-family:nunito !important; }
     width: 100% !important;
 }
 .avl-seats{
-  display:none;
+  display: none;
+    position: absolute;
+    bottom: 90%;
+    left: 40%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    color: #333;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    width: 120px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
 }
 .baggage{
   display: none;
+    position: absolute;
+    bottom: 90%;
+    left: 40%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    color: #333;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    width: 175px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    font-size: 11px;
 }
+.outbound-origion-airport{
+  display: none;
+    position: absolute;
+    bottom: 90%;
+    left: 20%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    color: #333;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    width: 175px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    font-size: 11px;
+}
+.outbound-origion-airport::after{
+  content: '';
+  position: absolute;
+  top: 100%; /* Position below the hover div */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px; /* Arrow size */
+  border-style: solid;
+  border-color: #fff transparent transparent transparent; /* Arrow color */
+}
+.outbound-destination-airport{
+  display: none;
+  position: absolute;
+  bottom: 90%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  color: #333;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+  width: 175px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+  font-size: 11px;
+}
+.outbound-destination-airport::after{
+  content: '';
+  position: absolute;
+  top: 100%; /* Position below the hover div */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px; /* Arrow size */
+  border-style: solid;
+  border-color: #fff transparent transparent transparent; /* Arrow color */
+}
+.inbound-origion-airport{
+  display: none;
+  position: absolute;
+  bottom: 90%;
+  left: 20%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  color: #333;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+  width: 175px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+  font-size: 11px;
+}
+.inbound-origion-airport::after{
+  content: '';
+  position: absolute;
+  top: 100%; /* Position below the hover div */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px; /* Arrow size */
+  border-style: solid;
+  border-color: #fff transparent transparent transparent; /* Arrow color */
+}
+.inbound-destination-airport{
+  display: none;
+  position: absolute;
+  bottom: 90%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  color: #333;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+  width: 175px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+  font-size: 11px;
+}
+.inbound-destination-airport::after{
+  content: '';
+  position: absolute;
+  top: 100%; /* Position below the hover div */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px; /* Arrow size */
+  border-style: solid;
+  border-color: #fff transparent transparent transparent; /* Arrow color */
+}
+
+.outbound-origion-h4:hover + .outbound-origion-airport{
+    display: block;
+  }
+  .outbound-destination-h4:hover + .outbound-destination-airport{
+    display: block;
+  }
+  .inbound-origion-h4:hover + .inbound-origion-airport{
+    display: block;
+  }
+  .inbound-destination-h4:hover + .inbound-destination-airport{
+    display: block;
+  }
