@@ -10,6 +10,7 @@ import securityToken from '../store/authentication';
 import enquiryReducer from '../store/enquirySlice';
 import insuranceReducer from '../store/InsuranceSlice';
 import getManualPaymentPageReducer from '../store/ManualPayment'
+import getDeeplink from '../store/deeplinkSlice'
 export const store = configureStore({
     reducer: {
         flights: flightsReducer,
@@ -19,7 +20,8 @@ export const store = configureStore({
         token : securityToken,
         enquiry : enquiryReducer,
         manualpayment : getManualPaymentPageReducer,
-        insurance : insuranceReducer
+        insurance : insuranceReducer,
+        deeplink : getDeeplink
       },
 })
 export default store;

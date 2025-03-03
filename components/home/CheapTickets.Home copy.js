@@ -11,80 +11,8 @@ import {
   faStarHalfStroke,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import { getDeeplink } from "@/store/deeplinkSlice";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
-
-
-const CheapTicketsHome = () => {
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const deeplinkData = useSelector((state) => state.deeplink.response); // Adjust according to your state structure
- 
-  const deeplinkLoading = useSelector((state) => state.deeplink.loading);
-  const deeplinkError = useSelector((state) => state.deeplink.error);
-
-  const [deeplink, setDeeplink] = useState(null);
-
-  useEffect(() => {
-  
-    const fetchDeeplink = async () => {
-
-      const deeplinkPayload = { 
-        "id": 0
-       };
-   
-      dispatch(getDeeplink(deeplinkPayload))
-      .unwrap()
-      .then((result) => {
-       
-        console.log("API Response:", result);
-        if (result) {         
-          setDeeplink(result);
-        } else {
-          console.warn("Received null/undefined result");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching deeplink:", error);
-      });
-    };
-
-    fetchDeeplink();
-  }, [dispatch]);
- 
-  const generateDeeplink = ({
-    origin,
-    destination,
-    datefrom,
-    dateTo,
-    adults,
-    children = 0,  // Default to 0 if null/undefined
-    infant = 0,    // Default to 0 if null/undefined
-    cabin = "economy",  // Default to "economy" if null/undefined
-    flightType = "",  // Default to empty string if null/undefined
-  }) => {
-    const baseUrl = "https://jaystravels.co.uk/waitlanding";
-    
-    // Build query string dynamically, filtering out empty values
-    const queryParams = Object.entries({
-      origin,
-      destination,
-      datefrom,
-      dateTo,
-      adults,
-      children,
-      infant,
-      cabin,
-      flightType,
-    })
-      .filter(([_, value]) => value !== undefined && value !== "") // Remove undefined or empty values
-      .map(([key, value]) => `${key}=${encodeURIComponent(value)}`) // Encode values for URL safety
-      .join("&");
-    return `${baseUrl}?${queryParams}`;
-  };
+const CheapTicketsHomeCopy = () => {
   const settings = {
     dots: false,
     infinite: true,
@@ -114,8 +42,8 @@ const CheapTicketsHome = () => {
   };
 
   return (
-    <>    
-        <div className="cheapTicketsHome pyLg100 py50 px-1">
+    <>
+      <div className="cheapTicketsHome pyLg100 py50 px-1">
         <Container fluid>
           <div className="title-2">
             <h2>
@@ -128,175 +56,7 @@ const CheapTicketsHome = () => {
 
           <div className="slider-container">
             <Slider {...settings}>
-          {/* dynamic data2 start here */}
-            {   
-  Array.isArray(deeplinkData?.data?.deepLinkModels) && deeplinkData.data.deepLinkModels.length > 0  ? (
-    deeplinkData.data.deepLinkModels.map((item) => (
-      <div>
-<div key={item.deeplinkId} className="price-box">
-        <div className="price-img">
-          <Link href={generateDeeplink({
-                origin: item.origin,
-                destination: item.destination,
-                datefrom: item.departureDate,
-                dateTo: item.returnDate,
-                adults: item.adults,
-                children: item.children ? undefined : 0,
-                infant: item.infant ? undefined : 0,
-                cabin: item.cabinClass ? undefined : "economy",
-                flightType: item.flightType ? undefined : "",
-              })}>
-            <div
-              className="img"
-              style={{
-                backgroundImage: `url(${item.imageUrl})`                      
-              }}
-            >
-              <Image
-                src={item.imageUrl}
-                alt={item.countryName}
-                className="img-fluid blur-up lazyload bg-img d-none"
-                width={230}
-                height={230}                 
-              />
-            </div>
-          </Link>
-          <span className="label">New</span>
-        </div>
-        <div className="price-content">
-          <div className="price-title">
-            <a href={generateDeeplink({
-                  origin: item.origin,
-                  destination: item.destination,
-                  datefrom: item.departureDate,
-                  dateTo: item.returnDate,
-                  adults: item.adults,
-                  children: item.children ? undefined : 0,
-                  infant: item.infant ? undefined : 0,
-                  cabin: item.cabinClass ? undefined : "economy",
-                  flightType: item.flightType ? undefined : "",
-                })} tabIndex="0">
-                  <h3>{item.countryName}</h3>
-                </a>
-            <div className="like-cls">
-              <FontAwesomeIcon icon={faHeart} />
-            </div>
-          </div>
-          <div className="rating">
-            <FontAwesomeIcon icon={faStar} size="xs" />
-            <FontAwesomeIcon icon={faStar} size="xs" />
-            <FontAwesomeIcon icon={faStar} size="xs" />
-            <FontAwesomeIcon icon={faStar} size="xs" />
-            <FontAwesomeIcon icon={faStarHalfStroke} size="xs" />
-          </div>
-          <div className="price">
-            <a href={generateDeeplink({
-                  origin: item.origin,
-                  destination: item.destination,
-                  datefrom: item.departureDate,
-                  dateTo: item.returnDate,
-                  adults: item.adults,
-                  children: item.children ? undefined : 0,
-                  infant: item.infant ? undefined : 0,
-                  cabin: item.cabinClass ? undefined : "economy",
-                  flightType: item.flightType ? undefined : "",
-                })} tabIndex="0">
-                <h6>{item.cityName1}</h6>
-              </a>                  
-            <h5>
-            <a href={generateDeeplink({
-                  origin: item.origin,
-                  destination: item.destination,
-                  datefrom: item.departureDate,
-                  dateTo: item.returnDate,
-                  adults: item.adults,
-                  children: item.children ? undefined : 0,
-                  infant: item.infant ? undefined : 0,
-                  cabin: item.cabinClass ? undefined : "economy",
-                  flightType: item.flightType ? undefined : "",
-                })} tabIndex="0">
-                  <span>from</span> £{item.price1}
-              </a>                  
-            
-            </h5>
-          </div>
-          <div className="price">
-            <a href={generateDeeplink({
-                  origin: item.origin2,
-                  destination: item.destination2,
-                  datefrom: item.departureDate2,
-                  dateTo: item.returnDate2,
-                  adults: item.adults2,
-                  children: item.children2 ? undefined : 0,
-                  infant: item.infant2 ? undefined : 0,
-                  cabin: item.cabinClass2 ? undefined : "economy",
-                  flightType: item.flightType2 ? undefined : "",
-                })} tabIndex="0">
-                <h6>{item.cityName2}</h6>
-            </a>
-            <h5>
-            <a href={generateDeeplink({
-                  origin: item.origin2,
-                  destination: item.destination2,
-                  datefrom: item.departureDate2,
-                  dateTo: item.returnDate2,
-                  adults: item.adults2,
-                  children: item.children2 ? undefined : 0,
-                  infant: item.infant2 ? undefined : 0,
-                  cabin: item.cabinClass2 ? undefined : "economy",
-                  flightType: item.flightType2 ? undefined : "",
-                })} tabIndex="0">
-              <span>from</span> £{item.price2}
-            </a>
-              
-            </h5>
-          </div>
-          <div className="price mb-0">
-            <a href={generateDeeplink({
-                  origin: item.origin2,
-                  destination: item.destination2,
-                  datefrom: item.departureDate2,
-                  dateTo: item.returnDate2,
-                  adults: item.adults2,
-                  children: item.children2 ? undefined : 0,
-                  infant: item.infant2 ? undefined : 0,
-                  cabin: item.cabinClass2 ? undefined : "economy",
-                  flightType: item.flightType2 ? undefined : "",
-               })} tabIndex="0">
-               <h6>{item.cityName3}</h6>
-             </a>                  
-            <h5>
-            <a href={generateDeeplink({
-                  origin: item.origin2,
-                  destination: item.destination2,
-                  datefrom: item.departureDate2,
-                  dateTo: item.returnDate2,
-                  adults: item.adults2,
-                  children: item.children2 ? undefined : 0,
-                  infant: item.infant2 ? undefined : 0,
-                  cabin: item.cabinClass2 ? undefined : "economy",
-                  flightType: item.flightType2 ? undefined : "",
-               })} tabIndex="0">
-               <span>from</span> £{item.price3}
-             </a>                  
-             
-            </h5>
-          </div>
-        </div>
-      </div>
-      </div>
-      
-    ))
-  ) : (
-    <p>No data available</p>
-  )
-}
-            {/* dynamic data2 end here */}
-
-
- {/* Old Manual Divs Start here */}
-
-              {/* <div>
+              <div>
                 <div className="price-box ">
                   <div className="price-img">
                     <Link
@@ -320,7 +80,10 @@ const CheapTicketsHome = () => {
                         <h3>Asia</h3>
                       </a>
                       <div className="like-cls">
-                        <FontAwesomeIcon icon={faHeart} />                       
+                        <FontAwesomeIcon icon={faHeart} />
+                        {/* <i className="fas fa-heart">
+                          <span className="effect"></span>
+                        </i> */}
                       </div>
                     </div>
                     <div className="rating">
@@ -356,9 +119,8 @@ const CheapTicketsHome = () => {
                     </div>
                   </div>
                 </div>
-              </div> */}
-             
-              {/* <div>
+              </div>
+              <div>
                 <div className="price-box ">
                   <div className="price-img">
                     <Link
@@ -382,7 +144,10 @@ const CheapTicketsHome = () => {
                         <h3>Soth America</h3>
                       </a>
                       <div className="like-cls">
-                        <FontAwesomeIcon icon={faHeart} />                       
+                        <FontAwesomeIcon icon={faHeart} />
+                        {/* <i className="fas fa-heart">
+                          <span className="effect"></span>
+                        </i> */}
                       </div>
                     </div>
                     <div className="rating">
@@ -418,9 +183,8 @@ const CheapTicketsHome = () => {
                     </div>
                   </div>
                 </div>
-              </div> */}
-
-              {/* <div>
+              </div>
+              <div>
                 <div className="price-box ">
                   <div className="price-img">
                     <Link
@@ -444,7 +208,10 @@ const CheapTicketsHome = () => {
                         <h3>America</h3>
                       </a>
                       <div className="like-cls">
-                        <FontAwesomeIcon icon={faHeart} />                        
+                        <FontAwesomeIcon icon={faHeart} />
+                        {/* <i className="fas fa-heart">
+                          <span className="effect"></span>
+                        </i> */}
                       </div>
                     </div>
                     <div className="rating">
@@ -480,10 +247,8 @@ const CheapTicketsHome = () => {
                     </div>
                   </div>
                 </div>
-              </div> */}
-
-
-              {/* <div>
+              </div>
+              <div>
                 <div className="price-box ">
                   <div className="price-img">
                     <Link
@@ -507,7 +272,10 @@ const CheapTicketsHome = () => {
                         <h3>Europe</h3>
                       </a>
                       <div className="like-cls">
-                        <FontAwesomeIcon icon={faHeart} />                      
+                        <FontAwesomeIcon icon={faHeart} />
+                        {/* <i className="fas fa-heart">
+                          <span className="effect"></span>
+                        </i> */}
                       </div>
                     </div>
                     <div className="rating">
@@ -543,10 +311,8 @@ const CheapTicketsHome = () => {
                     </div>
                   </div>
                 </div>
-              </div> */}
-
-
-              {/* <div>
+              </div>
+              <div>
                 <div className="price-box ">
                   <div className="price-img">
                     <Link
@@ -570,7 +336,10 @@ const CheapTicketsHome = () => {
                         <h3>South Asia</h3>
                       </a>
                       <div className="like-cls">
-                        <FontAwesomeIcon icon={faHeart} />                    
+                        <FontAwesomeIcon icon={faHeart} />
+                        {/* <i className="fas fa-heart">
+                          <span className="effect"></span>
+                        </i> */}
                       </div>
                     </div>
                     <div className="rating">
@@ -606,10 +375,8 @@ const CheapTicketsHome = () => {
                     </div>
                   </div>
                 </div>
-              </div> */}
-
-
-              {/* <div>
+              </div>
+              <div>
                 <div className="price-box ">
                   <div className="price-img">
                     <Link
@@ -617,7 +384,6 @@ const CheapTicketsHome = () => {
                       className="img"
                       style={{
                         backgroundImage: "url(/images/destination/africa.jpg)",
-                        
                       }}
                     >
                       <Image
@@ -634,7 +400,10 @@ const CheapTicketsHome = () => {
                         <h3>Africa</h3>
                       </a>
                       <div className="like-cls">
-                        <FontAwesomeIcon icon={faHeart} />                       
+                        <FontAwesomeIcon icon={faHeart} />
+                        {/* <i className="fas fa-heart">
+                          <span className="effect"></span>
+                        </i> */}
                       </div>
                     </div>
                     <div className="rating">
@@ -670,12 +439,7 @@ const CheapTicketsHome = () => {
                     </div>
                   </div>
                 </div>
-              </div> */}
-  
- {/* Old Manual Divs End here */}
-
-
-              
+              </div>
             </Slider>
           </div>
         </Container>
@@ -684,4 +448,4 @@ const CheapTicketsHome = () => {
   );
 };
 
-export default CheapTicketsHome;
+export default CheapTicketsHomeCopy;
