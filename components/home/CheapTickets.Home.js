@@ -67,7 +67,7 @@ const CheapTicketsHome = () => {
     flightType = "",  // Default to empty string if null/undefined
   }) => {
     const baseUrl = "https://jaystravels.co.uk/waitlanding";
-    
+    //debugger;
     // Build query string dynamically, filtering out empty values
     const queryParams = Object.entries({
       origin,
@@ -253,29 +253,29 @@ const CheapTicketsHome = () => {
           </div>
           <div className="price mb-0">
             <a href={generateDeeplink({
-                  origin: item.origin2,
-                  destination: item.destination2,
-                  datefrom: item.departureDate2,
-                  dateTo: item.returnDate2,
-                  adults: item.adults2,
-                  children: item.children2 ? undefined : 0,
-                  infant: item.infant2 ? undefined : 0,
-                  cabin: item.cabinClass2 ? undefined : "economy",
-                  flightType: item.flightType2 ? undefined : "",
+                  origin: item.origin3,
+                  destination: item.destination3,
+                  datefrom: item.departureDate3,
+                  dateTo: item.returnDate3,
+                  adults: item.adults3,
+                  children: item.children3 ? undefined : 0,
+                  infant: item.infant3 ? undefined : 0,
+                  cabin: item.cabinClass3 ? undefined : "economy",
+                  flightType: item.flightType3 ? undefined : "",
                })} tabIndex="0">
                <h6>{item.cityName3}</h6>
              </a>                  
             <h5>
             <a href={generateDeeplink({
-                  origin: item.origin2,
-                  destination: item.destination2,
-                  datefrom: item.departureDate2,
-                  dateTo: item.returnDate2,
-                  adults: item.adults2,
-                  children: item.children2 ? undefined : 0,
-                  infant: item.infant2 ? undefined : 0,
-                  cabin: item.cabinClass2 ? undefined : "economy",
-                  flightType: item.flightType2 ? undefined : "",
+                  origin: item.origin3,
+                  destination: item.destination3,
+                  datefrom: item.departureDate3,
+                  dateTo: item.returnDate3,
+                  adults: item.adults3,
+                  children: item.children3 ? undefined : 0,
+                  infant: item.infant3 ? undefined : 0,
+                  cabin: item.cabinClass3 ? undefined : "economy",
+                  flightType: item.flightType3 ? undefined : "",
                })} tabIndex="0">
                <span>from</span> £{item.price3}
              </a>                  
