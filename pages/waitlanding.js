@@ -23,7 +23,7 @@ export default function WaitPageLanding() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    
+    debugger;
     if (!origin || !destination) return;
 
     const fetchFlights = () => {
