@@ -132,7 +132,7 @@ const CheapTicketsHome = () => {
             {   
   Array.isArray(deeplinkData?.data?.deepLinkModels) && deeplinkData.data.deepLinkModels.length > 0  ? (
     deeplinkData.data.deepLinkModels.map((item) => (
-      <div>
+      <div key={item.deeplinkId}>
 <div key={item.deeplinkId} className="price-box">
         <div className="price-img">
           <Link href={generateDeeplink({
