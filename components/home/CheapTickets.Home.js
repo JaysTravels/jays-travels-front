@@ -28,6 +28,9 @@ const CheapTicketsHome = () => {
 
   const [deeplink, setDeeplink] = useState(null);
 
+  const removeDecimals = (price) => {
+    return Math.floor(Number(price)); 
+};
   useEffect(() => {
   
     const fetchDeeplink = async () => {
@@ -215,7 +218,7 @@ const CheapTicketsHome = () => {
                   cabin: item.cabinClass ? undefined : "economy",
                   flightType: item.flightType ? undefined : "",
                 })} tabIndex="0">
-                  <span>from</span> £{item.price1}
+                  <span>from</span> £{removeDecimals(item.price1)}
               </a>                  
             
             </h5>
@@ -246,7 +249,7 @@ const CheapTicketsHome = () => {
                   cabin: item.cabinClass2 ? undefined : "economy",
                   flightType: item.flightType2 ? undefined : "",
                 })} tabIndex="0">
-              <span>from</span> £{item.price2}
+              <span>from</span> £{removeDecimals(item.price2)}
             </a>
               
             </h5>
@@ -277,7 +280,7 @@ const CheapTicketsHome = () => {
                   cabin: item.cabinClass3 ? undefined : "economy",
                   flightType: item.flightType3 ? undefined : "",
                })} tabIndex="0">
-               <span>from</span> £{item.price3}
+               <span>from</span> £{removeDecimals(item.price3)}
              </a>                  
              
             </h5>
