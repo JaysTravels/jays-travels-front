@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Input, Label, Row } from "reactstrap";
 import { PASSENGER_SELECTED_FLIGHT_EMAIL } from "@/store/CreatePnrSlice";
+import { Luggage } from "lucide-react"; 
 import {
   setPassengerDetails,
   setPnrMulti,
@@ -153,7 +154,7 @@ function getLayoverTime(itinerary) {
 }
 
 function getTotalJourneyTime(itinerary) {
-  if (itinerary.segments.length < 2) return getTimeDifference(itinerary);
+  if (itinerary?.segments?.length < 2) return getdeptarrTimeDiffrence(itinerary);
     
   const firstSegment = itinerary.segments[0];
   const lastSegment = itinerary.segments[itinerary.segments.length - 1];
