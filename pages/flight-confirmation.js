@@ -91,8 +91,49 @@ function getBaggageDetails(freeAllowance, quantityCode, unitQualifier) {
   // Default case for unknown quantityCode
   return "No Baggage";
 }
+
+function getdeptarrTimeDiffrence2(departureAt, arrivalAt) {
+  debugger;
+
+  const departureDatetime = new Date(departureAt);
+  const arrivalDatetime = new Date(arrivalAt);
+
+  const totalMinutes = Math.floor((arrivalDatetime - departureDatetime) / (1000 * 60));
+
+  return totalMinutes > 0 ? totalMinutes : 0; // Return 0 for invalid cases
+}
+
+function getTotalFlyingTime(itinerary) {
+  debugger;
+  try{
+    let totalMinutes = 0;
+
+    for (const segment of itinerary.segments) {
+      const departureAt = segment.departure.at; // Full datetime string
+      const arrivalAt = segment.arrival.at; // Full datetime string
+  
+      totalMinutes += getdeptarrTimeDiffrence2(departureAt, arrivalAt);
+    }
+  
+    //const { departureDate, departureTime, arrivalDate, arrivalTime } = itinerary;
+    
+    //const totalMinutes = getdeptarrTimeDiffrence(departureDate, departureTime, arrivalDate, arrivalTime);
+  
+  
+    if (totalMinutes === 0) return "Invalid itinerary";
+  
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+  
+    return `${hours} hours ${minutes} minutes`;
+  }catch{
+   return '';
+  }
+  
+}
+
 function getdeptarrTimeDiffrence(departureDate, departureTime, arrivalDate, arrivalTime) {
- //debugger;
+ 
   const departureDatetime = new Date(`${departureDate}T${departureTime}`);
   const arrivalDatetime = new Date(`${arrivalDate}T${arrivalTime}`);
 
@@ -107,7 +148,7 @@ function getdeptarrTimeDiffrence(departureDate, departureTime, arrivalDate, arri
 }
 
 function getFlyingTimeSingleItinerary(itinerary) {
-  //debugger;
+  debugger;
   let totalMinutes = 0;
   
   itinerary.segments.forEach(segment => {
@@ -121,7 +162,7 @@ function getFlyingTimeSingleItinerary(itinerary) {
   return `${hours} hours ${minutes} minutes`;
 }
 function getFlyingTime(itineraries) {
-  //debugger;
+  debugger;
   return itineraries.map(itinerary => {
       let totalMinutes = 0;
       
@@ -137,6 +178,7 @@ function getFlyingTime(itineraries) {
   }).join(", ");
 }
 function getLayoverTime(itinerary) {
+  debugger;
   if (itinerary.segments.length < 2) return "";
 
   const firstArrival = new Date(itinerary.segments[0].arrival.at);
@@ -153,17 +195,37 @@ function getLayoverTime(itinerary) {
 }
 
 function getTotalJourneyTime(itinerary) {
-  if (itinerary?.segments?.length < 2) return getdeptarrTimeDiffrence(itinerary);
+  //debugger;
+  if (!itinerary?.segments || itinerary.segments.length === 0) return "0 hours 0 minutes";
+  if (itinerary?.segments?.length < 2) return getFlyingTimeSingleItinerary(itinerary);
     
-  const firstSegment = itinerary.segments[0];
-  const lastSegment = itinerary.segments[itinerary.segments.length - 1];
+  //const firstSegment = itinerary.segments[0];
+  //const lastSegment = itinerary.segments[itinerary.segments.length - 1];
   
-  const departureTime = new Date(firstSegment.departure.at);
-  const arrivalTime = new Date(lastSegment.arrival.at);
+  //const departureTime = new Date(firstSegment.departure.at);
+  //const arrivalTime = new Date(lastSegment.arrival.at);
   
-  const totalMinutes = Math.floor((arrivalTime - departureTime) / (1000 * 60));
+  // const totalMinutes = Math.floor((arrivalTime - departureTime) / (1000 * 60));
+  // const hours = Math.floor(totalMinutes / 60);
+  // const minutes = totalMinutes % 60;
+
+   let totalMinutes = 0;
+
+  itinerary.segments.forEach(segment => {
+    const departureTime = new Date(segment.departure.at);
+    const arrivalTime = new Date(segment.arrival.at);
+    totalMinutes += Math.floor((arrivalTime - departureTime) / (1000 * 60));
+  });
+
+  for (let i = 0; i < itinerary.segments.length - 1; i++) {
+    const arrivalTime = new Date(itinerary.segments[i].arrival.at);
+    const nextDepartureTime = new Date(itinerary.segments[i + 1].departure.at);
+    totalMinutes += Math.floor((nextDepartureTime - arrivalTime) / (1000 * 60));
+  }
+
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
+
   return `${hours} hours ${minutes} minutes`;
 }
 
@@ -791,20 +853,25 @@ const FlightConfirmation = () => {
 
                         <div className="text-end">  {/* Aligning to the right */}
                             <p className="mb-0 origion-destination-heading">
-                                {"Total Flying Time: " + getTotalJourneyTime(selectedFlight.itineraries[index])}
+                                {"Total Journy Time: " + getTotalJourneyTime(selectedFlight.itineraries[index])}
                             </p>
+
                             <p className="mb-0 origion-destination-heading">
-                                {"Lay Over Time: " + getLayoverTime(selectedFlight.itineraries[index])}
+                                { selectedFlight?.itineraries[index]?.segments?.length > 1 ? "Flyingn Time: " + getTotalFlyingTime(selectedFlight?.itineraries[index]) : ""} 
                             </p>
+
+                           
                             <h6>                          
-                           {selectedFlight?.itineraries[index]?.segments.length - 1 || 0} stop
+                           {selectedFlight?.itineraries[index]?.segments?.length - 1 != 0 ? selectedFlight?.itineraries[index]?.segments?.length - 1 + " stop" : ""} 
                            </h6>
 
                            <p className="mb-0 origion-destination-heading">                           
                                 {"Baggage Allowence: " + getBaggageDetails(selectedFlight?.baggageDetails?.freeAllowance,selectedFlight?.baggageDetails?.quantityCode,selectedFlight?.baggageDetails?.unitQualifier)}
                           </p>
                           <span style={{ color: "transparent" }}> { "Free Allowance: " + selectedFlight?.baggageDetails?.freeAllowance + " , QuantityCode " + selectedFlight?.baggageDetails?.quantityCode + " , UnitQuilifier " + selectedFlight?.baggageDetails?.unitQualifier }</span>
- 
+                          <p className="mb-0 origion-destination-heading">
+                                { selectedFlight?.itineraries[index]?.segments?.length > 1 ? "Lay Over Time: " + getLayoverTime(selectedFlight?.itineraries[index]) : ""}
+                            </p>
                         </div>
 
                        
