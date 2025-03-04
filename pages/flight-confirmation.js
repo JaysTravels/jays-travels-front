@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Input, Label, Row } from "reactstrap";
 import { PASSENGER_SELECTED_FLIGHT_EMAIL } from "@/store/CreatePnrSlice";
-import { Luggage } from "lucide-react"; 
 import {
   setPassengerDetails,
   setPnrMulti,
@@ -73,7 +72,7 @@ const formatDateToCustomFormat = (dateString) => {
 };
 
 function getBaggageDetails(freeAllowance, quantityCode, unitQualifier) {
-  debugger;
+  //debugger;
   // Check if quantityCode indicates no baggage
   if (quantityCode === "0") {
       return "No baggage allowance"; 
@@ -93,7 +92,7 @@ function getBaggageDetails(freeAllowance, quantityCode, unitQualifier) {
   return "No Baggage";
 }
 function getdeptarrTimeDiffrence(departureDate, departureTime, arrivalDate, arrivalTime) {
- debugger;
+ //debugger;
   const departureDatetime = new Date(`${departureDate}T${departureTime}`);
   const arrivalDatetime = new Date(`${arrivalDate}T${arrivalTime}`);
 
@@ -108,7 +107,7 @@ function getdeptarrTimeDiffrence(departureDate, departureTime, arrivalDate, arri
 }
 
 function getFlyingTimeSingleItinerary(itinerary) {
-  debugger;
+  //debugger;
   let totalMinutes = 0;
   
   itinerary.segments.forEach(segment => {
@@ -122,7 +121,7 @@ function getFlyingTimeSingleItinerary(itinerary) {
   return `${hours} hours ${minutes} minutes`;
 }
 function getFlyingTime(itineraries) {
-  debugger;
+  //debugger;
   return itineraries.map(itinerary => {
       let totalMinutes = 0;
       
