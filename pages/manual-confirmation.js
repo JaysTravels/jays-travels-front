@@ -1,3 +1,5 @@
+'use client';
+import { useSearchParams } from 'next/navigation';
 import Image from "next/image";
 import topLogo from "@/public/images/top-logo.png";
 import bookingSuccess from "@/public/images/booking-success.jpg";
@@ -10,12 +12,27 @@ import { UPDATE_PAYMENT_STATUS_MANUAL } from "@/store/ManualPayment";
 import { Col, Row } from "reactstrap";
 const ManualConfirmation = () => {
   
+ 
   const currSign = '£';
   const router = useRouter();
   const dispatch = useDispatch();
+  const searchParams = useSearchParams();
+ // console.log('Full Query Params:', window.location.search);
   const flightResults = useSelector((state) => state.flights.response);
   const airsellResults = useSelector((state) => state.airsell.response);
   const airsellRequest = useSelector((state) => state.airsell.airSellRequest);
+debugger;
+ 
+  const authorizationCode = searchParams.get('AUTHORIZATION');
+  const orderId = searchParams.get('ORDERID');
+  const status = searchParams.get('STATUS');
+  const { AUTHORIZATION, ORDERID, STATUS } = router.query;
+
+  useEffect(() => {
+    debugger;
+    console.log('Full Query Params:', router.query);
+  }, [router.query]);
+
   const pnrResponse = useSelector(
     (state) => state.generatePnr.CommitPnrResponse
   );
@@ -113,6 +130,18 @@ const ManualConfirmation = () => {
               </Link> */}
               
             </div>
+            <div>
+            <h1>Payment Confirmation</h1>
+            <p>Order ID: {ORDERID}</p>
+            <p>Status: {STATUS}</p>
+            <p>Authorization Code: {AUTHORIZATION || 'Not received'}</p>
+          </div>
+            <div>
+                <h1>Payment Confirmation</h1>
+                <p>Order ID: {orderId}</p>
+                <p>Status: {status}</p>
+                <p>Authorization Code: {authorizationCode || 'Not received'}</p>
+          </div>
           </div>
 
           <div className="mt40">
