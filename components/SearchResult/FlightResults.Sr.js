@@ -202,7 +202,8 @@ const FlightResultsSr = () => {
                             <i className="fas fa-arrow-right fa-1x textC3" style={{ padding: '0 5px' }}></i>
                             {" "}
                             {item?.itineraries[1]?.airport_city != null ? item?.itineraries[1]?.airport_city : flightRequest.destination}
-                            <span style={{ color: "transparent" }}> {item?.markupId != null ? "  markup applied with ID " + item?.markupId + " , Amount AdtMarkup" + item?.price?.adulMarkup : "  markup not applied"}</span>
+                            {/* <span style={{ color: "transparent" }}> {item?.markupId != null ? "  markup applied with ID " + item?.markupId + " , Amount AdtMarkup" + item?.price?.adulMarkup : "  markup not applied"}</span> */}
+                            <span style={{ color: "transparent" }}>{item?.fareTypeCode != null ? "  " + item?.fareTypeCode : ""}</span>
                           </p>
                         </Col>
                         <Col md={3} sm={6}>
@@ -341,7 +342,7 @@ const FlightResultsSr = () => {
                         <div className="price mb10" style={{ marginTop: '80px' }}>
                           <div>
                             <h6>Total Price</h6>
-                            <span style={{ color: "transparent" }}>{item?.fareTypeCode != null ? "  " + item?.fareTypeCode : ""}</span>
+                           
                             <h2>{item.price.currency === "GBP" ? "£" : "$"} {item.price.total}</h2>
                             {/* <span>{"non refundable"}</span> */}
                           </div>

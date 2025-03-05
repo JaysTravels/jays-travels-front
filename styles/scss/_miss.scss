@@ -850,8 +850,8 @@ input, textarea, select { font-family:nunito !important; }
  }
  .layover-time{
   background: #FFF;
-        border: 1px solid #fdb715;
-        color: #fdb715;
+        border: 1px solid #fb8303;
+        color: #fb8303;
         margin-bottom: 0;
         border-radius: 8px;
         font-size: 14px;
@@ -859,7 +859,8 @@ input, textarea, select { font-family:nunito !important; }
         position: absolute;
         left: 0px;
         min-height: 31px;
-        width: 225px;
-        left: 38%;
-    margin-top: 13%;
+        width: 150px;
+        left: 44%;
+    margin-top: 14%;
+    padding-top: 5px;
  }
