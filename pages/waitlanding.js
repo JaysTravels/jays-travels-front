@@ -52,7 +52,7 @@ debugger;
         }
        let children1 ; let infant1; let flighttype1;
         if(children == undefined) {children1 = 0;} else {children1 = children}
-        if(infant == undefined) {infant1 = 0;}else {infant = infant1}
+        if(infant == undefined) {infant1 = 0;}else {infant1 = infant}
        if(flightType == undefined) {flighttype1 = ''}else {flighttype1 = flightType}
         var flightData = { 
             origin : origin,

@@ -841,3 +841,26 @@ input, textarea, select { font-family:nunito !important; }
   .inbound-destination-h4:hover + .inbound-destination-airport{
     display: block;
   }
+ .journey-time{
+  text-align: right;
+  color: #000 !important;
+  font-size: 13px;
+  letter-spacing: 0.48px;
+  font-weight: normal;
+ }
+ .layover-time{
+  background: #FFF;
+        border: 1px solid #fb8303;
+        color: #fb8303;
+        margin-bottom: 0;
+        border-radius: 8px;
+        font-size: 14px;
+        letter-spacing: 1.2px;
+        position: absolute;
+        left: 0px;
+        min-height: 31px;
+        width: 150px;
+        left: 44%;
+    margin-top: 14%;
+    padding-top: 5px;
+ }

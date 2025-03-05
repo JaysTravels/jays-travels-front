@@ -325,7 +325,7 @@ section,
   color: black !important;
 }
 .btn.btn-solid {
-  background-color: $c3;
+  background-color:#00a2f7;
   color: white;
   padding: 9px 20px;
   -webkit-box-shadow: 1px 11px 20px 0px rgba(239, 63, 62, 0.12);
@@ -336,19 +336,19 @@ section,
   transition: 0.3s ease-in-out;
   background-color: white;
   // color: $c3;
-  color: #fb8303;
-  border: 1px solid $c3;
+  color: #00a2f7;
+  border: 1px solid #00a2f7;
   -webkit-box-shadow: 1px 11px 20px 0px rgba(239, 63, 62, 0.22);
   box-shadow: 1px 11px 20px 0px rgba(239, 63, 62, 0.22);
 }
 .btn.btn-solid.btn-outline {
   background-color: transparent;
-  border: 1px solid $c3;
+  border: 1px solid #00a2f7;
   color: $c3;
 }
 .btn.btn-solid.btn-outline:hover {
   color: white;
-  background-color: $c3;
+  background-color:#00a2f7;
 }
 .btn.btn-solid.color2 {
   background-color: #00a2f7;
@@ -366,7 +366,7 @@ section,
 }
 .btn.btn-curve {
   border-radius: 5px;
-  background-color:#fb8303;
+  background-color:#00a2f7;
   color: white;
   padding: 9px 20px;
   -webkit-box-shadow: 1px 11px 20px 0px rgba(239, 63, 62, 0.12);
@@ -7923,7 +7923,7 @@ section,
   .filter-block
   .form-check-input:checked
   ~ .form-check-label:before {
-  background-color: $c3;
+  background-color:#00a2f7;
 }
 .left-sidebar .middle-part .filter-block .form-check-label {
   cursor: pointer;
@@ -12398,6 +12398,7 @@ section,
   -ms-flex-align: center;
   align-items: center;
   height: 100%;
+  margin-top: 10px;
 }
 .review-section .review_box .flight_detail .airport-part .airport-name h6 {
   margin-bottom: 3px;
