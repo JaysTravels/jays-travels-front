@@ -76,7 +76,8 @@
   }
   &-c3 {
     // background-color: $c3;
-    background-color:#fb8303;
+    // background-color:#fb8303;
+    background-color:#00a2f7;
     color: $white;
     border-color: rgba($c3, 0.12);
 
@@ -84,8 +85,8 @@
     &:focus {
       background-color: $white;
       // color: $c3;
-      color: #fb8303;
-      border-color: rgba(#fb8303, 1);
+      color: #00a2f7;
+      border-color: rgba(#00a2f7, 1);
     }
     &:active {
       background-color: $white !important;

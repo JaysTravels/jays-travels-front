@@ -191,7 +191,7 @@ function getLayoverTime(itinerary) {
   const hours = Math.floor(layoverMinutes / 60);
   const minutes = layoverMinutes % 60;
   
-  return `${hours} hours ${minutes} minutes`;
+  return `${h} hours ${m} minutes`;
 }
 
 function getTotalJourneyTime(itinerary) {
@@ -839,42 +839,40 @@ const FlightConfirmation = () => {
                 <div className="review-section">
                   {airsellResults.data.airSellResponse.map((response, index) => (
                     <div key={index} className="review_box flight_confirmation_box">
-                      <div className="title-top flight_confirmation_box_heading">
-                        <h6>{index === 0 ? "Out Bound Flight" : "Inbound Flight"}</h6>
-                       
+                      <div className="row title-top flight_confirmation_box_heading" style={{margin:'0px'}}>
+                        <div className="col-sm-6 col-md-6">
                         <p className="mb-0 origion-destination-heading">
                             {index === 0 ? selectedFlight?.itineraries[0]?.airport_city : selectedFlight?.itineraries[1]?.airport_city}
                             <i className="fas fa-arrow-right fa-1x textC3" style={{ padding: '0 5px' }}></i>
                             {" "} 
                             {index === 0 ? selectedFlight?.itineraries[1]?.airport_city : selectedFlight?.itineraries[0]?.airport_city}                            
                         </p>
+                        <p className="origion-destination-heading mb-0">{index === 0 ? "Outbound Flight" : "Inbound Flight"}</p>
 
-                        {" "}
-
-                        <div className="text-end">  {/* Aligning to the right */}
-                            <p className="mb-0 origion-destination-heading">
-                                {"Total Journy Time: " + getTotalJourneyTime(selectedFlight.itineraries[index])}
+                        </div>
+                        <div className="col-sm-6 col-md-6">  {/* Aligning to the right */}
+                            <p className="mb-0 journey-time">
+                              Total journey time {getTotalJourneyTime(selectedFlight.itineraries[index])}
                             </p>
 
-                            <p className="mb-0 origion-destination-heading">
-                                { selectedFlight?.itineraries[index]?.segments?.length > 1 ? "Flyingn Time: " + getTotalFlyingTime(selectedFlight?.itineraries[index]) : ""} 
+                            <p className="mb-0 journey-time">
+                               { selectedFlight?.itineraries[index]?.segments?.length > 1 ? "Flying time: " + getTotalFlyingTime(selectedFlight?.itineraries[index]) : ""} 
                             </p>
 
                            
-                            <h6>                          
+                            {/* <h6>                          
                            {selectedFlight?.itineraries[index]?.segments?.length - 1 != 0 ? selectedFlight?.itineraries[index]?.segments?.length - 1 + " stop" : ""} 
-                           </h6>
+                           </h6> */}
 
-                           <p className="mb-0 origion-destination-heading">                           
+                           <p className="mb-0 journey-time">                           
                                 {"Baggage Allowence: " + getBaggageDetails(selectedFlight?.baggageDetails?.freeAllowance,selectedFlight?.baggageDetails?.quantityCode,selectedFlight?.baggageDetails?.unitQualifier)}
-                          </p>
-                          <span style={{ color: "transparent" }}> { "Free Allowance: " + selectedFlight?.baggageDetails?.freeAllowance + " , QuantityCode " + selectedFlight?.baggageDetails?.quantityCode + " , UnitQuilifier " + selectedFlight?.baggageDetails?.unitQualifier }</span>
-                          <p className="mb-0 origion-destination-heading">
-                                { selectedFlight?.itineraries[index]?.segments?.length > 1 ? "Lay Over Time: " + getLayoverTime(selectedFlight?.itineraries[index]) : ""}
-                            </p>
+                          </p> 
+                           {/* <span style={{ color: "transparent" }}> { "Free Allowance: " + selectedFlight?.baggageDetails?.freeAllowance + " , QuantityCode " + selectedFlight?.baggageDetails?.quantityCode + " , UnitQuilifier " + selectedFlight?.baggageDetails?.unitQualifier }</span> */}
                         </div>
 
-                       
+                        <p className="mb-0 layover-time">
+                                { selectedFlight?.itineraries[index]?.segments?.length > 1 ? "Layover" + getLayoverTime(selectedFlight?.itineraries[index]) : ""}
+                            </p> 
                       </div>
                       {response.flightDetails?.map((flight, flightIndex) => (
                         <div key={flightIndex} className="flight_detail flight_Confirmation_box_inner">
@@ -896,7 +894,7 @@ const FlightConfirmation = () => {
                             <Col md={6}>
                               <div className="airport-part">
                                 <div className="airport-name">
-                                  <h6 className="origion-h4">{flight.fromAirport}</h6>
+                                  <h6 className="outbound-origion-h4">{flight.fromAirport}</h6>
                                   <span className="origion-date">{removeSeconds(flight.departureTime)}</span>
                                   <p className="origion-date">{formatDateToCustomFormat(flight.departureDate)}</p>
                                 </div>
@@ -905,11 +903,11 @@ const FlightConfirmation = () => {
                                    
                                     { getdeptarrTimeDiffrence(flight.departureDate,flight.departureTime,flight.arrivalDate,flight.arrivalTime)}                          
                                     </p>
-                                  <i className="fas fa-plane-departure float-start"></i>
-                                  <i className="fas fa-plane-arrival float-end"></i>
+                                  {/* <i className="fas fa-plane-departure float-start"></i>
+                                  <i className="fas fa-plane-arrival float-end"></i> */}
                                 </div>
                                 <div className="airport-name arrival">
-                                  <h6 className="destination-h4">{flight.toAirport}</h6>
+                                  <h6 className="outbound-destination-h4">{flight.toAirport}</h6>
                                   <span className="destination-date">{removeSeconds(flight.arrivalTime)}</span>
                                   <p className="destination-date">{formatDateToCustomFormat(flight.arrivalDate)}</p>
                                 </div>
@@ -921,10 +919,10 @@ const FlightConfirmation = () => {
                                 <div>
                                   <h6>{
                                     // convertTimeFormat(selectedFlight?.itineraries?.[flightIndex]?.duration)
-                                    <p className="mb-0 origion-destination-heading">
+                                    // <p className="mb-0 origion-destination-heading">
                                   
-                                    { "Flying Time " +  getdeptarrTimeDiffrence(flight.departureDate,flight.departureTime,flight.arrivalDate,flight.arrivalTime)}                          
-                                    </p>
+                                    // { "Flying Time " +  getdeptarrTimeDiffrence(flight.departureDate,flight.departureTime,flight.arrivalDate,flight.arrivalTime)}                          
+                                    // </p>
                                   }</h6>
                                   {" "}
                                   {/* <h6>{response.flightDetails?.length - 1 || 0} stop</h6> */}
