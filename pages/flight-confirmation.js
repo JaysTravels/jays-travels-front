@@ -191,7 +191,7 @@ function getLayoverTime(itinerary) {
   const hours = Math.floor(layoverMinutes / 60);
   const minutes = layoverMinutes % 60;
   
-  return `${h} hours ${m} minutes`;
+  return `${hours} h ${minutes} m`;
 }
 
 function getTotalJourneyTime(itinerary) {
