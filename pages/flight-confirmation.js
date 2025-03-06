@@ -177,8 +177,8 @@ function getFlyingTime(itineraries) {
       return `${hours} hours ${minutes} minutes`;
   }).join(", ");
 }
-function getLayoverTime(itinerary) {
-  //debugger;
+function getLayoverTime_old(itinerary) {
+  debugger;
   if (itinerary.segments.length < 2) return "";
 
   const firstArrival = new Date(itinerary.segments[0].arrival.at);
@@ -193,7 +193,29 @@ function getLayoverTime(itinerary) {
   
   return `${hours} h ${minutes} m`;
 }
+function getLayoverTime(itinerary) {
+  //debugger;
+  if (itinerary.segments.length < 2) return "";
 
+  let layoverTimes = [];
+
+  for (let i = 0; i < itinerary.segments.length - 1; i++) {
+    const arrivalTime = new Date(itinerary.segments[i].arrival.at);
+    const nextDepartureTime = new Date(itinerary.segments[i + 1].departure.at);
+
+    const layoverMinutes = Math.floor((nextDepartureTime - arrivalTime) / (1000 * 60));
+
+    if (layoverMinutes > 0) {
+      const hours = Math.floor(layoverMinutes / 60);
+      const minutes = layoverMinutes % 60;
+      layoverTimes.push(`${hours} h ${minutes} m`);
+    } else {
+      layoverTimes.push("");
+    }
+  }
+
+  return layoverTimes.join(" | "); // Returns layover times for each stop
+}
 function getTotalJourneyTime(itinerary) {
   //debugger;
   if (!itinerary?.segments || itinerary.segments.length === 0) return "0 hours 0 minutes";
@@ -867,17 +889,15 @@ const FlightConfirmation = () => {
                            <p className="mb-0 journey-time">                           
                                 {"Baggage Allowence: " + getBaggageDetails(selectedFlight?.baggageDetails?.freeAllowance,selectedFlight?.baggageDetails?.quantityCode,selectedFlight?.baggageDetails?.unitQualifier)}
                           </p> 
-                           {/* <span style={{ color: "transparent" }}> { "Free Allowance: " + selectedFlight?.baggageDetails?.freeAllowance + " , QuantityCode " + selectedFlight?.baggageDetails?.quantityCode + " , UnitQuilifier " + selectedFlight?.baggageDetails?.unitQualifier }</span> */}
+                           {/*<span style={{ color: "transparent" }}> { "Free Allowance: " + selectedFlight?.baggageDetails?.freeAllowance + " , QuantityCode " + selectedFlight?.baggageDetails?.quantityCode + " , UnitQuilifier " + selectedFlight?.baggageDetails?.unitQualifier }</span> */}
                         </div>
-                        {selectedFlight?.itineraries[index]?.segments?.length > 1 && (
+                        {/* {selectedFlight?.itineraries[index]?.segments?.length > 1 && (
                           <p className="mb-0 layover-time">
-                            {"Layover " + getLayoverTime(selectedFlight?.itineraries[index])}
+                            {"Layover " + getLayoverTime(selectedFlight?.itineraries[index]).split(" | ")[0]}
                           </p>
-                        )}
+                        )} */}
 
-                        {/* <p className="mb-0 layover-time">
-                                { selectedFlight?.itineraries[index]?.segments?.length > 1 ? "Layover" + getLayoverTime(selectedFlight?.itineraries[index]) : ""}
-                        </p>  */}
+                       
                       </div>
                       {response.flightDetails?.map((flight, flightIndex) => (
                         <div key={flightIndex} className="flight_detail flight_Confirmation_box_inner">
@@ -908,8 +928,16 @@ const FlightConfirmation = () => {
                                    
                                     { getdeptarrTimeDiffrence(flight.departureDate,flight.departureTime,flight.arrivalDate,flight.arrivalTime)}                          
                                     </p>
-                                  {/* <i className="fas fa-plane-departure float-start"></i>
-                                  <i className="fas fa-plane-arrival float-end"></i> */}
+                                 
+                         {selectedFlight?.itineraries?.[index]?.segments?.length > 1 && (() => {
+                            const layoverTimes = getLayoverTime(selectedFlight?.itineraries[index]).split(" | ");
+                            return layoverTimes[flightIndex] !== undefined ? (
+                              <p className="mb-0 layover-time">
+                                {`Layover: ${layoverTimes[flightIndex]}`}
+                              </p>
+                            ) : null;
+                          })()}
+                               
                                 </div>
                                 <div className="airport-name arrival">
                                   <h6 className="outbound-destination-h4">{flight.toAirport}</h6>
@@ -921,16 +949,9 @@ const FlightConfirmation = () => {
                             <Col md={3}>
 
                               <div className="duration">
+                            
                                 <div>
-                                  <h6>{
-                                    // convertTimeFormat(selectedFlight?.itineraries?.[flightIndex]?.duration)
-                                    // <p className="mb-0 origion-destination-heading">
-                                  
-                                    // { "Flying Time " +  getdeptarrTimeDiffrence(flight.departureDate,flight.departureTime,flight.arrivalDate,flight.arrivalTime)}                          
-                                    // </p>
-                                  }</h6>
-                                  {" "}
-                                  {/* <h6>{response.flightDetails?.length - 1 || 0} stop</h6> */}
+                                
                                 </div>
                               </div>
                             </Col>
