@@ -93,7 +93,7 @@ function getBaggageDetails(freeAllowance, quantityCode, unitQualifier) {
 }
 
 function getdeptarrTimeDiffrence2(departureAt, arrivalAt) {
-  debugger;
+  //debugger;
 
   const departureDatetime = new Date(departureAt);
   const arrivalDatetime = new Date(arrivalAt);
@@ -104,7 +104,7 @@ function getdeptarrTimeDiffrence2(departureAt, arrivalAt) {
 }
 
 function getTotalFlyingTime(itinerary) {
-  debugger;
+ // debugger;
   try{
     let totalMinutes = 0;
 
@@ -148,7 +148,7 @@ function getdeptarrTimeDiffrence(departureDate, departureTime, arrivalDate, arri
 }
 
 function getFlyingTimeSingleItinerary(itinerary) {
-  debugger;
+  //debugger;
   let totalMinutes = 0;
   
   itinerary.segments.forEach(segment => {
@@ -162,7 +162,7 @@ function getFlyingTimeSingleItinerary(itinerary) {
   return `${hours} hours ${minutes} minutes`;
 }
 function getFlyingTime(itineraries) {
-  debugger;
+  //debugger;
   return itineraries.map(itinerary => {
       let totalMinutes = 0;
       
@@ -178,7 +178,7 @@ function getFlyingTime(itineraries) {
   }).join(", ");
 }
 function getLayoverTime(itinerary) {
-  debugger;
+  //debugger;
   if (itinerary.segments.length < 2) return "";
 
   const firstArrival = new Date(itinerary.segments[0].arrival.at);
@@ -869,10 +869,15 @@ const FlightConfirmation = () => {
                           </p> 
                            {/* <span style={{ color: "transparent" }}> { "Free Allowance: " + selectedFlight?.baggageDetails?.freeAllowance + " , QuantityCode " + selectedFlight?.baggageDetails?.quantityCode + " , UnitQuilifier " + selectedFlight?.baggageDetails?.unitQualifier }</span> */}
                         </div>
+                        {selectedFlight?.itineraries[index]?.segments?.length > 1 && (
+                          <p className="mb-0 layover-time">
+                            {"Layover " + getLayoverTime(selectedFlight?.itineraries[index])}
+                          </p>
+                        )}
 
-                        <p className="mb-0 layover-time">
+                        {/* <p className="mb-0 layover-time">
                                 { selectedFlight?.itineraries[index]?.segments?.length > 1 ? "Layover" + getLayoverTime(selectedFlight?.itineraries[index]) : ""}
-                            </p> 
+                        </p>  */}
                       </div>
                       {response.flightDetails?.map((flight, flightIndex) => (
                         <div key={flightIndex} className="flight_detail flight_Confirmation_box_inner">
