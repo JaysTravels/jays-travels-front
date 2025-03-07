@@ -17,20 +17,36 @@ const ManualConfirmation = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
- // console.log('Full Query Params:', window.location.search);
+ 
   const flightResults = useSelector((state) => state.flights.response);
   const airsellResults = useSelector((state) => state.airsell.response);
   const airsellRequest = useSelector((state) => state.airsell.airSellRequest);
 debugger;
  
   const authorizationCode = searchParams.get('AUTHORIZATION');
-  const orderId = searchParams.get('ORDERID');
-  const status = searchParams.get('STATUS');
-  const { AUTHORIZATION, ORDERID, STATUS } = router.query;
+  const orderID = searchParams.get('orderID');
+  const currency = searchParams.get('currency');
+  const amount = searchParams.get('amount');
+  const PM = searchParams.get('PM');
+  const ACCEPTANCE = searchParams.get('ACCEPTANCE');
+  const STATUS = searchParams.get('STATUS');
+  const CARDNO = searchParams.get('CARDNO');
+  const ED = searchParams.get('ED');
+  const CN = searchParams.get('CN');
+  const TRXDATE = searchParams.get('TRXDATE');
+  const PAYID = searchParams.get('PAYID');
+  const NCERROR = searchParams.get('NCERROR');
+  const BRAND = searchParams.get('BRAND');
+  const IPCTY = searchParams.get('IPCTY');
+  const IP = searchParams.get('IP');
+
+ // const { AUTHORIZATION, ORDERID, STATUS } = router.query;
 
   useEffect(() => {
     debugger;
     console.log('Full Query Params:', router.query);
+
+
   }, [router.query]);
 
   const pnrResponse = useSelector(
@@ -44,11 +60,13 @@ debugger;
   const [payment, setPaymentUpdate] = useState(false);
   const [formData, setformData] = useState(false);
   useEffect(() => {
-  
+   console.log('Full Query Params:', router.query);
+   
     let formDataManual = localStorage.getItem("ManualPaymentformData");
     let ManualPaymentCustomerDetails;
    
-    if(formDataManual != null){        
+    if(formDataManual != null && orderID != null){    
+      debugger;    
         setformData(JSON.parse(formDataManual) || null);
         formDataManual = JSON.parse(formDataManual);
       
@@ -63,16 +81,34 @@ debugger;
         City: formDataManual.city,
         Country: formDataManual.country,
         Postal: formDataManual.postal,
-        PaymentStatus: true        
+        PaymentStatus: true,
+        AuthorizationCode : authorizationCode,
+        OrderID : orderID,
+        PaymentMethod :PM ,
+        Acceptance : ACCEPTANCE,
+        Status : STATUS ,
+        CardNo : CARDNO ,
+        ExpiryDate : ED ,
+        CardHolderName : CN,
+        TrxDate : TRXDATE ,
+        PayId : PAYID ,
+        NcError : NCERROR ,
+        Brand : BRAND  ,
+        Currency : currency,
+        IpCity : IPCTY,
+        IP : IP
        }
        setPaymentUpdate(true);
        updatePaymentStatus(ManualPaymentCustomerDetails);      
        localStorage.removeItem("ManualPaymentformData");
+
+       const newUrl = window.location.pathname;
+       window.history.replaceState(null, '', newUrl);
  //   } 
   }
    
 
-  }, [dispatch]);
+  }, [dispatch, router.query]);
   
   const updatePaymentStatus = async (ManualPaymentCustomerDetails) => {
     try {
@@ -125,22 +161,9 @@ debugger;
                 Head to your Itinerary to check into your flight, make updates,
                 and share your plans with friends &amp; family.
               </h3>
-              {/* <Link href="#" className="btn">
-                view itinerary
-              </Link> */}
-              
             </div>
-            <div>
-            <h1>Payment Confirmation</h1>
-            <p>Order ID: {ORDERID}</p>
-            <p>Status: {STATUS}</p>
-            <p>Authorization Code: {AUTHORIZATION || 'Not received'}</p>
-          </div>
-            <div>
-                <h1>Payment Confirmation</h1>
-                <p>Order ID: {orderId}</p>
-                <p>Status: {status}</p>
-                <p>Authorization Code: {authorizationCode || 'Not received'}</p>
+          <div>
+                
           </div>
           </div>
 
