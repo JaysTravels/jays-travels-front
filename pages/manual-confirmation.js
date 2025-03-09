@@ -1,3 +1,5 @@
+'use client';
+import { useSearchParams } from 'next/navigation';
 import Image from "next/image";
 import topLogo from "@/public/images/top-logo.png";
 import bookingSuccess from "@/public/images/booking-success.jpg";
@@ -10,28 +12,56 @@ import { UPDATE_PAYMENT_STATUS_MANUAL } from "@/store/ManualPayment";
 import { Col, Row } from "reactstrap";
 const ManualConfirmation = () => {
   
+ 
   const currSign = '£';
   const router = useRouter();
-  const dispatch = useDispatch();
-  const flightResults = useSelector((state) => state.flights.response);
+  const dispatch = useDispatch(); 
+  const searchParams = useSearchParams();
+    const flightResults = useSelector((state) => state.flights.response);
   const airsellResults = useSelector((state) => state.airsell.response);
   const airsellRequest = useSelector((state) => state.airsell.airSellRequest);
+  const authorizationCode = searchParams.get('AUTHORIZATION');
+  const orderID = searchParams.get('orderID');
+  const currency = searchParams.get('currency');
+  const amount = searchParams.get('amount');
+  const PM = searchParams.get('PM');
+  const ACCEPTANCE = searchParams.get('ACCEPTANCE');
+  const STATUS = searchParams.get('STATUS');
+  const CARDNO = searchParams.get('CARDNO');
+  const ED = searchParams.get('ED');
+  const CN = searchParams.get('CN');
+  const TRXDATE = searchParams.get('TRXDATE');
+  const PAYID = searchParams.get('PAYID');
+  const NCERROR = searchParams.get('NCERROR');
+  const BRAND = searchParams.get('BRAND');
+  const IPCTY = searchParams.get('IPCTY');
+  const IP = searchParams.get('IP');
   const pnrResponse = useSelector(
     (state) => state.generatePnr.CommitPnrResponse
   );
   const Commit_Pnr_Error = useSelector(
     (state) => state.generatePnr.CommitPnrError
   );
-  ``;
+
   const [BookingRefNo, setBookingRefNo] = useState(""); 
-  const [payment, setPaymentUpdate] = useState(false);
-  const [formData, setformData] = useState(false);
-  useEffect(() => {
-  
+  const [payment, setPaymentUpdate] = useState(false); 
+   const [formData, setformData] = useState(false);  
+   useEffect(() => {
+   console.log('Full Query Params:', router.query);
+   debugger;
+   const hasQueryParams = router.asPath.includes("?"); 
+   const isSearchParamsEmpty = !searchParams || searchParams.toString() === "";  
+
+   if (hasQueryParams && isSearchParamsEmpty) {
+     console.log("Query params expected but not available yet. Returning...");
+     return;
+   }
+   
     let formDataManual = localStorage.getItem("ManualPaymentformData");
     let ManualPaymentCustomerDetails;
    
-    if(formDataManual != null){        
+    if(formDataManual != null){    
+      debugger;    
         setformData(JSON.parse(formDataManual) || null);
         formDataManual = JSON.parse(formDataManual);
       
@@ -46,16 +76,34 @@ const ManualConfirmation = () => {
         City: formDataManual.city,
         Country: formDataManual.country,
         Postal: formDataManual.postal,
-        PaymentStatus: true        
+        PaymentStatus: true,
+        AuthorizationCode : authorizationCode,
+        OrderID : orderID,
+        PaymentMethod :PM ,
+        Acceptance : ACCEPTANCE,
+        Status : STATUS ,
+        CardNo : CARDNO ,
+        ExpiryDate : ED ,
+        CardHolderName : CN,
+        TrxDate : TRXDATE ,
+        PayId : PAYID ,
+        NcError : NCERROR ,
+        Brand : BRAND  ,
+        Currency : currency,
+        IpCity : IPCTY,
+        IP : IP
        }
        setPaymentUpdate(true);
        updatePaymentStatus(ManualPaymentCustomerDetails);      
        localStorage.removeItem("ManualPaymentformData");
+
+       const newUrl = window.location.pathname;
+       window.history.replaceState(null, '', newUrl);
  //   } 
   }
    
 
-  }, [dispatch]);
+  }, [dispatch, router.query]);
   
   const updatePaymentStatus = async (ManualPaymentCustomerDetails) => {
     try {
@@ -108,11 +156,10 @@ const ManualConfirmation = () => {
                 Head to your Itinerary to check into your flight, make updates,
                 and share your plans with friends &amp; family.
               </h3>
-              {/* <Link href="#" className="btn">
-                view itinerary
-              </Link> */}
-              
             </div>
+          <div>
+                
+          </div>
           </div>
 
           <div className="mt40">
@@ -140,20 +187,20 @@ const ManualConfirmation = () => {
                         <tr>
                           <td width="40%">Booking No:</td>
                           <td>
-                            <span>{formData.bookingref}</span>{" "}
+                            <span>{formData?.bookingref}</span>{" "}
                             
                           </td>
                         </tr>
                         <tr>
                           <td width="40%">First Name:</td>
                           <td>
-                          <span>{formData.firstname}</span>
+                          <span>{formData?.firstname}</span>
                           </td>
                         </tr>
                         <tr>
                           <td width="40%">Last Name</td>
                           <td>
-                          <span>{formData.lastname}</span>
+                          <span>{formData?.lastname}</span>
                           </td>
                         </tr>
                       </tbody>
@@ -181,7 +228,7 @@ const ManualConfirmation = () => {
                       >
                         Name:
                         <span style={{ fontWeight: "500" }}>
-                          {formData.firstname} {formData.lastname}
+                          {formData?.firstname} {formData?.lastname}
                         </span>
                       </h6>
                       <h6
@@ -204,7 +251,7 @@ const ManualConfirmation = () => {
                       >
                         Email:
                         <Link href="#" style={{ fontWeight: "500" }}>
-                          {formData.email}
+                          {formData?.email}
                         </Link>
                       </h6>
                       <h6
@@ -218,7 +265,7 @@ const ManualConfirmation = () => {
                       >
                         Phone No:{" "}
                         <span style={{ fontWeight: "500" }}>
-                          {formData.phone}
+                          {formData?.phone}
                         </span>
                       </h6>
                     </td>
@@ -237,7 +284,7 @@ const ManualConfirmation = () => {
                       >
                         Address:
                         <span style={{ fontWeight: "500" }}>
-                          {formData.address} 
+                          {formData?.address} 
                         </span>
                       </h6>
                       <h6
@@ -260,7 +307,7 @@ const ManualConfirmation = () => {
                       >
                         City:
                         <Link href="#" style={{ fontWeight: "500" }}>
-                          {formData.city}
+                          {formData?.city}
                         </Link>
                       </h6>
                       <h6
@@ -274,7 +321,7 @@ const ManualConfirmation = () => {
                       >
                         Postal Code:{" "}
                         <span style={{ fontWeight: "500" }}>
-                          {formData.postal}
+                          {formData?.postal}
                         </span>
                       </h6>
                     </td>

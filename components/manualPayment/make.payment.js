@@ -111,7 +111,7 @@ const MakePayment = () => {
           localStorage.setItem("ManualPaymentformData", JSON.stringify(formData));
         }
         data = data.data;
-        debugger;
+        //debugger;
         const form = document.createElement("form");
         form.method = "POST";
         form.action = data.url;
