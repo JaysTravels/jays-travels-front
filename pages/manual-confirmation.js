@@ -48,7 +48,7 @@ const ManualConfirmation = () => {
    const [formData, setformData] = useState(false);  
    useEffect(() => {
    console.log('Full Query Params:', router.query);
-   debugger;
+   //debugger;
    const hasQueryParams = router.asPath.includes("?"); 
    const isSearchParamsEmpty = !searchParams || searchParams.toString() === "";  
 
@@ -61,7 +61,7 @@ const ManualConfirmation = () => {
     let ManualPaymentCustomerDetails;
    
     if(formDataManual != null){    
-      debugger;    
+      //debugger;    
         setformData(JSON.parse(formDataManual) || null);
         formDataManual = JSON.parse(formDataManual);
       

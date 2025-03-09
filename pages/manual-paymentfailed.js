@@ -1,3 +1,5 @@
+'use client';
+import { useSearchParams } from 'next/navigation';
 import Image from "next/image";
 import topLogo from "@/public/images/top-logo.png";
 import bookingSuccess from "@/public/images/booking-success.jpg";
@@ -13,6 +15,7 @@ const ManualPaymentFailed = () => {
   const currSign = '£';
   const router = useRouter();
   const dispatch = useDispatch();
+  const searchParams = useSearchParams();
   const flightResults = useSelector((state) => state.flights.response);
   const airsellResults = useSelector((state) => state.airsell.response);
   const airsellRequest = useSelector((state) => state.airsell.airSellRequest);
@@ -25,35 +28,108 @@ const ManualPaymentFailed = () => {
   
   const [payment, setPaymentUpdate] = useState(false);
   const [formData, setformData] = useState(false);
-  useEffect(() => {
-  
-    let formDataManual = localStorage.getItem("ManualPaymentformData");
-    let ManualPaymentCustomerDetails;
-    
-    if(formDataManual != null){        
-        setformData(JSON.parse(formDataManual) || null);
-        formDataManual = JSON.parse(formDataManual);
-      
-       ManualPaymentCustomerDetails = {
-        BookingRef: formDataManual.bookingref,
-        Amount:formDataManual.amount,
-        FirstName: formDataManual.firstname,
-        LastName: formDataManual.lastname,
-        Email: formDataManual.email,
-        Phone: formDataManual.phone,
-        Address: formDataManual.address,
-        City: formDataManual.city,
-        Country: formDataManual.country,
-        Postal: formDataManual.postal,
-        PaymentStatus: false        
-       }
-       setPaymentUpdate(true);
-       updatePaymentStatus(ManualPaymentCustomerDetails);  
-       localStorage.removeItem("ManualPaymentformData");
+  const authorizationCode = searchParams.get('AUTHORIZATION');
+  const orderID = searchParams.get('orderID');
+  const currency = searchParams.get('currency');
+  const amount = searchParams.get('amount');
+  const PM = searchParams.get('PM');
+  const ACCEPTANCE = searchParams.get('ACCEPTANCE');
+  const STATUS = searchParams.get('STATUS');
+  const CARDNO = searchParams.get('CARDNO');
+  const ED = searchParams.get('ED');
+  const CN = searchParams.get('CN');
+  const TRXDATE = searchParams.get('TRXDATE');
+  const PAYID = searchParams.get('PAYID');
+  const NCERROR = searchParams.get('NCERROR');
+  const BRAND = searchParams.get('BRAND');
+  const IPCTY = searchParams.get('IPCTY');
+  const IP = searchParams.get('IP');
 
- //   } 
-  }
-  }, [dispatch]);
+  useEffect(() => {
+   
+    const hasQueryParams = router.asPath.includes("?"); 
+    const isSearchParamsEmpty = !searchParams || searchParams.toString() === "";  
+ 
+    if (hasQueryParams && isSearchParamsEmpty) {
+      console.log("Query params expected but not available yet. Returning...");
+      return;
+    }
+    
+     let formDataManual = localStorage.getItem("ManualPaymentformData");
+     let ManualPaymentCustomerDetails;
+    
+     if(formDataManual != null){             
+         setformData(JSON.parse(formDataManual) || null);
+         formDataManual = JSON.parse(formDataManual);
+       
+        ManualPaymentCustomerDetails = {
+         BookingRef: formDataManual.bookingref,
+         Amount:formDataManual.amount,
+         FirstName: formDataManual.firstname,
+         LastName: formDataManual.lastname,
+         Email: formDataManual.email,
+         Phone: formDataManual.phone,
+         Address: formDataManual.address,
+         City: formDataManual.city,
+         Country: formDataManual.country,
+         Postal: formDataManual.postal,
+         PaymentStatus: false,
+         AuthorizationCode : authorizationCode,
+         OrderID : orderID,
+         PaymentMethod :PM ,
+         Acceptance : ACCEPTANCE,
+         Status : STATUS ,
+         CardNo : CARDNO ,
+         ExpiryDate : ED ,
+         CardHolderName : CN,
+         TrxDate : TRXDATE ,
+         PayId : PAYID ,
+         NcError : NCERROR ,
+         Brand : BRAND  ,
+         Currency : currency,
+         IpCity : IPCTY,
+         IP : IP
+        }
+        setPaymentUpdate(true);
+        updatePaymentStatus(ManualPaymentCustomerDetails);      
+        localStorage.removeItem("ManualPaymentformData");
+ 
+        const newUrl = window.location.pathname;
+        window.history.replaceState(null, '', newUrl);
+  //   } 
+   }
+    
+ 
+   }, [dispatch, router.query]);
+//   useEffect(() => {
+  
+//     let formDataManual = localStorage.getItem("ManualPaymentformData");
+//     let ManualPaymentCustomerDetails;
+    
+//     if(formDataManual != null){        
+//         setformData(JSON.parse(formDataManual) || null);
+//         formDataManual = JSON.parse(formDataManual);
+      
+//        ManualPaymentCustomerDetails = {
+//         BookingRef: formDataManual.bookingref,
+//         Amount:formDataManual.amount,
+//         FirstName: formDataManual.firstname,
+//         LastName: formDataManual.lastname,
+//         Email: formDataManual.email,
+//         Phone: formDataManual.phone,
+//         Address: formDataManual.address,
+//         City: formDataManual.city,
+//         Country: formDataManual.country,
+//         Postal: formDataManual.postal,
+//         PaymentStatus: false        
+//        }
+//        setPaymentUpdate(true);
+//        updatePaymentStatus(ManualPaymentCustomerDetails);  
+//        localStorage.removeItem("ManualPaymentformData");
+
+//  //   } 
+//   }
+//   }, [dispatch]);
   
   const updatePaymentStatus = async (ManualPaymentCustomerDetails) => {
     try {
