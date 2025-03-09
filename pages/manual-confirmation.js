@@ -15,14 +15,11 @@ const ManualConfirmation = () => {
  
   const currSign = '£';
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
   const searchParams = useSearchParams();
- 
-  const flightResults = useSelector((state) => state.flights.response);
+    const flightResults = useSelector((state) => state.flights.response);
   const airsellResults = useSelector((state) => state.airsell.response);
   const airsellRequest = useSelector((state) => state.airsell.airSellRequest);
-debugger;
- 
   const authorizationCode = searchParams.get('AUTHORIZATION');
   const orderID = searchParams.get('orderID');
   const currency = searchParams.get('currency');
@@ -39,33 +36,31 @@ debugger;
   const BRAND = searchParams.get('BRAND');
   const IPCTY = searchParams.get('IPCTY');
   const IP = searchParams.get('IP');
-
- // const { AUTHORIZATION, ORDERID, STATUS } = router.query;
-
-  useEffect(() => {
-    debugger;
-    console.log('Full Query Params:', router.query);
-
-
-  }, [router.query]);
-
   const pnrResponse = useSelector(
     (state) => state.generatePnr.CommitPnrResponse
   );
   const Commit_Pnr_Error = useSelector(
     (state) => state.generatePnr.CommitPnrError
   );
-  ``;
+
   const [BookingRefNo, setBookingRefNo] = useState(""); 
-  const [payment, setPaymentUpdate] = useState(false);
-  const [formData, setformData] = useState(false);
-  useEffect(() => {
+  const [payment, setPaymentUpdate] = useState(false); 
+   const [formData, setformData] = useState(false);  
+   useEffect(() => {
    console.log('Full Query Params:', router.query);
+   debugger;
+   const hasQueryParams = router.asPath.includes("?"); 
+   const isSearchParamsEmpty = !searchParams || searchParams.toString() === "";  
+
+   if (hasQueryParams && isSearchParamsEmpty) {
+     console.log("Query params expected but not available yet. Returning...");
+     return;
+   }
    
     let formDataManual = localStorage.getItem("ManualPaymentformData");
     let ManualPaymentCustomerDetails;
    
-    if(formDataManual != null && orderID != null){    
+    if(formDataManual != null){    
       debugger;    
         setformData(JSON.parse(formDataManual) || null);
         formDataManual = JSON.parse(formDataManual);
@@ -192,20 +187,20 @@ debugger;
                         <tr>
                           <td width="40%">Booking No:</td>
                           <td>
-                            <span>{formData.bookingref}</span>{" "}
+                            <span>{formData?.bookingref}</span>{" "}
                             
                           </td>
                         </tr>
                         <tr>
                           <td width="40%">First Name:</td>
                           <td>
-                          <span>{formData.firstname}</span>
+                          <span>{formData?.firstname}</span>
                           </td>
                         </tr>
                         <tr>
                           <td width="40%">Last Name</td>
                           <td>
-                          <span>{formData.lastname}</span>
+                          <span>{formData?.lastname}</span>
                           </td>
                         </tr>
                       </tbody>
@@ -233,7 +228,7 @@ debugger;
                       >
                         Name:
                         <span style={{ fontWeight: "500" }}>
-                          {formData.firstname} {formData.lastname}
+                          {formData?.firstname} {formData?.lastname}
                         </span>
                       </h6>
                       <h6
@@ -256,7 +251,7 @@ debugger;
                       >
                         Email:
                         <Link href="#" style={{ fontWeight: "500" }}>
-                          {formData.email}
+                          {formData?.email}
                         </Link>
                       </h6>
                       <h6
@@ -270,7 +265,7 @@ debugger;
                       >
                         Phone No:{" "}
                         <span style={{ fontWeight: "500" }}>
-                          {formData.phone}
+                          {formData?.phone}
                         </span>
                       </h6>
                     </td>
@@ -289,7 +284,7 @@ debugger;
                       >
                         Address:
                         <span style={{ fontWeight: "500" }}>
-                          {formData.address} 
+                          {formData?.address} 
                         </span>
                       </h6>
                       <h6
@@ -312,7 +307,7 @@ debugger;
                       >
                         City:
                         <Link href="#" style={{ fontWeight: "500" }}>
-                          {formData.city}
+                          {formData?.city}
                         </Link>
                       </h6>
                       <h6
@@ -326,7 +321,7 @@ debugger;
                       >
                         Postal Code:{" "}
                         <span style={{ fontWeight: "500" }}>
-                          {formData.postal}
+                          {formData?.postal}
                         </span>
                       </h6>
                     </td>
