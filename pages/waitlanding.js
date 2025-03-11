@@ -23,12 +23,12 @@ export default function WaitPageLanding() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    debugger;
+   // debugger;
     if (!origin || !destination) return;
 
     const fetchFlights = () => {
       try {
-debugger;
+//debugger;
        
         let cabinclass 
         setApiResponse('Please wait...')

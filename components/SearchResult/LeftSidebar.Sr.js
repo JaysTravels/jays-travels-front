@@ -8,7 +8,7 @@ import React, { use, useEffect, useState } from 'react';
 import ReactSlider from "react-slider";
 import { Button, Input, Label } from "reactstrap";
 import {useDispatch, useSelector} from 'react-redux';
-import { setSelectedCarriers,setCheckAll,setUnCheckAll,setSelectedCarriersExclude,setSelectedPriceRange,setFlightsWithCombination , setSelectedFlights,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime } from "@/store/AvailabilitySlice";
+import { setSelectedCarriers,toggleStop,setCheckAll,setUnCheckAll,setSelectedCarriersExclude,setSelectedPriceRange,setFlightsWithCombination , setSelectedFlights,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime } from "@/store/AvailabilitySlice";
 
 
 const LeftSidebarSr = () =>  {
@@ -21,6 +21,8 @@ const LeftSidebarSr = () =>  {
   const selectedPriceRange = useSelector((state) => state.flights?.selectedPriceRange);
   const flightMinprice = useSelector((state) => state.flights?.minPrice);
   const flightMaxprice = useSelector((state) => state.flights?.maxPrice);  
+  const _filterAirline = useSelector((state) => state.flights?.filterAirline);  
+  const _filteredFlights  = useSelector((state) => state?.flights?.filteredFlights);
   const [open, setOpen] = useState(false);
   const [openStops, setOpenStops] = useState(false);
   const [openPrice, setOpenPrice] = useState(false);
@@ -38,24 +40,38 @@ const LeftSidebarSr = () =>  {
   const [SelectedMaxprice,setSelectedMaxprice] = useState(flightMaxprice);  
   const [checkedCarriers, setCheckedCarriers] = useState({});
   const [isCheckAll, setIsCheckAll] = useState(false);
-const [isUncheckAll, setIsUncheckAll] = useState(false);
+ const [isUncheckAll, setIsUncheckAll] = useState(false);
+ const [filterAirlines,setfilterAirlines] = useState(_filterAirline); 
 
   const [range, setRange] = useState([flightMinprice, flightMaxprice]);
+
   useEffect(() => {
     
-    if(selectedAirlines != null){
-      const filtered = flightResults?.filter((flight) =>
-        flight.itineraries.some((itinerary) =>
-          itinerary.segments.some((segment) =>
-            selectedAirlines.includes(segment.marketingCarrierCode)
+    if (_filteredFlights?.length > 0) {
+      const _filterAirline = [
+        ...new Set(
+          _filteredFlights.flatMap((flight) =>
+            flight.itineraries.flatMap((itinerary) =>
+              itinerary.segments.map((segment) => segment.marketingCarrierCode)
+            )
           )
-        )
-     );
-      setFilteredFlights(filtered);
-    }  
-  }, [selectedAirlines, flightResults]);
+        ),
+      ];
+      setCheckedCarriers(
+        _filterAirline.reduce((acc, code) => ({ ...acc, [code]: true }), {})
+      );
+    }
+  }, [_filteredFlights]); 
+  useEffect(() => {
+    if (marketingCarriers?.length) {
+      const allAirlines = marketingCarriers.map((carrier) => carrier.marketingCarrierCode);
+      setSelectedAirlines(allAirlines); // Start with all airlines selected
+      setCheckedCarriers(allAirlines.reduce((acc, code) => ({ ...acc, [code]: true }), {}));
+    }
+  }, [marketingCarriers]);
 
-  //debugger;
+ 
+  
   useEffect(() => {
     dispatch(setSelectedPriceRange([flightMinprice, flightMaxprice]));
   }, [flightResults, dispatch])
@@ -77,6 +93,7 @@ const [isUncheckAll, setIsUncheckAll] = useState(false);
     return timeObj >= startObj && timeObj < endObj;
   };
 
+   
   const handlePriceChange = (value) => {
     //debugger;
     const [_minPrice, _maxPrice] = value;  
@@ -137,15 +154,13 @@ const [isUncheckAll, setIsUncheckAll] = useState(false);
   );
 
   const handleCheckboxChange = (carrierCode, isChecked) => {
-   // debugger;
+    //debugger;
     setCheckedCarriers((prevState) => ({
       ...prevState,
-      [carrierCode]: isChecked, // Update checked state
-    }));
+      [carrierCode]: isChecked, 
+    })); 
   
-    const checkedAirlines = Object.keys(checkedCarriers).filter(
-      (carrierCode) => checkedCarriers[carrierCode] // Only keep those with `true`
-    );
+   
     const newCheckedCarriers = {};
   marketingCarriers.forEach((carrier) => {
     newCheckedCarriers[carrier.marketingCarrierCode] = isChecked;
@@ -157,67 +172,46 @@ const [isUncheckAll, setIsUncheckAll] = useState(false);
  
     setSelectedAirlines(updatedSelectedAirlines);  
     dispatch(setSelectedCarriers({ selectedCarriers: updatedSelectedAirlines, isCombination :isCombination,isChecked :isChecked }));
- 
- 
-  
-  
-  
-   // dispatch(setSelectedCarriers(updatedSelectedAirlines));
    
-    //dispatch(setSelectedCarriers({ filter: filterType, payload: updatedSelectedAirlines }));
   };
 
-  const handleCheckboxChangeold = (carrierCode, isChecked) => {
-   //debugger;  
-   
- 
-   if(isChecked){
-    const updatedSelectedAirlines = selectedAirlines?.includes(carrierCode)
-    ? selectedAirlines.filter((code) => code !== carrierCode)
-    : [...selectedAirlines, carrierCode];
-    setSelectedAirlines(updatedSelectedAirlines,isChecked); 
-    const filterType = updatedSelectedAirlines.length > 0 ? "exclude" : "include";   
-    dispatch(setSelectedCarriers({ filter: filterType, payload: updatedSelectedAirlines }));
-    setCheckedCarriers((prevState) => ({
-     ...prevState,
-     [carrierCode]: !prevState[carrierCode],
-   }));
-   }
-   else{
-    const updatedSelectedAirlines = selectedAirlines?.includes(!carrierCode)
-    ? selectedAirlines.filter((code) => code !== carrierCode)
-    : [...selectedAirlines, carrierCode];
-    setSelectedAirlines(updatedSelectedAirlines,isChecked);
-    const filterType = updatedSelectedAirlines.length > 1 ? "exclude" : "include";       
-    dispatch(setSelectedCarriersExclude(updatedSelectedAirlines)); 
-    setCheckedCarriers((prevState) => ({
-     ...prevState,
-     [carrierCode]: !prevState[carrierCode],
-   }));
-   }
- 
-  };
 
-  const handleCheckboxChangeSameCarrier = (isChecked) => {
-       
-    //setIsCombination(!isCombination); // Toggle the state
-    setIsCombination(isChecked); // Update state when checkbox is clicked
+
+  const handleCheckboxChangeSameCarrier = async (isChecked) => {
+    
+    setIsCombination(isChecked); 
+    isChecked = !isChecked
     const selectedCarriers = Object.keys(checkedCarriers).filter(
-      (carrier) => checkedCarriers[carrier] // Get only checked airlines
+      (carrier) => checkedCarriers[carrier] 
     );
-    dispatch(setSelectedCarriers({ selectedCarriers, isCombination: isChecked }));
 
-    dispatch(setFlightsWithCombination(isChecked));
+   // await  dispatch(setSelectedCarriers({ selectedCarriers, isCombination: isChecked }));
+     dispatch(setSelectedCarriers({ selectedCarriers, isCombination: isChecked }));
+     dispatch(setFlightsWithCombination({isSameCarrier: isChecked,selectedCarriers: selectedCarriers}));
+    debugger;
+    const _filterAirline = [
+      ...new Set(
+        _filteredFlights.flatMap((flight) =>
+          flight.itineraries.flatMap((itinerary) =>
+            itinerary.segments.map((segment) => segment.marketingCarrierCode)
+          )
+        )
+      ),
+    ];
+    if(_filterAirline != null ){
+      setCheckedCarriers(_filterAirline.reduce((acc, code) => ({ ...acc, [code]: true }), {}));
+     
+     }
   };
 
   const handleStopFilterChange = (stopCount,isChecked) => {
-    
+   // debugger;
     let updatedStops = isChecked
     ? [...selectedStops, stopCount]
     : selectedStops.filter((stop) => stop !== stopCount)
 
-    setSelectedStops(updatedStops);
-    dispatch(setSelectedSegments({ selectedStops: updatedStops, selectedCarriers }));    
+    setSelectedStops(updatedStops);   
+    dispatch(setSelectedSegments({ selectedStops: updatedStops }));    
   };
 
   const handleStopFilterChange_old = (stopCount,isChecked) => {

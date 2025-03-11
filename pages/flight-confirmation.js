@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Input, Label, Row } from "reactstrap";
 import { PASSENGER_SELECTED_FLIGHT_EMAIL } from "@/store/CreatePnrSlice";
+import { AirLineClass } from "@/components/classes/airlineclass";
 import {
   setPassengerDetails,
   setPnrMulti,
@@ -379,6 +380,19 @@ const FlightConfirmation = () => {
       lastName: false,
     })),
   });
+
+  function getCabinClassName(cabinClassCode) {
+    const cabinClassMap = {
+        M: "Basic Economy",
+        W: "Premium Economy",
+        Y: "Economy",
+        C: "Business",
+        F: "First"
+    };
+
+    return cabinClassMap[cabinClassCode] || ""; // Default for invalid codes
+}
+
 
   const [errorsInfant, setErrorsInfant] = useState({
     infants: Array.from({ length: flightRequest.infants }, () => ({
@@ -891,12 +905,6 @@ const FlightConfirmation = () => {
                           </p> 
                            {/*<span style={{ color: "transparent" }}> { "Free Allowance: " + selectedFlight?.baggageDetails?.freeAllowance + " , QuantityCode " + selectedFlight?.baggageDetails?.quantityCode + " , UnitQuilifier " + selectedFlight?.baggageDetails?.unitQualifier }</span> */}
                         </div>
-                        {/* {selectedFlight?.itineraries[index]?.segments?.length > 1 && (
-                          <p className="mb-0 layover-time">
-                            {"Layover " + getLayoverTime(selectedFlight?.itineraries[index]).split(" | ")[0]}
-                          </p>
-                        )} */}
-
                        
                       </div>
                       {response.flightDetails?.map((flight, flightIndex) => (
@@ -922,13 +930,28 @@ const FlightConfirmation = () => {
                                   <h6 className="outbound-origion-h4">{flight.fromAirport}</h6>
                                   <span className="origion-date">{removeSeconds(flight.departureTime)}</span>
                                   <p className="origion-date">{formatDateToCustomFormat(flight.departureDate)}</p>
+                                  {selectedFlight?.itineraries?.[index]?.segments?.[flightIndex]?.departure?.terminal && (
+                                          <p className="destination-date">
+                                            terminal: {selectedFlight.itineraries[index].segments[flightIndex].departure.terminal}
+                                          </p>
+                                        )}
                                 </div>
                                 <div className="airport-progress">
                                 <p className="mb-0 origion-destination-heading">
                                    
                                     { getdeptarrTimeDiffrence(flight.departureDate,flight.departureTime,flight.arrivalDate,flight.arrivalTime)}                          
                                     </p>
-                                 
+                                   
+                            {selectedFlight?.itineraries?.[index]?.segments[flightIndex]?.number && (
+                                      <p className="destination-date">
+                                        Flight No. : {selectedFlight?.itineraries?.[index]?.segments[flightIndex]?.number}
+                                      </p>
+                                    )}
+                                     {selectedFlight?.itineraries?.[index]?.segments[flightIndex]?.cabinClass && (
+                                      <p className="destination-date">
+                                        Cabin : {getCabinClassName(selectedFlight?.itineraries?.[index]?.segments[flightIndex]?.cabinClass)}
+                                      </p>
+                                    )}
                          {selectedFlight?.itineraries?.[index]?.segments?.length > 1 && (() => {
                             const layoverTimes = getLayoverTime(selectedFlight?.itineraries[index]).split(" | ");
                             return layoverTimes[flightIndex] !== undefined ? (
@@ -943,6 +966,12 @@ const FlightConfirmation = () => {
                                   <h6 className="outbound-destination-h4">{flight.toAirport}</h6>
                                   <span className="destination-date">{removeSeconds(flight.arrivalTime)}</span>
                                   <p className="destination-date">{formatDateToCustomFormat(flight.arrivalDate)}</p>
+                                 
+                                  {selectedFlight?.itineraries?.[index]?.segments?.[flightIndex]?.arrival?.terminal && (
+                                          <p className="destination-date">
+                                            terminal: {selectedFlight.itineraries[index].segments[flightIndex].arrival.terminal}
+                                          </p>
+                                        )}
                                 </div>
                               </div>
                             </Col>
