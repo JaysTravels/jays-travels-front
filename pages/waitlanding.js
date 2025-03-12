@@ -17,7 +17,7 @@ export default function WaitPageLanding() {
   const [flights2, setFlights2] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [msg , setMsg] = useState("loading flights please wait...")
+  const [msg , setMsg] = useState("Searching for flights...")
   const [msg2 , setMsg2] = useState("Please wait while we find the best options for you.")
   const [apiResponse,setApiResponse] = useState('');
   const dispatch = useDispatch();
