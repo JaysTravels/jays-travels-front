@@ -141,7 +141,7 @@ export const submitFlightData = createAsyncThunk(
                
               }           
       },setSelectedCarriers(state, action) {
-        //debugger;
+        debugger;
         //const selectedCarriers = action.payload; // The selected airline codes
         const { selectedCarriers, isCombination,isChecked } = action.payload;
         // Store selected carriers

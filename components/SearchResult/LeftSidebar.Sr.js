@@ -154,7 +154,7 @@ const LeftSidebarSr = () =>  {
   );
 
   const handleCheckboxChange = (carrierCode, isChecked) => {
-    //debugger;
+    debugger;
     setCheckedCarriers((prevState) => ({
       ...prevState,
       [carrierCode]: isChecked, 
@@ -170,8 +170,25 @@ const LeftSidebarSr = () =>  {
       ? [...selectedAirlines, carrierCode]
       : selectedAirlines.filter((code) => code !== carrierCode);
  
+      if(isChecked == false){
+        const selectedCarriers = Object.keys(checkedCarriers).filter(
+          (carrier) => checkedCarriers[carrier] && carrier !== carrierCode
+        );
+        dispatch(setSelectedCarriers({ selectedCarriers, isCombination: isCombination }));
+      }
+      else{
+        const selectedCarriers = Object.keys(checkedCarriers).filter(
+          (carrier) => checkedCarriers[carrier] && carrier == carrierCode
+        );
+
+        dispatch(setSelectedCarriers({ selectedCarriers, isCombination: isCombination }));
+      }
+  
+      
+    
+
     setSelectedAirlines(updatedSelectedAirlines);  
-    dispatch(setSelectedCarriers({ selectedCarriers: updatedSelectedAirlines, isCombination :isCombination,isChecked :isChecked }));
+    //dispatch(setSelectedCarriers({ selectedCarriers: updatedSelectedAirlines, isCombination :isCombination,isChecked :isChecked }));
    
   };
 
