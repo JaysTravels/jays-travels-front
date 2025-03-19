@@ -919,19 +919,31 @@ const FlightConfirmation = () => {
                                   height={240}
                                   className="img-fluid"
                                 />
+                                  <div>
+                              {selectedFlight?.itineraries?.[index]?.segments[flightIndex]?.number && (
+                                      <p className="destination-date mb-0">
+                                        Flight No. : {selectedFlight?.itineraries?.[index]?.segments[flightIndex]?.number}
+                                      </p>
+                                    )}
+                                     {selectedFlight?.itineraries?.[index]?.segments[flightIndex]?.cabinClass && (
+                                      <p className="destination-date mb-0">
+                                        Cabin : {getCabinClassName(selectedFlight?.itineraries?.[index]?.segments[flightIndex]?.cabinClass)}
+                                      </p>
+                                    )}
+                                    </div>
                               </div>
                               <div className="flight_confirmation_box_image_name">
                                 <span>{flight.marketingCompanyName}</span>
                               </div>
                             </Col>
-                            <Col md={6}>
+                            <Col md={7}>
                               <div className="airport-part">
                                 <div className="airport-name">
                                   <h6 className="outbound-origion-h4">{flight.fromAirport}</h6>
-                                  <span className="origion-date">{removeSeconds(flight.departureTime)}</span>
-                                  <p className="origion-date">{formatDateToCustomFormat(flight.departureDate)}</p>
+                                  <span className="origion-date">{removeSeconds(flight.departureTime)} {formatDateToCustomFormat(flight.departureDate)}</span>
+                                  {/* <p className="origion-date">{formatDateToCustomFormat(flight.departureDate)}</p> */}
                                   {selectedFlight?.itineraries?.[index]?.segments?.[flightIndex]?.departure?.terminal && (
-                                          <p className="destination-date">
+                                          <p className="origion-date">
                                             terminal: {selectedFlight.itineraries[index].segments[flightIndex].departure.terminal}
                                           </p>
                                         )}
@@ -942,16 +954,7 @@ const FlightConfirmation = () => {
                                     { getdeptarrTimeDiffrence(flight.departureDate,flight.departureTime,flight.arrivalDate,flight.arrivalTime)}                          
                                     </p>
                                    
-                            {selectedFlight?.itineraries?.[index]?.segments[flightIndex]?.number && (
-                                      <p className="destination-date">
-                                        Flight No. : {selectedFlight?.itineraries?.[index]?.segments[flightIndex]?.number}
-                                      </p>
-                                    )}
-                                     {selectedFlight?.itineraries?.[index]?.segments[flightIndex]?.cabinClass && (
-                                      <p className="destination-date">
-                                        Cabin : {getCabinClassName(selectedFlight?.itineraries?.[index]?.segments[flightIndex]?.cabinClass)}
-                                      </p>
-                                    )}
+                         
                          {selectedFlight?.itineraries?.[index]?.segments?.length > 1 && (() => {
                             const layoverTimes = getLayoverTime(selectedFlight?.itineraries[index]).split(" | ");
                             return layoverTimes[flightIndex] !== undefined ? (
@@ -964,8 +967,8 @@ const FlightConfirmation = () => {
                                 </div>
                                 <div className="airport-name arrival">
                                   <h6 className="outbound-destination-h4">{flight.toAirport}</h6>
-                                  <span className="destination-date">{removeSeconds(flight.arrivalTime)}</span>
-                                  <p className="destination-date">{formatDateToCustomFormat(flight.arrivalDate)}</p>
+                                  <span className="destination-date">{removeSeconds(flight.arrivalTime)} {formatDateToCustomFormat(flight.arrivalDate)}</span>
+                                  {/* <p className="destination-date">{formatDateToCustomFormat(flight.arrivalDate)}</p> */}
                                  
                                   {selectedFlight?.itineraries?.[index]?.segments?.[flightIndex]?.arrival?.terminal && (
                                           <p className="destination-date">
