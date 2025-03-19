@@ -55,6 +55,31 @@ const formatDateToCustomFormat_old = (dateString) => {
   }
   return null; // Return null if dateString is null
 };
+
+function formatTimeString(time) {
+  if (!time) return ""; // Handle empty or undefined values
+
+  let hours, minutes;
+
+  if (time.includes(":")) {
+    // Format: "08:55"
+    [hours, minutes] = time.split(":");
+  } else if (time.length === 4) {
+    // Format: "0855"
+    hours = time.slice(0, 2);
+    minutes = time.slice(2, 4);
+  } else {
+    return ""; // Handle incorrect formats
+  }
+
+  return `${hours} hours , ${minutes} minutes`;
+}
+function formatTime(time) {
+  if (!time) return ""; // Handle empty or undefined values
+
+  const [hours, minutes] = time.split(":");
+  return `${hours} h : ${minutes} m`;
+}
 const formatDateToCustomFormat = (dateString) => {
   
   if (dateString != null) {
@@ -323,6 +348,7 @@ const FlightConfirmation = () => {
   );
   const selectedFlight = useSelector((state) => state.flights.selectedFlight);
   const [loading, setLoading] = useState(false);
+  const [showlayover, setshowlayover] = useState(false);
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -888,11 +914,12 @@ const FlightConfirmation = () => {
                         </div>
                         <div className="col-sm-6 col-md-6">  {/* Aligning to the right */}
                             <p className="mb-0 journey-time">
-                              Total journey time {getTotalJourneyTime(selectedFlight.itineraries[index])}
+                              {/* Total journey time {getTotalJourneyTime(selectedFlight.itineraries[index])} */}
                             </p>
 
                             <p className="mb-0 journey-time">
-                               { selectedFlight?.itineraries[index]?.segments?.length > 1 ? "Flying time: " + getTotalFlyingTime(selectedFlight?.itineraries[index]) : ""} 
+                               {/* { selectedFlight?.itineraries[index]?.segments?.length > 1 ? "Flying time: " + getTotalFlyingTime(selectedFlight?.itineraries[index]) : ""}  */}
+                               { selectedFlight?.itineraries[index]?.duration != null ? "Flying time: " + formatTime(selectedFlight?.itineraries[index]?.duration) : ""}
                             </p>
 
                            
@@ -942,20 +969,25 @@ const FlightConfirmation = () => {
                                   <h6 className="outbound-origion-h4">{flight.fromAirport}</h6>
                                   <span className="origion-date">{removeSeconds(flight.departureTime)} {formatDateToCustomFormat(flight.departureDate)}</span>
                                   {/* <p className="origion-date">{formatDateToCustomFormat(flight.departureDate)}</p> */}
-                                  {selectedFlight?.itineraries?.[index]?.segments?.[flightIndex]?.departure?.terminal && (
+                                  {/* {selectedFlight?.itineraries?.[index]?.segments?.[flightIndex]?.departure?.terminal && (
                                           <p className="origion-date">
                                             terminal: {selectedFlight.itineraries[index].segments[flightIndex].departure.terminal}
                                           </p>
-                                        )}
+                                        )} */}
+
+                              <p className="origion-date">
+                              terminal: {selectedFlight?.itineraries?.[index]?.segments?.[flightIndex]?.departure?.terminal ?? "terminal:-"}
+                              </p>
                                 </div>
                                 <div className="airport-progress">
                                 <p className="mb-0 origion-destination-heading">
                                    
-                                    { getdeptarrTimeDiffrence(flight.departureDate,flight.departureTime,flight.arrivalDate,flight.arrivalTime)}                          
+                                    {/* { getdeptarrTimeDiffrence(flight.departureDate,flight.departureTime,flight.arrivalDate,flight.arrivalTime)}                           */}
+                                  {formatTimeString(selectedFlight?.itineraries?.[index]?.segments?.[flightIndex]?.duration)}                          
                                     </p>
                                    
                          
-                         {selectedFlight?.itineraries?.[index]?.segments?.length > 1 && (() => {
+                         {showlayover && selectedFlight?.itineraries?.[index]?.segments?.length > 1 && (() => {
                             const layoverTimes = getLayoverTime(selectedFlight?.itineraries[index]).split(" | ");
                             return layoverTimes[flightIndex] !== undefined ? (
                               <p className="mb-0 layover-time">
