@@ -348,7 +348,7 @@ const FlightConfirmation = () => {
   );
   const selectedFlight = useSelector((state) => state.flights.selectedFlight);
   const [loading, setLoading] = useState(false);
-  const [showlayover, setshowlayover] = useState(false);
+  const [showlayover, setshowlayover] = useState(true);
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
