@@ -348,7 +348,6 @@ const FlightConfirmation = () => {
   );
   const selectedFlight = useSelector((state) => state.flights.selectedFlight);
   const [loading, setLoading] = useState(false);
-  const [showlayover, setshowlayover] = useState(false);
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -987,7 +986,7 @@ const FlightConfirmation = () => {
                                     </p>
                                    
                          
-                         {showlayover && selectedFlight?.itineraries?.[index]?.segments?.length > 1 && (() => {
+                         {selectedFlight?.itineraries?.[index]?.segments?.length > 1 && (() => {
                             const layoverTimes = getLayoverTime(selectedFlight?.itineraries[index]).split(" | ");
                             return layoverTimes[flightIndex] !== undefined ? (
                               <p className="mb-0 layover-time">
