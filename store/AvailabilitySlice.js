@@ -223,7 +223,7 @@ export const submitFlightData = createAsyncThunk(
             
             // }           
     },setFlightsWithCombination(state, action) {
-     
+     //debugger;
       //const isDifferentCarrier = action.payload;    
       const { isSameCarrier, selectedCarriers } = action.payload;
       if (!isSameCarrier && selectedCarriers?.length == 0) {       
