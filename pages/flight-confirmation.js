@@ -98,8 +98,7 @@ const formatDateToCustomFormat = (dateString) => {
 };
 
 function getBaggageDetails(freeAllowance, quantityCode, unitQualifier) {
-  //debugger;
-  // Check if quantityCode indicates no baggage
+  
   if (quantityCode === "0") {
       return "No baggage allowance"; 
   }
@@ -130,7 +129,7 @@ function getdeptarrTimeDiffrence2(departureAt, arrivalAt) {
 }
 
 function getTotalFlyingTime(itinerary) {
- // debugger;
+
   try{
     let totalMinutes = 0;
 
@@ -141,11 +140,7 @@ function getTotalFlyingTime(itinerary) {
       totalMinutes += getdeptarrTimeDiffrence2(departureAt, arrivalAt);
     }
   
-    //const { departureDate, departureTime, arrivalDate, arrivalTime } = itinerary;
-    
-    //const totalMinutes = getdeptarrTimeDiffrence(departureDate, departureTime, arrivalDate, arrivalTime);
-  
-  
+ 
     if (totalMinutes === 0) return "Invalid itinerary";
   
     const hours = Math.floor(totalMinutes / 60);
@@ -174,7 +169,7 @@ function getdeptarrTimeDiffrence(departureDate, departureTime, arrivalDate, arri
 }
 
 function getFlyingTimeSingleItinerary(itinerary) {
-  //debugger;
+ 
   let totalMinutes = 0;
   
   itinerary.segments.forEach(segment => {
@@ -188,7 +183,7 @@ function getFlyingTimeSingleItinerary(itinerary) {
   return `${hours} hours ${minutes} minutes`;
 }
 function getFlyingTime(itineraries) {
-  //debugger;
+
   return itineraries.map(itinerary => {
       let totalMinutes = 0;
       
@@ -220,7 +215,7 @@ function getLayoverTime_old(itinerary) {
   return `${hours} h ${minutes} m`;
 }
 function getLayoverTime(itinerary) {
-  //debugger;
+  
   if (itinerary.segments.length < 2) return "";
 
   let layoverTimes = [];
@@ -243,19 +238,9 @@ function getLayoverTime(itinerary) {
   return layoverTimes.join(" | "); // Returns layover times for each stop
 }
 function getTotalJourneyTime(itinerary) {
-  //debugger;
+ 
   if (!itinerary?.segments || itinerary.segments.length === 0) return "0 hours 0 minutes";
   if (itinerary?.segments?.length < 2) return getFlyingTimeSingleItinerary(itinerary);
-    
-  //const firstSegment = itinerary.segments[0];
-  //const lastSegment = itinerary.segments[itinerary.segments.length - 1];
-  
-  //const departureTime = new Date(firstSegment.departure.at);
-  //const arrivalTime = new Date(lastSegment.arrival.at);
-  
-  // const totalMinutes = Math.floor((arrivalTime - departureTime) / (1000 * 60));
-  // const hours = Math.floor(totalMinutes / 60);
-  // const minutes = totalMinutes % 60;
 
    let totalMinutes = 0;
 
@@ -300,7 +285,7 @@ const formatDate = (date) => {
 let flight;
 
 function convertTimeFormat(timeString) {
-  //debugger;
+  
   if (!timeString || !timeString.includes(":")) {
     return "";
   }
@@ -566,7 +551,7 @@ const FlightConfirmation = () => {
     if (!isvalid) {
       return;
     }
-
+debugger;
     // Set Local Storage varaibles before sending to bank page
     if (BookingRefNo) {
       localStorage.setItem("BookingRefNo", BookingRefNo);
@@ -578,7 +563,12 @@ const FlightConfirmation = () => {
         (flight) => flight.id === airsellRequest.flightId
       );
     }
+    localStorage.setItem("flightRequest", JSON.stringify(flightRequest));
+    localStorage.setItem("flightResults", JSON.stringify(flightResults));
+    localStorage.setItem("airsellRequest", JSON.stringify(airsellRequest));
+    localStorage.setItem("airsellResults", JSON.stringify(airsellResults));
     localStorage.setItem("selectedFlight", JSON.stringify(flight));
+    
 
     // End of Set Local Storage Variable before sending to bank page
     setLoading(true);
@@ -586,7 +576,8 @@ const FlightConfirmation = () => {
     let session = getSession();
     session.sequenceNumber = session.sequenceNumber + 1;
     const pnrMultirequest = CreatePnrMultiRequest(formData, session, flight);
-
+    localStorage.setItem("pnrMultirequest", JSON.stringify(pnrMultirequest));
+    localStorage.setItem("passengerDetails", JSON.stringify(pnrMultirequest.passengerDetails));
     try {
       dispatch(setPassengerDetails(pnrMultirequest.passengerDetails));
     } catch (error) {
@@ -602,91 +593,93 @@ const FlightConfirmation = () => {
 
 
     //flightRequest
-    let session2 = getSession();
-    session2.sequenceNumber = session2.sequenceNumber + 2;
-    const fopRequest = CreateFopRequest(session2);
-    const FopRequest = {
-      sessionDetails: fopRequest.sessionDetails,
-      transactionDetailsCode: fopRequest.transactionDetailsCode,
-      fopCode: fopRequest.fopCode,
-    };
+    // let session2 = getSession();
+    // session2.sequenceNumber = session2.sequenceNumber + 2;
+    // const fopRequest = CreateFopRequest(session2);
+    // const FopRequest = {
+    //   sessionDetails: fopRequest.sessionDetails,
+    //   transactionDetailsCode: fopRequest.transactionDetailsCode,
+    //   fopCode: fopRequest.fopCode,
+    // };
 
-    let session3 = getSession();
-    session3.sequenceNumber = session3.sequenceNumber + 3;
-    const carrierCode =
-      airsellResults?.data?.airSellResponse[0]?.flightDetails[0]
-        ?.marketingCompany;
-    const farePriceRequest = CreateFarePricePnrRequest(carrierCode, session3);
-    const pricePnrRequest = {
-      sessionDetails: farePriceRequest.sessionDetails,
-      pricingOptionKey: farePriceRequest.pricingOptionKey,
-      carrierCode: carrierCode,
-    };
-    let session4 = getSession();
-    session4.sequenceNumber = session4.sequenceNumber + 4;
-    const tstRequest = CreateTstRequest(session4);
-    const ticketTstRequest = {
-      sessionDetails: tstRequest.sessionDetails,
-      adults: tstRequest.adults,
-      children: tstRequest.children,
-      infants: tstRequest.infants,
-    };
-    let session5 = getSession();
-    session5.sequenceNumber = session5.sequenceNumber + 5;
-    const commitPnrRequest = CreateCommitPnrRequest(session5);
-   // debugger;
-    let passenger = addPnrMultiRequset.passengerDetails?.find(
-      (p) => p.isLeadPassenger === true
-    );
-    const pnrCommitRequest = {
-      sessionDetails: commitPnrRequest.sessionDetails,
-      optionCode1: commitPnrRequest.optionCode1,
-      optionCode2: commitPnrRequest.optionCode2,
-      TotalAmount: selectedFlight?.price?.total,
-      FirstName: passenger.firstName,
-      LastName: passenger.surName,
-      BookingRef: BookingRefNo,
-    };
+    // let session3 = getSession();
+    // session3.sequenceNumber = session3.sequenceNumber + 3;
+    // const carrierCode =
+    //   airsellResults?.data?.airSellResponse[0]?.flightDetails[0]
+    //     ?.marketingCompany;
+    // const farePriceRequest = CreateFarePricePnrRequest(carrierCode, session3);
+    // const pricePnrRequest = {
+    //   sessionDetails: farePriceRequest.sessionDetails,
+    //   pricingOptionKey: farePriceRequest.pricingOptionKey,
+    //   carrierCode: carrierCode,
+    // };
+    // let session4 = getSession();
+    // session4.sequenceNumber = session4.sequenceNumber + 4;
+    // const tstRequest = CreateTstRequest(session4);
+    // const ticketTstRequest = {
+    //   sessionDetails: tstRequest.sessionDetails,
+    //   adults: tstRequest.adults,
+    //   children: tstRequest.children,
+    //   infants: tstRequest.infants,
+    // };
+  //   let session5 = getSession();
+  //   session5.sequenceNumber = session5.sequenceNumber + 5;
+  //   const commitPnrRequest = CreateCommitPnrRequest(session5);
+  //  // debugger;
+    //  let passenger = addPnrMultiRequset.passengerDetails?.find(
+    //    (p) => p.isLeadPassenger === true
+    //  );
+    // const pnrCommitRequest = {
+    //   sessionDetails: commitPnrRequest.sessionDetails,
+    //   optionCode1: commitPnrRequest.optionCode1,
+    //   optionCode2: commitPnrRequest.optionCode2,
+    //   TotalAmount: selectedFlight?.price?.total,
+    //   FirstName: passenger.firstName,
+    //   LastName: passenger.surName,
+    //   BookingRef: BookingRefNo,
+    // };
     try {
       // Dispatch first API call
-      //debugger;
-      const pnrMulti = await dispatch(PNR_Multi(addPnrMultiRequset));
-      //debugger;
-      console.log('PNR_Multi dispatched successfully.');
-      if (pnrMulti?.payload?.isSuccessful === false) {
-        setApiResponse(pnrMulti?.data?.error);
-        alert("No Fare Avaialble Please go back to flights results page and select another... " + pnrMulti?.data?.error);
-        router.push("/search-result");
-        return;
-      }
+     
+      //const pnrMulti = await dispatch(PNR_Multi(addPnrMultiRequset));
+      
+      // console.log('PNR_Multi dispatched successfully.');
+      // if (pnrMulti?.payload?.isSuccessful === false) {
+      //   setApiResponse(pnrMulti?.data?.error);
+      //   alert("No Fare Avaialble Please go back to flights results page and select another... " + pnrMulti?.data?.error);
+      //   router.push("/search-result");
+      //   return;
+      // }
       // Dispatch second API call
-      await dispatch(Create_Fop(FopRequest));
-      console.log("Create_Fop dispatched successfully.");
-      if (Create_Fop_Error != null) {
-        setApiResponse(Create_Fop_Error);
-        return;
-      }
+      // await dispatch(Create_Fop(FopRequest));
+      // console.log("Create_Fop dispatched successfully.");
+      // if (Create_Fop_Error != null) {
+      //   setApiResponse(Create_Fop_Error);
+      //   return;
+      // }
       // Dispatch third API call
-      await dispatch(Fare_Price_Pnr(pricePnrRequest));
-      console.log("Fare_Price_Pnr dispatched successfully.");
-      if (Fare_Price_Pnr_Error != null) {
-        setApiResponse(Fare_Price_Pnr_Error);
-        return;
-      }
+      // await dispatch(Fare_Price_Pnr(pricePnrRequest));
+      // console.log("Fare_Price_Pnr dispatched successfully.");
+      // if (Fare_Price_Pnr_Error != null) {
+      //   setApiResponse(Fare_Price_Pnr_Error);
+      //   return;
+      // }
 
       // Dispatch fourth API call
-      await dispatch(Create_Tst(ticketTstRequest));
-      console.log("Create_Tst dispatched successfully.");
-      if (Create_Tst_Error != null) {
-        setApiResponse(Create_Tst_Error);
-        return;
-      }
+      // await dispatch(Create_Tst(ticketTstRequest));
+      // console.log("Create_Tst dispatched successfully.");
+      // if (Create_Tst_Error != null) {
+      //   setApiResponse(Create_Tst_Error);
+      //   return;
+      // }
       // For sending email to admin relted to selected custoemr fare
 
-      let sessionemail = getSession();
-      if (sessionemail != null) {
+       let sessionemail = getSession();
+       if (sessionemail != null) {
         const SelectedFlightEmailRequest = {
+          passengerInfo :addPnrMultiRequset.passengerDetails,
           SessionId: session.sessionId,
+          selectedFlightOffer: JSON.stringify(flight),
         }
 
         const result = dispatch(PASSENGER_SELECTED_FLIGHT_EMAIL(SelectedFlightEmailRequest)).unwrap();
@@ -694,21 +687,22 @@ const FlightConfirmation = () => {
           console.log("Passeger Selected Flight Email Sent success");
         }
       }
+  
       // Dispatch fifth API call
-      const result2 = await dispatch(Commit_Pnr(pnrCommitRequest)).unwrap();
-      //debugger;
-      if (result2?.isSuccessful === false) {
-        setApiResponse(result2?.data?.error);
-        alert("Error while generate pnr " + result2?.data?.error);
-        router.push("/pnrfailed");
-        return;
-      } else {
-        if (result2?.data != null) {
-          localStorage.setItem(
-            "PNR_Number",
-            result2?.data?.session?.reservation?.pnr
-          );
-        }
+     // const result2 = await dispatch(Commit_Pnr(pnrCommitRequest)).unwrap();
+      
+      // if (result2?.isSuccessful === false) {
+      //   setApiResponse(result2?.data?.error);
+      //   alert("Error while generate pnr " + result2?.data?.error);
+      //   router.push("/pnrfailed");
+      //   return;
+      // } else {
+      //   if (result2?.data != null) {
+      //     localStorage.setItem(
+      //       "PNR_Number",
+      //       result2?.data?.session?.reservation?.pnr
+      //     );
+      //   }
         const data = paymentPageData;
         if (data && data.url && data.parameters) {
          // debugger;
@@ -728,7 +722,7 @@ const FlightConfirmation = () => {
           document.body.appendChild(form);
           form.submit();
         }
-      }
+     // }
 
       //  router.push("/confirmation");
     } catch (err) {
@@ -799,6 +793,7 @@ const FlightConfirmation = () => {
           number: index + 1,
           email: adult.email,
           phone: adult.phone,
+          PassengerType : "ADT"
         });
       }
       else {
@@ -810,6 +805,7 @@ const FlightConfirmation = () => {
           isLeadPassenger: false, // First adult as lead passenger
           number: index + 1,
           email: '',
+          PassengerType : "ADT"
         });
       }
     });
@@ -822,6 +818,7 @@ const FlightConfirmation = () => {
         dob: formatDate(child.dob), //child.dob,
         number: formData.adults.length + index + 1,
         email: "",
+        PassengerType : "CHD"
       });
     });
 
@@ -833,6 +830,7 @@ const FlightConfirmation = () => {
         dob: formatDate(infant.dob),//infant.dob,          
         number: formData.adults.length + formData.children.length + index + 1,
         email: "",
+        PassengerType : "INF"
       });
     });
     const pnrmultirequest = {
