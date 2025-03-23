@@ -10,6 +10,21 @@ export default function PaymentPage() {
     const router = useRouter();
     const data = useSelector((state) => state.payments?.payment_response);
     const dispatch = useDispatch();
+    const flightResults = useSelector((state) => state.flights.response);
+    const flightRequest = useSelector((state) => state.flights.flights);
+    const airsellResults = useSelector((state) => state.airsell.response);
+    const airsellRequest = useSelector((state) => state.airsell.airSellRequest);
+    const PNR_Multi_Error = useSelector((state) => state.generatePnr.PNR_Multi_Error);
+    const Create_Fop_Error = useSelector((state) => state.generatePnr.Create_Fop_Error);
+    const Fare_Price_Pnr_Error = useSelector((state) => state.generatePnr.Fare_Price_Pnr_Error);
+    const Create_Tst_Error = useSelector((state) => state.generatePnr.Create_Tst_Error);
+    const Commit_Pnr_Error = useSelector((state) => state.generatePnr.CommitPnrError);
+    const paymentPageError = useSelector((state) => state.payments?.payment_Error);
+    const paymentPageData = useSelector((state) => state.payments?.payment_response);
+   const BookingRefNo = useSelector((state) => state.payments?.payment_response?.bookingRefNo);
+    const PassengerDetails = useSelector((state) => state.generatePnr.PassengerDetails);
+    const selectedFlight = useSelector((state) => state.flights.selectedFlight);
+    
    
     const initiatePayment = async () => {
         //debugger;

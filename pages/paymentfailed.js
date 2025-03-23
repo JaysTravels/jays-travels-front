@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useSearchParams } from 'next/navigation';
 import logo from "@/public/images/logo.png";
 import topLogo from "@/public/images/top-logo.png";
 import bookingSuccess from "@/public/images/booking-success.jpg";
@@ -9,66 +10,326 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { Col, Row } from "reactstrap";
 import { UPDATE_PAYMENT_STATUS } from "@/store/CreatePnrSlice";
-
+import {
+  setPassengerDetails,
+  setPnrMulti,
+  PNR_Multi,
+  Create_Fop,
+  Fare_Price_Pnr,
+  Create_Tst,
+  Commit_Pnr,
+} from "@/store/CreatePnrSlice";
 const Confirmation = () => {
   //debugger;
   const currSign = "£";
   const router = useRouter();
   const dispatch = useDispatch();
-  const flightResults = useSelector((state) => state.flights.response);
-  //const flightRequest = useSelector((state) => state.flights.flights);
-  const airsellResults = useSelector((state) => state.airsell.response);
-  const airsellRequest = useSelector((state) => state.airsell.airSellRequest);
-  const pnrResponse = useSelector((state) => state.generatePnr.CommitPnrResponse); ``
-  const Commit_Pnr_Error = useSelector((state)=> state.generatePnr.CommitPnrError); 
-``
-  const [BookingRefNo, setBookingRefNo] = useState("");
+   const searchParams = useSearchParams();
+   const pnrResponse = useSelector((state) => state.generatePnr.CommitPnrResponse);
+   const Commit_Pnr_Error = useSelector((state) => state.generatePnr.CommitPnrError);
   const [selectedFlight, setselectedFlight] = useState(null);
-  const [PassengerDetails, setPassengerDetails] = useState(null);
+  const [PassengerDetails, setPassengerDetails] = useState(null); 
   const [PNR_Number, setPNR_Number] = useState(null);
+  const [BookingRefNo, setBookingRefNo] = useState(null);
+  const [flightResults, setflightResults] = useState(null);
   const [flightRequest, setflightRequest] = useState(null);
-  const [payment,setPaymentUpdate] = useState(false);
+  const [airsellRequest, setairsellRequest] = useState(null);
+  const [airsellResults, setairsellResults] = useState(null);
+  const [payment, setPaymentUpdate] = useState(false);
+  const PNR_Multi_Error = useSelector((state) => state.generatePnr.PNR_Multi_Error);
+  const Create_Fop_Error = useSelector((state) => state.generatePnr.Create_Fop_Error);
+  const Fare_Price_Pnr_Error = useSelector((state) => state.generatePnr.Fare_Price_Pnr_Error);
+  const Create_Tst_Error = useSelector((state) => state.generatePnr.Create_Tst_Error);   
+  const paymentPageError = useSelector((state) => state.payments?.payment_Error);
+  const paymentPageData = useSelector((state) => state.payments?.payment_response); 
+  const [ApiResponse, setApiResponse] = useState("");
+  const authorizationCode = searchParams.get('AUTHORIZATION');
+  const orderID = searchParams.get('orderID');
+  const currency = searchParams.get('currency');
+  const amount = searchParams.get('amount');
+  const PM = searchParams.get('PM');
+  const ACCEPTANCE = searchParams.get('ACCEPTANCE');
+  const STATUS = searchParams.get('STATUS');
+  const CARDNO = searchParams.get('CARDNO');
+  const ED = searchParams.get('ED');
+  const CN = searchParams.get('CN');
+  const TRXDATE = searchParams.get('TRXDATE');
+  const PAYID = searchParams.get('PAYID');
+  const NCERROR = searchParams.get('NCERROR');
+  const BRAND = searchParams.get('BRAND');
+  const IPCTY = searchParams.get('IPCTY');
+  const IP = searchParams.get('IP');
+
   useEffect(() => {
-    // debugger;
-     const savedBookingRefNo = localStorage.getItem("BookingRefNo");
-     setBookingRefNo(savedBookingRefNo || null);
+   // debugger;
+    const hasQueryParams = router.asPath.includes("?"); 
+   const isSearchParamsEmpty = !searchParams || searchParams.toString() === "";  
+
+   if (hasQueryParams && isSearchParamsEmpty) {
+     console.log("Query params expected but not available yet. Returning...");
+     return;
+   }
+   let airsellRequest ;
+   airsellRequest = JSON.parse(localStorage.getItem("airsellRequest"));      
+   setairsellRequest(airsellRequest);
+   let airsellResults = JSON.parse(localStorage.getItem("airsellResults"));
+   setairsellResults(airsellResults);
+   let flightRequest = JSON.parse(localStorage.getItem("flightRequest"))
+   setflightRequest(flightRequest);
+   let flightResults = JSON.parse(localStorage.getItem("flightResults"));
+   setflightResults(flightResults);
+   let selectedFlight =JSON.parse(localStorage.getItem("selectedFlight"));
+   setselectedFlight(selectedFlight);
+   let passengerDetails = JSON.parse(localStorage.getItem("passengerDetails"));
+   setPassengerDetails(passengerDetails);
+   let BookingRefNo = localStorage.getItem("BookingRefNo");
+   setBookingRefNo(BookingRefNo);
+
+    const handleApiCalls = async () => {
+     // debugger;
+      let flight;
+      flight = JSON.parse(localStorage.getItem("selectedFlight"));
+    
+    let session =  getSession();
+   session.sequenceNumber = session.sequenceNumber + 1;
+ //  const pnrMultirequest = localStorage.getItem("pnrMultirequest");
+   const pnrMultirequest = JSON.parse(localStorage.getItem("pnrMultirequest"));
+  // const pnrMultirequest = CreatePnrMultiRequest(formData, session, flight);
+
+    try {
+     dispatch(setPassengerDetails(pnrMultirequest.passengerDetails));
+    } catch (error) {
+      console.error("Error calling setPassengerDetails:", error.message);
+    }
+
+    const addPnrMultiRequset = {
+      sessionDetails: pnrMultirequest.sessionDetails,
+      passengerDetails: pnrMultirequest.passengerDetails,
+      selectedFlightOffer: JSON.stringify(flight),
+    }
+    // localStorage.setItem("PassengerDetails", JSON.stringify(addPnrMultiRequset.passengerDetails));
+    // localStorage.setItem("flightRequest", JSON.stringify(flightRequest));
+
+    let session2 = getSession();
+    session2.sequenceNumber = session2.sequenceNumber + 2;
+    const fopRequest = CreateFopRequest(session2);
+    const FopRequest = {
+      sessionDetails: fopRequest.sessionDetails,
+      transactionDetailsCode: fopRequest.transactionDetailsCode,
+      fopCode: fopRequest.fopCode,
+    };
+
+    let session3 = getSession();
+    session3.sequenceNumber = session3.sequenceNumber + 3;
+    const carrierCode =
+      airsellResults?.data?.airSellResponse[0]?.flightDetails[0]
+        ?.marketingCompany;
+    const farePriceRequest = CreateFarePricePnrRequest(carrierCode, session3);
+    const pricePnrRequest = {
+      sessionDetails: farePriceRequest.sessionDetails,
+      pricingOptionKey: farePriceRequest.pricingOptionKey,
+      carrierCode: carrierCode,
+    };
+    let session4 = getSession();
+    session4.sequenceNumber = session4.sequenceNumber + 4;
+    const tstRequest = CreateTstRequest(session4);
+    const ticketTstRequest = {
+      sessionDetails: tstRequest.sessionDetails,
+      adults: tstRequest.adults,
+      children: tstRequest.children,
+      infants: tstRequest.infants,
+    };
+    let session5 = getSession();
+    session5.sequenceNumber = session5.sequenceNumber + 5;
+    const commitPnrRequest = CreateCommitPnrRequest(session5);
+    let passenger = addPnrMultiRequset.passengerDetails?.find(
+      (p) => p.isLeadPassenger === true
+    );
+
+    const pnrCommitRequest = {
+      sessionDetails: commitPnrRequest.sessionDetails,
+      optionCode1: commitPnrRequest.optionCode1,
+      optionCode2: commitPnrRequest.optionCode2,
+      TotalAmount: selectedFlight?.price?.total,
+      FirstName: passenger.firstName,
+      LastName: passenger.surName,
+      BookingRef: BookingRefNo,
+    };
+try{
+
+  // Dispatch first API call
+      //debugger;
+      const pnrMulti = await dispatch(PNR_Multi(addPnrMultiRequset));
+      //debugger;
+      console.log('PNR_Multi dispatched successfully.');
+      if (pnrMulti?.payload?.isSuccessful === false) {
+        setApiResponse(pnrMulti?.data?.error);
+      //  alert("No Fare Avaialble Please go back to flights results page and select another... " + pnrMulti?.data?.error);
+      //  router.push("/search-result");
+        return;
+      }
+      // Dispatch second API call
+      await dispatch(Create_Fop(FopRequest));
+      console.log("Create_Fop dispatched successfully.");
+      if (Create_Fop_Error != null) {
+        setApiResponse(Create_Fop_Error);
+       // return;
+      }
+      // Dispatch third API call
+      await dispatch(Fare_Price_Pnr(pricePnrRequest));
+      console.log("Fare_Price_Pnr dispatched successfully.");
+      if (Fare_Price_Pnr_Error != null) {
+        setApiResponse(Fare_Price_Pnr_Error);
+       // return;
+      }
+
+      // Dispatch fourth API call
+      await dispatch(Create_Tst(ticketTstRequest));
+      console.log("Create_Tst dispatched successfully.");
+      if (Create_Tst_Error != null) {
+        setApiResponse(Create_Tst_Error);
+        //return;
+      }
+
+       // Dispatch fifth API call
+       const result2 = await dispatch(Commit_Pnr(pnrCommitRequest)).unwrap();
+       if (result2?.isSuccessful === false) {
+        setApiResponse(result2?.data?.error);
+       // alert("Error while generate pnr " + result2?.data?.error);
+       // router.push("/pnrfailed");
+       // return;
+      }
+      else{
+        if (result2?.data != null) {
+          localStorage.setItem("PNR_Number",result2?.data?.session?.reservation?.pnr);
+          setPNR_Number(result2?.data?.session?.reservation?.pnr);
+        }
+      }
+
+} catch (err) {
+  console.error("An error occurred:", err);
+ // setError("An error occurred while processing the requests.");
+} finally {
+ // setLoading(false);
+}
+      try {
+        const UpdatePaymentStatusRequest = {
+        SessionId: session.sessionId,
+        PaymentStatus: "Failed",
+        AuthorizationCode : authorizationCode,
+        OrderID : orderID,
+        PaymentMethod :PM ,
+        Acceptance : ACCEPTANCE,
+        Status : STATUS ,
+        CardNo : CARDNO ,
+        ExpiryDate : ED ,
+        CardHolderName : CN,
+        TrxDate : TRXDATE ,
+        PayId : PAYID ,
+        NcError : NCERROR ,
+        Brand : BRAND  ,
+        Currency : currency,
+        IpCity : IPCTY,
+        IP : IP
+        }
+        setPaymentUpdate(true);
+        const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();      
+        if(result?.isSuccessful === true){
+        setPaymentUpdate(true);
+        }    
+      
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+      if (typeof window !== "undefined") {
+        localStorage.clear();      
+      }
+      const newUrl = window.location.pathname;
+      window.history.replaceState(null, '', newUrl);
+    };
+
+    function CreateFopRequest(session) {
+      const foprequest = {
+        sessionDetails: session,
+        transactionDetailsCode: "FP",
+        fopCode: "CASH",
+      };
+      return foprequest;
+    }
+  
+    function CreateFarePricePnrRequest(_carrierCode, session) {
+      const farepricerequest = {
+        sessionDetails: session,
+        pricingOptionKey: "RP,RU",
+        carrierCode: _carrierCode,
+      };
+      return farepricerequest;
+    }
+  
+    function CreateTstRequest(session) {
+      let flightRequest = JSON.parse(localStorage.getItem("flightRequest"));
+      const createtstrequest = {
+        sessionDetails: session,
+        adults: flightRequest.adults,
+        children: flightRequest.children,
+        infants: flightRequest.infant,
+      };
+      return createtstrequest;
+    }
+  
+    function CreateCommitPnrRequest(session) {
+      const createcommitpnr = {
+        sessionDetails: session,
+        optionCode1: "10",
+        optionCode2: "30",
+      };
+      return createcommitpnr;
+    }
+
+    handleApiCalls();
+  }, [dispatch, router.query]); 
+
+  // useEffect(() => {
+  //   // debugger;
+  //    const savedBookingRefNo = localStorage.getItem("BookingRefNo");
+  //    setBookingRefNo(savedBookingRefNo || null);
  
-     const savedselectedFlight = localStorage.getItem("selectedFlight");
-     if(savedselectedFlight != null){
-       const jsonObjectSelectedFlight = JSON.parse(savedselectedFlight);
-       setselectedFlight(jsonObjectSelectedFlight || null);
-     }
+  //    const savedselectedFlight = localStorage.getItem("selectedFlight");
+  //    if(savedselectedFlight != null){
+  //      const jsonObjectSelectedFlight = JSON.parse(savedselectedFlight);
+  //      setselectedFlight(jsonObjectSelectedFlight || null);
+  //    }
    
-     const savedPassengerDetails = localStorage.getItem("PassengerDetails");
-     if(savedPassengerDetails != null){
-       const jsonObjectPassenger = JSON.parse(savedPassengerDetails);
-       setPassengerDetails(jsonObjectPassenger || null);
-     }   
-     const savedPNR_Number = localStorage.getItem("PNR_Number");
-     setPNR_Number(savedPNR_Number || null);
+  //    const savedPassengerDetails = localStorage.getItem("PassengerDetails");
+  //    if(savedPassengerDetails != null){
+  //      const jsonObjectPassenger = JSON.parse(savedPassengerDetails);
+  //      setPassengerDetails(jsonObjectPassenger || null);
+  //    }   
+  //    const savedPNR_Number = localStorage.getItem("PNR_Number");
+  //    setPNR_Number(savedPNR_Number || null);
  
-     const savedFlightRequeest = localStorage.getItem("flightRequest");
-     if(savedFlightRequeest != null){
-       const jsonObjectFlightReq = JSON.parse(savedFlightRequeest);
-       setflightRequest(jsonObjectFlightReq || null);
-     }
+  //    const savedFlightRequeest = localStorage.getItem("flightRequest");
+  //    if(savedFlightRequeest != null){
+  //      const jsonObjectFlightReq = JSON.parse(savedFlightRequeest);
+  //      setflightRequest(jsonObjectFlightReq || null);
+  //    }
  
-     let session = getSession();
-     if (payment === false)
-       {
-      //   debugger;
-       const UpdatePaymentStatusRequest = {
-         SessionId: session.sessionId,
-         PaymentStatus: "Success"
-       }
-       setPaymentUpdate(true);
-       const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();      
-       if(result?.isSuccessful === true){
-       setPaymentUpdate(true);
-       }    
-     }  
+  //    let session = getSession();
+  //    if (payment === false)
+  //      {
+  //     //   debugger;
+  //      const UpdatePaymentStatusRequest = {
+  //        SessionId: session.sessionId,
+  //        PaymentStatus: "Success"
+  //      }
+  //      setPaymentUpdate(true);
+  //      const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();      
+  //      if(result?.isSuccessful === true){
+  //      setPaymentUpdate(true);
+  //      }    
+  //    }  
  
-   }, [dispatch]);
+  //  }, [dispatch]);
  
    function getSession(){
     const storedSession = localStorage.getItem("session");

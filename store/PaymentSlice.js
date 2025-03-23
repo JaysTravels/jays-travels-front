@@ -46,7 +46,7 @@ const PaymentSlice = createSlice({
             state.status = 'loading';
           })
           .addCase(getPaymentPage.fulfilled, (state, action) => {
-           //debugger;
+          // debugger;
            if(action.payload.isSuccessful === false){
             state.status = 'failed';
             state.payment_response = action.payload.data.error;
