@@ -6,8 +6,11 @@ const nextConfig = {
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
+        fs: false,
         tls: false,
         net: false,
+        path: false,
+        child_process: false,
       };
     }
     return config;
