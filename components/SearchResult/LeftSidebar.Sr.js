@@ -193,7 +193,7 @@ const LeftSidebarSr = () =>  {
   };
 
   const handleCheckboxChange = (carrierCode, isChecked) => {
-    debugger;
+    
     setCheckedCarriers((prevState) => ({
       ...prevState,
       [carrierCode]: isChecked, 
