@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     // Generate a session ID if not already stored
-    debugger;
+    //
     let sessionId = localStorage.getItem("sessionId");
     if (!sessionId) {
         sessionId = uuidv4();
@@ -38,24 +38,34 @@ export default function App({ Component, pageProps }) {
                 }),
             });
         } catch (error) {
-          debugger;
+          
             console.error("Error tracking user:", error);
         }
     };
+    try{
+      trackUser();
+      const interval = setInterval(trackUser, 60000); // Update every 60 sec
+  
+      return () => clearInterval(interval);
+  
+    }catch(error)
+    {
+      console.error("Error tracking user:", error);
+    }
 
-    trackUser();
-    const interval = setInterval(trackUser, 60000); // Update every 60 sec
-
-    return () => clearInterval(interval);
-}, []);
+    }, []);
 
 useEffect(() => {
-  const cleanup = async () => {
+  try{
+    const cleanup = async () => {
       await fetch("/api/cleanup-users", { method: "POST" });
   };
-
   const interval = setInterval(cleanup, 10000); //300000 Run every 5 minutes
   return () => clearInterval(interval);
+  }
+  catch(error){
+    console.error("Error tracking user:", error);
+  }
 }, []);
 
   const getLayout = Component.getLayout || ((page) => page);
