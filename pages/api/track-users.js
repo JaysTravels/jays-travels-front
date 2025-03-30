@@ -21,7 +21,8 @@ export default async function handler(req, res) {
 
     res.status(200).json({ success: true });
   } catch (error) {
+    debugger;
     console.error("Error tracking user:", error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error });
   }
 }
