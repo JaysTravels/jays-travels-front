@@ -11,6 +11,7 @@ import enquiryReducer from '../store/enquirySlice';
 import insuranceReducer from '../store/InsuranceSlice';
 import getManualPaymentPageReducer from '../store/ManualPayment'
 import getDeeplink from '../store/deeplinkSlice'
+import ActiveUsers from '../store/ActiveUsersSlice'
 export const store = configureStore({
     reducer: {
         flights: flightsReducer,
@@ -21,7 +22,8 @@ export const store = configureStore({
         enquiry : enquiryReducer,
         manualpayment : getManualPaymentPageReducer,
         insurance : insuranceReducer,
-        deeplink : getDeeplink
+        deeplink : getDeeplink,
+        activeusers: ActiveUsers
       },
 })
 export default store;
