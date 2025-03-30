@@ -14,6 +14,6 @@ export default async function handler(req, res) {
         res.status(200).json({ success: true });
     } catch (error) {
         console.error("Error cleaning up users:", error);
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error });
     }
 }
