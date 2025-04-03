@@ -14,6 +14,7 @@ const Meta = (props) => {
         <meta name="description" content={props.description} />
 
         <title>{`${props.title}`}</title>
+        
       </Head>
     </>
   );

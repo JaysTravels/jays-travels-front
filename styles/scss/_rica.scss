@@ -12,7 +12,7 @@ li {
 p {
   font-size: 14px;
   line-height: 18px;
-  color: #bcbcbc;
+  color: #383838;
   letter-spacing: 0.03em;
 }
 
@@ -15051,7 +15051,8 @@ section,
 }
 .portfolio-section .grid .grid-item .cheapflightoffers {
   border-radius: 10px;
-    border: 1px solid #ff8103;
+    // border: 1px solid #ff8103;
+    border: 1px solid #00a2f7;
     position: relative;
     min-height: 200px;
 }
@@ -15059,10 +15060,15 @@ section,
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   cursor: pointer;
+  display: flex;
+  
+  padding: 10px 15px;
 }
 .portfolio-section .grid .grid-item .overlay .portfolio-text {
   margin-top: 10px;
   padding: 5px 10px;
+   border-top: 1px solid rgba(1, 183, 242, 0.23);
+   border-bottom: 1px solid rgba(1, 183, 242, 0.23);
 }
 .portfolio-section .grid .grid-item .overlay .portfolio-text h3 {
   font-weight: 600;

@@ -864,3 +864,35 @@ input, textarea, select { font-family:nunito !important; }
     margin-top: 14%;
     padding-top: 5px;
  }
+ .flight-price{
+  max-width: 40%;
+  display: inline-block;
+  float:inline-end !important;
+ }
+ .flgiht-title-destination{
+  display: inline-block;
+  align-self: center;
+  max-width: 70%;
+ }
+ .flight-price-pperson{
+  color: #00a2f7;
+  font-size: 9px;
+  margin-bottom: 0;
+  letter-spacing: 0.72px;
+  font-weight: 800;
+ }
+ .flight-price-total{
+  font-family: "NexaBlack", san-serif;
+    font-weight: 600;
+    color: #fb8303;
+    font-size: 25px;
+    margin-bottom: 0;
+    line-height: 1em;
+ }
+ .flight-dates-offers{
+  display: inline-block;
+  padding: 10% 8%;
+  padding-bottom: 0;
+    max-width: 50%;
+
+ }

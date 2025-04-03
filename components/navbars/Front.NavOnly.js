@@ -25,7 +25,10 @@ const FrontNavOnly = (props) => {
   return (
     <>
       <Nav className="mx-auto" navbar>
+      
       <NavItem>
+          <NavLink href="#">Flights</NavLink>
+        </NavItem><NavItem>
           <NavLink href="holidays">Holidays</NavLink>
         </NavItem>
         <NavItem>
