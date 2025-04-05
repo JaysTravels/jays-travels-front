@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { FaWhatsapp } from "react-icons/fa";
 import {
   Button,
   Col,
@@ -45,6 +46,14 @@ const FrontNavOnly = (props) => {
           Make Payment
           </NavLink>
         </NavItem>
+        <NavItem>
+  <NavLink href="https://wa.me/447912345678?text=Hi%20I%20need%20help%20with%20my%20booking"
+    target="_blank" rel="noopener noreferrer">
+    <FaWhatsapp className="me-1" />
+    WhatsApp Chat
+  </NavLink>
+</NavItem>
+
       </Nav>
     </>
   );
