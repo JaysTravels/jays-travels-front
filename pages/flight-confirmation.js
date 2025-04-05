@@ -793,6 +793,7 @@ debugger;
           number: index + 1,
           email: adult.email,
           phone: adult.phone,
+          PhoneNumber: adult.phone,
           PassengerType : "ADT"
         });
       }
