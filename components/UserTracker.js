@@ -53,7 +53,7 @@ export default function UserTracker() {
       }
     };
 
-    const interval = setInterval(cleanup, 300000);//300000 Run every 5 minutes
+    const interval = setInterval(cleanup, 60000);//60000 Run every 1 minutes
     return () => clearInterval(interval);
   }, [dispatch]);
 
