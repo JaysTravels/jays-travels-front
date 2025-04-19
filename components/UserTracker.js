@@ -31,7 +31,7 @@ export default function UserTracker() {
     };
 
     trackUser();
-    const interval = setInterval(trackUser, 120000); // Update every 120 sec
+    const interval = setInterval(trackUser, 60000); // Update every 60 sec
 
     return () => clearInterval(interval);
   }, [dispatch]);
