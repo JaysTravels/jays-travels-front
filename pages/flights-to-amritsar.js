@@ -47,7 +47,7 @@ const flightsToAmritsar = () => {
           </div>
           <div className="flight-price">
             <p className="flight-price-pperson">AVG/PERSON</p>
-            <p className="flight-price-total"><span className="flight-price-pperson">FR</span> £650</p>
+            <p className="flight-price-total"><span className="flight-price-pperson">FR</span> £570</p>
           </div>
         
           </div>
@@ -293,7 +293,7 @@ const flightsToAmritsar = () => {
           </div>
           <div className="flight-price">
             <p className="flight-price-pperson">AVG/PERSON</p>
-            <p className="flight-price-total"><span className="flight-price-pperson">FR</span> £690</p>
+            <p className="flight-price-total"><span className="flight-price-pperson">FR</span> £669</p>
           </div>
         
           </div>
