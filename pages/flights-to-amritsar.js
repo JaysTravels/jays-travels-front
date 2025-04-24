@@ -302,7 +302,7 @@ const flightsToAmritsar = () => {
           <div className="portfolio-text" style={{marginTop:'0'}}>
             <div className="flight-dates-offers">
               <h6>Outbound</h6>
-              <p>From 15<sup>th</sup>APR</p>
+              <p>From 15<sup>th</sup>APR</p> 
             </div>
             <div className="flight-dates-offers">
               <h6> Inbound</h6>
