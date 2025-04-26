@@ -34,6 +34,7 @@ import { useRouter } from "next/router";
   const [infants , setInfants] = useState(0);
   const [cabin,setCabin] = useState('economy');
   const [flightType , setFlightType] = useState('');
+  const [onewayFlight , setonewayFlight] = useState('N');
   const [selectedFlightClass, setSelectedFlightClass] = useState('economy');
   const [apiResponse,setApiResponse] = useState('');
   const [isVisible, setIsVisible] = useState(false);
@@ -81,7 +82,17 @@ import { useRouter } from "next/router";
       setFlightType('')
     }
   };
- 
+
+  const handleonewayFlight = (event) => {
+    
+    if(event.target.checked === true){
+      setonewayFlight('Y')
+    }
+    else {
+      setonewayFlight('N')
+    }
+  };
+ //
   const handleGuestsChange = (counts) => {
     setGuestCounts(counts);
   };
@@ -264,7 +275,12 @@ try {
    
  }
 //debugger;
-var flightData = { origin: deptAirport ,destination: arrivalAirport,  departureDate : datefrom , returnDate : dateTo , adults : adults , children : childs , infant : infants , cabinClass : cabinclass , flightType : flightType }
+let isOneWay = false;
+if(onewayFlight === 'Y'){
+  isOneWay = true;
+}
+
+var flightData = { origin: deptAirport ,destination: arrivalAirport,  departureDate : datefrom , returnDate : dateTo , adults : adults , children : childs , infant : infants , cabinClass : cabinclass , flightType : flightType , oneWay : isOneWay}
 try {
   
   dispatch(setFlights(flightData));
@@ -424,18 +440,30 @@ try {
           </Col>
           <Col lg={props.col2 || "4"} md={props.col2 || "4"}>
             {props.showLabel && <Label>return date</Label>}
-            <div className="inputGroup">
-              <DatePicker
+            {onewayFlight !== 'Y' && 
+              ( <div className="inputGroup">
+              {/* <DatePicker
                 className=" px12 form-control rounded-0"
                 selected={endDate}
                 onChange={(date) => { setEndDate(date); setApiResponse('');}}
                 minDate={startDate} 
                  dateFormat="dd/MM/yyyy"
-              />
+                 disabled={onewayFlight === 'Y'}
+              /> */}
+            
+                  <DatePicker
+                    className="px12 form-control rounded-0"
+                    selected={endDate}
+                    onChange={(date) => { setEndDate(date); setApiResponse(''); }}
+                    minDate={startDate}
+                    dateFormat="dd/MM/yyyy"
+                  />
+
+               
               <div className="icon">
                 <FontAwesomeIcon icon={faCalendar} />
               </div>
-            </div>
+            </div> )}
           </Col>
           <Col lg={props.col2 || "4"} md={props.col2 || "4"}>
             <div className="position-relative" >
@@ -466,6 +494,10 @@ try {
                   <Label check >
                     <Input onChange={handleFlightType} name="radio1" type="checkbox" checked={flightType === 'N'}/>{" "}
                     <span className="ms6">Direct Flights</span>
+                  </Label>
+                  <Label check >
+                    <Input onChange={handleonewayFlight} name="radio1" type="checkbox" checked={onewayFlight === 'Y'}/>{" "}
+                    <span className="ms6">One Way</span>
                   </Label>
                 </div>
               </Col>

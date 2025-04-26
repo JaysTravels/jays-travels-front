@@ -76,7 +76,7 @@ const FlightResultsSr = () => {
 
   }
   function getAirSellRequest(flight){
-   //debugger;
+   debugger;
     let totPassenger = flightRequest.adults + flightRequest.children;
     const travelProductInformationOutBound = flight.itineraries[0].segments.map((segment, index) => ({
       departureDate: convertToDateFormat(segment.departure.at),
@@ -94,39 +94,57 @@ const FlightResultsSr = () => {
      let flightData;
     if(flightRequest.oneWay === false){
 
-    const travelProductInformationInBound = flight.itineraries[1].segments.map((segment, index) => ({
-      departureDate: convertToDateFormat(segment.departure.at),
-      fromAirport: segment.departure.iataCode,
-      toAirport: segment.arrival.iataCode,
-      marketingCompany: segment.marketingCarrierCode,
-      flightNumber: segment.number,
-      bookingClass: segment.bookingClass,
-      relatedproductInformation: {
-        quantity: totPassenger,
-        statusCode: "NN",
-      },
-    }));
-
-    const flightData = {
-      flightId: flight.id,
-      messageFunction: "183",
-      additionalMessageFunction: "M1",
-      Outbound: {
-        origin: flightRequest.origin,
-        destination: flightRequest.destination,
-        segmentInformation: {
-          travelProductInformation: travelProductInformationOutBound,
+       travelProductInformationInBound = flight?.itineraries[1].segments.map((segment, index) => ({
+        departureDate: convertToDateFormat(segment.departure.at),
+        fromAirport: segment.departure.iataCode,
+        toAirport: segment.arrival.iataCode,
+        marketingCompany: segment.marketingCarrierCode,
+        flightNumber: segment.number,
+        bookingClass: segment.bookingClass,
+        relatedproductInformation: {
+          quantity: totPassenger,
+          statusCode: "NN",
         },
-      },
-      inBound: {
-        origin: flightRequest.destination,
-        destination: flightRequest.origin,
-        segmentInformation: {
-          travelProductInformation: travelProductInformationInBound,
-        },
-      },
-    };
+      }));
 
+      flightData = {
+        flightId: flight.id,
+        messageFunction: "183",
+        additionalMessageFunction: "M1",
+        Outbound: {
+          origin: flightRequest.origin,
+          destination: flightRequest.destination,
+          segmentInformation: {
+            travelProductInformation: travelProductInformationOutBound,
+          },
+        },
+        inBound: {
+          origin: flightRequest.destination,
+          destination: flightRequest.origin,
+          segmentInformation: {
+            travelProductInformation: travelProductInformationInBound,
+          },
+        },
+      };
+
+
+    }
+    else{
+
+      flightData = {
+        flightId: flight.id,
+        messageFunction: "183",
+        additionalMessageFunction: "M1",
+        Outbound: {
+          origin: flightRequest.origin,
+          destination: flightRequest.destination,
+          segmentInformation: {
+            travelProductInformation: travelProductInformationOutBound,
+          },
+        },        
+      };
+    }
+   
     return flightData;
   }
 
@@ -210,7 +228,7 @@ const FlightResultsSr = () => {
                           </p>
                         </Col>
                         <Col md={3} sm={6}>
-                          <p className="mb-0 title-3 origion-destination-heading">Return Flight</p>
+                          <p className="mb-0 title-3 origion-destination-heading">{flightRequest.oneWay === true ? "One Way Flight" : "Return Flight"}</p>
                         </Col>
                       </Row>
                     </div>
@@ -273,72 +291,75 @@ const FlightResultsSr = () => {
 
                             </div>
                           </div>
-                          <div className="inbound">
-                            <div className="title-3">
-                              <p className="outbound-indound-heading">
-                                <i className="fas fa-plane-arrival fs12"></i> Inbound Flight
-                              </p>
-                            </div>
-                            <div className="peLg30 mb-lg-0 mb15">
-                              <Row>
-                                <Col md={3}>
-                                  <div className="logo-sec">
-                                    <span className="flight_confirmation_box_image_name"> airline name {item?.itineraries[1]?.segments[0]?.marketingCarrierName}</span>
-                                    <Image src={`/images/airline-logo/${item?.itineraries[1]?.segments[0]?.marketingCarrierCode}.png`} alt={item?.itineraries[1]?.segments[0]?.marketingCarrierName}
-                                      width={340} height={240} className="img-fluid" title={item?.itineraries[1]?.segments[0]?.marketingCarrierName} />
-                                    <span className="avl-seats">{item?.avlStatus != null ? " Seats available " + item?.avlStatus : ""}</span>
-                                    <span className="baggage" >
-                                      baggage Free Allownce {item?.baggageDetails?.freeAllowance} {"  "}
-                                      quantity code {item?.baggageDetails?.quantityCode}
-                                    </span>
-                                  </div>
-                                  <div className="flight_confirmation_box_image_name">
-                                    <span>{item?.itineraries[1]?.segments[0]?.marketingCarrierName}</span>
-                                  </div>
-                                </Col>
-                                <Col md={9}>
-                                  <div className="airport-part">
-                                    <div className="airport-name">
-                                      <h4 className="inbound-origion-h4">{item?.itineraries[1]?.segments[0]?.departure?.iataCode}</h4>
-                                      <span className="inbound-origion-airport">{item?.itineraries[1]?.segments[0]?.departure?.iataName}</span>
-
-                                      <h6 className="pb10 origion-date">{formatDateToCustomFormat(item?.itineraries[1]?.segments[0].departure.at)}</h6>
-                                      <h4 className=" origion-date">{formatTime(item?.itineraries[1]?.segments[0].departure.at)}</h4>
-                                      <span className="baggage" >
-                                        baggage Free Allownce {item?.baggageDetails?.freeAllowance} {"  "}
-                                        quantity code {item?.baggageDetails?.quantityCode}
-                                      </span>
-                                      <span className="avl-seats" >{item?.avlStatus != null ? " Seats available " + item?.avlStatus : ""}</span>
-                                    </div>
-                                    <div className="airport-progress">
-                                      <i className="fas fa-plane-departure float-start"></i>
-                                      <i className="fas fa-plane-arrival float-end"></i>
-                                      <div className="stop">
-                                        {(item?.itineraries[1]?.segments[0]?.numberOfStops === 0
-                                          ? "Direct"
-                                          : item?.itineraries[1]?.segments[0]?.numberOfStops === 1
-                                            ? item?.itineraries[1]?.segments[0]?.numberOfStops + " stop"
-                                            : item?.itineraries[1]?.segments[0]?.numberOfStops + " stops")
-                                        }
-
-                                      </div>
-                                    </div>
-                                    <div className="airport-name arrival">
-                                      <h4 className="inbound-destination-h4">{item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length - 1]?.arrival?.iataCode}</h4>
-<span className="inbound-destination-airport">{item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length-1]?.arrival?.iataName}</span>
-                                      <h6 className="pb5 destination-date">{formatDateToCustomFormat(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length - 1]?.arrival?.at)}</h6>
-                                      <h4 className="destination-date">{formatTime(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length - 1]?.arrival?.at)}</h4>
-                                    </div>
-                                  </div>
-                                </Col>
-                                <Col md={3}></Col>
-                              </Row>
-                              {
-                        /**
-                         * */}
-
-                            </div>
-                          </div>
+                          {flightRequest.oneWay === false && (
+                             <div className="inbound">
+                             <div className="title-3">
+                               <p className="outbound-indound-heading">
+                                 <i className="fas fa-plane-arrival fs12"></i> Inbound Flight
+                               </p>
+                             </div>
+                             <div className="peLg30 mb-lg-0 mb15">
+                               <Row>
+                                 <Col md={3}>
+                                   <div className="logo-sec">
+                                     <span className="flight_confirmation_box_image_name"> airline name {item?.itineraries[1]?.segments[0]?.marketingCarrierName}</span>
+                                     <Image src={`/images/airline-logo/${item?.itineraries[1]?.segments[0]?.marketingCarrierCode}.png`} alt={item?.itineraries[1]?.segments[0]?.marketingCarrierName}
+                                       width={340} height={240} className="img-fluid" title={item?.itineraries[1]?.segments[0]?.marketingCarrierName} />
+                                     <span className="avl-seats">{item?.avlStatus != null ? " Seats available " + item?.avlStatus : ""}</span>
+                                     <span className="baggage" >
+                                       baggage Free Allownce {item?.baggageDetails?.freeAllowance} {"  "}
+                                       quantity code {item?.baggageDetails?.quantityCode}
+                                     </span>
+                                   </div>
+                                   <div className="flight_confirmation_box_image_name">
+                                     <span>{item?.itineraries[1]?.segments[0]?.marketingCarrierName}</span>
+                                   </div>
+                                 </Col>
+                                 <Col md={9}>
+                                   <div className="airport-part">
+                                     <div className="airport-name">
+                                       <h4 className="inbound-origion-h4">{item?.itineraries[1]?.segments[0]?.departure?.iataCode}</h4>
+                                       <span className="inbound-origion-airport">{item?.itineraries[1]?.segments[0]?.departure?.iataName}</span>
+ 
+                                       <h6 className="pb10 origion-date">{formatDateToCustomFormat(item?.itineraries[1]?.segments[0].departure.at)}</h6>
+                                       <h4 className=" origion-date">{formatTime(item?.itineraries[1]?.segments[0].departure.at)}</h4>
+                                       <span className="baggage" >
+                                         baggage Free Allownce {item?.baggageDetails?.freeAllowance} {"  "}
+                                         quantity code {item?.baggageDetails?.quantityCode}
+                                       </span>
+                                       <span className="avl-seats" >{item?.avlStatus != null ? " Seats available " + item?.avlStatus : ""}</span>
+                                     </div>
+                                     <div className="airport-progress">
+                                       <i className="fas fa-plane-departure float-start"></i>
+                                       <i className="fas fa-plane-arrival float-end"></i>
+                                       <div className="stop">
+                                         {(item?.itineraries[1]?.segments[0]?.numberOfStops === 0
+                                           ? "Direct"
+                                           : item?.itineraries[1]?.segments[0]?.numberOfStops === 1
+                                             ? item?.itineraries[1]?.segments[0]?.numberOfStops + " stop"
+                                             : item?.itineraries[1]?.segments[0]?.numberOfStops + " stops")
+                                         }
+ 
+                                       </div>
+                                     </div>
+                                     <div className="airport-name arrival">
+                                       <h4 className="inbound-destination-h4">{item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length - 1]?.arrival?.iataCode}</h4>
+ <span className="inbound-destination-airport">{item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length-1]?.arrival?.iataName}</span>
+                                       <h6 className="pb5 destination-date">{formatDateToCustomFormat(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length - 1]?.arrival?.at)}</h6>
+                                       <h4 className="destination-date">{formatTime(item?.itineraries[1]?.segments[item?.itineraries[1]?.segments.length - 1]?.arrival?.at)}</h4>
+                                     </div>
+                                   </div>
+                                 </Col>
+                                 <Col md={3}></Col>
+                               </Row>
+                               {
+                         /**
+                          * */}
+ 
+                             </div>
+                           </div>
+                          )}
+                         
                         </div>
                       </Col>
                       <Col md={3}>
