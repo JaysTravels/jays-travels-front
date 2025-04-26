@@ -90,6 +90,9 @@ const FlightResultsSr = () => {
         statusCode: "NN",
       },
     }));
+     let travelProductInformationInBound;
+     let flightData;
+    if(flightRequest.oneWay === false){
 
     const travelProductInformationInBound = flight.itineraries[1].segments.map((segment, index) => ({
       departureDate: convertToDateFormat(segment.departure.at),
