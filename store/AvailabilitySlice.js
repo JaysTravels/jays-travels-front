@@ -49,7 +49,8 @@ export const submitFlightData = createAsyncThunk(
         children : '',
         infant: '',
         cabinClass: '',
-        flightType: '',       
+        flightType: '',   
+        oneWay: false    
       },
       selectedFlight : null,
       status: 'idle',

@@ -79,6 +79,7 @@ const Confirmation = () => {
    let flightResults = JSON.parse(localStorage.getItem("flightResults"));
    setflightResults(flightResults);
    let selectedFlight =JSON.parse(localStorage.getItem("selectedFlight"));
+   debugger;
    setselectedFlight(selectedFlight);
    let passengerDetails = JSON.parse(localStorage.getItem("passengerDetails"));
    setPassengerDetails(passengerDetails);
@@ -91,7 +92,11 @@ const Confirmation = () => {
       flight = JSON.parse(localStorage.getItem("selectedFlight"));
     
     let session =  getSession();
-   session.sequenceNumber = session.sequenceNumber + 1;
+    if(session != undefined)
+    {
+      session.sequenceNumber = session?.sequenceNumber + 1;
+    }
+   
  //  const pnrMultirequest = localStorage.getItem("pnrMultirequest");
    const pnrMultirequest = JSON.parse(localStorage.getItem("pnrMultirequest"));
   // const pnrMultirequest = CreatePnrMultiRequest(formData, session, flight);
@@ -488,7 +493,7 @@ try{
                           <td width="40%">Tour Details:</td>
                           <td>
                             <span>
-                              {selectedFlight?.itineraries?.[0]?.airport_city &&
+                              {flightRequest?.oneWay !== true && selectedFlight?.itineraries?.[0]?.airport_city &&
                               selectedFlight?.itineraries?.[1]?.airport_city ? (
                                 <>
                                   {selectedFlight.itineraries[0].airport_city}{" "}
@@ -496,6 +501,16 @@ try{
                                   {selectedFlight.itineraries[1].airport_city}
                                 </>
                               ) : null}
+
+                          {flightRequest?.oneWay === true && selectedFlight?.itineraries?.[0]?.airport_city  ? (
+                                <>
+                                  {selectedFlight.itineraries[0]?.segments[0]?.departure?.iataCode}{" "}
+                                  To{" "}
+                                  {selectedFlight.itineraries[0]?.segments[selectedFlight.itineraries[0]?.segments.length -1]?.arrival?.iataCode}
+                                </>
+                              ) : null}     
+
+
                             </span>
                           </td>
                         </tr>
@@ -504,20 +519,22 @@ try{
                           <td>
                             <span>
                               {formatDate(flightRequest?.departureDate)} -{" "}
-                              {formatDate(flightRequest?.returnDate)}
+                              {flightRequest?.oneWay !== true && formatDate(flightRequest?.returnDate)}
                             </span>
                           </td>
                         </tr>
                         <tr>
-                          <td width="40%">Total Days:</td>
+                          <td width="40%">{flightRequest?.oneWay === false ? "Total Days:" : ""}</td>
                           <td>
-                            <span>
-                              {calculateDaysDifference(
-                                flightRequest?.departureDate,
-                                flightRequest?.returnDate
-                              )}{" "}
-                              Days.
-                            </span>
+                          {flightRequest?.oneWay === false && (
+                             <span>
+                             {calculateDaysDifference(
+                               flightRequest?.departureDate,
+                               flightRequest?.returnDate
+                             )}{" "}
+                             Days.
+                           </span>
+                          )}                           
                           </td>
                         </tr>
                       </tbody>
