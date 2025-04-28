@@ -524,15 +524,17 @@ try{
                           </td>
                         </tr>
                         <tr>
-                          <td width="40%">Total Days:</td>
+                          <td width="40%">{flightRequest?.oneWay === false ? "Total Days:" : ""}</td>
                           <td>
-                            <span>
-                              {calculateDaysDifference(
-                                flightRequest?.departureDate,
-                                flightRequest?.returnDate
-                              )}{" "}
-                              Days.
-                            </span>
+                          {flightRequest?.oneWay === false && (
+                             <span>
+                             {calculateDaysDifference(
+                               flightRequest?.departureDate,
+                               flightRequest?.returnDate
+                             )}{" "}
+                             Days.
+                           </span>
+                          )}                           
                           </td>
                         </tr>
                       </tbody>
