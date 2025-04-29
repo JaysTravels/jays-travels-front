@@ -440,30 +440,19 @@ try {
           </Col>
           <Col lg={props.col2 || "4"} md={props.col2 || "4"}>
             {props.showLabel && <Label>return date</Label>}
-            {onewayFlight !== 'Y' && 
-              ( <div className="inputGroup">
-              {/* <DatePicker
+            <div className="inputGroup">
+               <DatePicker
                 className=" px12 form-control rounded-0"
                 selected={endDate}
                 onChange={(date) => { setEndDate(date); setApiResponse('');}}
                 minDate={startDate} 
                  dateFormat="dd/MM/yyyy"
                  disabled={onewayFlight === 'Y'}
-              /> */}
-            
-                  <DatePicker
-                    className="px12 form-control rounded-0"
-                    selected={endDate}
-                    onChange={(date) => { setEndDate(date); setApiResponse(''); }}
-                    minDate={startDate}
-                    dateFormat="dd/MM/yyyy"
-                  />
-
-               
+              />                
               <div className="icon">
                 <FontAwesomeIcon icon={faCalendar} />
               </div>
-            </div> )}
+            </div>
           </Col>
           <Col lg={props.col2 || "4"} md={props.col2 || "4"}>
             <div className="position-relative" >
