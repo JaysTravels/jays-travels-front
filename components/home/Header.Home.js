@@ -18,6 +18,18 @@ const HeaderHome = () => {
     fade: true,
     slidesToShow: true,
   };
+  const PriceBannersettings = {
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    speed: 500,
+    autoplaySpeed: 5000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    fade: true,
+    slidesToShow: true,
+    arrows: false,
+  };
 
   return (
     <>
@@ -68,6 +80,7 @@ const HeaderHome = () => {
           </div>
           
         </Slider>
+       
         <div className="hSearch">
           <Container>
             <Col lg={6}>
@@ -82,6 +95,32 @@ const HeaderHome = () => {
 
                   <SearchForm searchButtonText="Search"/>
                 </div>
+              </div>
+            </Col>
+            <Col lg={6}>
+              <div className="cab-content hContent" >
+                <div className="" style={{top:'15%',position:'absolute',left:'60%'}}>
+                <Slider {...PriceBannersettings}>
+          {/* <div>
+            <div className="slides" style={{ backgroundImage: "url(/images/price-banner/banner-price-1.jpg)", width:'360px', height:'350px'}}>
+            </div>
+          </div> */}
+          <div>
+            <div className="slides" style={{ backgroundImage: "url(/images/price-banner/banner-price-2.png)" , width:'360px', height:'350px'}}>
+            </div>
+          </div>
+          {/* <div>
+            <div className="slides" style={{ backgroundImage: "url(/images/price-banner/banner-price-3.png)" , width:'360px', height:'350px'}}>
+            </div>
+          </div> */}
+         
+
+         
+          
+        </Slider>
+       
+                 </div>
+                
               </div>
             </Col>
           </Container>
