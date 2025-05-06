@@ -101,18 +101,18 @@ const HeaderHome = () => {
               <div className="cab-content hContent" >
                 <div className="" style={{top:'15%',position:'absolute',left:'60%'}}>
                 <Slider {...PriceBannersettings}>
-          {/* <div>
+         <div>
             <div className="slides" style={{ backgroundImage: "url(/images/price-banner/banner-price-1.jpg)", width:'360px', height:'350px'}}>
             </div>
-          </div> */}
+          </div> 
           <div>
             <div className="slides" style={{ backgroundImage: "url(/images/price-banner/banner-price-2.png)" , width:'360px', height:'350px'}}>
             </div>
           </div>
-          {/* <div>
+           <div>
             <div className="slides" style={{ backgroundImage: "url(/images/price-banner/banner-price-3.png)" , width:'360px', height:'350px'}}>
             </div>
-          </div> */}
+          </div>
          
 
          

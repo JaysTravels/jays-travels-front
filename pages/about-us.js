@@ -77,12 +77,11 @@ const aboutUs = () => {
   </section>
   {/* about section end */}
   {/*  service section start */}
-  <section className="section-b-space dark-cls">
-    <Image src="/images/cab/grey-bg.jpg" alt="" className="img-fluid blur-up lazyload bg-img" width={200} height={200} />
+  <section className="section-b-space dark-cls" style={{display: 'block', backgroundRepeat:'no-repeat', backgroundPosition:'center center', backgroundSize:'cover' , backgroundImage :"url(images/grey-bg.jpg)"}}>
     <div className="container">
       <div className="title-1">
-        <span className="title-label">new</span>
-        <h2>awesome service</h2>
+        {/* <span className="title-label">new</span> */}
+        <h2>Our services</h2>
       </div>
       <div className="row service-section color-svg">
         <div className="col-lg-4">
@@ -130,20 +129,8 @@ const aboutUs = () => {
                 </svg>
               </div>
               <h3>Guaranteed savings</h3>
-              <p>Lorem Ipsum is simply dummy text of the
-                typesetting industry. Lorem Ipsum the has been
-                standard dummy text ever 1500s..</p>
-              <div className="lower-section">
-                <div className="rating">
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="far fa-star" />
-                </div>
-                <h6>15% discount</h6>
-              </div>
-              <a href="#" className="btn btn-curve btn-lower color1">learn more</a>
+              <p>We bring you best travel deals with competative prices in the market</p>
+           
             </div>
           </div>
         </div>
@@ -170,21 +157,8 @@ const aboutUs = () => {
                   <path d="m272.896 271.441h28.105v23.019c0 4.142 3.357 7.5 7.5 7.5s7.5-3.358 7.5-7.5v-61.037c0-4.142-3.357-7.5-7.5-7.5s-7.5 3.358-7.5 7.5v23.019h-25.691v-23.019c0-4.142-3.357-7.5-7.5-7.5s-7.5 3.358-7.5 7.5v25.432c.001 6.939 5.647 12.586 12.586 12.586z" />
                 </svg>
               </div>
-              <h3>24 X 7 helpline</h3>
-              <p>Lorem Ipsum is simply dummy text of the
-                typesetting industry. Lorem Ipsum the has been
-                standard dummy text ever 1500s..</p>
-              <div className="lower-section">
-                <div className="rating">
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="far fa-star" />
-                </div>
-                <h6>free 1 ride</h6>
-              </div>
-              <a href="#" className="btn btn-curve btn-lower color1">learn more</a>
+              <h3>Instant Support</h3>
+              <p>Get instant support over the phone, email and whatsapp from anywhere in the world.</p>
             </div>
           </div>
         </div>
@@ -200,21 +174,9 @@ const aboutUs = () => {
                   <path d="m436 472v-20c0-33.085938-26.917969-60-60-60h-10v-41h100v-20c0-115.792969-94.207031-210-210-210s-210 94.207031-210 210v20h100v41h-10c-33.085938 0-60 26.914062-60 60v20h-76v40h512v-40zm-180-311c86.976562 0 158.90625 65.648438 168.832031 150h-337.664062c9.925781-84.351562 81.855469-150 168.832031-150zm-70 190h140v41h-140zm-70 101c0-11.027344 8.972656-20 20-20h240c11.027344 0 20 8.972656 20 20v20h-280zm160-371h-40v-81h40zm90.90625 25.058594-37.171875-14.773438 29.910156-75.273437 37.175781 14.773437zm74.921875 56.519531-29.140625-27.402344 55.488281-59.007812 29.140625 27.402343zm-296.734375-56.519531-29.914062-75.273438 37.175781-14.773437 29.910156 75.273437zm-74.921875 56.519531-55.488281-59.007813 29.140625-27.402343 55.488281 59.007812zm0 0" fill="url(#linear0)" />
                 </svg>
               </div>
-              <h3>live booking on hotel</h3>
-              <p>Lorem Ipsum is simply dummy text of the
-                typesetting industry. Lorem Ipsum the has been
-                standard dummy text ever 1500s..</p>
-              <div className="lower-section">
-                <div className="rating">
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="fas fa-star" />
-                  <i className="far fa-star" />
-                </div>
-                <h6>2% discount</h6>
-              </div>
-              <a href="#" className="btn btn-curve btn-lower color1">learn more</a>
+              <h3>Our Belief</h3>
+              <p>Travel is not just about good itinerary. It is what we do for the people that counts.</p>
+            
             </div>
           </div>
         </div>
