@@ -97,7 +97,7 @@ const HeaderHome = () => {
                 </div>
               </div>
             </Col>
-            <Col lg={6}>
+            {/* <Col lg={6}>
               <div className="cab-content hContent" >
                 <div className="" style={{top:'15%',position:'absolute',left:'60%'}}>
                 <Slider {...PriceBannersettings}>
@@ -122,7 +122,7 @@ const HeaderHome = () => {
                  </div>
                 
               </div>
-            </Col>
+            </Col> */}
           </Container>
         </div>
         {/* <div className="some_effect_container">
