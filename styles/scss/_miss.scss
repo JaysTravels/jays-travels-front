@@ -896,3 +896,21 @@ input, textarea, select { font-family:nunito !important; }
     max-width: 50%;
 
  }
+ .whatsapp-link{
+  position:fixed;
+  bottom: -80px;
+  right: 70px;
+  z-index: 50;
+  transition: bottom 0.3s ease-in-out;
+ }
+ .whatsapp-link.visible{
+  bottom: 30px;
+ }
+.whatapp-icon{
+  width:55px;
+  height: 55px;
+  transition: tranform 0.3s ease;
+}
+.whatapp-icon:hover{
+  transform: scale(1.2);
+}

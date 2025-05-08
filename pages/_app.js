@@ -10,6 +10,7 @@ import { Nunito } from 'next/font/google'
 import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 import UserTracker from "@/components/UserTracker"; 
+
 export const inter = Nunito({
   subsets: ['latin'],
   display: 'swap',
