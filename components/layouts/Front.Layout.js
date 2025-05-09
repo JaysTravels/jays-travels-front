@@ -1,5 +1,6 @@
 import FrontFooter from "@/components/footers/Front.Footer";
 import FrontNavbar from "@/components/navbars/Front.Navbar";
+import WhatsAppChat from "@/components/common/WhatsAppChat";
 import { useEffect } from "react";
 
 const FrontLayout = (props) => {
@@ -14,7 +15,8 @@ const FrontLayout = (props) => {
   return (
     <>      
       <FrontNavbar className={`navbar-${props.navTheme}`} {...props} />   
-     {{...props.children}}     
+     {{...props.children}}  
+     < WhatsAppChat/>
       <FrontFooter />    
     </>
   );
