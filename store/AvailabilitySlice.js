@@ -78,6 +78,10 @@ export const submitFlightData = createAsyncThunk(
             {              
               state.flights = { ...state.flights, ...action.payload };              
            },
+           setFlightResults:(state,action)=> 
+            {   
+              state.response =  action.payload.data ;              
+           },
            setAirline:(state,action)=> 
             {    
               state.selectedAirline = action.payload;           
@@ -666,5 +670,5 @@ setSelectedArrivalTime(state, action) {
     }
     return marketingCarriers;
     }
- export const {setFlights,setAirline,setSelectedFlights,setCheckAll,setUnCheckAll ,setFlightsWithCombination,setSelectedCarriers,setSelectedCarriersExclude,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime,setSelectedPriceRange} = Slice.actions;
+ export const {setFlights,setFlightResults,setAirline,setSelectedFlights,setCheckAll,setUnCheckAll ,setFlightsWithCombination,setSelectedCarriers,setSelectedCarriersExclude,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime,setSelectedPriceRange} = Slice.actions;
  export default Slice.reducer;
