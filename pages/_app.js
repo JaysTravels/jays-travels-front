@@ -10,16 +10,13 @@ import { Nunito } from 'next/font/google'
 import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 import UserTracker from "@/components/UserTracker"; 
-import { appWithTranslation } from 'next-i18next';
-import i18nConfig from '../next-i18next.config.mjs'; 
-
 export const inter = Nunito({
   subsets: ['latin'],
   display: 'swap',
 })
 
 
- function App({ Component, pageProps }) {
+export default function App({ Component, pageProps }) {
 
   const getLayout = Component.getLayout || ((page) => page);
   return <>
@@ -31,4 +28,3 @@ export const inter = Nunito({
   
   </>
 }
-export default appWithTranslation(App,i18nConfig);
