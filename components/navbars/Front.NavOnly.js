@@ -27,7 +27,7 @@ const FrontNavOnly = (props) => {
       <Nav className="mx-auto" navbar>
       
       <NavItem>
-          <NavLink href="https://jaystravels.co.uk/">Flights</NavLink>
+          <NavLink href="https://jaystravels.co.uk/en-gb">Flights</NavLink>
         </NavItem><NavItem>
           <NavLink href="holidays">Holidays</NavLink>
         </NavItem>

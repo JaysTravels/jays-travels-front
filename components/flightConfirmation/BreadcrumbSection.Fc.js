@@ -20,7 +20,7 @@ const BreadcrumbSectionFc = () => {
                     <Link href="/">Home</Link>
                   </li>
                   <li class="breadcrumb-item">
-                    <Link href="/search-result">flights</Link>
+                    <Link href="/en-gb/search-result">flights</Link>
                   </li>
                   <li class="breadcrumb-item active">review</li>
                 </ol>

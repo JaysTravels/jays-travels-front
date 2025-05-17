@@ -383,7 +383,7 @@ try{
         <div className="box">
           <Row className="align-items-center">
             <Col lg={6} className="text-lg-start text-center">
-              <Link href="https://jaystravels.co.uk/">
+              <Link href="https://jaystravels.co.uk/en-gb">
                 <Image
                   src={topLogo}
                   alt="..."
@@ -393,7 +393,7 @@ try{
             </Col>
             <Col lg={6}>
               <div className="d-flex justify-content-lg-end justify-content-center links mt-lg-0 mt16">
-                <Link href="https://jaystravels.co.uk/">Home</Link>
+                <Link href="https://jaystravels.co.uk/en-gb">Home</Link>
                 <Link href="/">Tours</Link>
                 <Link href="hotels">Hotels</Link>
                 <Link href="contact">Contact</Link>
