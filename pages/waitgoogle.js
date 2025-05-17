@@ -80,13 +80,13 @@ try {
               } catch (error) { console.error('Error calling setAirSell:', error.message); }
     
               dispatch(submitairSellRequest(AirSellRequset)).unwrap().then(() => {
-                router.push("/flight-confirmation");
+                router.push("/en-gb/flight-confirmation");
         
               })
   
         } catch (error) {
           console.error("Error fetching flights:", error);
-          router.push('https://jaystravels.co.uk');
+          router.push('https://jaystravels.co.uk/en-gb');
           setApiResponse(error);  
         } finally {
          

@@ -1,10 +1,10 @@
 import { thunk } from 'redux-thunk';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import axiosInstance from '../utils/axiosInstance';
+import axiosInstance from '@/utils/axiosInstance';
 import { submitFlightData,setFlights,setAirline,SubmitSignout } from "@/store/AvailabilitySlice";
 import { useNavigate } from "react-router-dom";
-import { AirLineClass } from "../components/classes/airlineclass";
+import { AirLineClass } from '@/components/classes/airlineclass';  //"@/airlineclass/components/classes/airlineclass";
 import { useDispatch } from "react-redux";
 import Image from "next/image";
 import footerLogo from "@/public/images/footer-logo.png";

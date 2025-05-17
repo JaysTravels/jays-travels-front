@@ -69,7 +69,7 @@ const CheapTicketsHome = () => {
     cabin = "economy",  // Default to "economy" if null/undefined
     flightType = "",  // Default to empty string if null/undefined
   }) => {
-    const baseUrl = "https://jaystravels.co.uk/waitlanding";
+    const baseUrl = "https://jaystravels.co.uk/en-gb/waitlanding";
     //debugger;
     // Build query string dynamically, filtering out empty values
     const queryParams = Object.entries({

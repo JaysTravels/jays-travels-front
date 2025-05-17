@@ -66,7 +66,7 @@ const FrontFooter = () => {
                   <div className="contact-detail">
                     <div className="footer-logo" >
                     
-                      < Image src={footerLogo} alt="" href="https://jaystravels.co.uk/" className="img-fluid"  />
+                      < Image src={footerLogo} alt="" href="https://jaystravels.co.uk/en-gb" className="img-fluid"  />
                     
                     </div>
                     <ul className="contact-list">
@@ -201,7 +201,7 @@ const FrontFooter = () => {
                     <div className="footer-links">
                       <ul>
                         <li>
-                          <a href="https://jaystravels.co.uk/">home</a>
+                          <a href="https://jaystravels.co.uk/en-gb">home</a>
                         </li>
                         <li>
                           <a href="#">Flights</a>
