@@ -5,7 +5,7 @@ export default function Document() {
   return (
     <Html>
       <Head>
-      <Script
+      <script
         id="microsoft-uet-config"
         strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
