@@ -5,8 +5,19 @@ export default function Document() {
   return (
     <Html>
       <Head>
+      <Script
+        id="microsoft-uet-config"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.uetq = window.uetq || [];
+            window.uetq.push('config', 'tcf', { 'enabled': true });
+          `,
+        }}
+      />
         <script
           dangerouslySetInnerHTML={{
+            
             __html: `(function(w,d,t,r,u){
               w[u]=w[u]||[];f=function(){
                 var o={ti:"97180824",enableAutoSpaTracking:true};
