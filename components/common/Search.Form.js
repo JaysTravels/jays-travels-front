@@ -44,6 +44,7 @@ import { useRouter } from "next/router";
   const flights = useSelector((state) => state.flights.flights);
   const passengerRef = useRef(null);
   const formRef = useRef(null);
+  const appurl = process.env.NEXT_PUBLIC_APP_URL;
   useEffect(() => {
     // Add event listener when the component mounts
     document.addEventListener('mousedown', handleClickOutside);
@@ -296,8 +297,8 @@ try {
   //      router.push("/search-result"); 
   // })
   dispatch(submitFlightData(flightData));
-  // router.push('/en-gb/wait');
-  router.push('/wait');
+  // router.push('/wait');
+ router.push(`${appurl}/wait`);
   
  } catch (error) {
    console.log('Error api call data:', error.message);

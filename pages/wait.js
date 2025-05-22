@@ -16,6 +16,7 @@ const WaitPage = () => {
   const filteredFlights = useSelector(
     (state) => state?.flights?.filteredFlights
   );
+  const appurl = process.env.NEXT_PUBLIC_APP_URL;
   const [msg, setMsg] = useState("Searching for flights...");
   const [msg2, setMsg2] = useState(
     "Please wait while we find the best options for you."
@@ -23,8 +24,9 @@ const WaitPage = () => {
   useEffect(() => {
     
     if (!loading && results?.data != null) {
-      // router.push("/en-gb/search-result");
-      router.push("/search-result");
+       //("/search-result");
+       router.push(`${appurl}/search-result`);
+      
     } else if (!loading && flightError) {
       setMsg("No Fare found...");
       setMsg2("Some thing went wrong");

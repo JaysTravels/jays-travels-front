@@ -50,7 +50,7 @@ const formatDateToCustomFormat_old = (dateString) => {
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const formattedTime = `${hours}:${minutes}`;
-
+    const appurl = process.env.NEXT_PUBLIC_APP_URL;
     return { date: formattedDate, time: formattedTime }; // Return both date and time
   }
   return null; // Return null if dateString is null
@@ -755,7 +755,8 @@ debugger;
             setApiResponse(paymentPageError);
             return;
           }
-          router.push("/payment");
+          //router.push("/payment");
+           router.push(`${appurl}/payment`);
         });
     } catch (err) {
       console.error("An error occurred:", err);
