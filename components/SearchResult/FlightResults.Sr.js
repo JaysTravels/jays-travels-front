@@ -64,7 +64,7 @@ const FlightResultsSr = () => {
   const filteredFlights  = useSelector((state) => state?.flights?.filteredFlights);
   const marketingCarriers = useSelector((state) => state?.flights?.marketingCarriers);
   const [loadingId, setLoadingId] = useState(null); 
-
+  const appurl = process.env.NEXT_PUBLIC_APP_URL;
   function convertToDateFormat(dateString) {
     if (dateString != null) {
       const date = new Date(dateString);
@@ -192,8 +192,9 @@ const FlightResultsSr = () => {
     try {
 
       dispatch(submitairSellRequest(AirSellRequset)).unwrap().then(() => {
-        // router.push("/en-gb/flight-confirmation");
-        router.push("/flight-confirmation");
+        
+       // router.push("/flight-confirmation");
+        router.push(`${appurl}/flight-confirmation`);
 
       })
 
