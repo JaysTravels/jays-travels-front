@@ -192,7 +192,8 @@ const FlightResultsSr = () => {
     try {
 
       dispatch(submitairSellRequest(AirSellRequset)).unwrap().then(() => {
-        router.push("/en-gb/flight-confirmation");
+        // router.push("/en-gb/flight-confirmation");
+        router.push("/flight-confirmation");
 
       })
 

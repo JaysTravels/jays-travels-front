@@ -296,7 +296,8 @@ try {
   //      router.push("/search-result"); 
   // })
   dispatch(submitFlightData(flightData));
-  router.push('/en-gb/wait');
+  // router.push('/en-gb/wait');
+  router.push('/wait');
   
  } catch (error) {
    console.log('Error api call data:', error.message);
