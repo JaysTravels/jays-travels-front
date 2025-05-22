@@ -80,7 +80,8 @@ try {
               } catch (error) { console.error('Error calling setAirSell:', error.message); }
     
               dispatch(submitairSellRequest(AirSellRequset)).unwrap().then(() => {
-                router.push("/en-gb/flight-confirmation");
+                // router.push("/en-gb/flight-confirmation");
+                router.push("/flight-confirmation");
         
               })
   
