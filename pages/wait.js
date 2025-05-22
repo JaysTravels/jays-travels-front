@@ -23,7 +23,8 @@ const WaitPage = () => {
   useEffect(() => {
     
     if (!loading && results?.data != null) {
-      router.push("/en-gb/search-result");
+      // router.push("/en-gb/search-result");
+      router.push("/search-result");
     } else if (!loading && flightError) {
       setMsg("No Fare found...");
       setMsg2("Some thing went wrong");

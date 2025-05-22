@@ -47,7 +47,7 @@ const flightsToAmritsar = () => {
           </div>
           <div className="flight-price">
             <p className="flight-price-pperson">AVG/PERSON</p>
-            <p className="flight-price-total"><span className="flight-price-pperson">FR</span> £650</p>
+            <p className="flight-price-total"><span className="flight-price-pperson">FR</span> £510</p>
           </div>
         
           </div>
@@ -56,11 +56,12 @@ const flightsToAmritsar = () => {
           <div className="portfolio-text" style={{marginTop:'0'}}>
             <div className="flight-dates-offers">
               <h6>Outbound</h6>
-              <p>From 15<sup>th</sup>APR</p>
+              <p>consult with our agent</p>
             </div>
             <div className="flight-dates-offers">
               <h6> Inbound</h6>
-              <p>From 30<sup>th</sup>AUG</p>
+              {/* <p>From 30<sup>th</sup>AUG</p> */}
+              <p>consult with our agent</p>
             </div>
           </div>
           <div  className="portfolio-text" style={{marginTop:'0'}}>
@@ -97,11 +98,11 @@ const flightsToAmritsar = () => {
           <div className="portfolio-text" style={{marginTop:'0'}}>
             <div className="flight-dates-offers">
               <h6>Outbound</h6>
-              <p>From 15<sup>th</sup>APR</p>
+              <p>consult with our agent</p>
             </div>
             <div className="flight-dates-offers">
               <h6> Inbound</h6>
-              <p>From 30<sup>th</sup>AUG</p>
+              <p>consult with our agent</p>
             </div>
           </div>
           <div  className="portfolio-text" style={{marginTop:'0'}}>
