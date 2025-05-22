@@ -66,7 +66,7 @@ const flightsToAmritsar = () => {
           </div>
           <div  className="portfolio-text" style={{marginTop:'0'}}>
             <p style={{textAlign:"center"}}>Call us to book this offer </p>
-            <p className="flight-price-total" style={{textAlign:"center"}}> <a href="tel:+448008101600" style={{color:'#fb8303', cursor:'pointer'}}>0800-8101600</a></p>
+            <p className="flight-price-total" style={{textAlign:"center"}}> <a href="tel:+441217980857" style={{color:'#fb8303', cursor:'pointer'}}>0121-7980857</a></p>
    
           </div>
          
@@ -107,7 +107,7 @@ const flightsToAmritsar = () => {
           </div>
           <div  className="portfolio-text" style={{marginTop:'0'}}>
             <p style={{textAlign:"center"}}>Call us to book this offer </p>
-            <p className="flight-price-total" style={{textAlign:"center"}}> <a href="tel:+448008101600" style={{color:'#fb8303', cursor:'pointer'}}>0800-8101600</a></p>
+            <p className="flight-price-total" style={{textAlign:"center"}}> <a href="tel:+441217980857" style={{color:'#fb8303', cursor:'pointer'}}>0121-7980857</a></p>
    
           </div>
          
@@ -148,7 +148,7 @@ const flightsToAmritsar = () => {
           </div>
           <div  className="portfolio-text" style={{marginTop:'0'}}>
             <p style={{textAlign:"center"}}>Call us to book this offer </p>
-            <p className="flight-price-total" style={{textAlign:"center"}}> <a href="tel:+448008101600" style={{color:'#fb8303', cursor:'pointer'}}>0800-8101600</a></p>
+            <p className="flight-price-total" style={{textAlign:"center"}}> <a href="tel:+441217980857" style={{color:'#fb8303', cursor:'pointer'}}>0121-7980857</a></p>
    
           </div>
          
@@ -189,7 +189,7 @@ const flightsToAmritsar = () => {
           </div>
           <div  className="portfolio-text" style={{marginTop:'0'}}>
             <p style={{textAlign:"center"}}>Call us to book this offer </p>
-            <p className="flight-price-total" style={{textAlign:"center"}}> <a href="tel:+448008101600" style={{color:'#fb8303', cursor:'pointer'}}>0800-8101600</a></p>
+            <p className="flight-price-total" style={{textAlign:"center"}}> <a href="tel:+441217980857" style={{color:'#fb8303', cursor:'pointer'}}>0121-7980857</a></p>
    
           </div>
          
@@ -230,7 +230,7 @@ const flightsToAmritsar = () => {
           </div>
           <div  className="portfolio-text" style={{marginTop:'0'}}>
             <p style={{textAlign:"center"}}>Call us to book this offer </p>
-            <p className="flight-price-total" style={{textAlign:"center"}}> <a href="tel:+448008101600" style={{color:'#fb8303', cursor:'pointer'}}>0800-8101600</a></p>
+            <p className="flight-price-total" style={{textAlign:"center"}}> <a href="tel:+441217980857" style={{color:'#fb8303', cursor:'pointer'}}>0121-7980857</a></p>
    
           </div>
          
@@ -271,7 +271,7 @@ const flightsToAmritsar = () => {
           </div>
           <div  className="portfolio-text" style={{marginTop:'0'}}>
             <p style={{textAlign:"center"}}>Call us to book this offer </p>
-            <p className="flight-price-total" style={{textAlign:"center"}}> <a href="tel:+448008101600" style={{color:'#fb8303', cursor:'pointer'}}>0800-8101600</a></p>
+            <p className="flight-price-total" style={{textAlign:"center"}}> <a href="tel:+441217980857" style={{color:'#fb8303', cursor:'pointer'}}>0121-7980857</a></p>
    
           </div>
          
@@ -312,7 +312,7 @@ const flightsToAmritsar = () => {
           </div>
           <div  className="portfolio-text" style={{marginTop:'0'}}>
             <p style={{textAlign:"center"}}>Call us to book this offer </p>
-            <p className="flight-price-total" style={{textAlign:"center"}}> <a href="tel:+448008101600" style={{color:'#fb8303', cursor:'pointer'}}>0800-8101600</a></p>
+            <p className="flight-price-total" style={{textAlign:"center"}}> <a href="tel:+441217980857" style={{color:'#fb8303', cursor:'pointer'}}>0121-7980857</a></p>
    
           </div>
          
