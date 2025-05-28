@@ -23,7 +23,9 @@ export default function UserTracker() {
 
         await dispatch(trackUsers(trackUsersData))
           .unwrap()
-          .then((result) => console.log("User Track Response:", result))
+          .then((result) => 
+           // console.log("User Track Response:", result)
+          console.log(""))
           .catch((error) => console.error("Error tracking user:", error));
       } catch (error) {
         console.error("Error tracking user:", error);
@@ -46,7 +48,7 @@ export default function UserTracker() {
           };
         await dispatch(clearUsers(clearuserData))
           .unwrap()
-          .then((result) => console.log("Clear user Response:", result))
+          .then((result) => console.log(""))
           .catch((error) => console.error("Error clearing user:", error));
       } catch (error) {
         console.error("Error cleaning up users:", error);
