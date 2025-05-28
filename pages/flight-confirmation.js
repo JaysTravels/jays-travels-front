@@ -102,6 +102,9 @@ function getBaggageDetails(freeAllowance, quantityCode, unitQualifier) {
   if (quantityCode === "0") {
       return "No baggage allowance"; 
   }
+  console.log("freeAllowance : " + freeAllowance)
+  console.log("quantityCode : " + quantityCode)
+  console.log("unitQualifier : " + unitQualifier)
 
   // Check if quantityCode indicates weight-based allowance
   if (quantityCode === "W") {

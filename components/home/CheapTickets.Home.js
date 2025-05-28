@@ -43,7 +43,7 @@ const CheapTicketsHome = () => {
       .unwrap()
       .then((result) => {
        
-        console.log("API Response:", result);
+        //console.log("API Response:", result);
         if (result) {         
           setDeeplink(result);
         } else {
