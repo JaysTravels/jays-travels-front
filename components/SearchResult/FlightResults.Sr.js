@@ -76,7 +76,7 @@ const FlightResultsSr = () => {
 
   }
   function getAirSellRequest(flight){
-   debugger;
+   //debugger;
     let totPassenger = flightRequest.adults + flightRequest.children;
     const travelProductInformationOutBound = flight.itineraries[0].segments.map((segment, index) => ({
       departureDate: convertToDateFormat(segment.departure.at),
