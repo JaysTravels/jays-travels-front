@@ -13,7 +13,7 @@ export const submitFlightData = createAsyncThunk(
      // debugger;
      //   console.log(flightData)
         const response = await axiosInstance.post('availability', flightData);
-        console.log(response)      
+        console.log(response.data)      
         return response.data; 
       } catch (error) {
         console.log(error?.data)
