@@ -9,11 +9,9 @@ import { faL } from '@fortawesome/free-solid-svg-icons';
 export const submitFlightData = createAsyncThunk(
     'flights/submitFlightData',
     async (flightData, { rejectWithValue }) => {
-      try { 
-     // debugger;
-     //   console.log(flightData)
+      try {     
         const response = await axiosInstance.post('availability', flightData);
-        try{ console.log(response.data)  } catch{}    
+       // try{ console.log(response.data)  } catch{}    
         return response.data; 
       } catch (error) {
         console.log(error?.data)
