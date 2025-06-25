@@ -44,6 +44,15 @@ const FrontNavOnly = (props) => {
           <NavLink href="make-payment">
           Make Payment
           </NavLink>
+          
+        </NavItem>
+        <NavItem>
+          <NavLink href="/">
+          <i class="fas fa-phone-alt" style={{marginRight:'7px',fontSize:'16px',color:'#ffff'}}></i>
+           <a href="tel:00448008101600"><b id="top1_spnPhoneNumber_destination" className="rTapNumber166337 top-number1" style={{marginRight:'5px',fontSize:'20px',color:'#ffff',margin:'0', padding:'0'}}>0800-810-1600</b> </a> 
+      
+          </NavLink>
+          
         </NavItem>
       </Nav>
     </>

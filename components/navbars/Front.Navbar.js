@@ -38,7 +38,7 @@ const FrontNavbar = (props) => {
 
             <FrontNavOnly {...props} />
           </Collapse>
-
+         
           <div className="actions-nav">
             <NavbarToggler onClick={toggle} />
             {/* <Button
@@ -48,19 +48,13 @@ const FrontNavbar = (props) => {
               // onClick={() => router.push("/contact")}
             >
               Contact
-            </Button> */}
+            </Button>  */}
             <Input type="select" className="msLg15 ms5">
-              <option value="volvo">GBP</option>
-              {/* <option value="saab">EUR</option>
-              <option value="opel">INR</option>
-              <option value="audi">AUD</option> */}
+              <option value="GBP">GBP</option>
             </Input>
-            <Input type="select" className="msLg15 ms5">
-              <option value="volvo">ENG</option>
-              {/* <option value="saab">FRE</option>
-              <option value="opel">SPA</option>
-              <option value="audi">DUT</option> */}
-            </Input>
+            {/* <Input type="select" className="msLg15 ms5">
+              <option value="ENG">ENG</option>
+            </Input> */}
             <Button
               size="md"
               color="transparent"
@@ -70,6 +64,9 @@ const FrontNavbar = (props) => {
               <FontAwesomeIcon icon={faUser} />
             </Button>
           </div>
+       
+
+        
         </Navbar>
       </div>
     </>
