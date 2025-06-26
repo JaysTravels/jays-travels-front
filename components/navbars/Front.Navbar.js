@@ -38,7 +38,14 @@ const FrontNavbar = (props) => {
 
             <FrontNavOnly {...props} />
           </Collapse>
-         
+          <div className="contact_custom txt-r">
+  <div id="top1_div_destinationphone" style={{display: 'block'}}>
+    <div className="desti_right_num_phone" style={{clear: 'both'}}>
+    <i class="fa fa-phone-square" aria-hidden="true"></i>
+    <a href="tel:+448008101600">0800-810-1600</a>
+    </div>
+  </div>
+</div>
           <div className="actions-nav">
             <NavbarToggler onClick={toggle} />
             {/* <Button

@@ -17481,6 +17481,7 @@ header.overlay-white {
     padding-left: 5px;
     text-transform: uppercase;
   }
+ 
 }
 
 @media (max-width: 767px) {
@@ -17490,6 +17491,9 @@ header.overlay-white {
   }
   header .menu .brand-logo img {
     width: 120px;
+  }
+  .desti_right_num_phone{
+    display:block !important;
   }
 }
 
@@ -17511,6 +17515,9 @@ header.overlay-white {
   }
   .toggle-nav i {
     font-size: 20px;
+  }
+  .desti_right_num_phone{
+    display:block !important;
   }
 }
 
@@ -20463,6 +20470,9 @@ body.rtl {
   .rtl .about_section .about_content {
     margin-left: 0;
     margin-right: 0;
+  }
+  .desti_right_num_phone{
+    display:block !important;
   }
 }
 

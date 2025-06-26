@@ -47,9 +47,9 @@ const FrontNavOnly = (props) => {
           
         </NavItem>
         <NavItem>
-          <NavLink href="/">
+          <NavLink style={{marginRight:'5px',fontSize:'20px',color:'#ffff',margin:'0', padding:'0'}} href="tel:+448008101600" >
           <i class="fas fa-phone-alt" style={{marginRight:'7px',fontSize:'16px',color:'#ffff'}}></i>
-           <a href="tel:00448008101600"><b id="top1_spnPhoneNumber_destination" className="rTapNumber166337 top-number1" style={{marginRight:'5px',fontSize:'20px',color:'#ffff',margin:'0', padding:'0'}}>0800-810-1600</b> </a> 
+           0800-810-1600
       
           </NavLink>
           
