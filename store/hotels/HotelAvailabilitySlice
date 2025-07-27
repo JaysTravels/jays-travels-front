@@ -1,0 +1,138 @@
+const {createSlice,nanoid} = require("@reduxjs/toolkit");
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { useEffect, useState } from "react";
+import React from 'react';
+import axiosInstance from '@/utils/axiosInstance';
+import { faL } from '@fortawesome/free-solid-svg-icons';
+
+export const submitHotelData = createAsyncThunk(
+    'hotels/submitHotelData',
+    async (hotelData, { rejectWithValue }) => {
+      try {   
+         debugger;  
+        const response = await axiosInstance.post('HotelAvailability', hotelData);
+        debugger;
+        try{ console.log(response.data)  } catch{}    
+        return response.data; 
+      } catch (error) {
+        console.log(error?.data)
+      return rejectWithValue(error?.data || 'Server Error');
+      }
+    }
+  );
+    
+ const Slice = createSlice({  
+ 
+    name : 'hotels',
+    initialState : {     
+      hotels: {
+        stay: {
+         checkIn: '',
+         checkOut: ''
+    },
+           occupancies: [
+            {
+            rooms: 1,
+            adults: 1,
+            children: 0
+            }
+        ],
+        destination: {
+            code: ''
+        },
+        filter: {
+            maxHotels: 50
+        }
+      },
+      selectedHotel : null,
+      status: 'idle',
+      loading: false,
+      error: null,
+      response: null,    
+      filteredHotels: null, 
+      selectedCarriers: null, 
+      selectedCarriersExclude: null, 
+      selectedCarriersAll : null,
+      selectedSegments: [],
+      selectedTime : null,
+      selectedTimeArrival : null,
+      selectedPriceRange: [0, 100],
+      minPrice : 0,
+      maxPrice : 100,
+      samecarrier : false,
+      selectedRoom : '',
+      selectedStops: [],
+      filterRoom: null
+    },
+    reducers : {
+        setHotels:(state,action)=> 
+            {              
+              state.hotels = { ...state.hotels, ...action.payload };              
+           },
+           setHotelsResults:(state,action)=> 
+            {   
+              state.response =  action.payload.data ;              
+           },
+           setRoom:(state,action)=> 
+            {    
+              state.selectedRoom = action.payload;           
+           },
+        setSelectedHotels:(state,action)=> 
+            {              
+              state.selectedHotel = { ...state.selectedHotel, ...action.payload };              
+           },              
+      },
+      extraReducers: (builder) => {
+        builder
+          .addCase(submitHotelData.pending, (state) => {
+            state.status = 'loading';
+            state.loading = true;
+          })
+          .addCase(submitHotelData.fulfilled, (state, action) => {
+          debugger;
+           if(action.payload.isSuccessful === false){
+            state.status = 'failed';
+            state.response = action.payload.data.error;
+            state.error = action.payload.response;
+            state.loading = false;
+           }
+           else{
+                       
+            state.status = 'succeeded';
+            state.response = action?.payload.data.hotelresponse.hotels.hotels;
+            state.error = null;
+            state.loading = false;
+            state.filteredHotels = action?.payload?.data.hotelresponse.hotels.hotels;           
+            
+           }
+            
+          })
+          .addCase(submitHotelData.rejected, (state, action) => {
+            state.status = 'failed';
+            state.loading = false;
+            state.error = action.payload;
+          });
+      },
+    });
+
+    const TIME_RANGES = {
+      morning: { start: "06:00", end: "12:00" },
+      noon: { start: "12:00", end: "18:00" },
+      evening: { start: "18:00", end: "23:59" }, // Evening until end of the day
+    };
+
+    const isTimeInRange = (time, start, end) => {     
+      const parseTimeToMinutes = (t) => {
+        const [hours, minutes] = t.split(":").map(Number);
+        return hours * 60 + minutes;
+      };
+    
+      const timeMinutes = parseTimeToMinutes(time);
+      const startMinutes = parseTimeToMinutes(start);
+      const endMinutes = parseTimeToMinutes(end);  
+      var res =    timeMinutes >= startMinutes && timeMinutes <= endMinutes;
+      return timeMinutes >= startMinutes && timeMinutes <= endMinutes;
+    };   
+ export const {setHotels,setHotelsResults,setRoom,setSelectedHotel} = Slice.actions;
+ export default Slice.reducer;

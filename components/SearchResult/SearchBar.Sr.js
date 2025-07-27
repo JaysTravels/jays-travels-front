@@ -1,4 +1,4 @@
-import SearchForm from "@/components/common/Search.Form";
+import SearchForm from "@/components/common/HotelSearch.Form";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
