@@ -252,149 +252,10 @@ return (
               </div>
             </div>
             {/* commented code start here */}
-            {/* <div className="list-box col-12 latest grid-item wow fadeInUp">
-              <div className="list-img">
-                <a href="hotel-single-7.html">
-                <img src="../images/packages/holidays-main/dubai/atlantis-the-palm.jpg" className="img-fluid lazyload bg-img" alt />
-                </a>
-              </div>
-              <div className="list-content">
-                <div>
-                  <a href="hotel-single-7.html">
-                    <h5>sea view hotel</h5>
-                  </a>
-                  <p>dubai, 2km from center</p>
-                  <div className="rating">
-                    <i className="fas fa-star" />
-                    <i className="fas fa-star" />
-                    <i className="fas fa-star" />
-                    <i className="fas fa-star" />
-                    <i className="far fa-star" />
-                    <span>26412 review</span>
-                  </div>
-                  <div className="facility-icon">
-                    <div className="facility-box">
-                      <img src="../assets/images/icon/hotel/beer.png" className="img-fluid blur-up lazyload" alt />
-                      <span>bar</span>
-                    </div>
-                    <div className="facility-box">
-                      <img src="../assets/images/icon/hotel/wifi.png" className="img-fluid blur-up lazyload" alt />
-                      <span>wifi</span>
-                    </div>
-                    <div className="facility-box">
-                      <img src="../assets/images/icon/tour/fork.png" className="img-fluid blur-up lazyload" alt />
-                      <span>restaurant</span>
-                    </div>
-                    <div className="facility-box">
-                      <img src="../assets/images/icon/hotel/pool.png" className="img-fluid blur-up lazyload" alt />
-                      <span>swimming</span>
-                    </div>
-                  </div>
-                  <div className="price">
-                    <del>$1300</del>
-                    $1254 <span>/ per night</span>
-                    <p className="mb-0">login &amp; unlock a secret deal</p>
-                  </div>
-                  <a href="hotel-booking.html" className="btn btn-solid color1 book-now">book now</a>
-                </div>
-              </div>
-            </div>
-            <div className="list-box col-12 popular grid-item wow fadeInUp">
-              <div className="list-img">
-                <a href="hotel-single-7.html">
-                <img src="../images/packages/holidays-main/dubai/atlantis-the-palm.jpg" className="img-fluid lazyload bg-img" alt />
-                </a>
-              </div>
-              <div className="list-content">
-                <div>
-                  <a href="hotel-single-7.html">
-                    <h5>sea view hotel</h5>
-                  </a>
-                  <p>dubai, 2km from center</p>
-                  <div className="rating">
-                    <i className="fas fa-star" />
-                    <i className="fas fa-star" />
-                    <i className="fas fa-star" />
-                    <i className="fas fa-star" />
-                    <i className="far fa-star" />
-                    <span>26412 review</span>
-                  </div>
-                  <div className="facility-icon">
-                    <div className="facility-box">
-                      <img src="../assets/images/icon/hotel/wifi.png" className="img-fluid blur-up lazyload" alt />
-                      <span>wifi</span>
-                    </div>
-                    <div className="facility-box">
-                      <img src="../assets/images/icon/hotel/sunset.png" className="img-fluid blur-up lazyload" alt />
-                      <span>beach</span>
-                    </div>
-                    <div className="facility-box">
-                      <img src="../assets/images/icon/hotel/pool.png" className="img-fluid blur-up lazyload" alt />
-                      <span>swimming</span>
-                    </div>
-                  </div>
-                  <div className="price">
-                    <del>$1300</del>
-                    $1254 <span>/ per night</span>
-                    <p className="mb-0">login &amp; unlock a secret deal</p>
-                  </div>
-                  <div className="offer-box">
-                    <i className="fas fa-fire" /> Hurry, Only 1 room left
-                  </div>
-                  <a href="hotel-booking.html" className="btn btn-solid color1 book-now">book now</a>
-                </div>
-              </div>
-            </div>
-            <div className="list-box col-12 trend grid-item wow fadeInUp">
-              <div className="list-img">
-                <a href="hotel-single-7.html">
-                <img src="../images/packages/holidays-main/dubai/atlantis-the-palm.jpg" className="img-fluid lazyload bg-img" alt />
-                </a>
-              </div>
-              <div className="list-content">
-                <div>
-                  <a href="hotel-single-7.html">
-                    <h5>sea view hotel</h5>
-                  </a>
-                  <p>dubai, 2km from center</p>
-                  <div className="rating">
-                    <i className="fas fa-star" />
-                    <i className="fas fa-star" />
-                    <i className="fas fa-star" />
-                    <i className="fas fa-star" />
-                    <i className="far fa-star" />
-                    <span>26412 review</span>
-                  </div>
-                  <div className="facility-icon">
-                    <div className="facility-box">
-                      <img src="../assets/images/icon/hotel/beer.png" className="img-fluid blur-up lazyload" alt />
-                      <span>bar</span>
-                    </div>
-                    <div className="facility-box">
-                      <img src="../assets/images/icon/hotel/wifi.png" className="img-fluid blur-up lazyload" alt />
-                      <span>wifi</span>
-                    </div>
-                    <div className="facility-box">
-                      <img src="../assets/images/icon/hotel/sunset.png" className="img-fluid blur-up lazyload" alt />
-                      <span>beach</span>
-                    </div>
-                    <div className="facility-box">
-                      <img src="../assets/images/icon/hotel/pool.png" className="img-fluid blur-up lazyload" alt />
-                      <span>swimming</span>
-                    </div>
-                  </div>
-                  <div className="price">
-                    <del>$1300</del>
-                    $1254 <span>/ per night</span>
-                    <p className="mb-0">login &amp; unlock a secret deal</p>
-                  </div>
-                  <a href="hotel-booking.html" className="btn btn-solid color1 book-now">book now</a>
-                </div>
-              </div>
-            </div> */}
+            
             {/* commented code end here */}
           </div>
-          <nav aria-label="Page navigation example" className="pagination-section">
+          {/* <nav aria-label="Page navigation example" className="pagination-section">
             <ul className="pagination">
               <li className="page-item">
                 <a className="page-link" href="javascript:void(0)" aria-label="Previous">
@@ -412,7 +273,7 @@ return (
                 </a>
               </li>
             </ul>
-          </nav>
+          </nav> */}
         </div>
       </div>
     </div>

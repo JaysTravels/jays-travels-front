@@ -39,52 +39,18 @@ const LeftSidebarSr = () =>  {
   const [SelectedMinprice,setSelectedMinprice] = useState(hotelMinprice);
   const [SelectedMaxprice,setSelectedMaxprice] = useState(hotelMaxprice);  
   const [checkedCarriers, setCheckedCarriers] = useState({});
+  const [marketingCarriers , setmarketingCarriers] = useState({})
   const [isCheckAll, setIsCheckAll] = useState(false);
  const [isUncheckAll, setIsUncheckAll] = useState(false);
  const [filterRooms,setfilterRoomss] = useState(_filterRoom); 
 
   const [range, setRange] = useState([hotelMinprice, hotelMaxprice]);
 
-  useEffect(() => {
-    
-    if (_filteredHotels?.length > 0) {
-      const _filterRoom = [
-        ...new Set(
-          _filteredHotels.flatMap((hotel) =>
-            //flight.itineraries.flatMap((itinerary) =>
-           //   itinerary.segments.map((segment) => segment.marketingCarrierCode)
-          //  )
-          )
-        ),
-      ];
-      setCheckedCarriers(
-        _filterAirline.reduce((acc, code) => ({ ...acc, [code]: true }), {})
-      );
-    }
-  }, [_filteredFlights]); 
-  useEffect(() => {
-    if (marketingCarriers?.length) {
-      const allAirlines = marketingCarriers.map((carrier) => carrier.marketingCarrierCode);
-      setSelectedAirlines(allAirlines); // Start with all airlines selected
-      setCheckedCarriers(allAirlines.reduce((acc, code) => ({ ...acc, [code]: true }), {}));
-    }
-  }, [marketingCarriers]);
-
- 
-  
+   
   useEffect(() => {
     dispatch(setSelectedPriceRange([hotelMinprice, hotelMaxprice]));
   }, [hotelResults, dispatch])
 
-  // useEffect(() => {
-  //   if (marketingCarriers && marketingCarriers.length > 0) {
-  //     const initialCheckedState = {};
-  //     marketingCarriers.forEach((carrier) => {
-  //       initialCheckedState[carrier.marketingCarrierCode] = true;
-  //     });
-  //     setCheckedCarriers(initialCheckedState);
-  //   }
-  // }, [marketingCarriers]);
 
   const isTimeInRange = (time, start, end) => {
     const timeObj = new Date(`1970-01-01T${time}:00Z`);
@@ -153,83 +119,7 @@ const LeftSidebarSr = () =>  {
     (carrierCode) => checkedCarriers[carrierCode] // Only keep those with `true`
   );
 
-    
-    const newCheckedCarriers = {};
-  marketingCarriers.forEach((carrier) => {
-    newCheckedCarriers[carrier.marketingCarrierCode] = isChecked;
-  });
-    // Update selected airlines list
-    const updatedSelectedAirlines = isChecked
-      ? [...selectedAirlines, carrierCode]
-      : selectedAirlines.filter((code) => code !== carrierCode);
- 
-      if(isChecked == false){
-        const selectedCarriers = Object.keys(checkedCarriers).filter(
-          (carrier) => checkedCarriers[carrier] && carrier !== carrierCode
-        );
-        dispatch(setSelectedCarriers({ selectedCarriers, isCombination: isCombination }));
-      }
-      else{
-        const selectedCarriers = Object.keys(checkedCarriers).filter(
-          (carrier) => checkedCarriers[carrier] && carrier == carrierCode
-        );
 
-        dispatch(setSelectedCarriers({ selectedCarriers, isCombination: isCombination }));
-      }  
-
-    setSelectedAirlines(updatedSelectedAirlines); 
-  
-  };
-
-  const handleCheckboxChange = (carrierCode, isChecked) => {
-    
-    setCheckedCarriers((prevState) => ({
-      ...prevState,
-      [carrierCode]: isChecked, 
-    })); 
-
-
-  if(isChecked){
-   // let check = checkedCarriers;
-    updateCheckedCarriers(carrierCode);
-    const initialCheckedState = {};
-    marketingCarriers.forEach((carrier) => {
-      initialCheckedState[carrier.marketingCarrierCode] = true;
-    });
-    const filteredCarriers = Object.entries(initialCheckedState)
-    .filter(([code, isChecked]) => code === carrierCode && isChecked);  
- 
-  }
- 
-    let updatedSelectedAirlines = isChecked
-      ? [...selectedAirlines, carrierCode]
-      : selectedAirlines.filter((code) => code !== carrierCode);
- 
-      if(isChecked == false){
-        const selectedCarriers = Object.keys(checkedCarriers).filter(
-          (carrier) => checkedCarriers[carrier] && carrier !== carrierCode
-        );
-        dispatch(setSelectedCarriers({ selectedCarriers, isCombination: isCombination }));
-      }
-      else{
-        let selectedCarriers = Object.keys(checkedCarriers).filter( (carrier) => carrier == carrierCode );
-         // (carrier) => checkedCarriers[carrier] && carrier == carrierCode
-       
-        if(selectedCarriers.length == 0 && isChecked){
-          selectedCarriers = Object.keys(checkedCarriers);
-          selectedCarriers.push(carrierCode);
-          updatedSelectedAirlines = selectedCarriers.map(carrier => 
-            Array.isArray(carrier) ? carrier[0] : carrier
-        );
-        // updateCheckedCarriers(carrierCode);
-        }
-
-        dispatch(setSelectedCarriers({ selectedCarriers, isCombination: isCombination }));
-      }
-    setSelectedAirlines(updatedSelectedAirlines);  
-    //dispatch(setSelectedCarriers({ selectedCarriers: updatedSelectedAirlines, isCombination :isCombination,isChecked :isChecked }));
-   
-  };
   const updateCheckedCarriers = (carrierCode) => {
     setCheckedCarriers((prevState) => ({
         ...prevState,
@@ -477,8 +367,8 @@ const handleUncheckAllChange = (isChecked) => {
                       trackClassName="example-track"
                       defaultValue={range}
                       value={selectedPriceRange} 
-                      min={flightMinprice}
-                      max={flightMaxprice}
+                      min={0}
+                      max={700}
                       pearling
                       minDistance={0}
                       onChange={handlePriceChange}  // Dispatch on change onChange={handleSliderChange}
