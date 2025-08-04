@@ -161,7 +161,7 @@ const getRandomReviews = (base = 26412, variation = 200) => {
   return base + randomOffset;
 };
  const getRandomBookingsToday = (min = 3, max = 20) => {
-  debugger;
+  //debugger;
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
   const renderStarRating = (categoryName) => {

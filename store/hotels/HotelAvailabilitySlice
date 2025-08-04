@@ -51,16 +51,16 @@ export const submitHotelData = createAsyncThunk(
       error: null,
       response: null,    
       filteredHotels: null, 
-      selectedCarriers: null, 
-      selectedCarriersExclude: null, 
-      selectedCarriersAll : null,
+      selectedBoardType: null, 
+      selectedBoardTypeExclude: null, 
+      selectedBoardTypeAll : null,
       selectedSegments: [],
       selectedTime : null,
       selectedTimeArrival : null,
       selectedPriceRange: [0, 100],
       minPrice : 0,
       maxPrice : 100,
-      samecarrier : false,
+      sameboardtype : false,
       selectedRoom : '',
       selectedStops: [],
       filterRoom: null
@@ -81,7 +81,81 @@ export const submitHotelData = createAsyncThunk(
         setSelectedHotels:(state,action)=> 
             {              
               state.selectedHotel = { ...state.selectedHotel, ...action.payload };              
-           },              
+           },
+           setSelectedBoardType(state, action) {
+        debugger;
+      
+        const { selectedBoardType, isChecked } = action.payload;
+        // Store selected carriers
+        state.selectedBoardType = selectedBoardType; //action.payload;
+      
+        // If no carriers are selected, show all flights
+        if(isChecked){
+          if (!selectedBoardType || selectedBoardType.length === 0) {
+            state.filteredHotels = action?.payload;
+            return;
+          }
+        }
+         state.filteredHotels =  state.response.data.hotelresponse.hotels.hotels.filter((hotel) =>
+          hotel.rooms.some((room) =>
+            room.rates.some((rate) =>
+              selectedBoardType.includes(rate.boardName)
+            )
+          )
+        );
+           
+      },
+    setCheckAll(state, action) {
+      state.filteredHotels = state.response.data.hotelresponse.hotels.hotels;
+      const isChecked = action.payload ?? false; // Default to false if undefined
+    if (isChecked) {
+        state.filteredHotels = state.response.data.hotelresponse.hotels.hotels; // Set all flights
+    } else {
+        state.filteredHotels = []; 
+    }
+                  
+},
+setUnCheckAll(state, action) {
+  
+   state.filteredHotels = [];
+   state.selectedBoardType = '';
+             
+},setSelectedPriceRange(state, action) {
+ debugger;
+  try{
+    state.selectedPriceRange = action.payload;
+    const [minPrice, maxPrice] = action.payload;
+    state.filteredHotels = state.response.filter((hotel) => {
+      const price = parseFloat(hotel?.rooms?.[0]?.rates?.[0]?.net);
+      return price >= minPrice && price <= maxPrice;
+    });
+  }catch{
+          state.filteredHotels = state?.response;  
+  }
+},setSelectedBords(state, action) {
+ // debugger;
+  state.selectedSegments = Array.isArray(action.payload.selectedStops) ? action.payload.selectedStops : [];
+  
+  if (state.selectedSegments.length > 0) {
+    // Filter flights based on selectedSegments
+    state.filteredFlights = state.response.data.filter((flight) => {
+      const itineraries = flight.itineraries;
+      if (!itineraries || itineraries.length < 2) return false; // Ensure there are itineraries
+
+      const outboundSegmentCount = itineraries[0]?.segments?.length || 0;
+      const inboundSegmentCount = itineraries[1]?.segments?.length || 0;
+
+      // Ensure selectedSegments is an array before using includes
+      const outboundMatches = state.selectedSegments.includes(outboundSegmentCount);
+      const inboundMatches = state.selectedSegments.includes(inboundSegmentCount);
+
+      return outboundMatches && inboundMatches;
+    });
+  } else {
+    // If no segment filter is selected, show all flights
+    state.filteredFlights = state.response.data;
+  }
+}            
       },
       extraReducers: (builder) => {
         builder
@@ -103,7 +177,14 @@ export const submitHotelData = createAsyncThunk(
             state.response = action?.payload.data.hotelresponse.hotels.hotels;
             state.error = null;
             state.loading = false;
-            state.filteredHotels = action?.payload?.data.hotelresponse.hotels.hotels;           
+            state.filteredHotels = action?.payload?.data.hotelresponse.hotels.hotels;   
+            const prices = action?.payload?.data?.hotelresponse?.hotels?.hotels
+            ?.map(hotel => parseFloat(hotel?.rooms?.[0]?.rates?.[0]?.net)) 
+            ?.filter(net => !isNaN(net));
+          if (prices?.length > 0) {
+            state.minPrice = Math.max(0, Math.round(Math.min(...prices)) - 1); 
+            state.maxPrice = Math.round(Math.max(...prices)) + 1;
+          }        
             
            }
             
@@ -134,5 +215,5 @@ export const submitHotelData = createAsyncThunk(
       var res =    timeMinutes >= startMinutes && timeMinutes <= endMinutes;
       return timeMinutes >= startMinutes && timeMinutes <= endMinutes;
     };   
- export const {setHotels,setHotelsResults,setRoom,setSelectedHotel} = Slice.actions;
+ export const {setHotels,setHotelsResults,setRoom,setSelectedHotel,setSelectedBoardType,setCheckAll,setUnCheckAll,setSelectedPriceRange} = Slice.actions;
  export default Slice.reducer;

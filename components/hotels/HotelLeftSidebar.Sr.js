@@ -8,7 +8,7 @@ import React, { use, useEffect, useState } from 'react';
 import ReactSlider from "react-slider";
 import { Button, Input, Label } from "reactstrap";
 import {useDispatch, useSelector} from 'react-redux';
-import { setSelectedCarriers,toggleStop,setCheckAll,setUnCheckAll,setSelectedCarriersExclude,setSelectedPriceRange,setFlightsWithCombination , setSelectedFlights,setSelectedSegments,setSelectedDepartureTime,setSelectedArrivalTime } from "@/store/AvailabilitySlice";
+import { setSelectedBoardType,toggleStop,setCheckAll,setUnCheckAll,setSelectedPriceRange,setFlightsWithCombination , setSelectedFlights,setSelectedDepartureTime,setSelectedArrivalTime } from "@/store/hotels/HotelAvailabilitySlice";
 
 
 const LeftSidebarSr = () =>  {
@@ -31,7 +31,7 @@ const LeftSidebarSr = () =>  {
   const [openArrTime, setOpenArrTime] = useState(false);
   const [selectedAirlines, setSelectedAirlines] = useState([]);
   const [filteredFlights, setFilteredFlights] = useState([]);
-  const [selectedStops, setSelectedStops] = useState([]);
+  const [selectedBoard, setSelectedBoard] = useState([]);
   const [selectedTimeRanges, setSelectedTimeRanges] = useState([]);
   const [selectedTimeRangesArrival, setSelectedTimeRangesArrival] = useState([]);
   const hotelResultsFull = hotelResults;
@@ -61,7 +61,7 @@ const LeftSidebarSr = () =>  {
 
    
   const handlePriceChange = (value) => {
-    //debugger;
+    debugger;
     const [_minPrice, _maxPrice] = value;  
     setSelectedMinprice(_minPrice);
     setSelectedMaxprice(_maxPrice); 
@@ -155,33 +155,14 @@ const LeftSidebarSr = () =>  {
      }
   };
 
-  const handleStopFilterChange = (stopCount,isChecked) => {
-   // debugger;
-    let updatedStops = isChecked
-    ? [...selectedStops, stopCount]
-    : selectedStops.filter((stop) => stop !== stopCount)
+  const handleBoardTypeFilterChange = (stopCount,isChecked) => {
+    debugger;
+    let updatedBoardType = isChecked
+    ? [...selectedBoard, stopCount]
+    : selectedBoard.filter((stop) => stop !== stopCount)
 
-    setSelectedStops(updatedStops);   
-    dispatch(setSelectedSegments({ selectedStops: updatedStops }));    
-  };
-
-  const handleStopFilterChange_old = (stopCount,isChecked) => {
-    
-    let updatedStops;
-
-    if (isChecked) {
-      // If the checkbox is checked, add the stop type to the selectedStops array
-      updatedStops = [...selectedStops, stopCount];
-    } else {
-      // If the checkbox is unchecked, remove the stop type from the selectedStops array
-      updatedStops = selectedStops.filter((stop) => stop !== stopCount);
-    }
-    const updatedSelectedStops = selectedStops?.includes(stopCount)
-    ? selectedStops.filter((stop) => stop !== stopCount)
-    : [...selectedStops, stopCount];
-
-  setSelectedStops(updatedSelectedStops,isChecked);
-    dispatch(setSelectedSegments(updatedSelectedStops));
+    setSelectedBoard(updatedBoardType);   
+    dispatch(setSelectedBoardType({ selectedBoardType: updatedBoardType , isChecked : isChecked}));    
   };
 
   const TIME_RANGES = {
@@ -286,7 +267,7 @@ const handleUncheckAllChange = (isChecked) => {
                 className="collapse-block-title"
                 onClick={toggleCollapseStops}
               >
-                stops
+                Board Type
               </h6>
               <div
                 className="collection-collapse-block-content"
@@ -303,11 +284,11 @@ const handleUncheckAllChange = (isChecked) => {
                       type="checkbox"
                       className="form-check-input"
                       id="free-d"
-                      onChange={(e) => handleStopFilterChange(1, e.target.checked)}
-                      checked={selectedStops?.includes(1)}
+                      onChange={(e) => handleBoardTypeFilterChange('RO', e.target.checked)}
+                      checked={selectedBoard?.includes('RO')}
                     />
                     <Label className="form-check-label" for="free-d">
-                      Direct
+                      Room Only
                     </Label>
                   </div>
                   <div className="form-check collection-filter-checkbox">
@@ -315,11 +296,11 @@ const handleUncheckAllChange = (isChecked) => {
                       type="checkbox"
                       className="form-check-input"
                       id="time"
-                      onChange={(e) => handleStopFilterChange(2, e.target.checked)}
-                      checked={selectedStops?.includes(2)}
+                      onChange={(e) => handleBoardTypeFilterChange('BB', e.target.checked)}
+                      checked={selectedBoard?.includes('BB')}
                     />
                     <Label className="form-check-label" for="time">
-                      1 stop
+                      Bed & Breakfast
                     </Label>
                   </div>
                   <div className="form-check collection-filter-checkbox">
@@ -327,17 +308,30 @@ const handleUncheckAllChange = (isChecked) => {
                       type="checkbox"
                       className="form-check-input"
                       id="zara"
-                      onChange={(e) => handleStopFilterChange(3, e.target.checked)}
-                      checked={selectedStops?.includes(3)}
+                      onChange={(e) => handleBoardTypeFilterChange('HB', e.target.checked)}
+                      checked={selectedBoard?.includes('HB')}
                     />
                     <Label className="form-check-label" for="zara">
-                      2 stop
+                     Half Board
+                    </Label>
+                  </div>
+                  <div className="form-check collection-filter-checkbox">
+                    <Input
+                      type="checkbox"
+                      className="form-check-input"
+                      id="zara"
+                      onChange={(e) => handleBoardTypeFilterChange('FB', e.target.checked)}
+                      checked={selectedBoard?.includes('FB')}
+                    />
+                    <Label className="form-check-label" for="zara">
+                     Full Board
                     </Label>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          
           <div className="filter-block">
             <div
               className={`collection-collapse-block ${openPrice ? "" : "open"}`}
@@ -367,8 +361,8 @@ const handleUncheckAllChange = (isChecked) => {
                       trackClassName="example-track"
                       defaultValue={range}
                       value={selectedPriceRange} 
-                      min={0}
-                      max={700}
+                      min={hotelMinprice}
+                      max={hotelMaxprice}
                       pearling
                       minDistance={0}
                       onChange={handlePriceChange}  // Dispatch on change onChange={handleSliderChange}
@@ -390,120 +384,7 @@ const handleUncheckAllChange = (isChecked) => {
               </div>
             </div>
           </div>
-          <div className="filter-block">
-            <div
-              className={`collection-collapse-block ${
-                openAirlines ? "" : "open"
-              }`}
-            >
-              <h6
-                className="collapse-block-title"
-                onClick={toggleCollapseAirlines}
-              >
-                airlines
-              </h6>
-              <div
-                className="collection-collapse-block-content"
-                style={{
-                  maxHeight: openAirlines ? "0" : "",
-                  overflow: "hidden",
-                  transition: "max-height 0.3s ease",
-                  paddingBottom: "0",
-                }}
-              >
-                <div className="collection-brand-filter">
-                 {/* Check All and Uncheck All checkboxes */}
-                 {marketingCarriers && marketingCarriers?.length > 1 && (
-                  <div className="form-check collection-filter-checkbox">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="check-all"
-                    checked={Object.values(checkedCarriers).every(Boolean)} // Check if all carriers are checked
-                    onChange={(e) => handleCheckAllChange(e.target.checked)}
-                  />
-                  <label className="form-check-label" htmlFor="check-all">
-                    Check All
-                  </label>
-                </div>
-
-                 )}
-            
-            {marketingCarriers && marketingCarriers?.length > 1 && ( 
-                    <div className="form-check collection-filter-checkbox">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="uncheck-all"
-                      checked={Object.values(checkedCarriers).every((checked) => !checked)} // Check if all carriers are unchecked
-                      onChange={(e) => handleUncheckAllChange(e.target.checked)}
-                    />
-                    <label className="form-check-label" htmlFor="uncheck-all">
-                      Uncheck All
-                    </label>
-                  </div>
-
-            )}
-    
-                {marketingCarriers && marketingCarriers.length > 0 ? (
-                    marketingCarriers.map((carrier, index) => (
-                <div className="form-check collection-filter-checkbox" key={index}>
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id={`carrier-${carrier.marketingCarrierCode}`}
-                    checked={checkedCarriers[carrier.marketingCarrierCode] || false}                  
-                    onChange={(e) => handleCheckboxChange(carrier.marketingCarrierCode, e.target.checked)}
-                  />
-                  <label
-                    className="form-check-label"
-                    htmlFor={`carrier-${carrier.marketingCarrierCode}`}
-                  >
-                    {carrier.marketingCarrierName}
-                  </label>
-                </div>
-                    ))
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
-                <div
-                className="collection-collapse-block-content"
-                style={{
-                  maxHeight: openAirlines ? "0" : "",
-                  overflow: "hidden",
-                  transition: "max-height 0.3s ease",
-                  paddingBottom: "0",
-                }}
-              >
-                <div className="collection-brand-filter">
-                {marketingCarriers && marketingCarriers.length > 1 && (
-                    <div className="form-check collection-filter-checkbox">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      id={`carrier-allairlines`}
-                      checked={isCombination}
-                      onChange={(e) => handleCheckboxChangeSameCarrier(e.target.checked)}
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor={`carrier-allairlines`}
-                    >
-                      {'Airlines Combinations'}
-                    </label>
-                    </div>
-
-                )}
-               
-                </div>
-              </div>
-              </div>
-
-              {/* for bunch airline code */}
-             
-            </div>
-          </div>
+          
           <div className="filter-block">
             <div
               className={`collection-collapse-block open ${
