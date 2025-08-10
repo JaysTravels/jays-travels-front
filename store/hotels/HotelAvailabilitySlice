@@ -90,16 +90,18 @@ export const submitHotelData = createAsyncThunk(
         state.selectedBoardType = selectedBoardType; //action.payload;
       
         // If no carriers are selected, show all flights
-        if(isChecked){
+      //  if(isChecked){
           if (!selectedBoardType || selectedBoardType.length === 0) {
-            state.filteredHotels = action?.payload;
+            state.filteredHotels = state.response;
             return;
           }
-        }
-         state.filteredHotels =  state.response.data.hotelresponse.hotels.hotels.filter((hotel) =>
+       // }
+        console.log(state.response);
+
+         state.filteredHotels =  state.response.filter((hotel) =>
           hotel.rooms.some((room) =>
             room.rates.some((rate) =>
-              selectedBoardType.includes(rate.boardName)
+              selectedBoardType.includes(rate.boardCode)
             )
           )
         );

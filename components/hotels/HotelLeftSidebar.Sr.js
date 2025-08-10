@@ -385,7 +385,7 @@ const handleUncheckAllChange = (isChecked) => {
             </div>
           </div>
           
-          <div className="filter-block">
+          <div className="filter-block" style={{ display: 'none' }} >
             <div
               className={`collection-collapse-block open ${
                 openDepTime ? "" : "open"
@@ -451,7 +451,7 @@ const handleUncheckAllChange = (isChecked) => {
               </div>
             </div>
           </div>
-          <div className="filter-block">
+          <div className="filter-block" style={{ display: 'none' }}>
             <div
               className={`collection-collapse-block ${
                 openArrTime ? "" : "open"
