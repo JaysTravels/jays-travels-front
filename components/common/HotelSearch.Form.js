@@ -26,7 +26,7 @@ import { useRouter } from "next/router";
   const [endDate, setEndDate] = useState(new Date());
   const [showPassengers, setShowPassengers] = useState(false);  
   const [passengerPlaceholder,setPassengerPlaceholder] = useState("Passengers");
-  const [showRooms, setShowRooms] = useState(false);  
+  const [showRooms, setShowRooms] = useState(true);  
   const [roomPlaceholder,setRoomPlaceholder] = useState("Rooms");
  // const [originAirport, setoriginAirport] = useState(null);
    const [destAirport, setDestAirport] = useState(null);
@@ -329,7 +329,7 @@ debugger;
               onAirportSelect={handleDestAirportChange}                 
             /> 
              </Col>
-          <Col lg={props.col1 || "6"} md={props.col1 || "12"}>
+          <Col lg={props.col2 || "6"} md={props.col2 || "4"}>
             {props.showLabel && <Label>Rooms</Label>}
               <div className="inputGroup">
                 <Input
