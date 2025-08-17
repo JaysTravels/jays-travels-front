@@ -8,14 +8,13 @@ import { selectedHotel} from "@/store/hotels/HotelAvailabilitySlice";
 import {getPaymentPage} from "@/store/PaymentSlice";
 import { useResolvedPath } from "react-router-dom";
 
-const HotelResultsSr = () => {
- const router = useRouter();
+  const HotelResultsSr = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const hotelResults = useSelector((state) => state?.hotels?.response);
   const hotelRequest = useSelector((state) => state?.hotels?.hotels);
   const hotelError = useSelector((state) => state?.hotels?.error);
   const filteredHotels  = useSelector((state) => state?.hotels?.filteredHotels);
-  //const marketingCarriers = useSelector((state) => state?.flights?.marketingCarriers);
   const [loadingId, setLoadingId] = useState(null); 
   const appurl = process.env.NEXT_PUBLIC_APP_URL;
   function convertToDateFormat(dateString) {
@@ -109,19 +108,17 @@ const HotelResultsSr = () => {
       dispatch(setSelectedFlights(flight));
     } catch (error) {
       console.error('Error calling setselectedFight:', error.message);
-    }
-    // New work for Set payment data
+    }    
     const paymentRequest = {
       OrderId: flight.id + '' + flight.fareBasis,
-      Amount: flight.price.total, // Amount in pounds
+      Amount: flight.price.total, 
       Currency: flight.price.currency,
       Language: 'en_US'
     }
 
     try {
 
-      dispatch(getPaymentPage(paymentRequest)).unwrap().then(() => {
-        // debugger;
+      dispatch(getPaymentPage(paymentRequest)).unwrap().then(() => {        
         console.log('Get payment successfully.');
       })
 
@@ -129,11 +126,8 @@ const HotelResultsSr = () => {
       console.error('An error occurred:', err);
     } finally {
     }
-
-    // console.log(flightData);
-    const AirSellRequset = getAirSellRequest(flight);
-    //console.log(AirSellRequset);
-
+   
+    const AirSellRequset = getAirSellRequest(flight);  
     try {
 
       dispatch(setAirSell(AirSellRequset));
@@ -144,24 +138,19 @@ const HotelResultsSr = () => {
     }
     try {
 
-      dispatch(submitairSellRequest(AirSellRequset)).unwrap().then(() => {
-        
-       // router.push("/flight-confirmation");
+      dispatch(submitairSellRequest(AirSellRequset)).unwrap().then(() => {  
         router.push(`${appurl}/flight-confirmation`);
-
       })
-
     } catch (error) {
       console.error('Error api call data:', error.message);
-      alert(error);
+      
     }
   }
 const getRandomReviews = (base = 26412, variation = 200) => {
   const randomOffset = Math.floor(Math.random() * variation);
   return base + randomOffset;
 };
- const getRandomBookingsToday = (min = 3, max = 20) => {
-  //debugger;
+ const getRandomBookingsToday = (min = 3, max = 20) => {  
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
   const renderStarRating = (categoryName) => {
@@ -222,20 +211,23 @@ return (
                     {renderStarRating(item?.categoryname)}                    
                   </div>
                   <div className="facility-icon">
-                    <div className="facility-box">
+                   { item.details.facilities.map((faclity, index) => {
+                     <div className="facility-box">
                     <img src="../images/packages/holidays-main/dubai/atlantis-the-palm.jpg" className="img-fluid lazyload bg-img" alt />
-                      <span>bar</span>
+                      <span>{faclity.description.content}</span>
                     </div>
+                    })
+                  }
                     <div className="facility-box">
-                      <img src="../assets/images/icon/hotel/wifi.png" className="img-fluid blur-up lazyload" alt />
+                      <img src="../assets/images/icon/hotel/wifi.png" className="img-fluid lazyload" alt />
                       <span>wifi</span>
                     </div>
                     <div className="facility-box">
-                      <img src="../assets/images/icon/hotel/sunset.png" className="img-fluid blur-up lazyload" alt />
+                      <img src="../assets/images/icon/hotel/sunset.png" className="img-fluid lazyload" alt />
                       <span>beach</span>
                     </div>
                     <div className="facility-box">
-                      <img src="../assets/images/icon/hotel/pool.png" className="img-fluid blur-up lazyload" alt />
+                      <img src="../assets/images/icon/hotel/pool.png" className="img-fluid lazyload" alt />
                       <span>swimming</span>
                     </div>
                   </div>
@@ -250,37 +242,15 @@ return (
                   <a href="hotel-booking.html" className="btn btn-solid color1 book-now">book now</a>
                 </div>
               </div>
-            </div>
-            {/* commented code start here */}
-            
-            {/* commented code end here */}
-          </div>
-          {/* <nav aria-label="Page navigation example" className="pagination-section">
-            <ul className="pagination">
-              <li className="page-item">
-                <a className="page-link" href="javascript:void(0)" aria-label="Previous">
-                  <span aria-hidden="true">«</span>
-                  <span className="sr-only">Previous</span>
-                </a>
-              </li>
-              <li className="page-item active"><a className="page-link" href="javascript:void(0)">1</a></li>
-              <li className="page-item"><a className="page-link" href="javascript:void(0)">2</a></li>
-              <li className="page-item"><a className="page-link" href="javascript:void(0)">3</a></li>
-              <li className="page-item">
-                <a className="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">»</span>
-                  <span className="sr-only">Next</span>
-                </a>
-              </li>
-            </ul>
-          </nav> */}
+            </div>          
+          </div>         
         </div>
       </div>
     </div>
 
                  );
 
-              })) : "no flights found"
+              })) : "no hotels found"
     }
     
   </div>

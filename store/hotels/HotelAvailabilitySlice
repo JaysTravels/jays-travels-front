@@ -48,6 +48,7 @@ export const submitHotelData = createAsyncThunk(
       selectedHotel : null,
       status: 'idle',
       loading: false,
+      selectedStars: [],
       error: null,
       response: null,    
       filteredHotels: null, 
@@ -85,45 +86,63 @@ export const submitHotelData = createAsyncThunk(
            setSelectedBoardType(state, action) {
         debugger;
       
-        const { selectedBoardType, isChecked } = action.payload;
-        // Store selected carriers
-        state.selectedBoardType = selectedBoardType; //action.payload;
-      
-        // If no carriers are selected, show all flights
-      //  if(isChecked){
-          if (!selectedBoardType || selectedBoardType.length === 0) {
+        const { selectedBoardType, isChecked } = action.payload;        
+        state.selectedBoardType = selectedBoardType; 
+        if (!selectedBoardType || selectedBoardType.length === 0) {
             state.filteredHotels = state.response;
             return;
-          }
-       // }
+        }
         console.log(state.response);
-
-         state.filteredHotels =  state.response.filter((hotel) =>
+        state.filteredHotels =  state.response.filter((hotel) =>
           hotel.rooms.some((room) =>
             room.rates.some((rate) =>
               selectedBoardType.includes(rate.boardCode)
             )
           )
-        );
-           
+        );           
       },
     setCheckAll(state, action) {
       state.filteredHotels = state.response.data.hotelresponse.hotels.hotels;
-      const isChecked = action.payload ?? false; // Default to false if undefined
+      const isChecked = action.payload ?? false; 
     if (isChecked) {
-        state.filteredHotels = state.response.data.hotelresponse.hotels.hotels; // Set all flights
+        state.filteredHotels = state.response.data.hotelresponse.hotels.hotels; 
     } else {
         state.filteredHotels = []; 
     }
                   
 },
-setUnCheckAll(state, action) {
-  
+setUnCheckAll(state, action) {  
    state.filteredHotels = [];
-   state.selectedBoardType = '';
-             
-},setSelectedPriceRange(state, action) {
- debugger;
+   state.selectedBoardType = '';             
+},
+setSelectedHotelStars(state, action) {
+  try {
+    let { selectedStars, isChecked } = action.payload; 
+     let starString = `${selectedStars}EST`;  
+    if (isChecked) {
+      state.selectedStars.push(selectedStars);
+    } else {
+      state.selectedStars = state.selectedStars.filter(s => s !== selectedStars);
+    }    
+    if (state.selectedStars.length > 0) {
+     state.filteredHotels = state.response.filter((hotel) => {     
+      return selectedStars.some(
+        (star) => hotel.categorycode?.toUpperCase().includes(`${star}EST`)
+      );
+    });
+    } else {
+      state.filteredHotels = state.response;
+    }
+    if(isChecked == false && state.filteredHotels.length == 0){
+      state.filteredHotels = state.response;
+    }
+
+  } catch {
+    state.filteredHotels = state?.response;
+  }
+}
+,
+setSelectedPriceRange(state, action) {
   try{
     state.selectedPriceRange = action.payload;
     const [minPrice, maxPrice] = action.payload;
@@ -135,26 +154,23 @@ setUnCheckAll(state, action) {
           state.filteredHotels = state?.response;  
   }
 },setSelectedBords(state, action) {
- // debugger;
+
   state.selectedSegments = Array.isArray(action.payload.selectedStops) ? action.payload.selectedStops : [];
   
-  if (state.selectedSegments.length > 0) {
-    // Filter flights based on selectedSegments
-    state.filteredFlights = state.response.data.filter((flight) => {
+  if (state.selectedSegments.length > 0) 
+    {
+      state.filteredFlights = state.response.data.filter((flight) => {
       const itineraries = flight.itineraries;
-      if (!itineraries || itineraries.length < 2) return false; // Ensure there are itineraries
+      if (!itineraries || itineraries.length < 2) return false; 
 
       const outboundSegmentCount = itineraries[0]?.segments?.length || 0;
       const inboundSegmentCount = itineraries[1]?.segments?.length || 0;
-
-      // Ensure selectedSegments is an array before using includes
       const outboundMatches = state.selectedSegments.includes(outboundSegmentCount);
       const inboundMatches = state.selectedSegments.includes(inboundSegmentCount);
 
       return outboundMatches && inboundMatches;
     });
-  } else {
-    // If no segment filter is selected, show all flights
+  } else {    
     state.filteredFlights = state.response.data;
   }
 }            
@@ -165,16 +181,14 @@ setUnCheckAll(state, action) {
             state.status = 'loading';
             state.loading = true;
           })
-          .addCase(submitHotelData.fulfilled, (state, action) => {
-          debugger;
+          .addCase(submitHotelData.fulfilled, (state, action) => {          
            if(action.payload.isSuccessful === false){
             state.status = 'failed';
             state.response = action.payload.data.error;
             state.error = action.payload.response;
             state.loading = false;
            }
-           else{
-                       
+           else{                       
             state.status = 'succeeded';
             state.response = action?.payload.data.hotelresponse.hotels.hotels;
             state.error = null;
@@ -202,7 +216,7 @@ setUnCheckAll(state, action) {
     const TIME_RANGES = {
       morning: { start: "06:00", end: "12:00" },
       noon: { start: "12:00", end: "18:00" },
-      evening: { start: "18:00", end: "23:59" }, // Evening until end of the day
+      evening: { start: "18:00", end: "23:59" }, 
     };
 
     const isTimeInRange = (time, start, end) => {     
@@ -217,5 +231,5 @@ setUnCheckAll(state, action) {
       var res =    timeMinutes >= startMinutes && timeMinutes <= endMinutes;
       return timeMinutes >= startMinutes && timeMinutes <= endMinutes;
     };   
- export const {setHotels,setHotelsResults,setRoom,setSelectedHotel,setSelectedBoardType,setCheckAll,setUnCheckAll,setSelectedPriceRange} = Slice.actions;
+ export const {setHotels,setSelectedHotelStars,setHotelsResults,setRoom,setSelectedHotel,setSelectedBoardType,setCheckAll,setUnCheckAll,setSelectedPriceRange} = Slice.actions;
  export default Slice.reducer;

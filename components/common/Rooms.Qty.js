@@ -41,46 +41,19 @@ const RoomsQty = ({
 
   return (
     <>
-      <div className="showRooms" onFocus={onFocusRooms} onClick={(event) => event.stopPropagation()}> 
-        {" "}
-       <div className="rowSt">
-          <Label>Room</Label>
-
-          <div className="inputGp">
-            <Button
-              color="transparent"
-              className="text-c5"
-              onClick={() => handleDecrementRooms()}
-            >
-              -
-            </Button>
-
-            <Input
-              type="text"
-              value={valueRooms}
-              onChange={(e) => handleChangeRooms(e)}
-              min="1"
-              className="w30px p-0 text-center border-0 rounded-0"
-            />
-            <Button
-              color="transparent"
-              className="text-c5"
-              onClick={() => handleIncrementRoom()}
-            >
-              +
-            </Button>
-          </div>
-        </div>       
-        <div className="bottomPart" >
-          <Button
-            onClick={() => handleshowparentRoom()}
-            color="transparent"
-            className="btn"
-          >
-            apply
-          </Button>
-        </div>
-      </div>
+<div className="showRooms">
+  <label htmlFor="roomQuantity">Room</label>
+  <select
+    id="roomQuantity"
+    value={valueRooms}
+    onChange={(e) => handleChangeRooms(e)}
+    className="p-0 text-center border-0 rounded-0"
+  >
+    <option value={1}>01</option>
+    <option value={2}>02</option>
+    <option value={3}>03</option>  
+  </select>
+</div>
     </>
   );
 };

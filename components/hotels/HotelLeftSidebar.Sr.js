@@ -8,7 +8,7 @@ import React, { use, useEffect, useState } from 'react';
 import ReactSlider from "react-slider";
 import { Button, Input, Label } from "reactstrap";
 import {useDispatch, useSelector} from 'react-redux';
-import { setSelectedBoardType,toggleStop,setCheckAll,setUnCheckAll,setSelectedPriceRange,setFlightsWithCombination , setSelectedFlights,setSelectedDepartureTime,setSelectedArrivalTime } from "@/store/hotels/HotelAvailabilitySlice";
+import { setSelectedBoardType,setSelectedHotelStars,toggleStop,setCheckAll,setUnCheckAll,setSelectedPriceRange,setFlightsWithCombination , setSelectedFlights,setSelectedDepartureTime,setSelectedArrivalTime } from "@/store/hotels/HotelAvailabilitySlice";
 
 
 const LeftSidebarSr = () =>  {
@@ -43,7 +43,7 @@ const LeftSidebarSr = () =>  {
   const [isCheckAll, setIsCheckAll] = useState(false);
  const [isUncheckAll, setIsUncheckAll] = useState(false);
  const [filterRooms,setfilterRoomss] = useState(_filterRoom); 
-
+const [selectedRatings, setSelectedRatings] = useState(["5", "4"]);
   const [range, setRange] = useState([hotelMinprice, hotelMaxprice]);
 
    
@@ -126,7 +126,26 @@ const LeftSidebarSr = () =>  {
         [carrierCode]: true, // Add carrierCode if it doesn't exist
     }));
 };
-
+ const renderStars = (rating) => {
+    const fullStars = parseInt(rating, 10);
+    return (
+      <>
+        {[...Array(fullStars)].map((_, i) => (
+          <i key={`full-${i}`} className="fas fa-star" />
+        ))}
+        {[...Array(5 - fullStars)].map((_, i) => (
+          <i key={`empty-${i}`} className="far fa-star" />
+        ))}
+      </>
+    );
+  };
+ const handleChangeRating = (value) => {
+    setSelectedRatings((prev) =>
+      prev.includes(value)
+        ? prev.filter((v) => v !== value)
+        : [...prev, value]
+    );
+  };
 
   const handleCheckboxChangeSameCarrier = async (isChecked) => {
     //debugger;
@@ -213,7 +232,19 @@ const handleCheckAllChange = (isChecked) => {
 
  
 };
+const [selectedStars, setSelectedStars] = useState([]);
+const [openStars, setOpenStars] = useState(false);
+const toggleCollapseStars = () => setOpenStars(!openStars);
 
+const handleStarFilterChange = (star, isChecked) => {
+  debugger;
+  let updatedStars = isChecked
+    ? [...selectedStars, star]
+    : selectedStars.filter((s) => s !== star);
+
+  setSelectedStars(updatedStars);
+  dispatch(setSelectedHotelStars({ selectedStars: updatedStars,isChecked : isChecked }));
+};
 // Function to handle 'Uncheck All'
 const handleUncheckAllChange = (isChecked) => {
   const newCheckedCarriers = {};
@@ -251,8 +282,7 @@ const handleUncheckAllChange = (isChecked) => {
           <h5>Filters</h5>         
           <FontAwesomeIcon icon={faAlignCenter} />
         </Button>
-        <div
-          className="collection-collapse-block-content"
+        <div className="collection-collapse-block-content"
           style={{
             maxHeight: open ? "0" : "",
             overflow: "hidden",
@@ -383,139 +413,50 @@ const handleUncheckAllChange = (isChecked) => {
                 </div>
               </div>
             </div>
+          </div>     
+         
+         <div className="filter-block">
+  <div
+    className={`collection-collapse-block ${openStars ? "" : "open"}`}
+  >
+    <h6
+      className="collapse-block-title"
+      onClick={toggleCollapseStars}
+    >
+      Star Rating
+    </h6>
+    <div
+      className="collection-collapse-block-content"
+      style={{
+        maxHeight: openStars ? "0" : "120px",
+        overflow: "hidden",
+        transition: "max-height 0.3s ease",
+        paddingBottom: "0",
+      }}
+    >
+      <div className="collection-brand-filter">
+        {[5, 4, 3, 2, 1].map((star) => (
+          <div className="form-check collection-filter-checkbox" key={star}>
+            <Input
+              type="checkbox"
+              className="form-check-input"
+              id={`star-${star}`}
+              onChange={(e) => handleStarFilterChange(star, e.target.checked)}
+              checked={selectedStars?.includes(star)}
+            />
+            <Label className="form-check-label" htmlFor={`star-${star}`}>
+              {[...Array(star)].map((_, i) => (
+                <i key={i} className="fas fa-star" style={{ color: "#FFD700" }}></i>
+              ))}
+            </Label>
           </div>
-          
-          <div className="filter-block" style={{ display: 'none' }} >
-            <div
-              className={`collection-collapse-block open ${
-                openDepTime ? "" : "open"
-              }`}
-            >
-              <h6
-                className="collapse-block-title"
-                onClick={toggleCollapseDepTime}
-              >
-                departure time
-              </h6>
-              <div
-                className="collection-collapse-block-content"
-                style={{
-                  maxHeight: openDepTime ? "0" : "330px",
-                  overflow: "hidden",
-                  transition: "max-height 0.3s ease",
-                  paddingBottom: "0",
-                }}
-              >
-                <div className="collection-brand-filter">
-                 <div className="form-check collection-filter-checkbox">
-                    <Input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="suomi"
-                      onChange={(event) => handleTimeRangeChange("morning", event.target.checked)}
-                      checked={selectedTimeRanges.includes("morning")}
-                    />
-                    <Label className="form-check-label" for="suomi">
-                      <Image src={sunrise} className="img-fluid me-1" alt="" />{" "}
-                      morning (6am to 12pm)
-                    </Label>
-                  </div>
-                  <div className="form-check collection-filter-checkbox">
-                    <Input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="english"
-                      onChange={(event) => handleTimeRangeChange("noon", event.target.checked)}
-                      checked={selectedTimeRanges.includes("noon")}
-                    
-                    />
-                    <Label className="form-check-label" for="english">
-                      <Image src={sun} className="img-fluid me-1" alt="" /> noon
-                      (12pm to 6pm)
-                    </Label>
-                  </div>
-                  <div className="form-check collection-filter-checkbox">
-                    <Input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="sign"
-                      onChange={(event) => handleTimeRangeChange("evening", event.target.checked)}
-                      checked={selectedTimeRanges.includes("evening")}
-                    />
-                    <Label className="form-check-label" for="sign">
-                      <Image src={night} className="img-fluid me-1" alt="" />{" "}
-                      evening (after 6pm)
-                    </Label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="filter-block" style={{ display: 'none' }}>
-            <div
-              className={`collection-collapse-block ${
-                openArrTime ? "" : "open"
-              }`}
-            >
-              <h6
-                className="collapse-block-title"
-                onClick={toggleCollapseArrTime}
-              >
-                arrival time
-              </h6>
-              <div
-                className="collection-collapse-block-content"
-                style={{
-                  maxHeight: openArrTime ? "0" : "130px",
-                  overflow: "hidden",
-                  transition: "max-height 0.3s ease",
-                  paddingBottom: "0",
-                }}
-              >
-                <div className="collection-brand-filter">
-                  <div className="form-check collection-filter-checkbox">
-                    <Input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="morning"
-                      onChange={(event) => handleTimeRangeChangeArrival("morning", event.target.checked)}
-                      checked={selectedTimeRangesArrival.includes("morning")}
-                    />
-                    <Label className="form-check-label" for="morning">
-                      <Image src={sunrise} className="img-fluid me-1" alt="" />{" "}
-                      morning (6am to 12pm)
-                    </Label>
-                  </div>
-                  <div className="form-check collection-filter-checkbox">
-                    <Input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="noon"
-                      onChange={(event) => handleTimeRangeChangeArrival("noon", event.target.checked)}
-                      checked={selectedTimeRangesArrival.includes("noon")}
-                    />
-                    <Label className="form-check-label" for="noon">
-                      <Image src={sun} className="img-fluid me-1" alt="" /> noon
-                      (12pm to 6pm)
-                    </Label>
-                  </div>
-                  <div className="form-check collection-filter-checkbox">
-                    <Input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="evening"
-                      onChange={(event) => handleTimeRangeChangeArrival("evening", event.target.checked)}
-                      checked={selectedTimeRangesArrival.includes("evening")}
-                    />
-                    <Label className="form-check-label" for="evening">
-                      <Image src={night} className="img-fluid me-1" alt="" />
-                      evening (after 6pm)
-                    </Label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+    
         </div>
       </div>
       <div className="bottom-info">

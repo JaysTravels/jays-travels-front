@@ -26,7 +26,7 @@ import { useRouter } from "next/router";
   const [endDate, setEndDate] = useState(new Date());
   const [showPassengers, setShowPassengers] = useState(false);  
   const [passengerPlaceholder,setPassengerPlaceholder] = useState("Passengers");
-  const [showRooms, setShowRooms] = useState(true);  
+  const [showRooms, setShowRooms] = useState(false);  
   const [roomPlaceholder,setRoomPlaceholder] = useState("Rooms");
  // const [originAirport, setoriginAirport] = useState(null);
    const [destAirport, setDestAirport] = useState(null);
@@ -35,7 +35,7 @@ import { useRouter } from "next/router";
   const [adults , setAdults] = useState(1);
   const [rooms, setRooms] = useState(1); // stores number
   const [roomCount, setRoomCount] = useState(1); // stores number
-  const [valueRooms, setvalueRooms] = useState('1 Room');
+  const [valueRooms, setvalueRooms] = useState(1);
   const [childs , setChilds] = useState(0);
   const [infants , setInfants] = useState(0);
   const [apiResponse,setApiResponse] = useState('');
@@ -65,31 +65,31 @@ import { useRouter } from "next/router";
   const handleOutsideClick = (event) => {
     if (passengerRef.current && !passengerRef.current.contains(event.target)) {
       setShowPassengers(false); // Hide the component if clicked outside
+      setShowRooms(false);
     }
   };
 
 const handleChangeRooms = (e) => {
+  debugger
   const inputValue = e.target.value;
   if (inputValue === '') {
     setRoomCount('');
-    setvalueRooms('');
+    setvalueRooms('');    
     return;
   }
   const newValue = Number(inputValue);
-  //debugger;
   if (!isNaN(newValue) && newValue > 0) {
     setRoomCount(newValue);
-    setvalueRooms(newValue === 1 ? '1 Room' : `${newValue} Rooms`);
+    setvalueRooms(newValue);
   }
 };
  
   const updateshowpassengerfromChild = (newValue) => {
-   // debugger;
-      setShowPassengers(newValue); 
+    setShowPassengers(newValue); 
+        setShowRooms(false);
   };
    const updateshowroomfromChild = (newValue) => {
-    //debugger;
-      setShowRooms(newValue); 
+    setShowRooms(newValue); 
   };
  
   const handleGuestsChange = (counts) => {
@@ -149,11 +149,13 @@ const handleChangeRooms = (e) => {
   };  
   const handleFocus = () => {  
   
-     setShowPassengers(true);   
+     setShowPassengers(true); 
+       setShowRooms(false);  
   };
    const handleFocusRooms = () => {  
   
-     setShowRooms(true);   
+     setShowRooms(true);  
+     setShowPassengers(false);  
   };
   const handleClick = () => {   
     setShowPassengers((prevState) => !prevState);
@@ -330,21 +332,27 @@ debugger;
             /> 
              </Col>
           <Col lg={props.col2 || "6"} md={props.col2 || "4"}>
-            {props.showLabel && <Label>Rooms</Label>}
+            {<Label>Rooms</Label>}
               <div className="inputGroup">
-                <Input
+                {/* <Input
                   type="text"
                   placeholder= {roomPlaceholder}
                   className="rounded-0 " 
                   onFocus={() => handleFocusRooms()}     
                   onClick={() => handleClickRoom()}                     
-                />
+                /> */}
+                 <select id="roomQuantity" value={valueRooms} onChange={(e) => handleChangeRooms(e)}
+                 className="rounded-0 form-control" onFocus={() => handleFocusRooms()}     
+                  onClick={() => handleClickRoom()}       >
+                <option value={1}>01</option>
+                <option value={2}>02</option>
+                <option value={3}>03</option>   
+                </select>
                 <div className="icon" >
                   <FontAwesomeIcon icon={faUser} />
                 </div>
-              </div>
-              {showRooms && <RoomsQty  roomsValue={rooms} onGuestsChangeRoom={handleRoomsQtyChange}  updateshowRoom={updateshowroomfromChild} />}           
-                        
+                   {/* {showRooms && <RoomsQty  roomsValue={rooms} onGuestsChangeRoom={handleRoomsQtyChange}  updateshowRoom={updateshowroomfromChild} />} */}
+               </div>  
           </Col>
           <Col lg={props.col2 || "4"} md={props.col2 || "4"}>
             {props.showLabel && <Label>departure date</Label>}
