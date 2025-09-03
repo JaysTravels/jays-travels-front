@@ -1,5 +1,4 @@
 "use client"
-//import AutoComplete from "@/components/common/AutoComplete";
  import AutoComplete3 from "@/components/common/AutoCompleteHotel"
 import {
   faCalendar,
@@ -15,7 +14,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useSelector } from 'react-redux';
 import { useState, useEffect, useRef  } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PassengersQty from "./Passengers.Qty";
+import HotelGuestsQty from "./HotelGuests.Qty";
 import RoomsQty from "./Rooms.Qty";
 import { useDispatch } from "react-redux";
 import { AirLineClass } from "../classes/airlineclass";
@@ -28,7 +27,6 @@ import { useRouter } from "next/router";
   const [passengerPlaceholder,setPassengerPlaceholder] = useState("Passengers");
   const [showRooms, setShowRooms] = useState(false);  
   const [roomPlaceholder,setRoomPlaceholder] = useState("Rooms");
- // const [originAirport, setoriginAirport] = useState(null);
    const [destAirport, setDestAirport] = useState(null);
   const [fromDate , setFromDate] = useState(null);
   const [toDate , setToDate] = useState(null);
@@ -70,8 +68,7 @@ import { useRouter } from "next/router";
   };
 
 const handleChangeRooms = (e) => {
-  debugger
-  const inputValue = e.target.value;
+   const inputValue = e.target.value;
   if (inputValue === '') {
     setRoomCount('');
     setvalueRooms('');    
@@ -114,12 +111,10 @@ const handleChangeRooms = (e) => {
     setInfants(infants);
   };
     const handleRoomsQtyChange = (qty) => {
-    //debugger;
-    var p = "";
+     var p = "";
     if (!isNaN(qty.valueRooms) && qty.valueRooms > 0) {
     setRoomCount(qty.valueRooms);
     setvalueRooms(qty.valueRooms === 1 ? '1 Room' : `${qty.valueRooms} Rooms`);  }
-    //setRoomCount(qty.valueRooms);
     p = qty.valueRooms === 1 ? '1 Room' : `${qty.valueRooms} Rooms`;
     setRoomPlaceholder(p);
   };
@@ -139,7 +134,6 @@ const handleChangeRooms = (e) => {
     setPassengerPlaceholder(p);
   };
   const handleDestAirportChange = (airport) => {
-    //debugger;
     setApiResponse('')
     setDestAirport(airport);
   };  
@@ -159,14 +153,12 @@ const handleChangeRooms = (e) => {
   };
   const handleClick = () => {   
     setShowPassengers((prevState) => !prevState);
-   // setShowPassengers(true); 
       
   };
    const handleClickRoom = () => {   
     setShowRooms((prevState) => !prevState);
      
   };
-  //
   const handleClickOutside = (event) => {
     if (formRef.current && !formRef.current.contains(event.target)) {
       setShowPassengers(false);
@@ -177,7 +169,6 @@ const handleChangeRooms = (e) => {
  
  
   function extractAirportCode(destination) {
-   // const match = destination.match(/\[([A-Z]{3})\]/); 
     const match = destination.match(/\(([^)]+)\)/);
     
     return match ? match[1] : null; 
@@ -208,7 +199,7 @@ const handleChangeRooms = (e) => {
   const addDays = (date, days) => {
     const result = new Date(date);
     result.setDate(result.getDate() + days);
-    return result;//.toISOString().split("T")[0];
+    return result;
   };
    
   const handleStartDateChange = (event) => {
@@ -218,7 +209,7 @@ const handleChangeRooms = (e) => {
     setApiResponse('')   
   };
  function verifydata(){  
-   //debugger;
+   
    setShowPassengers(false);
    setShowRooms(false);
     const isValid = (isToday(startDate) || isToday(endDate));
@@ -234,7 +225,7 @@ const handleChangeRooms = (e) => {
 
  }
  const DispatchData=()=>{
-//debugger;
+
   if(verifydata() === false){
     return;
   }
@@ -402,7 +393,7 @@ debugger;
                   <FontAwesomeIcon icon={faUser} />
                 </div>
               </div>
-              {showPassengers && <PassengersQty  adultsValue={adults} childsValue={childs} infantsValue={infants} onGuestsChange={handlePassengerQtyChange}  updateshow={updateshowpassengerfromChild} />}           
+              {showPassengers && <HotelGuestsQty  adultsValue={adults} childsValue={childs} infantsValue={infants} onGuestsChange={handlePassengerQtyChange}  updateshow={updateshowpassengerfromChild} />}           
               </div>
           </Col>
           <Col lg={props.col1 || "12"} md={props.col1 || "12"}>
