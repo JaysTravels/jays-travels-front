@@ -239,7 +239,7 @@ return (
                   <div className="offer-box">
                     <i className="fas fa-fire" /> {getRandomBookingsToday()} people booked this hotel today
                   </div>
-                  <a href="hotel-booking.html" className="btn btn-solid color1 book-now">book now</a>
+                  <a href="#" className="btn btn-solid color1 book-now">book now</a>
                 </div>
               </div>
             </div>          
