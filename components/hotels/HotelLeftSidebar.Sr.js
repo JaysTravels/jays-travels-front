@@ -61,7 +61,7 @@ const [selectedRatings, setSelectedRatings] = useState(["5", "4"]);
 
    
   const handlePriceChange = (value) => {
-    debugger;
+    //debugger;
     const [_minPrice, _maxPrice] = value;  
     setSelectedMinprice(_minPrice);
     setSelectedMaxprice(_maxPrice); 
@@ -175,7 +175,7 @@ const [selectedRatings, setSelectedRatings] = useState(["5", "4"]);
   };
 
   const handleBoardTypeFilterChange = (stopCount,isChecked) => {
-    debugger;
+    //debugger;
     let updatedBoardType = isChecked
     ? [...selectedBoard, stopCount]
     : selectedBoard.filter((stop) => stop !== stopCount)
@@ -237,7 +237,7 @@ const [openStars, setOpenStars] = useState(false);
 const toggleCollapseStars = () => setOpenStars(!openStars);
 
 const handleStarFilterChange = (star, isChecked) => {
-  debugger;
+ // debugger;
   let updatedStars = isChecked
     ? [...selectedStars, star]
     : selectedStars.filter((s) => s !== star);

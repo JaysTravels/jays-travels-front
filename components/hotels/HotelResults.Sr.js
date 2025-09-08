@@ -184,7 +184,7 @@ return (
        filteredHotels?.length > 0 ? (
               filteredHotels.map((item, index) => {
                 return ( 
-<div className="row">
+<div className="row" key={item.id}>
       <div className="col-lg-12 ratio3_2">
         <div className="container">
           <div className="list-view row content grid">

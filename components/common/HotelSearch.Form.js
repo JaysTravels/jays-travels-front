@@ -298,7 +298,7 @@ try {
 
   
   dispatch(submitHotelData(hotelData));
-debugger;
+//debugger;
  router.push(`${appurl}/waithotels`);
   
  } catch (error) {
