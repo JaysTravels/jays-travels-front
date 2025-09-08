@@ -1,5 +1,6 @@
 const {configureStore} = require("@reduxjs/toolkit");
 import flightsReducer  from '../store/AvailabilitySlice';
+import hotelReducer  from '../store/hotels/HotelAvailabilitySlice';
 import airSellReducer from '../store/AirSellSlice';
 import createPnrSliceReducer from '../store/CreatePnrSlice';
 import getPaymentPagReduer  from '../store/PaymentSlice';
@@ -13,6 +14,7 @@ import ActiveUsers from '../store/ActiveUsersSlice'
 export const store = configureStore({
     reducer: {
         flights: flightsReducer,
+        hotels: hotelReducer,
         airsell: airSellReducer,
         generatePnr : createPnrSliceReducer,
         payments : getPaymentPagReduer,

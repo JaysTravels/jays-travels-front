@@ -1,0 +1,235 @@
+const {createSlice,nanoid} = require("@reduxjs/toolkit");
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { useEffect, useState } from "react";
+import React from 'react';
+import axiosInstance from '@/utils/axiosInstance';
+import { faL } from '@fortawesome/free-solid-svg-icons';
+
+export const submitHotelData = createAsyncThunk(
+    'hotels/submitHotelData',
+    async (hotelData, { rejectWithValue }) => {
+      try {   
+         debugger;  
+        const response = await axiosInstance.post('HotelAvailability', hotelData);
+        debugger;
+        try{ console.log(response.data)  } catch{}    
+        return response.data; 
+      } catch (error) {
+        console.log(error?.data)
+      return rejectWithValue(error?.data || 'Server Error');
+      }
+    }
+  );
+    
+ const Slice = createSlice({  
+ 
+    name : 'hotels',
+    initialState : {     
+      hotels: {
+        stay: {
+         checkIn: '',
+         checkOut: ''
+    },
+           occupancies: [
+            {
+            rooms: 1,
+            adults: 1,
+            children: 0
+            }
+        ],
+        destination: {
+            code: ''
+        },
+        filter: {
+            maxHotels: 50
+        }
+      },
+      selectedHotel : null,
+      status: 'idle',
+      loading: false,
+      selectedStars: [],
+      error: null,
+      response: null,    
+      filteredHotels: null, 
+      selectedBoardType: null, 
+      selectedBoardTypeExclude: null, 
+      selectedBoardTypeAll : null,
+      selectedSegments: [],
+      selectedTime : null,
+      selectedTimeArrival : null,
+      selectedPriceRange: [0, 100],
+      minPrice : 0,
+      maxPrice : 100,
+      sameboardtype : false,
+      selectedRoom : '',
+      selectedStops: [],
+      filterRoom: null
+    },
+    reducers : {
+        setHotels:(state,action)=> 
+            {              
+              state.hotels = { ...state.hotels, ...action.payload };              
+           },
+           setHotelsResults:(state,action)=> 
+            {   
+              state.response =  action.payload.data ;              
+           },
+           setRoom:(state,action)=> 
+            {    
+              state.selectedRoom = action.payload;           
+           },
+        setSelectedHotels:(state,action)=> 
+            {              
+              state.selectedHotel = { ...state.selectedHotel, ...action.payload };              
+           },
+           setSelectedBoardType(state, action) {
+        debugger;
+      
+        const { selectedBoardType, isChecked } = action.payload;        
+        state.selectedBoardType = selectedBoardType; 
+        if (!selectedBoardType || selectedBoardType.length === 0) {
+            state.filteredHotels = state.response;
+            return;
+        }
+        console.log(state.response);
+        state.filteredHotels =  state.response.filter((hotel) =>
+          hotel.rooms.some((room) =>
+            room.rates.some((rate) =>
+              selectedBoardType.includes(rate.boardCode)
+            )
+          )
+        );           
+      },
+    setCheckAll(state, action) {
+      state.filteredHotels = state.response.data.hotelresponse.hotels.hotels;
+      const isChecked = action.payload ?? false; 
+    if (isChecked) {
+        state.filteredHotels = state.response.data.hotelresponse.hotels.hotels; 
+    } else {
+        state.filteredHotels = []; 
+    }
+                  
+},
+setUnCheckAll(state, action) {  
+   state.filteredHotels = [];
+   state.selectedBoardType = '';             
+},
+setSelectedHotelStars(state, action) {
+  try {
+    let { selectedStars, isChecked } = action.payload; 
+     let starString = `${selectedStars}EST`;  
+    if (isChecked) {
+      state.selectedStars.push(selectedStars);
+    } else {
+      state.selectedStars = state.selectedStars.filter(s => s !== selectedStars);
+    }    
+    if (state.selectedStars.length > 0) {
+     state.filteredHotels = state.response.filter((hotel) => {     
+      return selectedStars.some(
+        (star) => hotel.categorycode?.toUpperCase().includes(`${star}EST`)
+      );
+    });
+    } else {
+      state.filteredHotels = state.response;
+    }
+    if(isChecked == false && state.filteredHotels.length == 0){
+      state.filteredHotels = state.response;
+    }
+
+  } catch {
+    state.filteredHotels = state?.response;
+  }
+}
+,
+setSelectedPriceRange(state, action) {
+  try{
+    state.selectedPriceRange = action.payload;
+    const [minPrice, maxPrice] = action.payload;
+    state.filteredHotels = state.response.filter((hotel) => {
+      const price = parseFloat(hotel?.rooms?.[0]?.rates?.[0]?.net);
+      return price >= minPrice && price <= maxPrice;
+    });
+  }catch{
+          state.filteredHotels = state?.response;  
+  }
+},setSelectedBords(state, action) {
+
+  state.selectedSegments = Array.isArray(action.payload.selectedStops) ? action.payload.selectedStops : [];
+  
+  if (state.selectedSegments.length > 0) 
+    {
+      state.filteredFlights = state.response.data.filter((flight) => {
+      const itineraries = flight.itineraries;
+      if (!itineraries || itineraries.length < 2) return false; 
+
+      const outboundSegmentCount = itineraries[0]?.segments?.length || 0;
+      const inboundSegmentCount = itineraries[1]?.segments?.length || 0;
+      const outboundMatches = state.selectedSegments.includes(outboundSegmentCount);
+      const inboundMatches = state.selectedSegments.includes(inboundSegmentCount);
+
+      return outboundMatches && inboundMatches;
+    });
+  } else {    
+    state.filteredFlights = state.response.data;
+  }
+}            
+      },
+      extraReducers: (builder) => {
+        builder
+          .addCase(submitHotelData.pending, (state) => {
+            state.status = 'loading';
+            state.loading = true;
+          })
+          .addCase(submitHotelData.fulfilled, (state, action) => {          
+           if(action.payload.isSuccessful === false){
+            state.status = 'failed';
+            state.response = action.payload.data.error;
+            state.error = action.payload.response;
+            state.loading = false;
+           }
+           else{                       
+            state.status = 'succeeded';
+            state.response = action?.payload.data.hotelresponse.hotels.hotels;
+            state.error = null;
+            state.loading = false;
+            state.filteredHotels = action?.payload?.data.hotelresponse.hotels.hotels;   
+            const prices = action?.payload?.data?.hotelresponse?.hotels?.hotels
+            ?.map(hotel => parseFloat(hotel?.rooms?.[0]?.rates?.[0]?.net)) 
+            ?.filter(net => !isNaN(net));
+          if (prices?.length > 0) {
+            state.minPrice = Math.max(0, Math.round(Math.min(...prices)) - 1); 
+            state.maxPrice = Math.round(Math.max(...prices)) + 1;
+          }        
+            
+           }
+            
+          })
+          .addCase(submitHotelData.rejected, (state, action) => {
+            state.status = 'failed';
+            state.loading = false;
+            state.error = action.payload;
+          });
+      },
+    });
+
+    const TIME_RANGES = {
+      morning: { start: "06:00", end: "12:00" },
+      noon: { start: "12:00", end: "18:00" },
+      evening: { start: "18:00", end: "23:59" }, 
+    };
+
+    const isTimeInRange = (time, start, end) => {     
+      const parseTimeToMinutes = (t) => {
+        const [hours, minutes] = t.split(":").map(Number);
+        return hours * 60 + minutes;
+      };
+    
+      const timeMinutes = parseTimeToMinutes(time);
+      const startMinutes = parseTimeToMinutes(start);
+      const endMinutes = parseTimeToMinutes(end);  
+      var res =    timeMinutes >= startMinutes && timeMinutes <= endMinutes;
+      return timeMinutes >= startMinutes && timeMinutes <= endMinutes;
+    };   
+ export const {setHotels,setSelectedHotelStars,setHotelsResults,setRoom,setSelectedHotel,setSelectedBoardType,setCheckAll,setUnCheckAll,setSelectedPriceRange} = Slice.actions;
+ export default Slice.reducer;

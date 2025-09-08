@@ -29,7 +29,7 @@ const PassengersQty = ({
   };
   const handleCabin = (value) => {
     setCabin(value);
-    parentcabin(value);
+    //parentcabin(value);
   };
 
   const handleDecrementAdult = () => {
@@ -232,7 +232,7 @@ const PassengersQty = ({
             first
           </Label>
         </div>
-        <div className="bottomPart" hidden={true}>
+        <div className="bottomPart">
           <Button
             onClick={() => handleshowparent()}
             color="transparent"
