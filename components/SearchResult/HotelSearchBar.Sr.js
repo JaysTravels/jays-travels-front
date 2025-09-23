@@ -1,4 +1,4 @@
-import SearchForm from "@/components/common/Search.Form";
+import HotelSearchForm from "@/components/common/HotelSearch.Form";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
@@ -8,7 +8,7 @@ const SearchBarSr = () => {
   const [showClass, setShowClass] = useState(false);
 
   const handle = () => {
-    setShowClass(!showClass);
+   setShowClass(!showClass);
   };
   return (
     <>
@@ -38,8 +38,8 @@ const SearchBarSr = () => {
                 </Button>
               </div>
             </div>
-            <div className={`flight-search-detail ${showClass ? "show" : ""}`}>
-              <SearchForm
+       <div className={`flight-search-detail ${showClass ? "show" : ""}`}>
+            <HotelSearchForm
                 col1="2"
                 col2="2"
                 flightConnectingHide
@@ -47,7 +47,7 @@ const SearchBarSr = () => {
                 showLabel
                 searchButtonText="Modify Search"
               />
-            </div>
+            </div> 
           </div>
         </div>
       </div>
