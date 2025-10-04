@@ -553,17 +553,21 @@ const FlightConfirmation = () => {
     if (!isvalid) {
       return;
     }
-debugger;
+
     // Set Local Storage varaibles before sending to bank page
     if (BookingRefNo) {
       localStorage.setItem("BookingRefNo", BookingRefNo);
     }
+    
+    let flight ;
 
-    let flight;
-    if (airsellRequest != null) {
+    if (airsellRequest != null && selectedFlight.fareTypeCode != "ST") {
       flight = flightResults?.data?.find(
         (flight) => flight.id === airsellRequest.flightId
       );
+    }
+    else{
+      flight = selectedFlight ;
     }
     localStorage.setItem("flightRequest", JSON.stringify(flightRequest));
     localStorage.setItem("flightResults", JSON.stringify(flightResults));
@@ -574,10 +578,13 @@ debugger;
 
     // End of Set Local Storage Variable before sending to bank page
     setLoading(true);
-
+    let pnrMultirequestGlobal;
+    if(selectedFlight?.fareTypeCode != "ST")
+    {
     let session = getSession();
     session.sequenceNumber = session.sequenceNumber + 1;
     const pnrMultirequest = CreatePnrMultiRequest(formData, session, flight);
+    pnrMultirequestGlobal = pnrMultirequest;
     localStorage.setItem("pnrMultirequest", JSON.stringify(pnrMultirequest));
     localStorage.setItem("passengerDetails", JSON.stringify(pnrMultirequest.passengerDetails));
     try {
@@ -592,15 +599,37 @@ debugger;
     }
     localStorage.setItem("PassengerDetails", JSON.stringify(addPnrMultiRequset.passengerDetails));
     localStorage.setItem("flightRequest", JSON.stringify(flightRequest));
+    }
+    else
+      {   // For Static Flights
+     
+    const pnrMultirequest = CreateStaticFlightPassengerDetails(formData,flight);
+    pnrMultirequestGlobal = pnrMultirequest;
+    localStorage.setItem("pnrMultirequest", JSON.stringify(pnrMultirequest));
+    localStorage.setItem("passengerDetails", JSON.stringify(pnrMultirequest.passengerDetails));
+    try {
+      dispatch(setPassengerDetails(pnrMultirequest.passengerDetails));
+    } catch (error) {
+      console.error("Error calling setPassengerDetails:", error.message);
+    }
+    const addPnrMultiRequset = {
+      passengerDetails: pnrMultirequest.passengerDetails,
+      selectedFlightOffer: JSON.stringify(flight),
+    }
+    localStorage.setItem("PassengerDetails", JSON.stringify(addPnrMultiRequset.passengerDetails));
+    localStorage.setItem("flightRequest", JSON.stringify(flightRequest));
+    }
+    
 
     try {    
       
       // For sending email to admin relted to selected custoemr fare
-
-       let sessionemail = getSession();
+       if(selectedFlight?.fareTypeCode != "ST")
+       {
+   let sessionemail = getSession();
        if (sessionemail != null) {
         const SelectedFlightEmailRequest = {
-          passengerInfo :addPnrMultiRequset.passengerDetails,
+          passengerInfo :pnrMultirequestGlobal.passengerDetails,
           SessionId: session.sessionId,
           selectedFlightOffer: JSON.stringify(flight),
         }
@@ -610,6 +639,21 @@ debugger;
           console.log("Passeger Selected Flight Email Sent success");
         }
       }
+       }
+       else{  // Static Flights
+
+        const SelectedFlightEmailRequest = {
+          passengerInfo :pnrMultirequestGlobal.passengerDetails,
+          SessionId: "",
+          selectedFlightOffer: JSON.stringify(flight),
+        }
+        const result = dispatch(PASSENGER_SELECTED_FLIGHT_EMAIL(SelectedFlightEmailRequest)).unwrap();
+        if (result?.isSuccessful === true) {
+          console.log("Passeger Selected Flight Email Sent success");
+        }
+      
+       }
+      
       
         const data = paymentPageData;
         if (data && data.url && data.parameters) {
@@ -688,6 +732,70 @@ debugger;
       return session;
     }
   }
+  function CreateStaticFlightPassengerDetails(formData, flight) {
+
+    const passengers = [];
+    formData.adults.forEach((adult, index) => {
+      if (index == 0) {
+        passengers.push({
+          firstName: adult.firstName,
+          surName: adult.lastName,
+          type: "ADT", // Adult type
+          dob: formatDate(adult.dob), //adult.dob,
+          isLeadPassenger: true, // First adult as lead passenger
+          number: index + 1,
+          email: adult.email,
+          phone: adult.phone,
+          PhoneNumber: adult.phone,
+          PassengerType : "ADT"
+        });
+      }
+      else {
+        passengers.push({
+          firstName: adult.firstName,
+          surName: adult.lastName,
+          type: "ADT", // Adult type
+          dob: formatDate(adult.dob), //adult.dob,
+          isLeadPassenger: false, // First adult as lead passenger
+          number: index + 1,
+          email: '',
+          PassengerType : "ADT"
+        });
+      }
+    });
+
+    formData.children.forEach((child, index) => {
+      passengers.push({
+        firstName: child.firstName,
+        surName: child.lastName,
+        type: "CHD", // Child type
+        dob: formatDate(child.dob), //child.dob,
+        number: formData.adults.length + index + 1,
+        email: "",
+        PassengerType : "CHD"
+      });
+    });
+
+    formData.infants.forEach((infant, index) => {
+      passengers.push({
+        firstName: infant.firstName,
+        surName: infant.lastName,
+        type: "INF", // Infant type
+        dob: formatDate(infant.dob),//infant.dob,          
+        number: formData.adults.length + formData.children.length + index + 1,
+        email: "",
+        PassengerType : "INF"
+      });
+    });
+    const staticFligtPassengerDetails = {
+      passengerDetails: passengers,
+      selectedFlightOffer: JSON.stringify(flight)
+    };
+    return staticFligtPassengerDetails;
+
+  }
+
+
   function CreatePnrMultiRequest(formData, session, flight) {
 
     const passengers = [];
@@ -955,7 +1063,7 @@ debugger;
                             </p>                          
 
                            <p className="mb-0 journey-time">                           
-                                {"Baggage Allowence: " + getBaggageDetails(selectedFlight?.baggageDetails?.freeAllowance,selectedFlight?.baggageDetails?.quantityCode,selectedFlight?.baggageDetails?.unitQualifier)}
+                                {"Baggage Allowence: "+selectedFlight?.baggageDetails?.freeAllowance}
                           </p> 
                           
                         </div>
@@ -981,7 +1089,7 @@ debugger;
                                     )}
                                      {itinerary.segments[0]?.cabinClass && (
                                       <p className="destination-date mb-0">
-                                        Cabin : {getCabinClassName(itinerary.segments[0]?.cabinClass)}
+                                        Cabin : {itinerary.segments[0]?.cabinClass}
                                       </p>
                                     )}
                                     </div>
