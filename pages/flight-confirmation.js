@@ -1049,7 +1049,7 @@ const FlightConfirmation = () => {
                             {" "} 
                             {selectedFlight?.itineraries[1]?.airport_city}                            
                         </p>
-                        <p className="origion-destination-heading mb-0">{"Return Flight"}</p>
+                        <p className="origion-destination-heading mb-0">{flightRequest.oneWay === true ? "One Way Flight" : "Return Flight"}</p>
 
                         </div>
                         <div className="col-sm-6 col-md-6">  {/* Aligning to the right */}
