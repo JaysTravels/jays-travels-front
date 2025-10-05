@@ -89,28 +89,23 @@ const Confirmation = () => {
      // debugger;
       let flight;
       flight = JSON.parse(localStorage.getItem("selectedFlight"));
-    
-    let session =  getSession();
-   session.sequenceNumber = session.sequenceNumber + 1;
- //  const pnrMultirequest = localStorage.getItem("pnrMultirequest");
-   const pnrMultirequest = JSON.parse(localStorage.getItem("pnrMultirequest"));
-  // const pnrMultirequest = CreatePnrMultiRequest(formData, session, flight);
+     if(flight?.fareTypeCode != "ST")
+      {
+        let session =  getSession();
+          session.sequenceNumber = session.sequenceNumber + 1;
+          const pnrMultirequest = JSON.parse(localStorage.getItem("pnrMultirequest"));  
+            try {
+            dispatch(setPassengerDetails(pnrMultirequest.passengerDetails));
+            } catch (error) {
+              console.error("Error calling setPassengerDetails:", error.message);
+            }
 
-    try {
-     dispatch(setPassengerDetails(pnrMultirequest.passengerDetails));
-    } catch (error) {
-      console.error("Error calling setPassengerDetails:", error.message);
-    }
-
-    const addPnrMultiRequset = {
-      sessionDetails: pnrMultirequest.sessionDetails,
-      passengerDetails: pnrMultirequest.passengerDetails,
-      selectedFlightOffer: JSON.stringify(flight),
-    }
-    // localStorage.setItem("PassengerDetails", JSON.stringify(addPnrMultiRequset.passengerDetails));
-    // localStorage.setItem("flightRequest", JSON.stringify(flightRequest));
-
-    let session2 = getSession();
+            const addPnrMultiRequset = {
+              sessionDetails: pnrMultirequest.sessionDetails,
+              passengerDetails: pnrMultirequest.passengerDetails,
+              selectedFlightOffer: JSON.stringify(flight),
+            }
+            let session2 = getSession();
     session2.sequenceNumber = session2.sequenceNumber + 2;
     const fopRequest = CreateFopRequest(session2);
     const FopRequest = {
@@ -241,6 +236,58 @@ try{
       } catch (error) {
         console.error("Error fetching data:", error);
       }
+
+      }
+      else{ // For Static Flights
+let passengerDetails = JSON.parse(localStorage.getItem("passengerDetails"));
+    const addPnrMultiRequset = {
+      sessionDetails: "",
+      passengerDetails: passengerDetails,
+      selectedFlightOffer: JSON.stringify(flight),
+    }
+    const pnrMulti = await dispatch(PNR_Multi(addPnrMultiRequset));
+            //debugger;
+            console.log('PNR_Multi dispatched successfully.');
+            if (pnrMulti?.payload?.isSuccessful === false) {
+              setApiResponse(pnrMulti?.data?.error);
+              return;
+            }
+
+  try {
+       let passengerDetails = JSON.parse(localStorage.getItem("passengerDetails"));
+        let BookingRefNo = localStorage.getItem("BookingRefNo");
+        let selectedFlight =localStorage.getItem("selectedFlight");
+        let selectedFlightoffer = localStorage.getItem("selectedFlight");
+        const UpdatePaymentStatusRequest = {
+        SessionId: "ST-"+BookingRefNo,
+        PaymentStatus: "Success",
+        AuthorizationCode : authorizationCode,
+        OrderID : orderID,
+        PaymentMethod :PM ,
+        Acceptance : ACCEPTANCE,
+        Status : STATUS ,
+        CardNo : CARDNO ,
+        ExpiryDate : ED ,
+        CardHolderName : CN,
+        TrxDate : TRXDATE ,
+        PayId : PAYID ,
+        NcError : NCERROR ,
+        Brand : BRAND  ,
+        Currency : currency,
+        IpCity : IPCTY,
+        IP : IP,
+        SelectedFlightOffer : selectedFlightoffer,
+        PassengerInfo :passengerDetails
+        }
+        setPaymentUpdate(true);
+        const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();      
+        if(result?.isSuccessful === true){
+        setPaymentUpdate(true);
+        }    
+      
+      } catch (error) { console.error("Error fetching data:", error);}
+      }
+    
       if (typeof window !== "undefined") {
         localStorage.clear();      
       }
@@ -289,47 +336,6 @@ try{
     handleApiCalls();
   }, [dispatch, router.query]); 
 
-  // useEffect(() => {
-  //   // debugger;
-  //    const savedBookingRefNo = localStorage.getItem("BookingRefNo");
-  //    setBookingRefNo(savedBookingRefNo || null);
- 
-  //    const savedselectedFlight = localStorage.getItem("selectedFlight");
-  //    if(savedselectedFlight != null){
-  //      const jsonObjectSelectedFlight = JSON.parse(savedselectedFlight);
-  //      setselectedFlight(jsonObjectSelectedFlight || null);
-  //    }
-   
-  //    const savedPassengerDetails = localStorage.getItem("PassengerDetails");
-  //    if(savedPassengerDetails != null){
-  //      const jsonObjectPassenger = JSON.parse(savedPassengerDetails);
-  //      setPassengerDetails(jsonObjectPassenger || null);
-  //    }   
-  //    const savedPNR_Number = localStorage.getItem("PNR_Number");
-  //    setPNR_Number(savedPNR_Number || null);
- 
-  //    const savedFlightRequeest = localStorage.getItem("flightRequest");
-  //    if(savedFlightRequeest != null){
-  //      const jsonObjectFlightReq = JSON.parse(savedFlightRequeest);
-  //      setflightRequest(jsonObjectFlightReq || null);
-  //    }
- 
-  //    let session = getSession();
-  //    if (payment === false)
-  //      {
-  //     //   debugger;
-  //      const UpdatePaymentStatusRequest = {
-  //        SessionId: session.sessionId,
-  //        PaymentStatus: "Success"
-  //      }
-  //      setPaymentUpdate(true);
-  //      const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();      
-  //      if(result?.isSuccessful === true){
-  //      setPaymentUpdate(true);
-  //      }    
-  //    }  
- 
-  //  }, [dispatch]);
  
    function getSession(){
     const storedSession = localStorage.getItem("session");
@@ -400,7 +406,7 @@ try{
             <div className="maxW500px mx-auto">
               <h2>
                 Payment Declined By Bank.
-                {PNR_Number != null
+                {PNR_Number != null || selectedFlight?.fareTypeCode == "ST"
                   ? "Booking Success Full , Your Booking Reference = " +
                     BookingRefNo
                   : "Unable to book Fare"}
@@ -447,7 +453,7 @@ try{
                           <td width="40%">Booking Status:</td>
                           <td>
                             <span>
-                              {Commit_Pnr_Error == null
+                              {Commit_Pnr_Error == null  || selectedFlight?.fareTypeCode == "ST"
                                 ? "Confirmed"
                                 : "Failed"}
                             </span>
@@ -728,7 +734,7 @@ try{
                   }}
                 >
                   Payment Declined By Bank.
-                  {PNR_Number != null
+                  {PNR_Number != null  || selectedFlight?.fareTypeCode == "ST"
                     ? "Booking Success Full , Your Booking Reference = " +
                       BookingRefNo
                     : "Unable to book Fare"}
@@ -798,7 +804,7 @@ try{
                                 style={{ fontWeight: "600", color: "#3c3c3c" }}
                               >
                             {/* {PNR_Number != null ? "Booking Success Full , With Payment Failed " : " Failed"} */}
-                            {Commit_Pnr_Error == null ? "Booking Success Full , With Payment Failed " : "Failed"}
+                            {Commit_Pnr_Error == null  || selectedFlight?.fareTypeCode == "ST" ? "Booking Success Full , With Payment Failed " : "Failed"}
                              
                               </td>
                             </tr>
