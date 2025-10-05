@@ -61,7 +61,7 @@ const Confirmation = () => {
   const IPCTY = searchParams.get('IPCTY');
   const IP = searchParams.get('IP');
   useEffect(() => {
-   // debugger;
+  //  debugger;
     const hasQueryParams = router.asPath.includes("?"); 
    const isSearchParamsEmpty = !searchParams || searchParams.toString() === "";  
 
@@ -92,7 +92,7 @@ const Confirmation = () => {
       flight = JSON.parse(localStorage.getItem("selectedFlight"));
       setselectedFlight(flight);
     if(flight?.fareTypeCode != "ST"){
-
+//debugger;
           let session =  getSession();
         if(session != undefined)
         {
@@ -207,8 +207,9 @@ const Confirmation = () => {
           let BookingRefNo = localStorage.getItem("BookingRefNo");
           let selectedFlight =JSON.parse(localStorage.getItem("selectedFlight"));
           let selectedFlightoffer = localStorage.getItem("selectedFlight");
+           let session =  getSession();
         const UpdatePaymentStatusRequest = {
-        SessionId: BookingRefNo,
+        SessionId: session.sessionId,
         PaymentStatus: "Success",
         AuthorizationCode : authorizationCode,
         OrderID : orderID,

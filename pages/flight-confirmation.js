@@ -624,13 +624,13 @@ const FlightConfirmation = () => {
     try {    
       
       // For sending email to admin relted to selected custoemr fare
-       if(selectedFlight?.fareTypeCode != "ST")
+       if(selectedFlight != null && selectedFlight?.fareTypeCode != "ST")
        {
-   let sessionemail = getSession();
+        let sessionemail = getSession();
        if (sessionemail != null) {
         const SelectedFlightEmailRequest = {
           passengerInfo :pnrMultirequestGlobal.passengerDetails,
-          SessionId: session.sessionId,
+          SessionId: sessionemail.sessionId,
           selectedFlightOffer: JSON.stringify(flight),
         }
 
