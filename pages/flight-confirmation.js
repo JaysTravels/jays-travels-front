@@ -102,11 +102,7 @@ function getBaggageDetails(freeAllowance, quantityCode, unitQualifier) {
   if (quantityCode === "0") {
       return "No baggage allowance"; 
   }
-  // console.log("freeAllowance : " + freeAllowance)
-  // console.log("quantityCode : " + quantityCode)
-  // console.log("unitQualifier : " + unitQualifier)
-
-  // Check if quantityCode indicates weight-based allowance
+  
   if (quantityCode === "W") {
       return `${freeAllowance} ${unitQualifier}`;
   }
@@ -300,13 +296,16 @@ function convertTimeFormat(timeString) {
   return `${hours}h:${minutes}m`;
 }
 const FlightConfirmation = () => {
+
   const currSign = "£";
   const router = useRouter();
   const dispatch = useDispatch();
   const flightResults = useSelector((state) => state.flights.response);
+  const selectedFlight = useSelector((state) => state.flights.selectedFlight);
   const flightRequest = useSelector((state) => state.flights.flights);
   const airsellResults = useSelector((state) => state.airsell.response);
   const airsellRequest = useSelector((state) => state.airsell.airSellRequest);
+  console.log(airsellResults);
   const PNR_Multi_Error = useSelector(
     (state) => state.generatePnr.PNR_Multi_Error
   );
@@ -334,7 +333,7 @@ const FlightConfirmation = () => {
   const PassengerDetails = useSelector(
     (state) => state.generatePnr.PassengerDetails
   );
-  const selectedFlight = useSelector((state) => state.flights.selectedFlight);
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
@@ -554,17 +553,21 @@ const FlightConfirmation = () => {
     if (!isvalid) {
       return;
     }
-debugger;
+
     // Set Local Storage varaibles before sending to bank page
     if (BookingRefNo) {
       localStorage.setItem("BookingRefNo", BookingRefNo);
     }
+    
+    let flight ;
 
-    let flight;
-    if (airsellRequest != null) {
+    if (airsellRequest != null && selectedFlight.fareTypeCode != "ST") {
       flight = flightResults?.data?.find(
         (flight) => flight.id === airsellRequest.flightId
       );
+    }
+    else{
+      flight = selectedFlight ;
     }
     localStorage.setItem("flightRequest", JSON.stringify(flightRequest));
     localStorage.setItem("flightResults", JSON.stringify(flightResults));
@@ -575,10 +578,13 @@ debugger;
 
     // End of Set Local Storage Variable before sending to bank page
     setLoading(true);
-
+    let pnrMultirequestGlobal;
+    if(selectedFlight?.fareTypeCode != "ST")
+    {
     let session = getSession();
     session.sequenceNumber = session.sequenceNumber + 1;
     const pnrMultirequest = CreatePnrMultiRequest(formData, session, flight);
+    pnrMultirequestGlobal = pnrMultirequest;
     localStorage.setItem("pnrMultirequest", JSON.stringify(pnrMultirequest));
     localStorage.setItem("passengerDetails", JSON.stringify(pnrMultirequest.passengerDetails));
     try {
@@ -593,95 +599,38 @@ debugger;
     }
     localStorage.setItem("PassengerDetails", JSON.stringify(addPnrMultiRequset.passengerDetails));
     localStorage.setItem("flightRequest", JSON.stringify(flightRequest));
-
-
-    //flightRequest
-    // let session2 = getSession();
-    // session2.sequenceNumber = session2.sequenceNumber + 2;
-    // const fopRequest = CreateFopRequest(session2);
-    // const FopRequest = {
-    //   sessionDetails: fopRequest.sessionDetails,
-    //   transactionDetailsCode: fopRequest.transactionDetailsCode,
-    //   fopCode: fopRequest.fopCode,
-    // };
-
-    // let session3 = getSession();
-    // session3.sequenceNumber = session3.sequenceNumber + 3;
-    // const carrierCode =
-    //   airsellResults?.data?.airSellResponse[0]?.flightDetails[0]
-    //     ?.marketingCompany;
-    // const farePriceRequest = CreateFarePricePnrRequest(carrierCode, session3);
-    // const pricePnrRequest = {
-    //   sessionDetails: farePriceRequest.sessionDetails,
-    //   pricingOptionKey: farePriceRequest.pricingOptionKey,
-    //   carrierCode: carrierCode,
-    // };
-    // let session4 = getSession();
-    // session4.sequenceNumber = session4.sequenceNumber + 4;
-    // const tstRequest = CreateTstRequest(session4);
-    // const ticketTstRequest = {
-    //   sessionDetails: tstRequest.sessionDetails,
-    //   adults: tstRequest.adults,
-    //   children: tstRequest.children,
-    //   infants: tstRequest.infants,
-    // };
-  //   let session5 = getSession();
-  //   session5.sequenceNumber = session5.sequenceNumber + 5;
-  //   const commitPnrRequest = CreateCommitPnrRequest(session5);
-  //  // debugger;
-    //  let passenger = addPnrMultiRequset.passengerDetails?.find(
-    //    (p) => p.isLeadPassenger === true
-    //  );
-    // const pnrCommitRequest = {
-    //   sessionDetails: commitPnrRequest.sessionDetails,
-    //   optionCode1: commitPnrRequest.optionCode1,
-    //   optionCode2: commitPnrRequest.optionCode2,
-    //   TotalAmount: selectedFlight?.price?.total,
-    //   FirstName: passenger.firstName,
-    //   LastName: passenger.surName,
-    //   BookingRef: BookingRefNo,
-    // };
-    try {
-      // Dispatch first API call
+    }
+    else
+      {   // For Static Flights
      
-      //const pnrMulti = await dispatch(PNR_Multi(addPnrMultiRequset));
+    const pnrMultirequest = CreateStaticFlightPassengerDetails(formData,flight);
+    pnrMultirequestGlobal = pnrMultirequest;
+    localStorage.setItem("pnrMultirequest", JSON.stringify(pnrMultirequest));
+    localStorage.setItem("passengerDetails", JSON.stringify(pnrMultirequest.passengerDetails));
+    try {
+      dispatch(setPassengerDetails(pnrMultirequest.passengerDetails));
+    } catch (error) {
+      console.error("Error calling setPassengerDetails:", error.message);
+    }
+    const addPnrMultiRequset = {
+      passengerDetails: pnrMultirequest.passengerDetails,
+      selectedFlightOffer: JSON.stringify(flight),
+    }
+    localStorage.setItem("PassengerDetails", JSON.stringify(addPnrMultiRequset.passengerDetails));
+    localStorage.setItem("flightRequest", JSON.stringify(flightRequest));
+    }
+    
+
+    try {    
       
-      // console.log('PNR_Multi dispatched successfully.');
-      // if (pnrMulti?.payload?.isSuccessful === false) {
-      //   setApiResponse(pnrMulti?.data?.error);
-      //   alert("No Fare Avaialble Please go back to flights results page and select another... " + pnrMulti?.data?.error);
-      //   router.push("/search-result");
-      //   return;
-      // }
-      // Dispatch second API call
-      // await dispatch(Create_Fop(FopRequest));
-      // console.log("Create_Fop dispatched successfully.");
-      // if (Create_Fop_Error != null) {
-      //   setApiResponse(Create_Fop_Error);
-      //   return;
-      // }
-      // Dispatch third API call
-      // await dispatch(Fare_Price_Pnr(pricePnrRequest));
-      // console.log("Fare_Price_Pnr dispatched successfully.");
-      // if (Fare_Price_Pnr_Error != null) {
-      //   setApiResponse(Fare_Price_Pnr_Error);
-      //   return;
-      // }
-
-      // Dispatch fourth API call
-      // await dispatch(Create_Tst(ticketTstRequest));
-      // console.log("Create_Tst dispatched successfully.");
-      // if (Create_Tst_Error != null) {
-      //   setApiResponse(Create_Tst_Error);
-      //   return;
-      // }
       // For sending email to admin relted to selected custoemr fare
-
-       let sessionemail = getSession();
+       if(selectedFlight != null && selectedFlight?.fareTypeCode != "ST")
+       {
+        let sessionemail = getSession();
        if (sessionemail != null) {
         const SelectedFlightEmailRequest = {
-          passengerInfo :addPnrMultiRequset.passengerDetails,
-          SessionId: session.sessionId,
+          passengerInfo :pnrMultirequestGlobal.passengerDetails,
+          SessionId: sessionemail.sessionId,
           selectedFlightOffer: JSON.stringify(flight),
         }
 
@@ -690,22 +639,22 @@ debugger;
           console.log("Passeger Selected Flight Email Sent success");
         }
       }
-  
-      // Dispatch fifth API call
-     // const result2 = await dispatch(Commit_Pnr(pnrCommitRequest)).unwrap();
+       }
+       else{  // Static Flights
+
+        const SelectedFlightEmailRequest = {
+          passengerInfo :pnrMultirequestGlobal.passengerDetails,
+          SessionId: "",
+          selectedFlightOffer: JSON.stringify(flight),
+        }
+        const result = dispatch(PASSENGER_SELECTED_FLIGHT_EMAIL(SelectedFlightEmailRequest)).unwrap();
+        if (result?.isSuccessful === true) {
+          console.log("Passeger Selected Flight Email Sent success");
+        }
       
-      // if (result2?.isSuccessful === false) {
-      //   setApiResponse(result2?.data?.error);
-      //   alert("Error while generate pnr " + result2?.data?.error);
-      //   router.push("/pnrfailed");
-      //   return;
-      // } else {
-      //   if (result2?.data != null) {
-      //     localStorage.setItem(
-      //       "PNR_Number",
-      //       result2?.data?.session?.reservation?.pnr
-      //     );
-      //   }
+       }
+      
+      
         const data = paymentPageData;
         if (data && data.url && data.parameters) {
          // debugger;
@@ -783,6 +732,70 @@ debugger;
       return session;
     }
   }
+  function CreateStaticFlightPassengerDetails(formData, flight) {
+
+    const passengers = [];
+    formData.adults.forEach((adult, index) => {
+      if (index == 0) {
+        passengers.push({
+          firstName: adult.firstName,
+          surName: adult.lastName,
+          type: "ADT", // Adult type
+          dob: formatDate(adult.dob), //adult.dob,
+          isLeadPassenger: true, // First adult as lead passenger
+          number: index + 1,
+          email: adult.email,
+          phone: adult.phone,
+          PhoneNumber: adult.phone,
+          PassengerType : "ADT"
+        });
+      }
+      else {
+        passengers.push({
+          firstName: adult.firstName,
+          surName: adult.lastName,
+          type: "ADT", // Adult type
+          dob: formatDate(adult.dob), //adult.dob,
+          isLeadPassenger: false, // First adult as lead passenger
+          number: index + 1,
+          email: '',
+          PassengerType : "ADT"
+        });
+      }
+    });
+
+    formData.children.forEach((child, index) => {
+      passengers.push({
+        firstName: child.firstName,
+        surName: child.lastName,
+        type: "CHD", // Child type
+        dob: formatDate(child.dob), //child.dob,
+        number: formData.adults.length + index + 1,
+        email: "",
+        PassengerType : "CHD"
+      });
+    });
+
+    formData.infants.forEach((infant, index) => {
+      passengers.push({
+        firstName: infant.firstName,
+        surName: infant.lastName,
+        type: "INF", // Infant type
+        dob: formatDate(infant.dob),//infant.dob,          
+        number: formData.adults.length + formData.children.length + index + 1,
+        email: "",
+        PassengerType : "INF"
+      });
+    });
+    const staticFligtPassengerDetails = {
+      passengerDetails: passengers,
+      selectedFlightOffer: JSON.stringify(flight)
+    };
+    return staticFligtPassengerDetails;
+
+  }
+
+
   function CreatePnrMultiRequest(formData, session, flight) {
 
     const passengers = [];
@@ -894,14 +907,15 @@ debugger;
       <Meta title="Flight confirmation" />
 
       <BreadcrumbSectionFc />
-      {airsellResults?.data != null ? (
+      {airsellResults?.data != null || selectedFlight?.fareTypeCode == "ST" ? (
         <div className="small-section">
           <Container>
             <Row>
               <Col lg={9}>
 
-                <div className="review-section">
-                  {airsellResults.data.airSellResponse.map((response, index) => (
+                <div className="review-section">                  
+                 {selectedFlight?.fareTypeCode !== "ST" ? (
+     airsellResults.data.airSellResponse.map((response, index) => (
                     <div key={index} className="review_box flight_confirmation_box">
                       <div className="row title-top flight_confirmation_box_heading" style={{margin:'0px'}}>
                         <div className="col-sm-6 col-md-6">
@@ -970,12 +984,7 @@ debugger;
                                 <div className="airport-name">
                                   <h6 className="outbound-origion-h4">{flight.fromAirport}</h6>
                                   <span className="origion-date">{removeSeconds(flight.departureTime)} {formatDateToCustomFormat(flight.departureDate)}</span>
-                                  {/* <p className="origion-date">{formatDateToCustomFormat(flight.departureDate)}</p> */}
-                                  {/* {selectedFlight?.itineraries?.[index]?.segments?.[flightIndex]?.departure?.terminal && (
-                                          <p className="origion-date">
-                                            terminal: {selectedFlight.itineraries[index].segments[flightIndex].departure.terminal}
-                                          </p>
-                                        )} */}
+                                 
 
                               <p className="origion-date">
                               terminal: {selectedFlight?.itineraries?.[index]?.segments?.[flightIndex]?.departure?.terminal ?? "terminal:-"}
@@ -1025,7 +1034,128 @@ debugger;
                         </div>
                       ))}
                     </div>
-                  ))}
+                  ))
+                      ) : ( // for Static Flight
+                        
+                    // selectedFlight?.itineraries.map((iti, index) => (
+                    
+                    <div  className="review_box flight_confirmation_box">
+                      {/* // out bound flight */}
+                      <div className="row title-top flight_confirmation_box_heading" style={{margin:'0px'}}>
+                        <div className="col-sm-6 col-md-6">
+                        <p className="mb-0 origion-destination-heading">
+                            {selectedFlight?.itineraries[0]?.airport_city}
+                            <i className="fas fa-arrow-right fa-1x textC3" style={{ padding: '0 5px' }}></i>
+                            {" "} 
+                            {selectedFlight?.itineraries[1]?.airport_city}                            
+                        </p>
+                        <p className="origion-destination-heading mb-0">{"Return Flight"}</p>
+
+                        </div>
+                        <div className="col-sm-6 col-md-6">  {/* Aligning to the right */}
+                            <p className="mb-0 journey-time">
+                             
+                            </p>
+
+                            <p className="mb-0 journey-time">
+                               
+                               { selectedFlight?.itineraries[0]?.duration != null ? "Flying time: " + formatTime(selectedFlight?.itineraries[0]?.duration) : ""}
+                            </p>                          
+
+                           <p className="mb-0 journey-time">                           
+                                {"Baggage Allowence: "+selectedFlight?.baggageDetails?.freeAllowance}
+                          </p> 
+                          
+                        </div>
+                      
+                      </div>
+                      {selectedFlight.itineraries?.map((itinerary, flightIndex) => (
+                        <div key={flightIndex} className="flight_detail flight_Confirmation_box_inner">
+                          <Row>
+                            <Col md={3}>
+                              <div className="logo-sec flight_Confirmation_box_image">
+                                <Image
+                                  src={`/images/airline-logo/${itinerary.segments[0].marketingCarrierCode}.png`}
+                                  alt={itinerary.segments[0].marketingCarrierCode}
+                                  width={340}
+                                  height={240}
+                                  className="img-fluid"
+                                />
+                                  <div>
+                              {itinerary.segments[0]?.number && (
+                                      <p className="destination-date mb-0">
+                                        Flight No. : {itinerary.segments[0]?.number}
+                                      </p>
+                                    )}
+                                     {itinerary.segments[0]?.cabinClass && (
+                                      <p className="destination-date mb-0">
+                                        Cabin : {itinerary.segments[0]?.cabinClass}
+                                      </p>
+                                    )}
+                                    </div>
+                              </div>
+                              <div className="flight_confirmation_box_image_name">
+                                <span>{itinerary.segments[0]?.marketingCarrierName}</span>
+                              </div>
+                            </Col>
+                            <Col md={7}>
+                              <div className="airport-part">
+                                <div className="airport-name">
+                                  <h6 className="outbound-origion-h4">{itinerary.segments[0]?.departure.iataCode}</h6>
+                                  <span className="origion-date">{removeSeconds(itinerary.segments[0]?.departure.at)} {formatDateToCustomFormat(itinerary.segments[0]?.departure.at)}</span>
+                                 
+
+                              <p className="origion-date">
+                              terminal: {itinerary.segments[0]?.departure?.terminal ?? "terminal:-"}
+                              </p>
+                                </div>
+                                <div className="airport-progress">
+                                <p className="mb-0 origion-destination-heading">
+                                   
+                                 {formatTimeString(itinerary.segments[0]?.duration)}                          
+                                    </p>
+                                   
+                         
+                         {itinerary?.segments?.length > 0 && (() => {
+                            const layoverTimes = getLayoverTime(itinerary).split(" | ");
+                            return layoverTimes[flightIndex] !== undefined ? (
+                              <p className="mb-0 layover-time">
+                                {`Layover: ${layoverTimes[flightIndex]}`}
+                              </p>
+                            ) : null;
+                          })()}
+                               
+                                </div>
+                                <div className="airport-name arrival">
+                                  <h6 className="outbound-destination-h4">{itinerary.segments[0]?.arrival.iataCode}</h6>
+                                  <span className="destination-date">{removeSeconds(itinerary.segments[0]?.arrival.at)} {formatDateToCustomFormat(itinerary.segments[0]?.arrival.at)}</span>
+                                  {/* <p className="destination-date">{formatDateToCustomFormat(flight.arrivalDate)}</p> */}
+                                 
+                                  {selectedFlight?.itineraries?.[0]?.segments?.[flightIndex]?.arrival?.terminal && (
+                                          <p className="destination-date">
+                                            terminal: {selectedFlight.itineraries[index].segments[flightIndex].arrival.terminal}
+                                          </p>
+                                        )}
+                                </div>
+                              </div>
+                            </Col>
+                            <Col md={3}>
+
+                              <div className="duration">
+                            
+                                <div>
+                                
+                                </div>
+                              </div>
+                            </Col>
+                          </Row>
+                        </div>
+                      ))}
+                    </div>
+                    
+                //   ))
+  )}
+
                   <div className="review_box">
                     <div className="title-top">
                       <h5>traveller details</h5>
@@ -1654,7 +1784,7 @@ debugger;
                               Total Price:{" "}
                               <span>
                                 {currSign}
-                                {flight?.price?.total}
+                                {selectedFlight?.price?.total}
                               </span>
                             </h5>
                           </div>

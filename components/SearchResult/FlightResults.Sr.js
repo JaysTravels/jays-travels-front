@@ -149,10 +149,11 @@ const FlightResultsSr = () => {
   }
 
   const handleClick = (itemid) => {
-
+   debugger;
     setLoadingId(itemid)
     const flight = flightResults.data.find(flight => flight.id === itemid.toString());
-    try {
+    console.log(flight);      
+    try {    
       dispatch(setSelectedFlights(flight));
     } catch (error) {
       console.error('Error calling setselectedFight:', error.message);
@@ -177,10 +178,9 @@ const FlightResultsSr = () => {
     } finally {
     }
 
-    // console.log(flightData);
-    const AirSellRequset = getAirSellRequest(flight);
-    //console.log(AirSellRequset);
-
+   if(flight.fareTypeCode != "ST"){
+ const AirSellRequset = getAirSellRequest(flight);
+   
     try {
 
       dispatch(setAirSell(AirSellRequset));
@@ -192,18 +192,21 @@ const FlightResultsSr = () => {
     try {
 
       dispatch(submitairSellRequest(AirSellRequset)).unwrap().then(() => {
-        
-       // router.push("/flight-confirmation");
-        router.push(`${appurl}/flight-confirmation`);
-
+      router.push(`${appurl}/flight-confirmation`);
       })
 
     } catch (error) {
       console.error('Error api call data:', error.message);
       alert(error);
     }
+   }
+   else{
+     router.push(`${appurl}/flight-confirmation`);
+   }
+   
   }
   if(flightResults != null){ 
+ 
     //const logoPath = "@/public/images//airline-logo/";
     return (
       <div className="flight-detail-sec">

@@ -35,12 +35,12 @@ export const PNR_Multi = createAsyncThunk(
   export const UPDATE_PAYMENT_STATUS = createAsyncThunk(
     'flights/UPDATE_PAYMENT_STATUS',
     async (multirequest, { rejectWithValue }) => {
-      try {
+      try {      
         const response = await axiosInstance.post('PNR/UpdatePaymentStatus', multirequest);
        // console.log("UpdatePaymentStatus " + response.data)      
         return response.data; 
       } catch (error) {
-        
+               
         console.log("Error while sending request to UpdatePaymentStatus request" +error);        
         return rejectWithValue(error?.data || 'Server Error');
       }
