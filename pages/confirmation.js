@@ -61,7 +61,7 @@ const Confirmation = () => {
   const IPCTY = searchParams.get('IPCTY');
   const IP = searchParams.get('IP');
   useEffect(() => {
-  //  debugger;
+   // debugger;
     const hasQueryParams = router.asPath.includes("?"); 
    const isSearchParamsEmpty = !searchParams || searchParams.toString() === "";  
 
@@ -237,6 +237,7 @@ const Confirmation = () => {
     
     }   // for static flights
    else{
+//    debugger;
      let passengerDetails = JSON.parse(localStorage.getItem("passengerDetails"));
     const addPnrMultiRequset = {
       sessionDetails: "",
@@ -252,10 +253,11 @@ const Confirmation = () => {
             }
 
   try {
-       let passengerDetails = JSON.parse(localStorage.getItem("passengerDetails"));
+        let passengerDetails = JSON.parse(localStorage.getItem("passengerDetails"));
         let BookingRefNo = localStorage.getItem("BookingRefNo");
         let selectedFlight =localStorage.getItem("selectedFlight");
         let selectedFlightoffer = localStorage.getItem("selectedFlight");
+        let flightRequest = localStorage.getItem("flightRequest");
         const UpdatePaymentStatusRequest = {
         SessionId: "ST-"+BookingRefNo,
         PaymentStatus: "Success",
@@ -275,7 +277,8 @@ const Confirmation = () => {
         IpCity : IPCTY,
         IP : IP,
         SelectedFlightOffer : selectedFlightoffer,
-        PassengerInfo :passengerDetails
+        PassengerInfo :passengerDetails,
+        FlightRequest: flightRequest
         }
         setPaymentUpdate(true);
         const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();      
@@ -398,7 +401,7 @@ const Confirmation = () => {
                 <Link href="/">Tours</Link>
                 <Link href="hotels">Hotels</Link>
                 <Link href="contact">Contact</Link>
-              </div>
+              </div> 
             </Col>
           </Row>
           <div className="text-center">
