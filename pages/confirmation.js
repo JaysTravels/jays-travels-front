@@ -61,14 +61,18 @@ const Confirmation = () => {
   const IPCTY = searchParams.get('IPCTY');
   const IP = searchParams.get('IP');
   useEffect(() => {
-   // debugger;
+    debugger;
     const hasQueryParams = router.asPath.includes("?"); 
    const isSearchParamsEmpty = !searchParams || searchParams.toString() === "";  
 
    if (hasQueryParams && isSearchParamsEmpty) {
      console.log("Query params expected but not available yet. Returning...");
      return;
-   }
+   }  
+    if (searchParams.size === 0 && authorizationCode == null ) {
+      router.replace("/"); // redirect to home
+      return;
+    }
    let airsellRequest ;
    airsellRequest = JSON.parse(localStorage.getItem("airsellRequest"));      
    setairsellRequest(airsellRequest);
