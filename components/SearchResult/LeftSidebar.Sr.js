@@ -74,7 +74,7 @@ const LeftSidebarSr = () =>  {
   
   useEffect(() => {
     dispatch(setSelectedPriceRange([flightMinprice, flightMaxprice]));
-  }, [flightResults, dispatch])
+  }, [flightResults, dispatch,flightMinprice,flightMaxprice])
 
   useEffect(() => {
     if (marketingCarriers && marketingCarriers.length > 0) {

@@ -8,7 +8,7 @@ import React, { use, useEffect, useState } from 'react';
 import ReactSlider from "react-slider";
 import { Button, Input, Label } from "reactstrap";
 import {useDispatch, useSelector} from 'react-redux';
-import { setSelectedBoardType,setSelectedHotelStars,toggleStop,setCheckAll,setUnCheckAll,setSelectedPriceRange,setFlightsWithCombination , setSelectedFlights,setSelectedDepartureTime,setSelectedArrivalTime } from "@/store/hotels/HotelAvailabilitySlice";
+import { setSelectedBoardType,setSelectedHotelStars,toggleStop,setCheckAll,setUnCheckAll,setSelectedPriceRange , setSelectedFlights } from "@/store/hotels/HotelAvailabilitySlice";
 
 
 const LeftSidebarSr = () =>  {
@@ -81,39 +81,39 @@ const [selectedRatings, setSelectedRatings] = useState(["5", "4"]);
   setFlightPrice(flightResultsFull); 
   
 };
-  const handleTimeRangeChange = (range,isChecked) => {   
-   // debugger; 
+  // const handleTimeRangeChange = (range,isChecked) => {   
+  //  // debugger; 
   
-    if (isChecked) {
-       const updatedSelectedRanges = selectedTimeRanges.includes(range)
-    ? selectedTimeRanges.filter((r) => r !== range)
-    : [...selectedTimeRanges, range];
-      setSelectedTimeRanges([...selectedTimeRanges, range]);
-      dispatch(setSelectedDepartureTime(updatedSelectedRanges));
-    } else { 
-      const updatedSelectedRanges = selectedTimeRanges.filter((r) => r !== range);
-      setSelectedTimeRanges(updatedSelectedRanges);
-      dispatch(setSelectedDepartureTime(updatedSelectedRanges));
-    }
+  //   if (isChecked) {
+  //      const updatedSelectedRanges = selectedTimeRanges.includes(range)
+  //   ? selectedTimeRanges.filter((r) => r !== range)
+  //   : [...selectedTimeRanges, range];
+  //     setSelectedTimeRanges([...selectedTimeRanges, range]);
+  //     dispatch(setSelectedDepartureTime(updatedSelectedRanges));
+  //   } else { 
+  //     const updatedSelectedRanges = selectedTimeRanges.filter((r) => r !== range);
+  //     setSelectedTimeRanges(updatedSelectedRanges);
+  //     dispatch(setSelectedDepartureTime(updatedSelectedRanges));
+  //   }
     
-  };
+  // };
 
-  const handleTimeRangeChangeArrival = (range,isChecked) => {   
-   // debugger; 
+  // const handleTimeRangeChangeArrival = (range,isChecked) => {   
+  //  // debugger; 
   
-    if (isChecked) {
-       const updatedSelectedRangesArrival = selectedTimeRangesArrival.includes(range)
-    ? selectedTimeRangesArrival.filter((r) => r !== range)
-    : [...selectedTimeRangesArrival, range];
-      setSelectedTimeRangesArrival([...selectedTimeRangesArrival, range]);
-      dispatch(setSelectedArrivalTime(updatedSelectedRangesArrival));
-    } else { 
-      const updatedSelectedRangesArrival = selectedTimeRangesArrival.filter((r) => r !== range);
-      setSelectedTimeRangesArrival(updatedSelectedRangesArrival);
-      dispatch(setSelectedArrivalTime(updatedSelectedRangesArrival));
-    }
+  //   if (isChecked) {
+  //      const updatedSelectedRangesArrival = selectedTimeRangesArrival.includes(range)
+  //   ? selectedTimeRangesArrival.filter((r) => r !== range)
+  //   : [...selectedTimeRangesArrival, range];
+  //     setSelectedTimeRangesArrival([...selectedTimeRangesArrival, range]);
+  //     dispatch(setSelectedArrivalTime(updatedSelectedRangesArrival));
+  //   } else { 
+  //     const updatedSelectedRangesArrival = selectedTimeRangesArrival.filter((r) => r !== range);
+  //     setSelectedTimeRangesArrival(updatedSelectedRangesArrival);
+  //     dispatch(setSelectedArrivalTime(updatedSelectedRangesArrival));
+  //   }
     
-  };
+  // };
   
   const checkedAirlines = Object.keys(checkedCarriers).filter(
     (carrierCode) => checkedCarriers[carrierCode] // Only keep those with `true`
@@ -157,7 +157,7 @@ const [selectedRatings, setSelectedRatings] = useState(["5", "4"]);
 
    // await  dispatch(setSelectedCarriers({ selectedCarriers, isCombination: isChecked }));
      dispatch(setSelectedCarriers({ selectedCarriers, isCombination: isChecked }));
-     dispatch(setFlightsWithCombination({isSameCarrier: isChecked,selectedCarriers: selectedCarriers}));
+     //dispatch(setFlightsWithCombination({isSameCarrier: isChecked,selectedCarriers: selectedCarriers}));
    // debugger;
     const _filterAirline = [
       ...new Set(
