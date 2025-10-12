@@ -1118,11 +1118,15 @@ const FlightConfirmation = () => {
                          
                          {itinerary?.segments?.length > 0 && (() => {
                             const layoverTimes = getLayoverTime(itinerary).split(" | ");
-                            return layoverTimes[flightIndex] !== undefined ? (
+                            return layoverTimes[flightIndex] !== undefined && itinerary?.segments?.length > 1  ? (
                               <p className="mb-0 layover-time">
                                 {`Layover: ${layoverTimes[flightIndex]}`}
                               </p>
-                            ) : null;
+                            ) : (
+                              <p className="mb-0 layover-time">
+                                {`Direct Flight`}
+                              </p>
+                            ) ;
                           })()}
                                
                                 </div>
