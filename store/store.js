@@ -9,8 +9,9 @@ import enquiryReducer from '../store/enquirySlice';
 import insuranceReducer from '../store/InsuranceSlice';
 import getManualPaymentPageReducer from '../store/ManualPayment';
 import getDeeplink from '../store/deeplinkSlice';
-import getGoogleDeeplink from '../store/GoogleApiSlice'
-import ActiveUsers from '../store/ActiveUsersSlice'
+import getGoogleDeeplink from '../store/GoogleApiSlice';
+import ActiveUsers from '../store/ActiveUsersSlice';
+import getLoginReducer from '../store/loginSlice';
 export const store = configureStore({
     reducer: {
         flights: flightsReducer,
@@ -24,7 +25,8 @@ export const store = configureStore({
         insurance : insuranceReducer,
         deeplink : getDeeplink,
         googledeeplink : getGoogleDeeplink,
-        activeusers: ActiveUsers
+        activeusers: ActiveUsers,
+        logindetails: getLoginReducer,
       },
 })
 export default store;
