@@ -241,10 +241,10 @@ const isGarbageText = (text) => {
               </div>
               <div className="col-md-12 submit-btn">
                 {/* <button className="btn btn-solid" type="button" onClick={DispatchData}>Send Your Message</button> */}
-               <ReCAPTCHA
+               {/* <ReCAPTCHA
               sitekey={recaptchaSiteKey}
                onChange={handleCaptchaChange}
-              />
+              /> */}
                 <Button                 
                  className="btn btn-solid"
                   onClick={DispatchData}>
