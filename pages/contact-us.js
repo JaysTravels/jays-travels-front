@@ -172,10 +172,10 @@ const isGarbageText = (text) => {
     if(verifydata() === false){
       return;
     } 
-     if (!captchaToken) {
-      alert("Please verify that you're not a robot.");
-      return;
-    }
+    //  if (!captchaToken) {
+    //   alert("Please verify that you're not a robot.");
+    //   return;
+    // }
     let enquiryRequest = {
       "FirstName": firstname,
       "LastName" : lastname,
