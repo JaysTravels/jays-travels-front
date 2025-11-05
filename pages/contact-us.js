@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import {useDispatch, useSelector} from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { Button } from "reactstrap";
-
+import ReCAPTCHA from "react-google-recaptcha"; 
 const ContactUs = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -24,12 +24,30 @@ const ContactUs = () => {
   const [emailerror, setemailError] = useState(''); 
   const [messageerror, setmessageError] = useState(''); 
   const [success, setSuccess] = useState(''); 
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const recaptchaSiteKey = "6LeafwMsAAAAACSLly8Uol5nBTaWvo59ObVpRdqE"; // replace with your actual site key
 
+  const handleCaptchaChange = (token) => {
+    setCaptchaToken(token);
+  };
   const handleFNChange = (e) => {
     setFirstname(e.target.value);
     setFnError('');
   };
+const isGarbageText = (text) => {
+  // Reject if too short or contains almost no vowels (likely random)
+  if (text.length < 2) return true;
+  const vowelCount = (text.match(/[aeiou]/gi) || []).length;
+  if (vowelCount / text.length < 0.2) return true;
 
+  // Reject if it has repeating patterns or looks like gibberish
+  if (/([a-zA-Z])\1{2,}/.test(text)) return true; // e.g., aaa, xxx
+  if (/^[a-zA-Z]+$/.test(text) && /[A-Z]/.test(text) && /[a-z]/.test(text) && !/\s/.test(text))
+    return true; // random uppercase/lowercase mix with no space
+  if (/\d{5,}/.test(text)) return true; // long numbers
+
+  return false;
+};
   const handleLNChange = (e) => {
     setLastname(e.target.value);
     setLnError('')
@@ -48,8 +66,68 @@ const ContactUs = () => {
     setMessage(e.target.value);
     setmessageError('');
   };
- 
-  const verifydata = () => {
+ const verifydata = () => {
+  // First name
+  if (!firstname.trim()) {
+    setFnError('First name is required'); 
+    return false;
+  } else if (isGarbageText(firstname)) {
+    setFnError('Please enter a valid first name'); 
+    return false;
+  } else {
+    setFnError(''); 
+  }
+
+  // Last name
+  if (!lastname.trim()) {
+    setLnError('Last name is required'); 
+    return false;
+  } else if (isGarbageText(lastname)) {
+    setLnError('Please enter a valid last name'); 
+    return false;
+  } else {
+    setLnError(''); 
+  }
+
+  // Phone validation
+  if (!phone.trim()) {
+    setphoneError('Phone number is required'); 
+    return false;
+  } else if (!/^\+?\d{7,15}$/.test(phone)) {
+    setphoneError('Invalid phone number'); 
+    return false;
+  } else {
+    setphoneError(''); 
+  }
+
+  // Email validation
+  if (!email.trim()) {
+    setemailError('Email is required'); 
+    return false;
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    setemailError('Invalid email format'); 
+    return false;
+  } else {
+    setemailError(''); 
+  }
+
+  // Message validation
+  if (!message.trim()) {
+    setmessageError('Message is required'); 
+    return false;
+  } else if (message.length < 10) {
+    setmessageError('Message is too short'); 
+    return false;
+  } else if (isGarbageText(message)) {
+    setmessageError('Please write a meaningful message'); 
+    return false;
+  } else {
+    setmessageError(''); 
+  }
+
+  return true;
+};
+  const verifydataold = () => {
     if (!firstname.trim()) {
       setFnError('First name is required'); 
       return false;
@@ -94,6 +172,10 @@ const ContactUs = () => {
     if(verifydata() === false){
       return;
     } 
+     if (!captchaToken) {
+      alert("Please verify that you're not a robot.");
+      return;
+    }
     let enquiryRequest = {
       "FirstName": firstname,
       "LastName" : lastname,
@@ -159,6 +241,10 @@ const ContactUs = () => {
               </div>
               <div className="col-md-12 submit-btn">
                 {/* <button className="btn btn-solid" type="button" onClick={DispatchData}>Send Your Message</button> */}
+               <ReCAPTCHA
+              sitekey={recaptchaSiteKey}
+               onChange={handleCaptchaChange}
+              />
                 <Button                 
                  className="btn btn-solid"
                   onClick={DispatchData}>
