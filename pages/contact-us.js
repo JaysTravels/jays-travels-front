@@ -25,7 +25,7 @@ const ContactUs = () => {
   const [messageerror, setmessageError] = useState(''); 
   const [success, setSuccess] = useState(''); 
   const [captchaToken, setCaptchaToken] = useState(null);
-  const recaptchaSiteKey = "6LeafwMsAAAAACSLly8Uol5nBTaWvo59ObVpRdqE"; // replace with your actual site key
+  const recaptchaSiteKey = "6LdthQMsAAAAAN7XyLOt3bxBTO2CtfIXMcHfGM7j"; // replace with your actual site key
 
   const handleCaptchaChange = (token) => {
     setCaptchaToken(token);
