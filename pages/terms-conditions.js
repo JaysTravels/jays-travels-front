@@ -877,7 +877,7 @@ const termsConditions = () => {
                         COVID-19 Notes:</h5>
                       </div>
                       <div className="card-body">
-             <h6>Surcharges are incurred as to 2.5% on MasterCard and Visa, 4% on American Express. Please note we do not accept Diners Club cards. We cannot accept credit card payments from a third party without a signed authorization from the credit card holder. We reserve the right to refuse a booking until we have full payment.</h6>
+             <h6> Please note we do not accept Diners Club cards. We cannot accept credit card payments from a third party without a signed authorization from the credit card holder. We reserve the right to refuse a booking until we have full payment.</h6>
                 <h6><b>I have read and understood the Terms and conditions and accept them on behalf of all passengers travelling, by each of whom I am authorised to make this booking. I am over the age of 18.</b></h6>     
                      
                       </div>
