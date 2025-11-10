@@ -11,8 +11,10 @@ import React, { useEffect, useState } from "react";
 import { Col, Container, Input, Label, Row } from "reactstrap";
 import { PASSENGER_SELECTED_FLIGHT_EMAIL } from "@/store/CreatePnrSlice";
 import { AirLineClass } from "@/components/classes/airlineclass";
+import { decryptLocalData } from "@/utils/encrypt";
 import {
   setPassengerDetails,
+  setBookingNote,
   setPnrMulti,
   PNR_Multi,
   Create_Fop,
@@ -305,7 +307,8 @@ const FlightConfirmation = () => {
   const flightRequest = useSelector((state) => state.flights.flights);
   const airsellResults = useSelector((state) => state.airsell.response);
   const airsellRequest = useSelector((state) => state.airsell.airSellRequest);
-  console.log(airsellResults);
+  const [loginuser, setloginUser] = useState(null);
+  //console.log(airsellResults);
   const PNR_Multi_Error = useSelector(
     (state) => state.generatePnr.PNR_Multi_Error
   );
@@ -339,7 +342,9 @@ const FlightConfirmation = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [ApiResponse, setApiResponse] = useState("");
+   const [iscashBooking, setIscashBookinng] = useState(false);
   const [requiredFields, setRequiredFields] = useState([]);
+   const [notes, setNotes] = useState('');
   const [formData, setFormData] = useState({
     adults: Array.from({ length: flightRequest.adults }, () => ({
       firstName: "",
@@ -417,7 +422,23 @@ const FlightConfirmation = () => {
   useEffect(() => {
     setpnrError(Commit_Pnr_Error);
   }, [Commit_Pnr_Error]);
-
+   useEffect(() => {
+    try {
+debugger
+      const storedData = localStorage.getItem("userData");
+      console.log(iscashBooking);
+      if (storedData) {
+        debugger;
+        const decryptedUser = decryptLocalData(storedData);
+        setloginUser(decryptedUser);
+         if (airsellRequest != null && selectedFlight?.fareTypeCode == "ST") {
+          setIscashBookinng(true);
+         }       
+      }
+    } catch (err) {
+      console.error("Failed to decrypt user:", err);
+    }
+  }, []);
   // Working For Min Date and Max Date
   const today = new Date();
 
@@ -457,7 +478,9 @@ const FlightConfirmation = () => {
       setErrors({ ...errors, [type]: updatedErrorsGroup });
     }
   };
-
+const handleChangeNotes = (value) => {
+    setNotes(value);
+  }
   const initiatePayment = async () => {
    // debugger;
     //setIsLoading(true);
@@ -545,6 +568,13 @@ const FlightConfirmation = () => {
       }),
     };
     setErrors(updatedErrors);
+    if (iscashBooking) {
+    if (!notes || notes.trim() === "") {
+      updatedErrors.notes = "This field is required.";
+      isValid = false;
+          }
+        }
+  setErrors(updatedErrors);
     return isValid;
   };
 
@@ -684,7 +714,87 @@ const FlightConfirmation = () => {
       setLoading(false);
     }
   };
+ const handleApiCallsCash = async () => {
+    var isvalid = checkValidation();
+    if (!isvalid) {
+      return;
+    }
+     debugger;
+    // Set Local Storage varaibles before sending to bank page
+    if (BookingRefNo) {
+      localStorage.setItem("BookingRefNo", BookingRefNo);
+    }    
+    let flight ;
+     flight = selectedFlight;    
+    localStorage.setItem("flightRequest", JSON.stringify(flightRequest));
+    localStorage.setItem("flightResults", JSON.stringify(flightResults));
+    localStorage.setItem("airsellRequest", JSON.stringify(airsellRequest));
+    localStorage.setItem("airsellResults", JSON.stringify(airsellResults));
+    localStorage.setItem("selectedFlight", JSON.stringify(flight));
+    // End of Set Local Storage Variable before sending to bank page
+    setLoading(true);
+    let pnrMultirequestGlobal;
+    // For Static Flights
+     
+    const pnrMultirequest = CreateStaticFlightPassengerDetailsCashed(formData,flight);
+    pnrMultirequestGlobal = pnrMultirequest;
+    localStorage.setItem("pnrMultirequest", JSON.stringify(pnrMultirequest));
+    localStorage.setItem("passengerDetails", JSON.stringify(pnrMultirequest.passengerDetails));
+    try {
+      dispatch(setPassengerDetails(pnrMultirequest.passengerDetails));
+      dispatch(setBookingNote(notes));
+    } catch (error) {
+      console.error("Error calling setPassengerDetails:", error.message);
+    }
+    const addPnrMultiRequset = {
+      passengerDetails: pnrMultirequest.passengerDetails,
+      selectedFlightOffer: JSON.stringify(flight),
+    }
+    localStorage.setItem("PassengerDetails", JSON.stringify(addPnrMultiRequset.passengerDetails));
+    localStorage.setItem("flightRequest", JSON.stringify(flightRequest));
+    localStorage.setItem("bookingNotes", JSON.stringify(notes));
+    try {    
+      
+      // For sending email to admin relted to selected custoemr fare
+      // Static Flights
 
+        const SelectedFlightEmailRequest = {
+          passengerInfo :pnrMultirequestGlobal.passengerDetails,
+          SessionId: "",
+          selectedFlightOffer: JSON.stringify(flight),
+          bookingNote: notes
+        }
+        const result = dispatch(PASSENGER_SELECTED_FLIGHT_EMAIL(SelectedFlightEmailRequest)).unwrap();
+        if (result?.isSuccessful === true) {
+          console.log("Passeger Selected Flight Email Sent success");
+        }      
+        const data = paymentPageData;
+        if (data && data.url && data.parameters) {
+         // debugger;
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = data.url;
+
+          Object.keys(data.parameters)
+            .sort()
+            .forEach((key) => {
+              const input = document.createElement("input");
+              input.type = "hidden";
+              input.name = key.toUpperCase();
+              input.value = data.parameters[key];
+              form.appendChild(input);
+            });
+          document.body.appendChild(form);
+          form.submit();
+        }
+       router.push("/confirmation");
+    } catch (err) {
+      console.error("An error occurred:", err);
+      setError("An error occurred while processing the requests.");
+    } finally {
+      setLoading(false);
+    }
+  };
   const handleApiCallsPayment = async () => {
     setLoading(true);
     setError(null);
@@ -787,9 +897,75 @@ const FlightConfirmation = () => {
         PassengerType : "INF"
       });
     });
+
     const staticFligtPassengerDetails = {
       passengerDetails: passengers,
-      selectedFlightOffer: JSON.stringify(flight)
+      selectedFlightOffer: JSON.stringify(flight)      
+    };
+    return staticFligtPassengerDetails;
+
+  }
+
+   function CreateStaticFlightPassengerDetailsCashed(formData, flight) {
+
+    const passengers = [];
+    formData.adults.forEach((adult, index) => {
+      if (index == 0) {
+        passengers.push({
+          firstName: adult.firstName,
+          surName: adult.lastName,
+          type: "ADT", // Adult type
+          dob: formatDate(adult.dob), //adult.dob,
+          isLeadPassenger: true, // First adult as lead passenger
+          number: index + 1,
+          email: adult.email,
+          phone: adult.phone,
+          PhoneNumber: adult.phone,
+          PassengerType : "ADT"
+        });
+      }
+      else {
+        passengers.push({
+          firstName: adult.firstName,
+          surName: adult.lastName,
+          type: "ADT", // Adult type
+          dob: formatDate(adult.dob), //adult.dob,
+          isLeadPassenger: false, // First adult as lead passenger
+          number: index + 1,
+          email: '',
+          PassengerType : "ADT"
+        });
+      }
+    });
+
+    formData.children.forEach((child, index) => {
+      passengers.push({
+        firstName: child.firstName,
+        surName: child.lastName,
+        type: "CHD", // Child type
+        dob: formatDate(child.dob), //child.dob,
+        number: formData.adults.length + index + 1,
+        email: "",
+        PassengerType : "CHD"
+      });
+    });
+
+    formData.infants.forEach((infant, index) => {
+      passengers.push({
+        firstName: infant.firstName,
+        surName: infant.lastName,
+        type: "INF", // Infant type
+        dob: formatDate(infant.dob),//infant.dob,          
+        number: formData.adults.length + formData.children.length + index + 1,
+        email: "",
+        PassengerType : "INF"
+      });
+    });
+
+    const staticFligtPassengerDetails = {
+      passengerDetails: passengers,
+      selectedFlightOffer: JSON.stringify(flight),
+      bookingNote: notes      
     };
     return staticFligtPassengerDetails;
 
@@ -1403,6 +1579,22 @@ const FlightConfirmation = () => {
                                           </div>
                                         )}
                                       </Col>
+                                     {iscashBooking && (
+                                    <Col md={6} className="form-group col-md-6">
+                                      <Label for="inputtext">Booking Notes:</Label>
+                                      <Input
+                                        type="text"
+                                        id="inputnotes"
+                                        onChange={(e) => handleChangeNotes(e.target.value)}
+                                        onBlur={(e) => handleChangeNotes(e.target.value)}
+                                        className={`form-control ${errors.notes ? "is-invalid" : ""}`}
+                                      />
+                                     {iscashBooking && errors.notes && (
+                                        <div className="invalid-feedback">{errors.notes}</div>
+                                      )}
+                                    </Col>
+                                      )}
+
                                     </Row>
                                   </form>
                                 ) : (
@@ -1793,16 +1985,26 @@ const FlightConfirmation = () => {
                             </h5>
                           </div>
                           <div className="continue-btn">
-                            <button
+                            <button                              
                               onClick={handleApiCalls}
                               disabled={loading}
-                              className="btn btn-solid"
+                              className="btn btn-solid mb-2"
                               type="submit"
                             >
                               continue booking
                             </button>
-
+                             <br />
+                          {iscashBooking && (
                             <button
+                              onClick={handleApiCallsCash}
+                              disabled={loading}
+                              className="btn btn-solid"
+                              type="submit"
+                            >
+                              cash booking
+                            </button>
+                          )}
+                             <button
                               hidden={true}
                               onClick={initiatePayment}
                               disabled={loading}
@@ -1810,7 +2012,9 @@ const FlightConfirmation = () => {
                               type="submit"
                             >
                               continue Payment
-                            </button>
+                            </button> 
+                            <br></br>
+                            
                             <span>{ApiResponse}</span>
                           </div>
 

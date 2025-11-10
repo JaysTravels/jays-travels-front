@@ -32,7 +32,7 @@ const FrontNavbar = (props) => {
 
       const storedData = localStorage.getItem("userData");
       if (storedData) {
-        debugger;
+        //debugger;
         const decryptedUser = decryptLocalData(storedData);
         setloginUser(decryptedUser);
       }

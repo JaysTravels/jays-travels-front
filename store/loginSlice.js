@@ -9,6 +9,7 @@ export const getLoginDetails = createAsyncThunk(
     'auth/login',
     async (loginData, { rejectWithValue }) => {
       try {   
+        debugger;
         const response = await axiosInstance.post('auth/login', loginData);    
          debugger;      
         return response.data; 
@@ -44,7 +45,7 @@ const LoginSlice = createSlice({
             state.status = 'loading';
           })
           .addCase(getLoginDetails.fulfilled, (state, action) => {
-          // debugger;
+           debugger;
            if(action.payload.isSuccessful === false){
             state.status = 'failed';
             state.login_response = action.payload.data.error || 'Login failed';
