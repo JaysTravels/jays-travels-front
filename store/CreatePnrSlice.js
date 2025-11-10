@@ -135,7 +135,8 @@ const Slice = createSlice({
       PassengerDetails : [],   
       UpdatePaymentStatus : null,  
       UpdatePaymentStatus_Loding : null,
-      UpdatePaymentStatus_Error : null
+      UpdatePaymentStatus_Error : null,
+      BookingNote:null,
     },
     reducers : {
           setPnrMulti:(state,action)=> 
@@ -146,6 +147,11 @@ const Slice = createSlice({
             {       
             
               state.PassengerDetails = { ...state.PassengerDetails, ...action.payload };              
+           },
+           setBookingNote:(state,action)=> 
+            {       
+            
+              state.BookingNote = { ...state.BookingNote, ...action.payload };              
            },
            setPnr:(state,action)=> 
             {       
@@ -279,5 +285,5 @@ const Slice = createSlice({
       },
     });
 
- export const {setPnrMulti,setPassengerDetails,setPnr,pnrResponse} = Slice.actions;
+ export const {setPnrMulti,setPassengerDetails,setPnr,pnrResponse,setBookingNote} = Slice.actions;
  export default Slice.reducer;
