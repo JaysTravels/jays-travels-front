@@ -767,27 +767,8 @@ const handleChangeNotes = (value) => {
         const result = dispatch(PASSENGER_SELECTED_FLIGHT_EMAIL(SelectedFlightEmailRequest)).unwrap();
         if (result?.isSuccessful === true) {
           console.log("Passeger Selected Flight Email Sent success");
-        }      
-        const data = paymentPageData;
-        if (data && data.url && data.parameters) {
-         // debugger;
-          const form = document.createElement("form");
-          form.method = "POST";
-          form.action = data.url;
-
-          Object.keys(data.parameters)
-            .sort()
-            .forEach((key) => {
-              const input = document.createElement("input");
-              input.type = "hidden";
-              input.name = key.toUpperCase();
-              input.value = data.parameters[key];
-              form.appendChild(input);
-            });
-          document.body.appendChild(form);
-          form.submit();
         }
-       router.push("/confirmation");
+       router.push("/confirmation-manual");
     } catch (err) {
       console.error("An error occurred:", err);
       setError("An error occurred while processing the requests.");

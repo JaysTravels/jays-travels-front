@@ -7,8 +7,9 @@ import Meta from "@/components/common/Meta";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { UPDATE_PAYMENT_STATUS } from "@/store/CreatePnrSlice";
+import { Commit_Pnr_Static, UPDATE_PAYMENT_STATUS } from "@/store/CreatePnrSlice";
 import { Col, Row } from "reactstrap";
+import { decryptLocalData } from "@/utils/encrypt";
 import {
   setPassengerDetails,
   setBookingNote,
@@ -29,8 +30,9 @@ const ConfirmationManual = () => {
   const pnrResponse = useSelector((state) => state.generatePnr.CommitPnrResponse);
   const Commit_Pnr_Error = useSelector((state) => state.generatePnr.CommitPnrError);
   const [selectedFlight, setselectedFlight] = useState(null);
-  const [PassengerDetails, setPassengerDetails] = useState(null); 
-  const [BookingNote, setBookingNote] = useState(null); 
+  const [isRun, setIsRun] = useState(false);
+  const [Passenger, setPassenger] = useState(null); 
+ // const [BookingNote, setBookingNotes] = useState(null); 
   const [PNR_Number, setPNR_Number] = useState(null);
   const [BookingRefNo, setBookingRefNo] = useState(null);
   const [flightResults, setflightResults] = useState(null);
@@ -45,33 +47,60 @@ const ConfirmationManual = () => {
   const paymentPageError = useSelector((state) => state.payments?.payment_Error);
   const paymentPageData = useSelector((state) => state.payments?.payment_response); 
   const [ApiResponse, setApiResponse] = useState("");
+    const [loginuser, setloginUser] = useState(null);
+  
   useEffect(() => {
-    debugger;   
-   let airsellRequest ;
-   airsellRequest = JSON.parse(localStorage.getItem("airsellRequest"));      
-   setairsellRequest(airsellRequest);
-   let airsellResults = JSON.parse(localStorage.getItem("airsellResults"));
-   setairsellResults(airsellResults);
-   let flightRequest = JSON.parse(localStorage.getItem("flightRequest"))
-   setflightRequest(flightRequest);
-   let flightResults = JSON.parse(localStorage.getItem("flightResults"));
-   setflightResults(flightResults);
-   let selectedFlight =JSON.parse(localStorage.getItem("selectedFlight"));
- 
-   setselectedFlight(selectedFlight);
-   let passengerDetails = JSON.parse(localStorage.getItem("passengerDetails"));
-   setPassengerDetails(passengerDetails);
-   let BookingRefNo = localStorage.getItem("BookingRefNo");
-   setBookingRefNo(BookingRefNo);
-   let BookingNotes = localStorage.getItem("bookingNotes");
-   setBookingNote(BookingNotes);
+  const initData = () => {
+    try {
+      const airsellRequest = JSON.parse(localStorage.getItem("airsellRequest") || "null");
+      setairsellRequest(airsellRequest);
+
+      const airsellResults = JSON.parse(localStorage.getItem("airsellResults") || "null");
+      setairsellResults(airsellResults);
+
+      const flightRequest = JSON.parse(localStorage.getItem("flightRequest") || "null");
+      setflightRequest(flightRequest);
+
+      const flightResults = JSON.parse(localStorage.getItem("flightResults") || "null");
+      setflightResults(flightResults);
+
+      const selectedFlight = JSON.parse(localStorage.getItem("selectedFlight") || "null");
+      setselectedFlight(selectedFlight);
+
+      const passengerDetails = JSON.parse(localStorage.getItem("passengerDetails") || "null");
+      setPassenger(passengerDetails);
+
+      const BookingRefNo = localStorage.getItem("BookingRefNo");
+      setBookingRefNo(BookingRefNo);
+
+      
+      //setBookingNotes(Booking_Notes);
+      if(isRun == false){
+        setIsRun(true);
+        handleApiCalls(); 
+      }
+    
+    } catch (err) {
+      console.error("Error initializing data:", err);
+    }
+  };
 
     const handleApiCalls = async () => {
-
+   debugger;
       let flight;
       flight = JSON.parse(localStorage.getItem("selectedFlight"));
+       const encryptedUser = localStorage.getItem("userData");
+       const Booking_Notes = localStorage.getItem("bookingNotes");
+       const BookingRefNo = localStorage.getItem("BookingRefNo");
+       let decryptedUser = "";
+       if (encryptedUser) {
+        debugger;
+        decryptedUser = decryptLocalData(encryptedUser);
+        setloginUser(decryptedUser);
+          } 
       setselectedFlight(flight);
-    if(flight?.fareTypeCode != "ST"){
+    if(flight?.fareTypeCode == "ST")
+      {
 
           let session =  getSession();
         if(session != undefined)
@@ -79,206 +108,96 @@ const ConfirmationManual = () => {
           session.sequenceNumber = session?.sequenceNumber + 1;
         }
         const pnrMultirequest = JSON.parse(localStorage.getItem("pnrMultirequest"));
-       try {
+   try 
+   {
+    
      dispatch(setPassengerDetails(pnrMultirequest.passengerDetails));
-      dispatch(setBookingNote(BookingNotes));
+      dispatch(setBookingNote(Booking_Notes));
     } catch (error) {
-      console.error("Error calling setPassengerDetails:", error.message);
+      console.log("Error calling setPassengerDetails:", error.message);
     }
+    debugger;
       const addPnrMultiRequset = {
       sessionDetails: pnrMultirequest.sessionDetails,
       passengerDetails: pnrMultirequest.passengerDetails,
       selectedFlightOffer: JSON.stringify(flight),
-    }
-    let session2 = getSession();
-    session2.sequenceNumber = session2.sequenceNumber + 2;
-    const fopRequest = CreateFopRequest(session2);
-    const FopRequest = {
-      sessionDetails: fopRequest.sessionDetails,
-      transactionDetailsCode: fopRequest.transactionDetailsCode,
-      fopCode: fopRequest.fopCode,
-    };
-
-    let session3 = getSession();
-    session3.sequenceNumber = session3.sequenceNumber + 3;
-    const carrierCode =
-      airsellResults?.data?.airSellResponse[0]?.flightDetails[0]
-        ?.marketingCompany;
-    const farePriceRequest = CreateFarePricePnrRequest(carrierCode, session3);
-    const pricePnrRequest = {
-      sessionDetails: farePriceRequest.sessionDetails,
-      pricingOptionKey: farePriceRequest.pricingOptionKey,
-      carrierCode: carrierCode,
-    };
-    let session4 = getSession();
-    session4.sequenceNumber = session4.sequenceNumber + 4;
-    const tstRequest = CreateTstRequest(session4);
-    const ticketTstRequest = {
-      sessionDetails: tstRequest.sessionDetails,
-      adults: tstRequest.adults,
-      children: tstRequest.children,
-      infants: tstRequest.infants,
-    };
-    let session5 = getSession();
-    session5.sequenceNumber = session5.sequenceNumber + 5;
-    const commitPnrRequest = CreateCommitPnrRequest(session5);
+    }   
+  
     let passenger = addPnrMultiRequset.passengerDetails?.find(
       (p) => p.isLeadPassenger === true
     );
+      const selectedFlight = JSON.parse(localStorage.getItem("selectedFlight") || "null");
      const pnrCommitRequest = {
-      sessionDetails: commitPnrRequest.sessionDetails,
-      optionCode1: commitPnrRequest.optionCode1,
-      optionCode2: commitPnrRequest.optionCode2,
+      sessionDetails: "",
+      optionCode1: "",
+      optionCode2:"",
       TotalAmount: selectedFlight?.price?.total,
       FirstName: passenger.firstName,
       LastName: passenger.surName,
       BookingRef: BookingRefNo,
+      UserInfo: decryptedUser,
+      BookingNote:Booking_Notes
     };
-   try{
-
-        // Dispatch first API call
-            //debugger;
-            const pnrMulti = await dispatch(PNR_Multi(addPnrMultiRequset));
-            //debugger;
-            console.log('PNR_Multi dispatched successfully.');
-            if (pnrMulti?.payload?.isSuccessful === false) {
-              setApiResponse(pnrMulti?.data?.error);
-              return;
-            }
-            // Dispatch second API call
-            await dispatch(Create_Fop(FopRequest));
-            console.log("Create_Fop dispatched successfully.");
-            if (Create_Fop_Error != null) {
-              setApiResponse(Create_Fop_Error);
-            // return;
-            }
-            // Dispatch third API call
-            await dispatch(Fare_Price_Pnr(pricePnrRequest));
-            console.log("Fare_Price_Pnr dispatched successfully.");
-            if (Fare_Price_Pnr_Error != null) {
-              setApiResponse(Fare_Price_Pnr_Error);
-            // return;
-            }
-
-            // Dispatch fourth API call
-            await dispatch(Create_Tst(ticketTstRequest));
-            console.log("Create_Tst dispatched successfully.");
-            if (Create_Tst_Error != null) {
-              setApiResponse(Create_Tst_Error);
-              //return;
-            }
-
-            // Dispatch fifth API call
-            const result2 = await dispatch(Commit_Pnr(pnrCommitRequest)).unwrap();
-            if (result2?.isSuccessful === false) {
+   try{  
+       
+        const pnrMulti = await dispatch(PNR_Multi(addPnrMultiRequset)).unwrap();
+         console.log('PNR_Multi dispatched successfully.');
+        if (pnrMulti?.payload?.isSuccessful === false)
+        {
+         setApiResponse(pnrMulti?.data?.error);
+         return;
+        }
+         // Dispatch fifth API call
+         debugger;
+        const result2 = await dispatch(Commit_Pnr_Static(pnrCommitRequest)).unwrap();
+        if (result2?.isSuccessful === false) {
               setApiResponse(result2?.data?.error);
             }
-            else{
+         else{
               if (result2?.data != null) {
                 localStorage.setItem("PNR_Number",result2?.data?.session?.reservation?.pnr);
                 setPNR_Number(result2?.data?.session?.reservation?.pnr);
               }
             }
 
-      } catch (err) { console.error("An error occurred:", err);} finally {}
-    
-    
+      } catch (err)
+       { console.error("An error occurred:", err);}
+       finally {}
        try {
          let passengerDetails = JSON.parse(localStorage.getItem("passengerDetails"));
           let BookingRefNo = localStorage.getItem("BookingRefNo");
           let selectedFlight =JSON.parse(localStorage.getItem("selectedFlight"));
           let selectedFlightoffer = localStorage.getItem("selectedFlight");
            let session =  getSession();
+           debugger;
         const UpdatePaymentStatusRequest = {
-        SessionId: session.sessionId,
-        PaymentStatus: "Success",
-        AuthorizationCode : authorizationCode,
-        OrderID : orderID,
-        PaymentMethod :PM ,
-        Acceptance : ACCEPTANCE,
-        Status : STATUS ,
-        CardNo : CARDNO ,
-        ExpiryDate : ED ,
-        CardHolderName : CN,
-        TrxDate : TRXDATE ,
-        PayId : PAYID ,
-        NcError : NCERROR ,
-        Brand : BRAND  ,
-        Currency : currency,
-        IpCity : IPCTY,
-        IP : IP,       
-        }
-        setPaymentUpdate(true);
-        const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();      
-        if(result?.isSuccessful === true){
-        setPaymentUpdate(true);
-        }    
-      
-      } catch (error) { console.error("Error fetching data:", error);}
-    
-    }   // for static flights
-   else{
-//    debugger;
-     let passengerDetails = JSON.parse(localStorage.getItem("passengerDetails"));
-    const addPnrMultiRequset = {
-      sessionDetails: "",
-      passengerDetails: passengerDetails,
-      selectedFlightOffer: JSON.stringify(flight),
-    }
-    const pnrMulti = await dispatch(PNR_Multi(addPnrMultiRequset));
-            //debugger;
-            console.log('PNR_Multi dispatched successfully.');
-            if (pnrMulti?.payload?.isSuccessful === false) {
-              setApiResponse(pnrMulti?.data?.error);
-              return;
-            }
-
-  try {
-        let passengerDetails = JSON.parse(localStorage.getItem("passengerDetails"));
-        let BookingRefNo = localStorage.getItem("BookingRefNo");
-        let selectedFlight =localStorage.getItem("selectedFlight");
-        let selectedFlightoffer = localStorage.getItem("selectedFlight");
-        let flightRequest = localStorage.getItem("flightRequest");
-        const UpdatePaymentStatusRequest = {
-        SessionId: "ST-"+BookingRefNo,
-        PaymentStatus: "Success",
-        AuthorizationCode : authorizationCode,
-        OrderID : orderID,
-        PaymentMethod :PM ,
-        Acceptance : ACCEPTANCE,
-        Status : STATUS ,
-        CardNo : CARDNO ,
-        ExpiryDate : ED ,
-        CardHolderName : CN,
-        TrxDate : TRXDATE ,
-        PayId : PAYID ,
-        NcError : NCERROR ,
-        Brand : BRAND  ,
-        Currency : currency,
-        IpCity : IPCTY,
-        IP : IP,
-        SelectedFlightOffer : selectedFlightoffer,
+        SessionId: "",
+        PaymentStatus: "Pending", 
+         SelectedFlightOffer : selectedFlightoffer,
         PassengerInfo :passengerDetails,
-        FlightRequest: flightRequest
+        FlightRequest: flightRequest,
+        UserName: decryptedUser.FirstName + " " + decryptedUser.LastName,
+        BookingNotes:BookingNotes,
+         passengerDetails: pnrMultirequest.passengerDetails,
+        selectedFlightOffer: JSON.stringify(flight),
         }
         setPaymentUpdate(true);
+        debugger;
         const result = dispatch(UPDATE_PAYMENT_STATUS(UpdatePaymentStatusRequest)).unwrap();      
         if(result?.isSuccessful === true){
         setPaymentUpdate(true);
-        }    
-      
-      } catch (error) { console.error("Error fetching data:", error);}
-   }
-     
-   
-   
-      if (typeof window !== "undefined") {
-        localStorage.clear();
-       
+        }  
+      } 
+      catch (error) { console.error("Error fetching data:", error);}
+    if (typeof window !== "undefined") 
+      {
+      localStorage.clear(); 
+      localStorage.setItem("userData", encryptedUser);
       }
       const newUrl = window.location.pathname;
       window.history.replaceState(null, '', newUrl);
-    };
+    }  
+ 
 
     function CreateFopRequest(session) {
       const foprequest = {
@@ -319,9 +238,10 @@ const ConfirmationManual = () => {
     }
 
     handleApiCalls();
-  }, [dispatch, router.query]); 
+    }
 
-  
+  initData();
+}, []);
 
   function getSession() {
     const storedSession = localStorage.getItem("session");
@@ -532,8 +452,8 @@ const ConfirmationManual = () => {
 
           <table>
             <tbody>
-              {PassengerDetails && Array.isArray(PassengerDetails) ? (
-                PassengerDetails.map((passenger, index) => (
+              {Passenger && Array.isArray(Passenger) ? (
+                Passenger.map((passenger, index) => (
                   <tr style={{ color: "#616161" }} key={index}>
                     <td>
                       <h6
@@ -895,8 +815,8 @@ const ConfirmationManual = () => {
                 </h5>
               </td>
             </tr>
-            {PassengerDetails && Array.isArray(PassengerDetails) ? (
-              PassengerDetails.map((passenger, index) => (
+            {Passenger && Array.isArray(Passenger) ? (
+              Passenger.map((passenger, index) => (
                 <tr style={{ color: "#616161" }} key={index}>
                   <td style={{ padding: "0 24px 50px" }}>
                     <h6
