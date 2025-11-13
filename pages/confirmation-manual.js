@@ -75,9 +75,9 @@ const ConfirmationManual = () => {
 
       
       //setBookingNotes(Booking_Notes);
-      if(isRun == false){
-        setIsRun(true);
+      if(BookingRefNo != null){        
         handleApiCalls(); 
+        localStorage.removeItem("BookingRefNo");
       }
     
     } catch (err) {
@@ -86,7 +86,7 @@ const ConfirmationManual = () => {
   };
 
     const handleApiCalls = async () => {
-   debugger;
+   //debugger;
       let flight;
       flight = JSON.parse(localStorage.getItem("selectedFlight"));
        const encryptedUser = localStorage.getItem("userData");
@@ -94,7 +94,7 @@ const ConfirmationManual = () => {
        const BookingRefNo = localStorage.getItem("BookingRefNo");
        let decryptedUser = "";
        if (encryptedUser) {
-        debugger;
+        //debugger;
         decryptedUser = decryptLocalData(encryptedUser);
         setloginUser(decryptedUser);
           } 
@@ -116,7 +116,7 @@ const ConfirmationManual = () => {
     } catch (error) {
       console.log("Error calling setPassengerDetails:", error.message);
     }
-    debugger;
+    //debugger;
       const addPnrMultiRequset = {
       sessionDetails: pnrMultirequest.sessionDetails,
       passengerDetails: pnrMultirequest.passengerDetails,
@@ -148,7 +148,7 @@ const ConfirmationManual = () => {
          return;
         }
          // Dispatch fifth API call
-         debugger;
+        // debugger;
         const result2 = await dispatch(Commit_Pnr_Static(pnrCommitRequest)).unwrap();
         if (result2?.isSuccessful === false) {
               setApiResponse(result2?.data?.error);
@@ -169,17 +169,18 @@ const ConfirmationManual = () => {
           let selectedFlight =JSON.parse(localStorage.getItem("selectedFlight"));
           let selectedFlightoffer = localStorage.getItem("selectedFlight");
            let session =  getSession();
-           debugger;
+         //  debugger;
         const UpdatePaymentStatusRequest = {
         SessionId: "",
         PaymentStatus: "Pending", 
-         SelectedFlightOffer : selectedFlightoffer,
+        SelectedFlightOffer : selectedFlightoffer,
         PassengerInfo :passengerDetails,
         FlightRequest: flightRequest,
         UserName: decryptedUser.FirstName + " " + decryptedUser.LastName,
-        BookingNotes:BookingNotes,
+        BookingNotes:Booking_Notes,
          passengerDetails: pnrMultirequest.passengerDetails,
         selectedFlightOffer: JSON.stringify(flight),
+        BookingRef: BookingRefNo,
         }
         setPaymentUpdate(true);
         debugger;
