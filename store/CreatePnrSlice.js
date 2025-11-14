@@ -9,7 +9,8 @@ import axiosInstance from '@/utils/axiosInstance';
 export const PNR_Multi = createAsyncThunk(
     'flights/PNR_Muliti',
     async (multirequest, { rejectWithValue }) => {
-      try {        
+      try {  
+        debugger;      
         const response = await axiosInstance.post('PNR', multirequest);
        // console.log("Add Multi " + response.data)      
         return response.data; 
@@ -111,6 +112,18 @@ export const PNR_Multi = createAsyncThunk(
     }
   );
   
+    export const Commit_Pnr_Static = createAsyncThunk(
+    'flights/Commit_PnrStatic',
+    async (commitpnrrequest, { rejectWithValue }) => {
+      try {   
+        const response = await axiosInstance.post('Pnr/CommitPnrStatic', commitpnrrequest);     
+        return response.data; 
+      } catch (error) {        
+        console.log("Commit Pnr Error " + error);
+        return rejectWithValue(error?.data || 'Server Error');
+      }
+    }
+  );
 const Slice = createSlice({  
  
     name : 'generatePnr',
@@ -280,7 +293,26 @@ const Slice = createSlice({
            }).addCase(UPDATE_PAYMENT_STATUS.rejected, (state, action) => {
              state.UpdatePaymentStatus = false;
              state.UpdatePaymentStatus_Error = action.payload?.data;
-           });
+           }).addCase(Commit_Pnr_Static.pending, (state) => {
+            state.Commit_Pnr_Error_Status = 'loading';
+          })
+          .addCase(Commit_Pnr_Static.fulfilled, (state, action) => {
+          
+           if(action.payload.isSuccessful === false){
+            state.Commit_Pnr_Error_Status = 'failed';
+            state.CommitPnrError = action.payload?.data?.error;
+           }
+           else{
+            state.Commit_Pnr_Error_Status = 'succeeded';
+            state.CommitPnrResponse = action.payload;
+            state.CommitPnrError = null;
+            state.PNR_Number = state.PNR_Number === "" ? action.payload?.data?.pnrHeader?.reservation?.pnr : state.PNR_Number
+           }
+            
+          }).addCase(Commit_Pnr_Static.rejected, (state, action) => {
+            state.CommitPnrError_Status = 'failed';
+            state.CommitPnrError = action.payload?.data?.error;
+          });
            
       },
     });

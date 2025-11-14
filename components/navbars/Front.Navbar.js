@@ -89,7 +89,7 @@ useEffect(() => {
               <FontAwesomeIcon icon={faUser} />
               {loginuser ? (
                 <span className="fw-semibold text-dark">
-                  {loginuser.FirstName} {loginuser.LastName}
+                  {loginuser.FirstName}
                 </span>
               ) : (
                 <span className="text-muted">Guest</span>
