@@ -482,6 +482,13 @@ const termsConditions = () => {
                           you have or may have arising out of or relating to the non-provision of the services, including any claim against
                           us, the travel agent (or your credit card issuer where applicable). You also agree that any such claims may be re-assigned
                           to another body, if that other body has paid sums you have claimed under the ATOL scheme.</h6>
+                          <h6>
+                          All the flights and flight-inclusive holidays on this website are financially protected by
+                           the ATOL scheme. When you pay you will be supplied with an ATOL Certificate. Please ask for it and check to ensure that everything you booked (flights, hotels, and packages) is listed on it. Please see our booking conditions for further information or for more information about financial protection and the ATOL Certificate go to: www.caa.co.uk
+                          </h6>
+                          <h6>
+                          Some of the flights and flight-inclusive holidays on this website are financially protected by the ATOL scheme. But ATOL protection does not apply to all holiday and travel services listed on this website. This shows you the protection that applies in the case of each holiday and travel service offered. This website will provide you with information on the protection that applies in the case of each holiday and travel service offered before you make your booking. If you do not receive an ATOL Certificate then the booking will not be ATOL protected. If you do receive an ATOL Certificate but all the parts of your trip are not listed on it, those parts will not be ATOL protected. Please see our booking conditions for information, or for more information about financial protection and the ATOL Certificate go to: www.caa.co.uk 
+                          </h6>
 
                       </div>
 
@@ -570,8 +577,7 @@ const termsConditions = () => {
                           prior to full payment being received. In all cases we will attempt to contact you and give you the opportunity to pay in full to
                           avoid paying such increases.</h6>
                         <h6>Payment can be made by all major debit and credit cards, cheque, bank transfer, in person at our office and by PayPal,
-                          as detailed on the Site. Jays Travel reserves the right to charge you in addition for any handling fees we or the Travel
-                          Supplier incur in relation to bookings made by credit card. You will be notified of the relevant charges at the time of
+                          as detailed on the Site. You will be notified of the relevant charges at the time of
                           booking. Jays Travel reserves the right to pass on any charges relating to card charge backs or payment disputes. If your
                           booking is being paid for with a third party credit card we require written authorisation to be provided by the card-holder.</h6>
                         <h6>Jays Travel reserves the right only to deliver e-tickets, confirmations, e-vouchers or other travel documents to your
