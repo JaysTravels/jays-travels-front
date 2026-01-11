@@ -41,9 +41,9 @@ const FrontNavOnly = (props) => {
           <NavLink href="insurance">Insurance</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="make-payment">
+          {/* <NavLink href="make-payment">
           Make Payment
-          </NavLink>
+          </NavLink> */}
           
         </NavItem>
         <NavItem>
